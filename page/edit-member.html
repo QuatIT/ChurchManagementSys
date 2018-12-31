@@ -1,0 +1,137 @@
+<!Doctype html>
+<html>
+    <head>
+        <title> Edit Member Details</title>
+        <link rel="stylesheet" href="demo one css.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--        <link rel="stylesheet" href="css/bootstrap.min.css">-->
+<!--        <script src="js/bootstrap.min.js"></script>-->
+        <script src="demo one js.js"></script>
+    </head>
+<body>
+    <div class="leftcolumn">
+      <!-- Load an icon library to show a hamburger menu (bars) on small screens -->
+        <!-- Top Navigation Menu -->
+        <div class="topnav">
+          <a href="rich1 Img.html" class="active">Home</a>
+          <!-- Navigation links (hidden by default) -->
+          <div id="myLinks">
+              <table width = "100%" cellspacing="2%" border="0">
+                  <tr>
+                    <td> <a href="demo two.html">2nd Page</a> </td>
+                    <td> <a href="#">Link</a> </td>
+                    <td> <a href="#">Link</a> </td>
+                  </tr>
+
+                  <tr>
+                    <td> <a href="demo two.html">2nd Page</a> </td>
+                    <td> <a href="#">Link</a> </td>
+                    <td> <a href="#">Link</a> </td>
+                  </tr>
+                  <tr>
+                   <td> <a href="demo two.html">2nd Page</a> </td>
+                   <td> <a href="#">Link</a> </td>
+                   <td> <a href="#">Link</a> </td>
+                  </tr>
+              </table>
+          </div>
+          <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+          <a href="javascript:void(0);" class="icon" onclick="myFunction();">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div>
+  </div>
+
+    <div class="rightcolumn">
+        <div class="cardy">
+            <img src="quat_gray.jpg" alt="image" style="width:70px">
+            <p style = "float:right; padding-right:100px">Quat IT Solutions</p>
+        </div>
+
+        <ul class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li>Home</li>
+        </ul>
+    </div>
+
+    <div>
+        <div class="row">
+            <div class="leftcolumn" style="height: auto; background: #b2b2b2; padding-bottom:10px;">
+              <button id="Open" class="tablink" onclick="openPage('pdetails', this, 'red');">Edit Members Details</button>
+<!--
+              <button class="tablink" onclick="openPage('church', this, 'yellow')">Church</button>
+              <button class="tablink" onclick="openPage('summary', this, 'green')">Summary</button>
+-->
+
+                <div id="pdetails" class="tabcontent" style="height: auto; background: #b2b2b2;">
+                        <div>
+                            <form action="#" method="#" enctype="multipart/form-data">
+                                <div class="leftcolumning">
+                                    <label for="fname">First Name</label>
+                                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                                </div>
+
+                                <div class="rightcolumning">
+                                    <label for="lname">Last Name</label>
+                                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                                </div>
+
+                                <div class="leftcolumning">
+                                    <label for="fname">Other Names</label>
+                                    <input type="text" id="oname" name="othernames" placeholder="Your other names..">
+                                </div>
+
+                                <div class="rightcolumning">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" placeholder="Your email address..">
+                                </div>
+
+                                <div class="leftcolumning">
+                                    <label for="dob">Date of Birth</label>
+                                    <input type="date" id="dob" name="dateofbirth">
+                                </div>
+
+                                <div class="rightcolumning">
+                                    <label for="gender">Gender</label>
+                                    <select id="gender" name="gender">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+
+                                <div class="leftcolumning">
+                                    <label for="pob">Place of Birth</label>
+                                    <input type="text" id="pob" name="placeofbirth" placeholder="Your Birth Place..">
+                                </div>
+
+                                <div class="rightcolumning">
+                                    <label for="htown">HomeTown</label>
+                                    <input type="text" id="htown" name="hometown" placeholder="Your Hometown..">
+                                </div>
+
+                                <div class="leftcolumning">
+                                    <input type="submit" id="submit" name="Savechanges" value="SAVE CHANGES" style="width: 100%;">
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+<!--End Tabs-->
+            </div>
+                <div>
+                    <div class="rightcolumng" style="padding-left:1%">
+                      <div class="card">
+                        <h3>Two</h3>
+                        <div class="fakeimg" style="height:100px;">Image</div><br>
+                        <div class="fakeimg" style="height:100px;">Image</div><br>
+                        <div class="fakeimg" style="height:100px;">Image</div>
+                      </div>
+                    </div>
+                </div>
+            <br>
+            <br>
+        </div>
+    </div>
+</body>
+</html>
