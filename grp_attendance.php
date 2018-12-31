@@ -18,7 +18,7 @@ if(isset($_POST['fet_rep'])){
 //select list
 $sel_grp= filter_input(INPUT_POST,'sel_grp',FILTER_SANITIZE_STRING);
 
-echo "<script>alert('{$sel_grp}');</script>";
+//echo "<script>alert('{$sel_grp}');</script>";
 //get ministry name comparing select option in order to fetch ministry id
 $frm_grp = select("SELECT * FROM ministry_tb WHERE group_id='".$sel_grp."'");
 foreach($frm_grp as $frm_grps){
@@ -32,6 +32,67 @@ foreach($frm_grp as $frm_grps){
 }
 
 ?>
+
+
+<?php
+
+if(isset($_POST['btnmark'])){
+		//count number of service entered..
+		$pres = count($_POST['presnt']);
+
+		//check number of services..
+		if($pres > 0 ){
+			//saving services into database...
+            for($n=0; $n<$pres; $n++){
+                    if(trim($_POST['presnt'][$n] != '') ) {
+                        $presName = trim($_POST["presnt"][$n]);
+
+                        $att_mrk = explode(" ", $presName);
+                        $att = $att_mrk[0];
+                        $memb = $att_mrk[1];
+                        $min_grp = $att_mrk[2];
+
+                        //get ministry detail
+                        $min_det = select("select * from ministry_tb where group_id='$min_grp' ");
+                        foreach($min_det as $mindet_row){}
+
+                        //get group detail
+                        $grp_det = select("select * from g_ministry_tb where g_id='$min_grp' ");
+                        foreach($grp_det as $gdet_row){}
+
+                        if(empty($mindet_row['group_name'])){
+                            $ministry_name = $g_min = $gdet_row['g_name'];
+                        }elseif(empty($gdet_row['g_name'])){
+                            $ministry_name = $mindet_row['group_name'];
+                        }
+
+
+
+                        //get members detail
+                        $mem_det = select("select * from membership_tb where member_id='$memb' ");
+                        foreach($mem_det as $mem_row){}
+
+                        $mark_attendance_min = insert("insert into min_grp_attend(member_id,group_id,group_name,full_name,gender,status,date_reg,flag1,phone) values('$memb','$min_grp','$ministry_name','".$mem_row['full_name']."','".$mem_row['gender']."','".$att."',CURDATE(),'1','".$mem_row['phone_number']."')");
+//                        $mrkk = $att.'---'.$memb.'---'.$min_grp;
+//                        echo "<script>alert('{$mrkk}')</script>";
+
+//                        if(empty($checked))
+
+                           $msg = '<div class="alert alert-dismissible alert-success">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>Success!</strong> Attendance Marked.
+                </div>';
+
+               		}
+            }
+		}else{
+			$error = "<script>document.write('Empty Fields, Try Again.');</script>";
+		}
+    }
+
+
+?>
+
 
 <div class="container-fluid">
     <div class="row">
@@ -122,7 +183,13 @@ echo "<option value=".$get_mins['group_id'].">".$get_mins['group_name']."</optio
          <td><input type='text' name='p_num' id='p_num' style ='border:0px;background:transparent;width:100px;' value='<?php echo $attendancex['phone_number']; ?>'></td>
          <td><!-- <select name="mark"> -->
 
-          <label><input type='checkbox' name='pres<?php echo $attendancex['member_id']; ?>' id='present' class='btn btn-primary' value='present' <?php echo $checked; ?> > Mark<?php echo $attendancex['member_id']; ?></label>
+             <select name="presnt[]">
+                <option></option>
+                <option value="Present <?php echo $attendancex['member_id'].' '.$_POST['sel_grp']; ?>">Present</option>
+                <option value="Absent <?php echo $attendancex['member_id'].' '.$_POST['sel_grp']; ?>">Absent</option>
+             </select>
+
+<!--          <label><input type='checkbox' name='presnt[]' id='present' class='btn btn-primary' value='absent <?php #echo $attendancex['member_id']; ?>' <?php #echo $checked; ?> > Mark<?php #echo $attendancex['member_id']; ?></label>-->
 
 
          </td>
@@ -130,10 +197,7 @@ echo "<option value=".$get_mins['group_id'].">".$get_mins['group_name']."</optio
 
          <?php
        // }
-if(isset($_POST['mrkatt'])){
-          // if(isset($_POST['pres'.$attendancex['member_id']])){
-            echo "<script>alert('hhhhhhhh')</script>";
-           }
+
        }
 
        ?>
@@ -144,7 +208,7 @@ if(isset($_POST['mrkatt'])){
 </table>
 <!-- <button type="submit" name="fet_mark" class="btn btn-primary pull-right">Mark Attendance</button> -->
 
-<button type="submit" name="mrkatt">sss</button>
+<input type="submit" name="btnmark" value="Mark">
 
 </form>
 </div></div>
@@ -167,7 +231,6 @@ if(isset($_POST['mrkatt'])){
 <div>
 
 </div>
-
 
 <?php
 include 'layout/foot.php';

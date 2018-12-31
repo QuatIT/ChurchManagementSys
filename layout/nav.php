@@ -132,7 +132,7 @@
       <div class="dropdown-menu" style="margin-left:-100px;">
         <?php
          if($get_levels['a_level']=='2'|| $get_levels['a_level']=='1'){?>
-        <a class="dropdown-item" href="user_creation.php">User Creation</a>
+<!--        <a class="dropdown-item" href="user_creation.php">User Creation</a>-->
         <a class="dropdown-item" href="event.php">Event Creation</a>
         <?php }?>
 
