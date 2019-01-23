@@ -15,9 +15,10 @@ $group_id = $_GET['group_id'];
      $bdy = $_POST['bdy'];
 $mem_sql = select("SELECT * FROM membership_tb WHERE group_name='$group_id' ");
 foreach($mem_sql as $mtel){
-$to= $mtel['phone_number'];
+$tel= $mtel['phone_number'];
 
-             sendsms($bdy,$subject,$to);
+
+             sendsms($bdy,$subject,$tel);
 }
 
   }

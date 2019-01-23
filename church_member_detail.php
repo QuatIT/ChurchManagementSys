@@ -73,7 +73,7 @@ foreach($groupName as $groupNames){}
     // }
 
    if(isset($_POST['f_details'])){
-    echo "<script>window.location.assign('m_further_detail?member_id=$member_id')</script>";
+    echo "<script>window.location='m_further_detail.php?member_id=$member_id'</script>";
    }
 
 ?>

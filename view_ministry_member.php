@@ -47,7 +47,7 @@ foreach($grp_sql as $grp){}
                             <a href='group_member_manage.php?member_id=".$indiv_members['member_id']."' class=' btn btn-primary'>
                                 <i class='fa fa-eye'></i>
                             </a> |
-                            <a href='sms_ministry_member.php?member_id=".$indiv_members['member_id']."' class='btn btn-primary'>
+                            <a href='sms_ministry_member.php?member_id=".$indiv_members['member_id']."&group_id=".$_GET['group_id']."' class='btn btn-primary'>
                                 <i class='fa fa-envelope'></i>
                             </a>
                         </td>

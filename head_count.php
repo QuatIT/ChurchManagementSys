@@ -74,9 +74,14 @@ if(empty($ministry_id) || empty($population) || empty($attend_date)){
                             <div class="col-md-6 form-group">
                                 <label>Ministry/Group</label>
                                 <select name="ministry_id" class="form-control">
-                                                    <option value="service1">1st Service</option>
-                                                    <option value="service2">2nd Service</option>
-                                                    <option value="all">Full Service</option>
+                                                    <option value="Asempa Service">ASEMPA SERVICE</option>
+                                                    <option value="Elevation Service">ELEVATION SERVICE</option>
+                                                    <option value="Joint Service">JOINT SERVICE</option>
+													<option value="Empowerment Service">EMPOWERMENT SERVICE</option>
+														<option value="Command your week">COMMAND YOUR WEEK</option>
+													<option value="Worship Unlimited">WORSHIP UNLIMITED</option>
+													<option value="Morning Rain">MORNING RAIN</option>
+													<option value="Kratos">KRATOS</option>
                                                 <?php foreach($min_sql as $mins){ ?>
                                                     <option value="<?php echo $mins['group_id']; ?>"><?php echo $mins['group_name']; ?></option>
                                                 <?php } ?>

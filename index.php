@@ -4,7 +4,7 @@ session_start();
 
 require 'assets/core/connection.php';
 require 'assets/core/mail/phpmailer/class.phpmailer.php';
-
+//error_reporting(0);
 
 if(isset($_POST['log_in'])){
 
@@ -158,8 +158,9 @@ if(isset($_POST['log_in'])){
   </head>
 <body id="LoginForm">
 <div class="container">
-<br><br><br><br><br><br>
-<center><h1 class="form-heading">CHURCH MANAGEMENT SYSTEM</h1></center>
+<br><br><br>
+<center><h1 class="form-heading">ALPHA SIGMA</h1></center>
+<!-- <center><h1 class="form-heading">CHURCH MANAGEMENT SYSTEM</h1></center> -->
 <div class="login-form">
 <div class="main-div">
     <div class="panel">
@@ -188,6 +189,7 @@ if(isset($_POST['log_in'])){
 </form>
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog" name="m_modal" id="m_modal">
+  <form action='' method='post'>
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -207,77 +209,122 @@ if(isset($_POST['send'])){
   $email_info = trim(htmlspecialchars($_POST['e_mail']));
   $_SESSION['e_mail']=$email_info;
 
-  $email_search = select("SELECT * FROM church_login WHERE email = '".$_SESSION['e_mail']."' ");
+  $email_search = select("SELECT * FROM church_login WHERE email = '".$email_info."' ");
 
     if($email_search){
+        foreach($email_search as $email_searchs){}
 
       $new_password = trim("Admin-".mt_rand(1,7).mt_rand(50,800).mt_rand(900,990));
 
 
 
-     $replace_new = update("UPDATE church_login SET pass='$new_password' WHERE email='".$_SESSION['e_mail']."' ");
+     $replace_new = update("UPDATE church_login SET pass='$new_password' WHERE email='".$email_info."' ");
 
 
-    $subject = "Reset Password";
-     $bdy =  "Request for password has been accepted " .$new_password. " is the new login password ";
+    // $subject = "Reset Password";
+    //  $body =  "Request for password has been accepted " .$new_password. " is the new login password ";
 
 
-
+// echo "<script>alert('$email_info}')</script>";
 
 //$to_query = select("SELECT * FROM members");
 //foreach($replace_new as $to_row){
 //$to = $to_row['e_mail'];
-$to = $_SESSION['e_mail'];
+$tel =$email_searchs['tel'];
 
 
-$account="attservice.tech@gmail.com";
-$password="eternalking77";
-$from="attservice.tech@gmail.com";
-$from_name="CHURCH ";
-$msg= $bdy; // HTML message
 
-$mail = new PHPMailer();
-$mail->IsSMTP();
-$mail->CharSet = 'UTF-8';
-$mail->Host = "smtp.gmail.com";
-$mail->SMTPAuth= true;
-$mail->Port = 465; // Or 587
-//    $mail->SMTPDebug  = 2;
-$mail->Username= $account;
-$mail->Password= $password;
-$mail->SMTPSecure = 'ssl';
-$mail->From = $from;
-$mail->FromName= $from_name;
-$mail->isHTML(true);
-$mail->Subject = $subject;
-$mail->Body = $msg;
-$mail->addAddress($to);
-if(!$mail->send()){
- echo "<script>alert('Incorrect Email Address') .'<br>'. Mailer Error:  . $mail->ErrorInfo;
- window.location.href('arena.php');</script>";
+//SMS to members
+function sendsms($body,$subject,$tel,$new_password){
+ 
+     
+$username = 'richardkanfrah';
+$password = 'godwin1.';
+// $subject = 'The Church Rohi';
+ $subject = "Reset Password";
+ $body =  "Request for password has been accepted " .$new_password. " is the new login password ";
+$message= $subject.PHP_EOL.$body;
+
+$from = "Rohi Church";//your senderid example "kwamena"max is 11 chars;
+$baseurl = "http://isms.wigalsolutions.com/ismsweb/sendmsg/";
+
+//All numbers must have a country code. delimit them with comma(,)
+
+$params = "username=".$username."&password=".$password."&from=".$from."&to=".$tel."&message=".$message ;
+
+
+//send the message
+$ch = curl_init();
+curl_setopt($ch,CURLOPT_URL,$baseurl);
+curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+curl_setopt($ch,CURLOPT_POST,1);
+curl_setopt($ch,CURLOPT_POSTFIELDS,$params);
+$return = curl_exec($ch);
+curl_close($ch);
+
+$send = explode(" :: ",$return);
+if(stristr($send[0],"SUCCESS") != FALSE){
+echo "<script>alert('message sent')</script>";
+
 }else{
- echo "<script>alert('Password Has Been Sent');
- window.location.href('arena.php');</script>";
+echo "<script>alert('message could not be sent')</script>";
 
 
-    }
-  }
+}
+}
+//sendsms($body,$subject,$tel);
+sendsms($body,$subject,$tel,$new_password);
+}
+
+
+// $account="attservice.tech@gmail.com";
+// $password="eternalking77";
+// $from="attservice.tech@gmail.com";
+// $from_name="CHURCH ";
+// $msg= $bdy; // HTML message
+
+// $mail = new PHPMailer();
+// $mail->IsSMTP();
+// $mail->CharSet = 'UTF-8';
+// $mail->Host = "smtp.gmail.com";
+// $mail->SMTPAuth= true;
+// $mail->Port = 465; // Or 587
+// //    $mail->SMTPDebug  = 2;
+// $mail->Username= $account;
+// $mail->Password= $password;
+// $mail->SMTPSecure = 'ssl';
+// $mail->From = $from;
+// $mail->FromName= $from_name;
+// $mail->isHTML(true);
+// $mail->Subject = $subject;
+// $mail->Body = $msg;
+// $mail->addAddress($to);
+// if(!$mail->send()){
+//  echo "<script>alert('Incorrect Email Address') .'<br>'. Mailer Error:  . $mail->ErrorInfo;
+//  window.location='index.php';</script>";
+// }else{
+//  echo "<script>alert('Password Has Been Sent');
+//  window.location='index.php';</script>";
+
+
+//     }
+//   }
+
     }
 
 
 ?>
       </div>
 
-
       <div class="modal-footer">
 
       </div>
     </div>
-
   </div>
 </div>
-
+</form>
     </div>
+
     <p class="botto-text" name="foot" id="foot">Powered By Quat I.T Solutions &copy All Rights Reserved</p>
 </div></div></div>
 

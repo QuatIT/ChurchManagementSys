@@ -30,11 +30,6 @@ $pled_ge = select("SELECT count(*) as pled_ges FROM pledge_tb WHERE payment_date
 foreach($pled_ge as $pled_ges){}
 $count_pledge = $pled_ges['pled_ges'];//total number of pledges
 
-
-
-
-
-
     $percentile=100;
 $service_att = select("SELECT count(*) as service_count FROM mem_attendance WHERE status ='present' && date_reg BETWEEN '".$start."' AND '".$to."' ");
 foreach($service_att as $service_atts){
@@ -50,17 +45,11 @@ $min_number = $ministry_atts['ministry_count'];
 }
 $ministry_cal = ($min_number)/($count_min)*($percentile);
 
-
-
-
 $group_att = select("SELECT count(*) as group_count FROM min_grp_attend WHERE status='present' && date_reg BETWEEN '".$start."' AND '".$to."' && group_id LIKE 'G-MIN%' ");
 foreach($group_att as $group_atts){
 $grp_number = $group_atts['group_count'];
 }
 $group_cal = ($grp_number)/($count_grp)*($percentile);
-
-
-
 
    $tithe_paid = select("SELECT count(*) as tithe_count FROM tithe WHERE tithe_date BETWEEN '".$start."' AND '".$to."' ");
 foreach($tithe_paid as $tithe_paidx){
@@ -506,7 +495,7 @@ Highcharts.chart('container1', {
     text: 'Rohi Church Service Attendance chart'
   },
   xAxis: {
-    categories: ['1st Service', '2nd Service', 'Full Service', 'Events']
+    categories: ['1st Service(Asempa)', '2nd Service(Elevation)', 'Full Service(Joint)', 'Events']
   },
   yAxis: {
     min: 0,

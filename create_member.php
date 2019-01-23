@@ -1,4 +1,6 @@
+
 <?php
+// session_start();
 include 'layout/head.php';
 
 $min_sql = select("SELECT * FROM ministry_tb ");
@@ -21,7 +23,7 @@ if(isset($_POST['btnProceed'])){
     if(empty($s_mem) || empty($s_min) ){
         $msg = '<div class="alert alert-dismissible alert-warning">
                   <button type="button" class="close" data-dismiss="alert">&times;</button>
-                  <strong>Warning!</strong> Please fill in a inputs.
+                  <strong>Warning!</strong> Please fill in all inputs.
                 </div>';
     }else{
 
@@ -77,7 +79,7 @@ $position = trim(htmlspecialchars($_POST['position']));
         //$new_image = $_POST['con_name'] . '.' . end($image);
         move_uploaded_file($fileName, "upload/image/{$member_image}");
 
-$member = update("UPDATE membership_tb SET last_name='$lname', first_name='$fname', other_name='$othernames', dob='$dob', gender='$gender', residential_address='$residentialaddress', postal_address='$postal_address', home_town='$home_town', phone_number='$p_number', nationality='$nationality', place_of_birth='$pob', occupation='$occupation', marital_status='$mstatus', email='$email', group_name='$g_name', baptism_status='$b_status', confirmation_status='$c_status', membership_type='$m_type', parental_name='$p_name', parental_status='$p_status', position='$position', member_image='$member_image', full_name='$full_name' WHERE member_id='".$_GET['mid']."' ");
+$member = update("UPDATE membership_tb SET last_name='$lname', first_name='$fname', other_name='$othernames', dob='$dob', gender='$gender', residential_address='$residentialaddress', postal_address='$postal_address', home_town='$home_town', phone_number='233$p_number', nationality='$nationality', place_of_birth='$pob', occupation='$occupation', marital_status='$mstatus', email='$email', group_name='$g_name', baptism_status='$b_status', confirmation_status='$c_status', membership_type='$m_type', parental_name='$p_name', parental_status='$p_status', position='$position', member_image='$member_image', full_name='$full_name' WHERE member_id='".$_GET['mid']."' ");
 
 
 //$member= insert("INSERT INTO membership_tb(last_name,first_name,other_name,dob,gender,residential_address,postal_address, home_town,phone_number,nationality,place_of_birth,occupation,marital_status, email,group_name,baptism_status,confirmation_status,membership_type,parental_name, parental_status, position,member_image) VALUES('".$lname."', '".$fname."', '".$othernames."', '".$dob."', '".$gender."', '".$residentialaddress."','".$postal_address."','".$home_town."','".$p_number."','".$nationality."','".$pob."', '".$occupation."', '".$mstatus."','".$email."','".$g_name."','".$b_status."','".$c_status."','".$m_type."','".$p_name."','".$p_status."' ,'".$position."','".$member_image."' )");
@@ -217,7 +219,7 @@ $member = update("UPDATE membership_tb SET last_name='$lname', first_name='$fnam
       </div>
 
    <div class="col-md-4" style="z-index:1;">
-        Phone Number <input type="text" name="phone_number" class="form-control">
+        Phone Number <input type="text" name="phone_number" placeholder='format: 243326789' class="form-control">
       </div>
 
    <div class="col-md-4" style="z-index:1;">
