@@ -1,2 +1,2 @@
-# alphasigma
+# Alphasigma
  Chuch Management System
