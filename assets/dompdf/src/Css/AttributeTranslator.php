@@ -1,29 +1,19 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\Css;
 
 use Dompdf\Frame;
 
-/**
- * Translates HTML 4.0 attributes into CSS rules
- *
- * @package dompdf
- */
+
 class AttributeTranslator
 {
-    static $_style_attr = "_html_style_attribute";
+    static $Vw5xf5zlbnxa = "_html_style_attribute";
 
-    // Munged data originally from
-    // http://www.w3.org/TR/REC-html40/index/attributes.html
-    // http://www.cs.tut.fi/~jkorpela/html2css.html
-    static private $__ATTRIBUTE_LOOKUP = array(
-        //'caption' => array ( 'align' => '', ),
+    
+    
+    
+    static private $Virhqnzggdec = array(
+        
         'img' => array(
             'align' => array(
                 'bottom' => 'vertical-align: baseline;',
@@ -46,7 +36,7 @@ class AttributeTranslator
             ),
             'bgcolor' => 'background-color: %s;',
             'border' => '!set_table_border',
-            'cellpadding' => '!set_table_cellpadding', //'border-spacing: %0.2F; border-collapse: separate;',
+            'cellpadding' => '!set_table_cellpadding', 
             'cellspacing' => '!set_table_cellspacing',
             'frame' => array(
                 'void' => 'border-style: none;',
@@ -63,9 +53,9 @@ class AttributeTranslator
             'width' => 'width: %s;',
         ),
         'hr' => array(
-            'align' => '!set_hr_align', // Need to grab width to set 'left' & 'right' correctly
+            'align' => '!set_hr_align', 
             'noshade' => 'border-style: solid;',
-            'size' => '!set_hr_size', //'border-width: %0.2F px;',
+            'size' => '!set_hr_size', 
             'width' => 'width: %s;',
         ),
         'div' => array(
@@ -89,21 +79,21 @@ class AttributeTranslator
         'h6' => array(
             'align' => 'text-align: %s;',
         ),
-        //TODO: translate more form element attributes
+        
         'input' => array(
             'size' => '!set_input_width'
         ),
         'p' => array(
             'align' => 'text-align: %s;',
         ),
-//    'col' => array(
-//      'align'  => '',
-//      'valign' => '',
-//    ),
-//    'colgroup' => array(
-//      'align'  => '',
-//      'valign' => '',
-//    ),
+
+
+
+
+
+
+
+
         'tbody' => array(
             'align' => '!set_table_row_align',
             'valign' => '!set_table_row_valign',
@@ -183,9 +173,9 @@ class AttributeTranslator
         ),
     );
 
-    static protected $_last_basefont_size = 3;
-    static protected $_font_size_lookup = array(
-        // For basefont support
+    static protected $V4aq2qll1pfa = 3;
+    static protected $Vgqwdvcexwb5 = array(
+        
         -3 => "4pt",
         -2 => "5pt",
         -1 => "6pt",
@@ -199,441 +189,347 @@ class AttributeTranslator
         6 => "24pt",
         7 => "34pt",
 
-        // For basefont support
+        
         8 => "48pt",
         9 => "44pt",
         10 => "52pt",
         11 => "60pt",
     );
 
-    /**
-     * @param Frame $frame
-     */
-    static function translate_attributes(Frame $frame)
+    
+    static function translate_attributes(Frame $Vnk2ly5jcvjf)
     {
-        $node = $frame->get_node();
-        $tag = $node->nodeName;
+        $Vbr2bywdrplx = $Vnk2ly5jcvjf->get_node();
+        $Vudn5fb5ck4i = $Vbr2bywdrplx->nodeName;
 
-        if (!isset(self::$__ATTRIBUTE_LOOKUP[$tag])) {
+        if (!isset(self::$Virhqnzggdec[$Vudn5fb5ck4i])) {
             return;
         }
 
-        $valid_attrs = self::$__ATTRIBUTE_LOOKUP[$tag];
-        $attrs = $node->attributes;
-        $style = rtrim($node->getAttribute(self::$_style_attr), "; ");
-        if ($style != "") {
-            $style .= ";";
+        $Via0htgwmksk = self::$Virhqnzggdec[$Vudn5fb5ck4i];
+        $Vtcc1ivip2fh = $Vbr2bywdrplx->attributes;
+        $Vdidzwb0w3vc = rtrim($Vbr2bywdrplx->getAttribute(self::$Vw5xf5zlbnxa), "; ");
+        if ($Vdidzwb0w3vc != "") {
+            $Vdidzwb0w3vc .= ";";
         }
 
-        foreach ($attrs as $attr => $attr_node) {
-            if (!isset($valid_attrs[$attr])) {
+        foreach ($Vtcc1ivip2fh as $Vfhakhidzne2 => $Vfhakhidzne2_node) {
+            if (!isset($Via0htgwmksk[$Vfhakhidzne2])) {
                 continue;
             }
 
-            $value = $attr_node->value;
+            $Vqfra35f14fv = $Vfhakhidzne2_node->value;
 
-            $target = $valid_attrs[$attr];
+            $Vu4wqouveu13 = $Via0htgwmksk[$Vfhakhidzne2];
 
-            // Look up $value in $target, if $target is an array:
-            if (is_array($target)) {
-                if (isset($target[$value])) {
-                    $style .= " " . self::_resolve_target($node, $target[$value], $value);
+            
+            if (is_array($Vu4wqouveu13)) {
+                if (isset($Vu4wqouveu13[$Vqfra35f14fv])) {
+                    $Vdidzwb0w3vc .= " " . self::_resolve_target($Vbr2bywdrplx, $Vu4wqouveu13[$Vqfra35f14fv], $Vqfra35f14fv);
                 }
             } else {
-                // otherwise use target directly
-                $style .= " " . self::_resolve_target($node, $target, $value);
+                
+                $Vdidzwb0w3vc .= " " . self::_resolve_target($Vbr2bywdrplx, $Vu4wqouveu13, $Vqfra35f14fv);
             }
         }
 
-        if (!is_null($style)) {
-            $style = ltrim($style);
-            $node->setAttribute(self::$_style_attr, $style);
+        if (!is_null($Vdidzwb0w3vc)) {
+            $Vdidzwb0w3vc = ltrim($Vdidzwb0w3vc);
+            $Vbr2bywdrplx->setAttribute(self::$Vw5xf5zlbnxa, $Vdidzwb0w3vc);
         }
 
     }
 
-    /**
-     * @param \DOMNode $node
-     * @param string $target
-     * @param string $value
-     *
-     * @return string
-     */
-    static protected function _resolve_target(\DOMNode $node, $target, $value)
+    
+    static protected function _resolve_target(\DOMNode $Vbr2bywdrplx, $Vu4wqouveu13, $Vqfra35f14fv)
     {
-        if ($target[0] === "!") {
-            // Function call
-            $func = "_" . mb_substr($target, 1);
+        if ($Vu4wqouveu13[0] === "!") {
+            
+            $Vhhv3tomoeyc = "_" . mb_substr($Vu4wqouveu13, 1);
 
-            return self::$func($node, $value);
+            return self::$Vhhv3tomoeyc($Vbr2bywdrplx, $Vqfra35f14fv);
         }
 
-        return $value ? sprintf($target, $value) : "";
+        return $Vqfra35f14fv ? sprintf($Vu4wqouveu13, $Vqfra35f14fv) : "";
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $new_style
-     */
-    static function append_style(\DOMElement $node, $new_style)
+    
+    static function append_style(\DOMElement $Vbr2bywdrplx, $Vvkp23uyeydw)
     {
-        $style = rtrim($node->getAttribute(self::$_style_attr), ";");
-        $style .= $new_style;
-        $style = ltrim($style, ";");
-        $node->setAttribute(self::$_style_attr, $style);
+        $Vdidzwb0w3vc = rtrim($Vbr2bywdrplx->getAttribute(self::$Vw5xf5zlbnxa), ";");
+        $Vdidzwb0w3vc .= $Vvkp23uyeydw;
+        $Vdidzwb0w3vc = ltrim($Vdidzwb0w3vc, ";");
+        $Vbr2bywdrplx->setAttribute(self::$Vw5xf5zlbnxa, $Vdidzwb0w3vc);
     }
 
-    /**
-     * @param \DOMNode $node
-     *
-     * @return \DOMNodeList|\DOMElement[]
-     */
-    static protected function get_cell_list(\DOMNode $node)
+    
+    static protected function get_cell_list(\DOMNode $Vbr2bywdrplx)
     {
-        $xpath = new \DOMXpath($node->ownerDocument);
+        $Vxp0j315zxdb = new \DOMXpath($Vbr2bywdrplx->ownerDocument);
 
-        switch ($node->nodeName) {
+        switch ($Vbr2bywdrplx->nodeName) {
             default:
             case "table":
-                $query = "tr/td | thead/tr/td | tbody/tr/td | tfoot/tr/td | tr/th | thead/tr/th | tbody/tr/th | tfoot/tr/th";
+                $Vgs5eqsoia35 = "tr/td | thead/tr/td | tbody/tr/td | tfoot/tr/td | tr/th | thead/tr/th | tbody/tr/th | tfoot/tr/th";
                 break;
 
             case "tbody":
             case "tfoot":
             case "thead":
-                $query = "tr/td | tr/th";
+                $Vgs5eqsoia35 = "tr/td | tr/th";
                 break;
 
             case "tr":
-                $query = "td | th";
+                $Vgs5eqsoia35 = "td | th";
                 break;
         }
 
-        return $xpath->query($query, $node);
+        return $Vxp0j315zxdb->query($Vgs5eqsoia35, $Vbr2bywdrplx);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return string
-     */
-    static protected function _get_valid_color($value)
+    
+    static protected function _get_valid_color($Vqfra35f14fv)
     {
-        if (preg_match('/^#?([0-9A-F]{6})$/i', $value, $matches)) {
-            $value = "#$matches[1]";
+        if (preg_match('/^#?([0-9A-F]{6})$/i', $Vqfra35f14fv, $Vxve4maip4vq)) {
+            $Vqfra35f14fv = "#$Vxve4maip4vq[1]";
         }
 
-        return $value;
+        return $Vqfra35f14fv;
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return string
-     */
-    static protected function _set_color(\DOMElement $node, $value)
+    
+    static protected function _set_color(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $value = self::_get_valid_color($value);
+        $Vqfra35f14fv = self::_get_valid_color($Vqfra35f14fv);
 
-        return "color: $value;";
+        return "color: $Vqfra35f14fv;";
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return string
-     */
-    static protected function _set_background_color(\DOMElement $node, $value)
+    
+    static protected function _set_background_color(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $value = self::_get_valid_color($value);
+        $Vqfra35f14fv = self::_get_valid_color($Vqfra35f14fv);
 
-        return "background-color: $value;";
+        return "background-color: $Vqfra35f14fv;";
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return null
-     */
-    static protected function _set_table_cellpadding(\DOMElement $node, $value)
+    
+    static protected function _set_table_cellpadding(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $cell_list = self::get_cell_list($node);
+        $Vpp1x5clcznq = self::get_cell_list($Vbr2bywdrplx);
 
-        foreach ($cell_list as $cell) {
-            self::append_style($cell, "; padding: {$value}px;");
+        foreach ($Vpp1x5clcznq as $Vclbxxw1bsss) {
+            self::append_style($Vclbxxw1bsss, "; padding: {$Vqfra35f14fv}px;");
         }
 
         return null;
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return string
-     */
-    static protected function _set_table_border(\DOMElement $node, $value)
+    
+    static protected function _set_table_border(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $cell_list = self::get_cell_list($node);
+        $Vpp1x5clcznq = self::get_cell_list($Vbr2bywdrplx);
 
-        foreach ($cell_list as $cell) {
-            $style = rtrim($cell->getAttribute(self::$_style_attr));
-            $style .= "; border-width: " . ($value > 0 ? 1 : 0) . "pt; border-style: inset;";
-            $style = ltrim($style, ";");
-            $cell->setAttribute(self::$_style_attr, $style);
+        foreach ($Vpp1x5clcznq as $Vclbxxw1bsss) {
+            $Vdidzwb0w3vc = rtrim($Vclbxxw1bsss->getAttribute(self::$Vw5xf5zlbnxa));
+            $Vdidzwb0w3vc .= "; border-width: " . ($Vqfra35f14fv > 0 ? 1 : 0) . "pt; border-style: inset;";
+            $Vdidzwb0w3vc = ltrim($Vdidzwb0w3vc, ";");
+            $Vclbxxw1bsss->setAttribute(self::$Vw5xf5zlbnxa, $Vdidzwb0w3vc);
         }
 
-        $style = rtrim($node->getAttribute(self::$_style_attr), ";");
-        $style .= "; border-width: $value" . "px; ";
+        $Vdidzwb0w3vc = rtrim($Vbr2bywdrplx->getAttribute(self::$Vw5xf5zlbnxa), ";");
+        $Vdidzwb0w3vc .= "; border-width: $Vqfra35f14fv" . "px; ";
 
-        return ltrim($style, "; ");
+        return ltrim($Vdidzwb0w3vc, "; ");
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return string
-     */
-    static protected function _set_table_cellspacing(\DOMElement $node, $value)
+    
+    static protected function _set_table_cellspacing(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $style = rtrim($node->getAttribute(self::$_style_attr), ";");
+        $Vdidzwb0w3vc = rtrim($Vbr2bywdrplx->getAttribute(self::$Vw5xf5zlbnxa), ";");
 
-        if ($value == 0) {
-            $style .= "; border-collapse: collapse;";
+        if ($Vqfra35f14fv == 0) {
+            $Vdidzwb0w3vc .= "; border-collapse: collapse;";
         } else {
-            $style .= "; border-spacing: {$value}px; border-collapse: separate;";
+            $Vdidzwb0w3vc .= "; border-spacing: {$Vqfra35f14fv}px; border-collapse: separate;";
         }
 
-        return ltrim($style, ";");
+        return ltrim($Vdidzwb0w3vc, ";");
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return null|string
-     */
-    static protected function _set_table_rules(\DOMElement $node, $value)
+    
+    static protected function _set_table_rules(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $new_style = "; border-collapse: collapse;";
+        $Vvkp23uyeydw = "; border-collapse: collapse;";
 
-        switch ($value) {
+        switch ($Vqfra35f14fv) {
             case "none":
-                $new_style .= "border-style: none;";
+                $Vvkp23uyeydw .= "border-style: none;";
                 break;
 
             case "groups":
-                // FIXME: unsupported
+                
                 return null;
 
             case "rows":
-                $new_style .= "border-style: solid none solid none; border-width: 1px; ";
+                $Vvkp23uyeydw .= "border-style: solid none solid none; border-width: 1px; ";
                 break;
 
             case "cols":
-                $new_style .= "border-style: none solid none solid; border-width: 1px; ";
+                $Vvkp23uyeydw .= "border-style: none solid none solid; border-width: 1px; ";
                 break;
 
             case "all":
-                $new_style .= "border-style: solid; border-width: 1px; ";
+                $Vvkp23uyeydw .= "border-style: solid; border-width: 1px; ";
                 break;
 
             default:
-                // Invalid value
+                
                 return null;
         }
 
-        $cell_list = self::get_cell_list($node);
+        $Vpp1x5clcznq = self::get_cell_list($Vbr2bywdrplx);
 
-        foreach ($cell_list as $cell) {
-            $style = $cell->getAttribute(self::$_style_attr);
-            $style .= $new_style;
-            $cell->setAttribute(self::$_style_attr, $style);
+        foreach ($Vpp1x5clcznq as $Vclbxxw1bsss) {
+            $Vdidzwb0w3vc = $Vclbxxw1bsss->getAttribute(self::$Vw5xf5zlbnxa);
+            $Vdidzwb0w3vc .= $Vvkp23uyeydw;
+            $Vclbxxw1bsss->setAttribute(self::$Vw5xf5zlbnxa, $Vdidzwb0w3vc);
         }
 
-        $style = rtrim($node->getAttribute(self::$_style_attr), ";");
-        $style .= "; border-collapse: collapse; ";
+        $Vdidzwb0w3vc = rtrim($Vbr2bywdrplx->getAttribute(self::$Vw5xf5zlbnxa), ";");
+        $Vdidzwb0w3vc .= "; border-collapse: collapse; ";
 
-        return ltrim($style, "; ");
+        return ltrim($Vdidzwb0w3vc, "; ");
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return string
-     */
-    static protected function _set_hr_size(\DOMElement $node, $value)
+    
+    static protected function _set_hr_size(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $style = rtrim($node->getAttribute(self::$_style_attr), ";");
-        $style .= "; border-width: " . max(0, $value - 2) . "; ";
+        $Vdidzwb0w3vc = rtrim($Vbr2bywdrplx->getAttribute(self::$Vw5xf5zlbnxa), ";");
+        $Vdidzwb0w3vc .= "; border-width: " . max(0, $Vqfra35f14fv - 2) . "; ";
 
-        return ltrim($style, "; ");
+        return ltrim($Vdidzwb0w3vc, "; ");
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return null|string
-     */
-    static protected function _set_hr_align(\DOMElement $node, $value)
+    
+    static protected function _set_hr_align(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $style = rtrim($node->getAttribute(self::$_style_attr), ";");
-        $width = $node->getAttribute("width");
+        $Vdidzwb0w3vc = rtrim($Vbr2bywdrplx->getAttribute(self::$Vw5xf5zlbnxa), ";");
+        $Vztt3qdrrikx = $Vbr2bywdrplx->getAttribute("width");
 
-        if ($width == "") {
-            $width = "100%";
+        if ($Vztt3qdrrikx == "") {
+            $Vztt3qdrrikx = "100%";
         }
 
-        $remainder = 100 - (double)rtrim($width, "% ");
+        $V4jtpwyd3efq = 100 - (double)rtrim($Vztt3qdrrikx, "% ");
 
-        switch ($value) {
+        switch ($Vqfra35f14fv) {
             case "left":
-                $style .= "; margin-right: $remainder %;";
+                $Vdidzwb0w3vc .= "; margin-right: $V4jtpwyd3efq %;";
                 break;
 
             case "right":
-                $style .= "; margin-left: $remainder %;";
+                $Vdidzwb0w3vc .= "; margin-left: $V4jtpwyd3efq %;";
                 break;
 
             case "center":
-                $style .= "; margin-left: auto; margin-right: auto;";
+                $Vdidzwb0w3vc .= "; margin-left: auto; margin-right: auto;";
                 break;
 
             default:
                 return null;
         }
 
-        return ltrim($style, "; ");
+        return ltrim($Vdidzwb0w3vc, "; ");
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return null|string
-     */
-    static protected function _set_input_width(\DOMElement $node, $value)
+    
+    static protected function _set_input_width(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        if (empty($value)) { return null; }
+        if (empty($Vqfra35f14fv)) { return null; }
 
-        if ($node->hasAttribute("type") && in_array(strtolower($node->getAttribute("type")), array("text","password"))) {
-            return sprintf("width: %Fem", (((int)$value * .65)+2));
+        if ($Vbr2bywdrplx->hasAttribute("type") && in_array(strtolower($Vbr2bywdrplx->getAttribute("type")), array("text","password"))) {
+            return sprintf("width: %Fem", (((int)$Vqfra35f14fv * .65)+2));
         } else {
-            return sprintf("width: %upx;", (int)$value);
+            return sprintf("width: %upx;", (int)$Vqfra35f14fv);
         }
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return null
-     */
-    static protected function _set_table_row_align(\DOMElement $node, $value)
+    
+    static protected function _set_table_row_align(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $cell_list = self::get_cell_list($node);
+        $Vpp1x5clcznq = self::get_cell_list($Vbr2bywdrplx);
 
-        foreach ($cell_list as $cell) {
-            self::append_style($cell, "; text-align: $value;");
+        foreach ($Vpp1x5clcznq as $Vclbxxw1bsss) {
+            self::append_style($Vclbxxw1bsss, "; text-align: $Vqfra35f14fv;");
         }
 
         return null;
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return null
-     */
-    static protected function _set_table_row_valign(\DOMElement $node, $value)
+    
+    static protected function _set_table_row_valign(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $cell_list = self::get_cell_list($node);
+        $Vpp1x5clcznq = self::get_cell_list($Vbr2bywdrplx);
 
-        foreach ($cell_list as $cell) {
-            self::append_style($cell, "; vertical-align: $value;");
+        foreach ($Vpp1x5clcznq as $Vclbxxw1bsss) {
+            self::append_style($Vclbxxw1bsss, "; vertical-align: $Vqfra35f14fv;");
         }
 
         return null;
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return null
-     */
-    static protected function _set_table_row_bgcolor(\DOMElement $node, $value)
+    
+    static protected function _set_table_row_bgcolor(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $cell_list = self::get_cell_list($node);
-        $value = self::_get_valid_color($value);
+        $Vpp1x5clcznq = self::get_cell_list($Vbr2bywdrplx);
+        $Vqfra35f14fv = self::_get_valid_color($Vqfra35f14fv);
 
-        foreach ($cell_list as $cell) {
-            self::append_style($cell, "; background-color: $value;");
+        foreach ($Vpp1x5clcznq as $Vclbxxw1bsss) {
+            self::append_style($Vclbxxw1bsss, "; background-color: $Vqfra35f14fv;");
         }
 
         return null;
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return null
-     */
-    static protected function _set_body_link(\DOMElement $node, $value)
+    
+    static protected function _set_body_link(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $a_list = $node->getElementsByTagName("a");
-        $value = self::_get_valid_color($value);
+        $Vgqxodhfatsj = $Vbr2bywdrplx->getElementsByTagName("a");
+        $Vqfra35f14fv = self::_get_valid_color($Vqfra35f14fv);
 
-        foreach ($a_list as $a) {
-            self::append_style($a, "; color: $value;");
+        foreach ($Vgqxodhfatsj as $Vrr3orqjztc2) {
+            self::append_style($Vrr3orqjztc2, "; color: $Vqfra35f14fv;");
         }
 
         return null;
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return null
-     */
-    static protected function _set_basefont_size(\DOMElement $node, $value)
+    
+    static protected function _set_basefont_size(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        // FIXME: ? we don't actually set the font size of anything here, just
-        // the base size for later modification by <font> tags.
-        self::$_last_basefont_size = $value;
+        
+        
+        self::$V4aq2qll1pfa = $Vqfra35f14fv;
 
         return null;
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string $value
-     *
-     * @return string
-     */
-    static protected function _set_font_size(\DOMElement $node, $value)
+    
+    static protected function _set_font_size(\DOMElement $Vbr2bywdrplx, $Vqfra35f14fv)
     {
-        $style = $node->getAttribute(self::$_style_attr);
+        $Vdidzwb0w3vc = $Vbr2bywdrplx->getAttribute(self::$Vw5xf5zlbnxa);
 
-        if ($value[0] === "-" || $value[0] === "+") {
-            $value = self::$_last_basefont_size + (int)$value;
+        if ($Vqfra35f14fv[0] === "-" || $Vqfra35f14fv[0] === "+") {
+            $Vqfra35f14fv = self::$V4aq2qll1pfa + (int)$Vqfra35f14fv;
         }
 
-        if (isset(self::$_font_size_lookup[$value])) {
-            $style .= "; font-size: " . self::$_font_size_lookup[$value] . ";";
+        if (isset(self::$Vgqwdvcexwb5[$Vqfra35f14fv])) {
+            $Vdidzwb0w3vc .= "; font-size: " . self::$Vgqwdvcexwb5[$Vqfra35f14fv] . ";";
         } else {
-            $style .= "; font-size: $value;";
+            $Vdidzwb0w3vc .= "; font-size: $Vqfra35f14fv;";
         }
 
-        return ltrim($style, "; ");
+        return ltrim($Vdidzwb0w3vc, "; ");
     }
 }

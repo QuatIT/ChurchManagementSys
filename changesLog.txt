@@ -1,0 +1,53 @@
+CHANGES MADE TO SYSTEM IN VERSION 2
+
+added option to create services under System Settings tab
+-- db table created for services
+
+    table columsn
+    `id`
+    `service_id`
+    `service_Name`
+    `dor`
+    `doe`
+
+INVENTORY
+-- create column "status" in inventory table.
+        -values (Active, flagged)
+
+REGISTRATION - membership_tb
+
+        emergency Person
+        emergenncy Contact
+        Relationship
+        Blood Group
+
+
+USER ACCESS LEVELS
+1 = church admin
+2 = Head Pastor
+3 = Accountant
+4 = Registry / Hostess 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -6,49 +6,49 @@
 
 <?php
 
-//error_reporting(E_ALL);
+
 error_reporting(E_STRICT);
 
 date_default_timezone_set('America/Toronto');
 
 require_once('../class.phpmailer.php');
-//include("class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
 
-$mail             = new PHPMailer();
 
-$body             = file_get_contents('contents.html');
-$body             = eregi_replace("[\]",'',$body);
+$Vbfod5qpq0lc             = new PHPMailer();
 
-$mail->IsSMTP(); // telling the class to use SMTP
-$mail->Host       = "mail.yourdomain.com"; // SMTP server
-$mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
-                                           // 1 = errors and messages
-                                           // 2 = messages only
-$mail->SMTPAuth   = true;                  // enable SMTP authentication
-$mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
-$mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
-$mail->Port       = 465;                   // set the SMTP port for the GMAIL server
-$mail->Username   = "yourusername@gmail.com";  // GMAIL username
-$mail->Password   = "yourpassword";            // GMAIL password
+$V0dtmgmxxnsq             = file_get_contents('contents.html');
+$V0dtmgmxxnsq             = eregi_replace("[\]",'',$V0dtmgmxxnsq);
 
-$mail->SetFrom('name@yourdomain.com', 'First Last');
+$Vbfod5qpq0lc->IsSMTP(); 
+$Vbfod5qpq0lc->Host       = "mail.yourdomain.com"; 
+$Vbfod5qpq0lc->SMTPDebug  = 2;                     
+                                           
+                                           
+$Vbfod5qpq0lc->SMTPAuth   = true;                  
+$Vbfod5qpq0lc->SMTPSecure = "ssl";                 
+$Vbfod5qpq0lc->Host       = "smtp.gmail.com";      
+$Vbfod5qpq0lc->Port       = 465;                   
+$Vbfod5qpq0lc->Username   = "yourusername@gmail.com";  
+$Vbfod5qpq0lc->Password   = "yourpassword";            
 
-$mail->AddReplyTo("name@yourdomain.com","First Last");
+$Vbfod5qpq0lc->SetFrom('name@yourdomain.com', 'First Last');
 
-$mail->Subject    = "PHPMailer Test Subject via smtp (Gmail), basic";
+$Vbfod5qpq0lc->AddReplyTo("name@yourdomain.com","First Last");
 
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
+$Vbfod5qpq0lc->Subject    = "PHPMailer Test Subject via smtp (Gmail), basic";
 
-$mail->MsgHTML($body);
+$Vbfod5qpq0lc->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
 
-$address = "whoto@otherdomain.com";
-$mail->AddAddress($address, "John Doe");
+$Vbfod5qpq0lc->MsgHTML($V0dtmgmxxnsq);
 
-$mail->AddAttachment("images/phpmailer.gif");      // attachment
-$mail->AddAttachment("images/phpmailer_mini.gif"); // attachment
+$Vvhsyzupxzwx = "whoto@otherdomain.com";
+$Vbfod5qpq0lc->AddAddress($Vvhsyzupxzwx, "John Doe");
 
-if(!$mail->Send()) {
-  echo "Mailer Error: " . $mail->ErrorInfo;
+$Vbfod5qpq0lc->AddAttachment("images/phpmailer.gif");      
+$Vbfod5qpq0lc->AddAttachment("images/phpmailer_mini.gif"); 
+
+if(!$Vbfod5qpq0lc->Send()) {
+  echo "Mailer Error: " . $Vbfod5qpq0lc->ErrorInfo;
 } else {
   echo "Message sent!";
 }

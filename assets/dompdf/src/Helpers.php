@@ -3,28 +3,18 @@ namespace Dompdf;
 
 class Helpers
 {
-    /**
-     * print_r wrapper for html/cli output
-     *
-     * Wraps print_r() output in < pre > tags if the current sapi is not 'cli'.
-     * Returns the output string instead of displaying it if $return is true.
-     *
-     * @param mixed $mixed variable or expression to display
-     * @param bool $return
-     *
-     * @return string|null
-     */
-    public static function pre_r($mixed, $return = false)
+    
+    public static function pre_r($Vgsmtcmr0fdv, $V10rd4cdsrnu = false)
     {
-        if ($return) {
-            return "<pre>" . print_r($mixed, true) . "</pre>";
+        if ($V10rd4cdsrnu) {
+            return "<pre>" . print_r($Vgsmtcmr0fdv, true) . "</pre>";
         }
 
         if (php_sapi_name() !== "cli") {
             echo "<pre>";
         }
 
-        print_r($mixed);
+        print_r($Vgsmtcmr0fdv);
 
         if (php_sapi_name() !== "cli") {
             echo "</pre>";
@@ -37,858 +27,723 @@ class Helpers
         return null;
     }
 
-      /**
-     * builds a full url given a protocol, hostname, base path and url
-     *
-     * @param string $protocol
-     * @param string $host
-     * @param string $base_path
-     * @param string $url
-     * @return string
-     *
-     * Initially the trailing slash of $base_path was optional, and conditionally appended.
-     * However on dynamically created sites, where the page is given as url parameter,
-     * the base path might not end with an url.
-     * Therefore do not append a slash, and **require** the $base_url to ending in a slash
-     * when needed.
-     * Vice versa, on using the local file system path of a file, make sure that the slash
-     * is appended (o.k. also for Windows)
-     */
-    public static function build_url($protocol, $host, $base_path, $url)
+      
+    public static function build_url($V3i5fom43o3t, $Vg5lte3qjxow, $Vrwgzxrfmage, $Vsp0omgzz2yw)
     {
-        $protocol = mb_strtolower($protocol);
-        if (strlen($url) == 0) {
-            //return $protocol . $host . rtrim($base_path, "/\\") . "/";
-            return $protocol . $host . $base_path;
+        $V3i5fom43o3t = mb_strtolower($V3i5fom43o3t);
+        if (strlen($Vsp0omgzz2yw) == 0) {
+            
+            return $V3i5fom43o3t . $Vg5lte3qjxow . $Vrwgzxrfmage;
         }
 
-        // Is the url already fully qualified, a Data URI, or a reference to a named anchor?
-        if (mb_strpos($url, "://") !== false || mb_substr($url, 0, 1) === "#" || mb_strpos($url, "data:") === 0 || mb_strpos($url, "mailto:") === 0) {
-            return $url;
+        
+        if (mb_strpos($Vsp0omgzz2yw, "://") !== false || mb_substr($Vsp0omgzz2yw, 0, 1) === "#" || mb_strpos($Vsp0omgzz2yw, "data:") === 0 || mb_strpos($Vsp0omgzz2yw, "mailto:") === 0) {
+            return $Vsp0omgzz2yw;
         }
 
-        $ret = $protocol;
+        $Vc00k54nbbvf = $V3i5fom43o3t;
 
-        if (!in_array(mb_strtolower($protocol), array("http://", "https://", "ftp://", "ftps://"))) {
-            //On Windows local file, an abs path can begin also with a '\' or a drive letter and colon
-            //drive: followed by a relative path would be a drive specific default folder.
-            //not known in php app code, treat as abs path
-            //($url[1] !== ':' || ($url[2]!=='\\' && $url[2]!=='/'))
-            if ($url[0] !== '/' && (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' || (mb_strlen($url) > 1 && $url[0] !== '\\' && $url[1] !== ':'))) {
-                // For rel path and local acess we ignore the host, and run the path through realpath()
-                $ret .= realpath($base_path) . '/';
+        if (!in_array(mb_strtolower($V3i5fom43o3t), array("http://", "https://", "ftp://", "ftps://"))) {
+            
+            
+            
+            
+            if ($Vsp0omgzz2yw[0] !== '/' && (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' || (mb_strlen($Vsp0omgzz2yw) > 1 && $Vsp0omgzz2yw[0] !== '\\' && $Vsp0omgzz2yw[1] !== ':'))) {
+                
+                $Vc00k54nbbvf .= realpath($Vrwgzxrfmage) . '/';
             }
-            $ret .= $url;
-            $ret = preg_replace('/\?(.*)$/', "", $ret);
-            return $ret;
+            $Vc00k54nbbvf .= $Vsp0omgzz2yw;
+            $Vc00k54nbbvf = preg_replace('/\?(.*)$/', "", $Vc00k54nbbvf);
+            return $Vc00k54nbbvf;
         }
 
-        // Protocol relative urls (e.g. "//example.org/style.css")
-        if (strpos($url, '//') === 0) {
-            $ret .= substr($url, 2);
-            //remote urls with backslash in html/css are not really correct, but lets be genereous
-        } elseif ($url[0] === '/' || $url[0] === '\\') {
-            // Absolute path
-            $ret .= $host . $url;
+        
+        if (strpos($Vsp0omgzz2yw, '//') === 0) {
+            $Vc00k54nbbvf .= substr($Vsp0omgzz2yw, 2);
+            
+        } elseif ($Vsp0omgzz2yw[0] === '/' || $Vsp0omgzz2yw[0] === '\\') {
+            
+            $Vc00k54nbbvf .= $Vg5lte3qjxow . $Vsp0omgzz2yw;
         } else {
-            // Relative path
-            //$base_path = $base_path !== "" ? rtrim($base_path, "/\\") . "/" : "";
-            $ret .= $host . $base_path . $url;
+            
+            
+            $Vc00k54nbbvf .= $Vg5lte3qjxow . $Vrwgzxrfmage . $Vsp0omgzz2yw;
         }
 
-        return $ret;
+        return $Vc00k54nbbvf;
     }
 
-    /**
-     * Builds a HTTP Content-Disposition header string using `$dispositionType`
-     * and `$filename`.
-     *
-     * If the filename contains any characters not in the ISO-8859-1 character
-     * set, a fallback filename will be included for clients not supporting the
-     * `filename*` parameter.
-     *
-     * @param string $dispositionType
-     * @param string $filename
-     * @return string
-     */
-    public static function buildContentDispositionHeader($dispositionType, $filename)
+    
+    public static function buildContentDispositionHeader($V0jrqoexftpy, $Vaqmmjdxljsi)
     {
-        $encoding = mb_detect_encoding($filename);
-        $fallbackfilename = mb_convert_encoding($filename, "ISO-8859-1", $encoding);
-        $fallbackfilename = str_replace("\"", "", $fallbackfilename);
-        $encodedfilename = rawurlencode($filename);
+        $Vgpqcvfkvgzo = mb_detect_encoding($Vaqmmjdxljsi);
+        $V1dqjmexh5hm = mb_convert_encoding($Vaqmmjdxljsi, "ISO-8859-1", $Vgpqcvfkvgzo);
+        $V1dqjmexh5hm = str_replace("\"", "", $V1dqjmexh5hm);
+        $V3z01rts5dgi = rawurlencode($Vaqmmjdxljsi);
 
-        $contentDisposition = "Content-Disposition: $dispositionType; filename=\"$fallbackfilename\"";
-        if ($fallbackfilename !== $filename) {
-            $contentDisposition .= "; filename*=UTF-8''$encodedfilename";
+        $Vv05g4znxv4g = "Content-Disposition: $V0jrqoexftpy; filename=\"$V1dqjmexh5hm\"";
+        if ($V1dqjmexh5hm !== $Vaqmmjdxljsi) {
+            $Vv05g4znxv4g .= "; filename*=UTF-8''$V3z01rts5dgi";
         }
 
-        return $contentDisposition;
+        return $Vv05g4znxv4g;
     }
 
-    /**
-     * Converts decimal numbers to roman numerals
-     *
-     * @param int $num
-     *
-     * @throws Exception
-     * @return string
-     */
-    public static function dec2roman($num)
+    
+    public static function dec2roman($Vxnixw2qni35)
     {
 
-        static $ones = array("", "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix");
-        static $tens = array("", "x", "xx", "xxx", "xl", "l", "lx", "lxx", "lxxx", "xc");
-        static $hund = array("", "c", "cc", "ccc", "cd", "d", "dc", "dcc", "dccc", "cm");
-        static $thou = array("", "m", "mm", "mmm");
+        static $Vcchekcffllu = array("", "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix");
+        static $Vlruiaps5xah = array("", "x", "xx", "xxx", "xl", "l", "lx", "lxx", "lxxx", "xc");
+        static $V30mjmi4kklp = array("", "c", "cc", "ccc", "cd", "d", "dc", "dcc", "dccc", "cm");
+        static $Vhrsz5kfzz3z = array("", "m", "mm", "mmm");
 
-        if (!is_numeric($num)) {
+        if (!is_numeric($Vxnixw2qni35)) {
             throw new Exception("dec2roman() requires a numeric argument.");
         }
 
-        if ($num > 4000 || $num < 0) {
+        if ($Vxnixw2qni35 > 4000 || $Vxnixw2qni35 < 0) {
             return "(out of range)";
         }
 
-        $num = strrev((string)$num);
+        $Vxnixw2qni35 = strrev((string)$Vxnixw2qni35);
 
-        $ret = "";
-        switch (mb_strlen($num)) {
-            /** @noinspection PhpMissingBreakStatementInspection */
+        $Vc00k54nbbvf = "";
+        switch (mb_strlen($Vxnixw2qni35)) {
+            
             case 4:
-                $ret .= $thou[$num[3]];
-            /** @noinspection PhpMissingBreakStatementInspection */
+                $Vc00k54nbbvf .= $Vhrsz5kfzz3z[$Vxnixw2qni35[3]];
+            
             case 3:
-                $ret .= $hund[$num[2]];
-            /** @noinspection PhpMissingBreakStatementInspection */
+                $Vc00k54nbbvf .= $V30mjmi4kklp[$Vxnixw2qni35[2]];
+            
             case 2:
-                $ret .= $tens[$num[1]];
-            /** @noinspection PhpMissingBreakStatementInspection */
+                $Vc00k54nbbvf .= $Vlruiaps5xah[$Vxnixw2qni35[1]];
+            
             case 1:
-                $ret .= $ones[$num[0]];
+                $Vc00k54nbbvf .= $Vcchekcffllu[$Vxnixw2qni35[0]];
             default:
                 break;
         }
 
-        return $ret;
+        return $Vc00k54nbbvf;
     }
 
-    /**
-     * Determines whether $value is a percentage or not
-     *
-     * @param float $value
-     *
-     * @return bool
-     */
-    public static function is_percent($value)
+    
+    public static function is_percent($Vqfra35f14fv)
     {
-        return false !== mb_strpos($value, "%");
+        return false !== mb_strpos($Vqfra35f14fv, "%");
     }
 
-    /**
-     * Parses a data URI scheme
-     * http://en.wikipedia.org/wiki/Data_URI_scheme
-     *
-     * @param string $data_uri The data URI to parse
-     *
-     * @return array|bool The result with charset, mime type and decoded data
-     */
-    public static function parse_data_uri($data_uri)
+    
+    public static function parse_data_uri($V32cio3rrjla)
     {
-        if (!preg_match('/^data:(?P<mime>[a-z0-9\/+-.]+)(;charset=(?P<charset>[a-z0-9-])+)?(?P<base64>;base64)?\,(?P<data>.*)?/is', $data_uri, $match)) {
+        if (!preg_match('/^data:(?P<mime>[a-z0-9\/+-.]+)(;charset=(?P<charset>[a-z0-9-])+)?(?P<base64>;base64)?\,(?P<data>.*)?/is', $V32cio3rrjla, $Vyupu15qqw5c)) {
             return false;
         }
 
-        $match['data'] = rawurldecode($match['data']);
-        $result = array(
-            'charset' => $match['charset'] ? $match['charset'] : 'US-ASCII',
-            'mime' => $match['mime'] ? $match['mime'] : 'text/plain',
-            'data' => $match['base64'] ? base64_decode($match['data']) : $match['data'],
+        $Vyupu15qqw5c['data'] = rawurldecode($Vyupu15qqw5c['data']);
+        $Vxrvbhqnqlwj = array(
+            'charset' => $Vyupu15qqw5c['charset'] ? $Vyupu15qqw5c['charset'] : 'US-ASCII',
+            'mime' => $Vyupu15qqw5c['mime'] ? $Vyupu15qqw5c['mime'] : 'text/plain',
+            'data' => $Vyupu15qqw5c['base64'] ? base64_decode($Vyupu15qqw5c['data']) : $Vyupu15qqw5c['data'],
         );
 
-        return $result;
+        return $Vxrvbhqnqlwj;
     }
 
-    /**
-     * Encodes a Uniform Resource Identifier (URI) by replacing non-alphanumeric
-     * characters with a percent (%) sign followed by two hex digits, excepting
-     * characters in the URI reserved character set.
-     *
-     * Assumes that the URI is a complete URI, so does not encode reserved
-     * characters that have special meaning in the URI.
-     *
-     * Simulates the encodeURI function available in JavaScript
-     * https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/encodeURI
-     *
-     * Source: http://stackoverflow.com/q/4929584/264628
-     *
-     * @param string $uri The URI to encode
-     * @return string The original URL with special characters encoded
-     */
-    public static function encodeURI($uri) {
-        $unescaped = array(
+    
+    public static function encodeURI($Vqnvjr1nxmrx) {
+        $V0o10vxmbakz = array(
             '%2D'=>'-','%5F'=>'_','%2E'=>'.','%21'=>'!', '%7E'=>'~',
             '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')'
         );
-        $reserved = array(
+        $Vtrkbbsioceq = array(
             '%3B'=>';','%2C'=>',','%2F'=>'/','%3F'=>'?','%3A'=>':',
             '%40'=>'@','%26'=>'&','%3D'=>'=','%2B'=>'+','%24'=>'$'
         );
-        $score = array(
+        $Vm04ow3mq0ey = array(
             '%23'=>'#'
         );
-        return strtr(rawurlencode(rawurldecode($uri)), array_merge($reserved,$unescaped,$score));
+        return strtr(rawurlencode(rawurldecode($Vqnvjr1nxmrx)), array_merge($Vtrkbbsioceq,$V0o10vxmbakz,$Vm04ow3mq0ey));
     }
 
-    /**
-     * Decoder for RLE8 compression in windows bitmaps
-     * http://msdn.microsoft.com/library/default.asp?url=/library/en-us/gdi/bitmaps_6x0u.asp
-     *
-     * @param string $str Data to decode
-     * @param integer $width Image width
-     *
-     * @return string
-     */
-    public static function rle8_decode($str, $width)
+    
+    public static function rle8_decode($Vadkcwffkfxw, $Vztt3qdrrikx)
     {
-        $lineWidth = $width + (3 - ($width - 1) % 4);
-        $out = '';
-        $cnt = strlen($str);
+        $V5aewge25emw = $Vztt3qdrrikx + (3 - ($Vztt3qdrrikx - 1) % 4);
+        $Vpu0eaxrabtr = '';
+        $Vrhfdosod533 = strlen($Vadkcwffkfxw);
 
-        for ($i = 0; $i < $cnt; $i++) {
-            $o = ord($str[$i]);
-            switch ($o) {
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vrhfdosod533; $V3xsptcgzss2++) {
+            $Vsz1vjk4tj2c = ord($Vadkcwffkfxw[$V3xsptcgzss2]);
+            switch ($Vsz1vjk4tj2c) {
                 case 0: # ESCAPE
-                    $i++;
-                    switch (ord($str[$i])) {
+                    $V3xsptcgzss2++;
+                    switch (ord($Vadkcwffkfxw[$V3xsptcgzss2])) {
                         case 0: # NEW LINE
-                            $padCnt = $lineWidth - strlen($out) % $lineWidth;
-                            if ($padCnt < $lineWidth) {
-                                $out .= str_repeat(chr(0), $padCnt); # pad line
+                            $Vvovolipqbje = $V5aewge25emw - strlen($Vpu0eaxrabtr) % $V5aewge25emw;
+                            if ($Vvovolipqbje < $V5aewge25emw) {
+                                $Vpu0eaxrabtr .= str_repeat(chr(0), $Vvovolipqbje); # pad line
                             }
                             break;
                         case 1: # END OF FILE
-                            $padCnt = $lineWidth - strlen($out) % $lineWidth;
-                            if ($padCnt < $lineWidth) {
-                                $out .= str_repeat(chr(0), $padCnt); # pad line
+                            $Vvovolipqbje = $V5aewge25emw - strlen($Vpu0eaxrabtr) % $V5aewge25emw;
+                            if ($Vvovolipqbje < $V5aewge25emw) {
+                                $Vpu0eaxrabtr .= str_repeat(chr(0), $Vvovolipqbje); # pad line
                             }
                             break 3;
                         case 2: # DELTA
-                            $i += 2;
+                            $V3xsptcgzss2 += 2;
                             break;
                         default: # ABSOLUTE MODE
-                            $num = ord($str[$i]);
-                            for ($j = 0; $j < $num; $j++) {
-                                $out .= $str[++$i];
+                            $Vxnixw2qni35 = ord($Vadkcwffkfxw[$V3xsptcgzss2]);
+                            for ($V0hg12l10vfx = 0; $V0hg12l10vfx < $Vxnixw2qni35; $V0hg12l10vfx++) {
+                                $Vpu0eaxrabtr .= $Vadkcwffkfxw[++$V3xsptcgzss2];
                             }
-                            if ($num % 2) {
-                                $i++;
+                            if ($Vxnixw2qni35 % 2) {
+                                $V3xsptcgzss2++;
                             }
                     }
                     break;
                 default:
-                    $out .= str_repeat($str[++$i], $o);
+                    $Vpu0eaxrabtr .= str_repeat($Vadkcwffkfxw[++$V3xsptcgzss2], $Vsz1vjk4tj2c);
             }
         }
-        return $out;
+        return $Vpu0eaxrabtr;
     }
 
-    /**
-     * Decoder for RLE4 compression in windows bitmaps
-     * see http://msdn.microsoft.com/library/default.asp?url=/library/en-us/gdi/bitmaps_6x0u.asp
-     *
-     * @param string $str Data to decode
-     * @param integer $width Image width
-     *
-     * @return string
-     */
-    public static function rle4_decode($str, $width)
+    
+    public static function rle4_decode($Vadkcwffkfxw, $Vztt3qdrrikx)
     {
-        $w = floor($width / 2) + ($width % 2);
-        $lineWidth = $w + (3 - (($width - 1) / 2) % 4);
-        $pixels = array();
-        $cnt = strlen($str);
-        $c = 0;
+        $Vhoifq2kocyt = floor($Vztt3qdrrikx / 2) + ($Vztt3qdrrikx % 2);
+        $V5aewge25emw = $Vhoifq2kocyt + (3 - (($Vztt3qdrrikx - 1) / 2) % 4);
+        $V4l4wtjpubho = array();
+        $Vrhfdosod533 = strlen($Vadkcwffkfxw);
+        $Vv03lfntnmcz = 0;
 
-        for ($i = 0; $i < $cnt; $i++) {
-            $o = ord($str[$i]);
-            switch ($o) {
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vrhfdosod533; $V3xsptcgzss2++) {
+            $Vsz1vjk4tj2c = ord($Vadkcwffkfxw[$V3xsptcgzss2]);
+            switch ($Vsz1vjk4tj2c) {
                 case 0: # ESCAPE
-                    $i++;
-                    switch (ord($str[$i])) {
+                    $V3xsptcgzss2++;
+                    switch (ord($Vadkcwffkfxw[$V3xsptcgzss2])) {
                         case 0: # NEW LINE
-                            while (count($pixels) % $lineWidth != 0) {
-                                $pixels[] = 0;
+                            while (count($V4l4wtjpubho) % $V5aewge25emw != 0) {
+                                $V4l4wtjpubho[] = 0;
                             }
                             break;
                         case 1: # END OF FILE
-                            while (count($pixels) % $lineWidth != 0) {
-                                $pixels[] = 0;
+                            while (count($V4l4wtjpubho) % $V5aewge25emw != 0) {
+                                $V4l4wtjpubho[] = 0;
                             }
                             break 3;
                         case 2: # DELTA
-                            $i += 2;
+                            $V3xsptcgzss2 += 2;
                             break;
                         default: # ABSOLUTE MODE
-                            $num = ord($str[$i]);
-                            for ($j = 0; $j < $num; $j++) {
-                                if ($j % 2 == 0) {
-                                    $c = ord($str[++$i]);
-                                    $pixels[] = ($c & 240) >> 4;
+                            $Vxnixw2qni35 = ord($Vadkcwffkfxw[$V3xsptcgzss2]);
+                            for ($V0hg12l10vfx = 0; $V0hg12l10vfx < $Vxnixw2qni35; $V0hg12l10vfx++) {
+                                if ($V0hg12l10vfx % 2 == 0) {
+                                    $Vv03lfntnmcz = ord($Vadkcwffkfxw[++$V3xsptcgzss2]);
+                                    $V4l4wtjpubho[] = ($Vv03lfntnmcz & 240) >> 4;
                                 } else {
-                                    $pixels[] = $c & 15;
+                                    $V4l4wtjpubho[] = $Vv03lfntnmcz & 15;
                                 }
                             }
 
-                            if ($num % 2 == 0) {
-                                $i++;
+                            if ($Vxnixw2qni35 % 2 == 0) {
+                                $V3xsptcgzss2++;
                             }
                     }
                     break;
                 default:
-                    $c = ord($str[++$i]);
-                    for ($j = 0; $j < $o; $j++) {
-                        $pixels[] = ($j % 2 == 0 ? ($c & 240) >> 4 : $c & 15);
+                    $Vv03lfntnmcz = ord($Vadkcwffkfxw[++$V3xsptcgzss2]);
+                    for ($V0hg12l10vfx = 0; $V0hg12l10vfx < $Vsz1vjk4tj2c; $V0hg12l10vfx++) {
+                        $V4l4wtjpubho[] = ($V0hg12l10vfx % 2 == 0 ? ($Vv03lfntnmcz & 240) >> 4 : $Vv03lfntnmcz & 15);
                     }
             }
         }
 
-        $out = '';
-        if (count($pixels) % 2) {
-            $pixels[] = 0;
+        $Vpu0eaxrabtr = '';
+        if (count($V4l4wtjpubho) % 2) {
+            $V4l4wtjpubho[] = 0;
         }
 
-        $cnt = count($pixels) / 2;
+        $Vrhfdosod533 = count($V4l4wtjpubho) / 2;
 
-        for ($i = 0; $i < $cnt; $i++) {
-            $out .= chr(16 * $pixels[2 * $i] + $pixels[2 * $i + 1]);
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vrhfdosod533; $V3xsptcgzss2++) {
+            $Vpu0eaxrabtr .= chr(16 * $V4l4wtjpubho[2 * $V3xsptcgzss2] + $V4l4wtjpubho[2 * $V3xsptcgzss2 + 1]);
         }
 
-        return $out;
+        return $Vpu0eaxrabtr;
     }
 
-    /**
-     * parse a full url or pathname and return an array(protocol, host, path,
-     * file + query + fragment)
-     *
-     * @param string $url
-     * @return array
-     */
-    public static function explode_url($url)
+    
+    public static function explode_url($Vsp0omgzz2yw)
     {
-        $protocol = "";
-        $host = "";
-        $path = "";
-        $file = "";
+        $V3i5fom43o3t = "";
+        $Vg5lte3qjxow = "";
+        $Vio2vixcckdr = "";
+        $Vtkhurg4sowd = "";
 
-        $arr = parse_url($url);
-        if ( isset($arr["scheme"]) ) {
-            $arr["scheme"] = mb_strtolower($arr["scheme"]);
+        $Vnr1h2vcbxvj = parse_url($Vsp0omgzz2yw);
+        if ( isset($Vnr1h2vcbxvj["scheme"]) ) {
+            $Vnr1h2vcbxvj["scheme"] = mb_strtolower($Vnr1h2vcbxvj["scheme"]);
         }
 
-        // Exclude windows drive letters...
-        if (isset($arr["scheme"]) && $arr["scheme"] !== "file" && strlen($arr["scheme"]) > 1) {
-            $protocol = $arr["scheme"] . "://";
+        
+        if (isset($Vnr1h2vcbxvj["scheme"]) && $Vnr1h2vcbxvj["scheme"] !== "file" && strlen($Vnr1h2vcbxvj["scheme"]) > 1) {
+            $V3i5fom43o3t = $Vnr1h2vcbxvj["scheme"] . "://";
 
-            if (isset($arr["user"])) {
-                $host .= $arr["user"];
+            if (isset($Vnr1h2vcbxvj["user"])) {
+                $Vg5lte3qjxow .= $Vnr1h2vcbxvj["user"];
 
-                if (isset($arr["pass"])) {
-                    $host .= ":" . $arr["pass"];
+                if (isset($Vnr1h2vcbxvj["pass"])) {
+                    $Vg5lte3qjxow .= ":" . $Vnr1h2vcbxvj["pass"];
                 }
 
-                $host .= "@";
+                $Vg5lte3qjxow .= "@";
             }
 
-            if (isset($arr["host"])) {
-                $host .= $arr["host"];
+            if (isset($Vnr1h2vcbxvj["host"])) {
+                $Vg5lte3qjxow .= $Vnr1h2vcbxvj["host"];
             }
 
-            if (isset($arr["port"])) {
-                $host .= ":" . $arr["port"];
+            if (isset($Vnr1h2vcbxvj["port"])) {
+                $Vg5lte3qjxow .= ":" . $Vnr1h2vcbxvj["port"];
             }
 
-            if (isset($arr["path"]) && $arr["path"] !== "") {
-                // Do we have a trailing slash?
-                if ($arr["path"][mb_strlen($arr["path"]) - 1] === "/") {
-                    $path = $arr["path"];
-                    $file = "";
+            if (isset($Vnr1h2vcbxvj["path"]) && $Vnr1h2vcbxvj["path"] !== "") {
+                
+                if ($Vnr1h2vcbxvj["path"][mb_strlen($Vnr1h2vcbxvj["path"]) - 1] === "/") {
+                    $Vio2vixcckdr = $Vnr1h2vcbxvj["path"];
+                    $Vtkhurg4sowd = "";
                 } else {
-                    $path = rtrim(dirname($arr["path"]), '/\\') . "/";
-                    $file = basename($arr["path"]);
+                    $Vio2vixcckdr = rtrim(dirname($Vnr1h2vcbxvj["path"]), '/\\') . "/";
+                    $Vtkhurg4sowd = basename($Vnr1h2vcbxvj["path"]);
                 }
             }
 
-            if (isset($arr["query"])) {
-                $file .= "?" . $arr["query"];
+            if (isset($Vnr1h2vcbxvj["query"])) {
+                $Vtkhurg4sowd .= "?" . $Vnr1h2vcbxvj["query"];
             }
 
-            if (isset($arr["fragment"])) {
-                $file .= "#" . $arr["fragment"];
+            if (isset($Vnr1h2vcbxvj["fragment"])) {
+                $Vtkhurg4sowd .= "#" . $Vnr1h2vcbxvj["fragment"];
             }
 
         } else {
 
-            $i = mb_stripos($url, "file://");
-            if ($i !== false) {
-                $url = mb_substr($url, $i + 7);
+            $V3xsptcgzss2 = mb_stripos($Vsp0omgzz2yw, "file://");
+            if ($V3xsptcgzss2 !== false) {
+                $Vsp0omgzz2yw = mb_substr($Vsp0omgzz2yw, $V3xsptcgzss2 + 7);
             }
 
-            $protocol = ""; // "file://"; ? why doesn't this work... It's because of
-            // network filenames like //COMPU/SHARENAME
+            $V3i5fom43o3t = ""; 
+            
 
-            $host = ""; // localhost, really
-            $file = basename($url);
+            $Vg5lte3qjxow = ""; 
+            $Vtkhurg4sowd = basename($Vsp0omgzz2yw);
 
-            $path = dirname($url);
+            $Vio2vixcckdr = dirname($Vsp0omgzz2yw);
 
-            // Check that the path exists
-            if ($path !== false) {
-                $path .= '/';
+            
+            if ($Vio2vixcckdr !== false) {
+                $Vio2vixcckdr .= '/';
 
             } else {
-                // generate a url to access the file if no real path found.
-                $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+                
+                $V3i5fom43o3t = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 
-                $host = isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : php_uname("n");
+                $Vg5lte3qjxow = isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : php_uname("n");
 
-                if (substr($arr["path"], 0, 1) === '/') {
-                    $path = dirname($arr["path"]);
+                if (substr($Vnr1h2vcbxvj["path"], 0, 1) === '/') {
+                    $Vio2vixcckdr = dirname($Vnr1h2vcbxvj["path"]);
                 } else {
-                    $path = '/' . rtrim(dirname($_SERVER["SCRIPT_NAME"]), '/') . '/' . $arr["path"];
+                    $Vio2vixcckdr = '/' . rtrim(dirname($_SERVER["SCRIPT_NAME"]), '/') . '/' . $Vnr1h2vcbxvj["path"];
                 }
             }
         }
 
-        $ret = array($protocol, $host, $path, $file,
-            "protocol" => $protocol,
-            "host" => $host,
-            "path" => $path,
-            "file" => $file);
-        return $ret;
+        $Vc00k54nbbvf = array($V3i5fom43o3t, $Vg5lte3qjxow, $Vio2vixcckdr, $Vtkhurg4sowd,
+            "protocol" => $V3i5fom43o3t,
+            "host" => $Vg5lte3qjxow,
+            "path" => $Vio2vixcckdr,
+            "file" => $Vtkhurg4sowd);
+        return $Vc00k54nbbvf;
     }
 
-    /**
-     * Print debug messages
-     *
-     * @param string $type The type of debug messages to print
-     * @param string $msg The message to show
-     */
-    public static function dompdf_debug($type, $msg)
+    
+    public static function dompdf_debug($Vxeifmjzikkj, $Vmgxrjtj0g2j)
     {
-        global $_DOMPDF_DEBUG_TYPES, $_dompdf_show_warnings, $_dompdf_debug;
-        if (isset($_DOMPDF_DEBUG_TYPES[$type]) && ($_dompdf_show_warnings || $_dompdf_debug)) {
-            $arr = debug_backtrace();
+        global $V2nakebusgxe, $Vect0zfyvf0c, $Vmbd53y4vbxc;
+        if (isset($V2nakebusgxe[$Vxeifmjzikkj]) && ($Vect0zfyvf0c || $Vmbd53y4vbxc)) {
+            $Vnr1h2vcbxvj = debug_backtrace();
 
-            echo basename($arr[0]["file"]) . " (" . $arr[0]["line"] . "): " . $arr[1]["function"] . ": ";
-            Helpers::pre_r($msg);
+            echo basename($Vnr1h2vcbxvj[0]["file"]) . " (" . $Vnr1h2vcbxvj[0]["line"] . "): " . $Vnr1h2vcbxvj[1]["function"] . ": ";
+            Helpers::pre_r($Vmgxrjtj0g2j);
         }
     }
 
-    /**
-     * Stores warnings in an array for display later
-     * This function allows warnings generated by the DomDocument parser
-     * and CSS loader ({@link Stylesheet}) to be captured and displayed
-     * later.  Without this function, errors are displayed immediately and
-     * PDF streaming is impossible.
-     * @see http://www.php.net/manual/en/function.set-error_handler.php
-     *
-     * @param int $errno
-     * @param string $errstr
-     * @param string $errfile
-     * @param string $errline
-     *
-     * @throws Exception
-     */
-    public static function record_warnings($errno, $errstr, $errfile, $errline)
+    
+    public static function record_warnings($Vvaa0q1sfn5f, $Vc05nx4aidck, $Vb4xxsjbg1i1, $Vhich3d2h0i1)
     {
-        // Not a warning or notice
-        if (!($errno & (E_WARNING | E_NOTICE | E_USER_NOTICE | E_USER_WARNING))) {
-            throw new Exception($errstr . " $errno");
+        
+        if (!($Vvaa0q1sfn5f & (E_WARNING | E_NOTICE | E_USER_NOTICE | E_USER_WARNING))) {
+            throw new Exception($Vc05nx4aidck . " $Vvaa0q1sfn5f");
         }
 
-        global $_dompdf_warnings;
-        global $_dompdf_show_warnings;
+        global $Vzm5jqiedkr4;
+        global $Vect0zfyvf0c;
 
-        if ($_dompdf_show_warnings) {
-            echo $errstr . "\n";
+        if ($Vect0zfyvf0c) {
+            echo $Vc05nx4aidck . "\n";
         }
 
-        $_dompdf_warnings[] = $errstr;
+        $Vzm5jqiedkr4[] = $Vc05nx4aidck;
     }
 
-    /**
-     * @param $c
-     * @return bool|string
-     */
-    public static function unichr($c)
+    
+    public static function unichr($Vv03lfntnmcz)
     {
-        if ($c <= 0x7F) {
-            return chr($c);
-        } else if ($c <= 0x7FF) {
-            return chr(0xC0 | $c >> 6) . chr(0x80 | $c & 0x3F);
-        } else if ($c <= 0xFFFF) {
-            return chr(0xE0 | $c >> 12) . chr(0x80 | $c >> 6 & 0x3F)
-            . chr(0x80 | $c & 0x3F);
-        } else if ($c <= 0x10FFFF) {
-            return chr(0xF0 | $c >> 18) . chr(0x80 | $c >> 12 & 0x3F)
-            . chr(0x80 | $c >> 6 & 0x3F)
-            . chr(0x80 | $c & 0x3F);
+        if ($Vv03lfntnmcz <= 0x7F) {
+            return chr($Vv03lfntnmcz);
+        } else if ($Vv03lfntnmcz <= 0x7FF) {
+            return chr(0xC0 | $Vv03lfntnmcz >> 6) . chr(0x80 | $Vv03lfntnmcz & 0x3F);
+        } else if ($Vv03lfntnmcz <= 0xFFFF) {
+            return chr(0xE0 | $Vv03lfntnmcz >> 12) . chr(0x80 | $Vv03lfntnmcz >> 6 & 0x3F)
+            . chr(0x80 | $Vv03lfntnmcz & 0x3F);
+        } else if ($Vv03lfntnmcz <= 0x10FFFF) {
+            return chr(0xF0 | $Vv03lfntnmcz >> 18) . chr(0x80 | $Vv03lfntnmcz >> 12 & 0x3F)
+            . chr(0x80 | $Vv03lfntnmcz >> 6 & 0x3F)
+            . chr(0x80 | $Vv03lfntnmcz & 0x3F);
         }
         return false;
     }
 
-    /**
-     * Converts a CMYK color to RGB
-     *
-     * @param float|float[] $c
-     * @param float $m
-     * @param float $y
-     * @param float $k
-     *
-     * @return float[]
-     */
-    public static function cmyk_to_rgb($c, $m = null, $y = null, $k = null)
+    
+    public static function cmyk_to_rgb($Vv03lfntnmcz, $V5wavc1ylt2i = null, $Vopgub02o3q2 = null, $Vgu5dsd35kdp = null)
     {
-        if (is_array($c)) {
-            list($c, $m, $y, $k) = $c;
+        if (is_array($Vv03lfntnmcz)) {
+            list($Vv03lfntnmcz, $V5wavc1ylt2i, $Vopgub02o3q2, $Vgu5dsd35kdp) = $Vv03lfntnmcz;
         }
 
-        $c *= 255;
-        $m *= 255;
-        $y *= 255;
-        $k *= 255;
+        $Vv03lfntnmcz *= 255;
+        $V5wavc1ylt2i *= 255;
+        $Vopgub02o3q2 *= 255;
+        $Vgu5dsd35kdp *= 255;
 
-        $r = (1 - round(2.55 * ($c + $k)));
-        $g = (1 - round(2.55 * ($m + $k)));
-        $b = (1 - round(2.55 * ($y + $k)));
+        $Vkabkv5ip0kg = (1 - round(2.55 * ($Vv03lfntnmcz + $Vgu5dsd35kdp)));
+        $Vg5wspvkpf2e = (1 - round(2.55 * ($V5wavc1ylt2i + $Vgu5dsd35kdp)));
+        $Vbz3vmbr1h2v = (1 - round(2.55 * ($Vopgub02o3q2 + $Vgu5dsd35kdp)));
 
-        if ($r < 0) {
-            $r = 0;
+        if ($Vkabkv5ip0kg < 0) {
+            $Vkabkv5ip0kg = 0;
         }
-        if ($g < 0) {
-            $g = 0;
+        if ($Vg5wspvkpf2e < 0) {
+            $Vg5wspvkpf2e = 0;
         }
-        if ($b < 0) {
-            $b = 0;
+        if ($Vbz3vmbr1h2v < 0) {
+            $Vbz3vmbr1h2v = 0;
         }
 
         return array(
-            $r, $g, $b,
-            "r" => $r, "g" => $g, "b" => $b
+            $Vkabkv5ip0kg, $Vg5wspvkpf2e, $Vbz3vmbr1h2v,
+            "r" => $Vkabkv5ip0kg, "g" => $Vg5wspvkpf2e, "b" => $Vbz3vmbr1h2v
         );
     }
 
-    /**
-     * getimagesize doesn't give a good size for 32bit BMP image v5
-     *
-     * @param string $filename
-     * @return array The same format as getimagesize($filename)
-     */
-    public static function dompdf_getimagesize($filename, $context = null)
+    
+    public static function dompdf_getimagesize($Vaqmmjdxljsi, $Vv03lfntnmczontext = null)
     {
-        static $cache = array();
+        static $Vv03lfntnmczache = array();
 
-        if (isset($cache[$filename])) {
-            return $cache[$filename];
+        if (isset($Vv03lfntnmczache[$Vaqmmjdxljsi])) {
+            return $Vv03lfntnmczache[$Vaqmmjdxljsi];
         }
 
-        list($width, $height, $type) = getimagesize($filename);
+        list($Vztt3qdrrikx, $Vku40chc0ddp, $Vxeifmjzikkj) = getimagesize($Vaqmmjdxljsi);
 
-        // Custom types
-        $types = array(
+        
+        $Vxeifmjzikkjs = array(
             IMAGETYPE_JPEG => "jpeg",
             IMAGETYPE_GIF  => "gif",
             IMAGETYPE_BMP  => "bmp",
             IMAGETYPE_PNG  => "png",
         );
 
-        $type = isset($types[$type]) ? $types[$type] : null;
+        $Vxeifmjzikkj = isset($Vxeifmjzikkjs[$Vxeifmjzikkj]) ? $Vxeifmjzikkjs[$Vxeifmjzikkj] : null;
 
-        if ($width == null || $height == null) {
-            list($data, $headers) = Helpers::getFileContent($filename, $context);
+        if ($Vztt3qdrrikx == null || $Vku40chc0ddp == null) {
+            list($Vb3z3shnu1vn, $Vebqaigzmksq) = Helpers::getFileContent($Vaqmmjdxljsi, $Vv03lfntnmczontext);
 
-            if (substr($data, 0, 2) === "BM") {
-                $meta = unpack('vtype/Vfilesize/Vreserved/Voffset/Vheadersize/Vwidth/Vheight', $data);
-                $width = (int)$meta['width'];
-                $height = (int)$meta['height'];
-                $type = "bmp";
+            if (substr($Vb3z3shnu1vn, 0, 2) === "BM") {
+                $V5wavc1ylt2ieta = unpack('vtype/Vfilesize/Vreserved/Voffset/Vheadersize/Vwidth/Vheight', $Vb3z3shnu1vn);
+                $Vztt3qdrrikx = (int)$V5wavc1ylt2ieta['width'];
+                $Vku40chc0ddp = (int)$V5wavc1ylt2ieta['height'];
+                $Vxeifmjzikkj = "bmp";
             }
             else {
-                if (strpos($data, "<svg") !== false) {
-                    $doc = new \Svg\Document();
-                    $doc->loadFile($filename);
+                if (strpos($Vb3z3shnu1vn, "<svg") !== false) {
+                    $V4qtyvi2vak4 = new \Svg\Document();
+                    $V4qtyvi2vak4->loadFile($Vaqmmjdxljsi);
 
-                    list($width, $height) = $doc->getDimensions();
-                    $type = "svg";
+                    list($Vztt3qdrrikx, $Vku40chc0ddp) = $V4qtyvi2vak4->getDimensions();
+                    $Vxeifmjzikkj = "svg";
                 }
             }
 
         }
 
-        return $cache[$filename] = array($width, $height, $type);
+        return $Vv03lfntnmczache[$Vaqmmjdxljsi] = array($Vztt3qdrrikx, $Vku40chc0ddp, $Vxeifmjzikkj);
     }
 
-    /**
-     * Credit goes to mgutt
-     * http://www.programmierer-forum.de/function-imagecreatefrombmp-welche-variante-laeuft-t143137.htm
-     * Modified by Fabien Menager to support RGB555 BMP format
-     */
-    public static function imagecreatefrombmp($filename, $context = null)
+    
+    public static function imagecreatefrombmp($Vaqmmjdxljsi, $Vv03lfntnmczontext = null)
     {
         if (!function_exists("imagecreatetruecolor")) {
             trigger_error("The PHP GD extension is required, but is not installed.", E_ERROR);
             return false;
         }
 
-        // version 1.00
-        if (!($fh = fopen($filename, 'rb'))) {
-            trigger_error('imagecreatefrombmp: Can not open ' . $filename, E_USER_WARNING);
+        
+        if (!($V23aw3elgvet = fopen($Vaqmmjdxljsi, 'rb'))) {
+            trigger_error('imagecreatefrombmp: Can not open ' . $Vaqmmjdxljsi, E_USER_WARNING);
             return false;
         }
 
-        $bytes_read = 0;
+        $Vbz3vmbr1h2vytes_read = 0;
 
-        // read file header
-        $meta = unpack('vtype/Vfilesize/Vreserved/Voffset', fread($fh, 14));
+        
+        $V5wavc1ylt2ieta = unpack('vtype/Vfilesize/Vreserved/Voffset', fread($V23aw3elgvet, 14));
 
-        // check for bitmap
-        if ($meta['type'] != 19778) {
-            trigger_error('imagecreatefrombmp: ' . $filename . ' is not a bitmap!', E_USER_WARNING);
+        
+        if ($V5wavc1ylt2ieta['type'] != 19778) {
+            trigger_error('imagecreatefrombmp: ' . $Vaqmmjdxljsi . ' is not a bitmap!', E_USER_WARNING);
             return false;
         }
 
-        // read image header
-        $meta += unpack('Vheadersize/Vwidth/Vheight/vplanes/vbits/Vcompression/Vimagesize/Vxres/Vyres/Vcolors/Vimportant', fread($fh, 40));
-        $bytes_read += 40;
+        
+        $V5wavc1ylt2ieta += unpack('Vheadersize/Vwidth/Vheight/vplanes/vbits/Vcompression/Vimagesize/Vxres/Vyres/Vcolors/Vimportant', fread($V23aw3elgvet, 40));
+        $Vbz3vmbr1h2vytes_read += 40;
 
-        // read additional bitfield header
-        if ($meta['compression'] == 3) {
-            $meta += unpack('VrMask/VgMask/VbMask', fread($fh, 12));
-            $bytes_read += 12;
+        
+        if ($V5wavc1ylt2ieta['compression'] == 3) {
+            $V5wavc1ylt2ieta += unpack('VrMask/VgMask/VbMask', fread($V23aw3elgvet, 12));
+            $Vbz3vmbr1h2vytes_read += 12;
         }
 
-        // set bytes and padding
-        $meta['bytes'] = $meta['bits'] / 8;
-        $meta['decal'] = 4 - (4 * (($meta['width'] * $meta['bytes'] / 4) - floor($meta['width'] * $meta['bytes'] / 4)));
-        if ($meta['decal'] == 4) {
-            $meta['decal'] = 0;
+        
+        $V5wavc1ylt2ieta['bytes'] = $V5wavc1ylt2ieta['bits'] / 8;
+        $V5wavc1ylt2ieta['decal'] = 4 - (4 * (($V5wavc1ylt2ieta['width'] * $V5wavc1ylt2ieta['bytes'] / 4) - floor($V5wavc1ylt2ieta['width'] * $V5wavc1ylt2ieta['bytes'] / 4)));
+        if ($V5wavc1ylt2ieta['decal'] == 4) {
+            $V5wavc1ylt2ieta['decal'] = 0;
         }
 
-        // obtain imagesize
-        if ($meta['imagesize'] < 1) {
-            $meta['imagesize'] = $meta['filesize'] - $meta['offset'];
-            // in rare cases filesize is equal to offset so we need to read physical size
-            if ($meta['imagesize'] < 1) {
-                $meta['imagesize'] = @filesize($filename) - $meta['offset'];
-                if ($meta['imagesize'] < 1) {
-                    trigger_error('imagecreatefrombmp: Can not obtain filesize of ' . $filename . '!', E_USER_WARNING);
+        
+        if ($V5wavc1ylt2ieta['imagesize'] < 1) {
+            $V5wavc1ylt2ieta['imagesize'] = $V5wavc1ylt2ieta['filesize'] - $V5wavc1ylt2ieta['offset'];
+            
+            if ($V5wavc1ylt2ieta['imagesize'] < 1) {
+                $V5wavc1ylt2ieta['imagesize'] = @filesize($Vaqmmjdxljsi) - $V5wavc1ylt2ieta['offset'];
+                if ($V5wavc1ylt2ieta['imagesize'] < 1) {
+                    trigger_error('imagecreatefrombmp: Can not obtain filesize of ' . $Vaqmmjdxljsi . '!', E_USER_WARNING);
                     return false;
                 }
             }
         }
 
-        // calculate colors
-        $meta['colors'] = !$meta['colors'] ? pow(2, $meta['bits']) : $meta['colors'];
+        
+        $V5wavc1ylt2ieta['colors'] = !$V5wavc1ylt2ieta['colors'] ? pow(2, $V5wavc1ylt2ieta['bits']) : $V5wavc1ylt2ieta['colors'];
 
-        // read color palette
-        $palette = array();
-        if ($meta['bits'] < 16) {
-            $palette = unpack('l' . $meta['colors'], fread($fh, $meta['colors'] * 4));
-            // in rare cases the color value is signed
-            if ($palette[1] < 0) {
-                foreach ($palette as $i => $color) {
-                    $palette[$i] = $color + 16777216;
+        
+        $Vdh1ynponut5 = array();
+        if ($V5wavc1ylt2ieta['bits'] < 16) {
+            $Vdh1ynponut5 = unpack('l' . $V5wavc1ylt2ieta['colors'], fread($V23aw3elgvet, $V5wavc1ylt2ieta['colors'] * 4));
+            
+            if ($Vdh1ynponut5[1] < 0) {
+                foreach ($Vdh1ynponut5 as $V3xsptcgzss2 => $Vv03lfntnmczolor) {
+                    $Vdh1ynponut5[$V3xsptcgzss2] = $Vv03lfntnmczolor + 16777216;
                 }
             }
         }
 
-        // ignore extra bitmap headers
-        if ($meta['headersize'] > $bytes_read) {
-            fread($fh, $meta['headersize'] - $bytes_read);
+        
+        if ($V5wavc1ylt2ieta['headersize'] > $Vbz3vmbr1h2vytes_read) {
+            fread($V23aw3elgvet, $V5wavc1ylt2ieta['headersize'] - $Vbz3vmbr1h2vytes_read);
         }
 
-        // create gd image
-        $im = imagecreatetruecolor($meta['width'], $meta['height']);
-        $data = fread($fh, $meta['imagesize']);
+        
+        $V3xsptcgzss2m = imagecreatetruecolor($V5wavc1ylt2ieta['width'], $V5wavc1ylt2ieta['height']);
+        $Vb3z3shnu1vn = fread($V23aw3elgvet, $V5wavc1ylt2ieta['imagesize']);
 
-        // uncompress data
-        switch ($meta['compression']) {
+        
+        switch ($V5wavc1ylt2ieta['compression']) {
             case 1:
-                $data = Helpers::rle8_decode($data, $meta['width']);
+                $Vb3z3shnu1vn = Helpers::rle8_decode($Vb3z3shnu1vn, $V5wavc1ylt2ieta['width']);
                 break;
             case 2:
-                $data = Helpers::rle4_decode($data, $meta['width']);
+                $Vb3z3shnu1vn = Helpers::rle4_decode($Vb3z3shnu1vn, $V5wavc1ylt2ieta['width']);
                 break;
         }
 
-        $p = 0;
-        $vide = chr(0);
-        $y = $meta['height'] - 1;
-        $error = 'imagecreatefrombmp: ' . $filename . ' has not enough data!';
+        $Vksopkgqixky = 0;
+        $Vd155fmh5hnd = chr(0);
+        $Vopgub02o3q2 = $V5wavc1ylt2ieta['height'] - 1;
+        $V4eft4yxa3zs = 'imagecreatefrombmp: ' . $Vaqmmjdxljsi . ' has not enough data!';
 
-        // loop through the image data beginning with the lower left corner
-        while ($y >= 0) {
-            $x = 0;
-            while ($x < $meta['width']) {
-                switch ($meta['bits']) {
+        
+        while ($Vopgub02o3q2 >= 0) {
+            $Vs4gloy23a1d = 0;
+            while ($Vs4gloy23a1d < $V5wavc1ylt2ieta['width']) {
+                switch ($V5wavc1ylt2ieta['bits']) {
                     case 32:
                     case 24:
-                        if (!($part = substr($data, $p, 3 /*$meta['bytes']*/))) {
-                            trigger_error($error, E_USER_WARNING);
-                            return $im;
+                        if (!($Vksopkgqixkyart = substr($Vb3z3shnu1vn, $Vksopkgqixky, 3 ))) {
+                            trigger_error($V4eft4yxa3zs, E_USER_WARNING);
+                            return $V3xsptcgzss2m;
                         }
-                        $color = unpack('V', $part . $vide);
+                        $Vv03lfntnmczolor = unpack('V', $Vksopkgqixkyart . $Vd155fmh5hnd);
                         break;
                     case 16:
-                        if (!($part = substr($data, $p, 2 /*$meta['bytes']*/))) {
-                            trigger_error($error, E_USER_WARNING);
-                            return $im;
+                        if (!($Vksopkgqixkyart = substr($Vb3z3shnu1vn, $Vksopkgqixky, 2 ))) {
+                            trigger_error($V4eft4yxa3zs, E_USER_WARNING);
+                            return $V3xsptcgzss2m;
                         }
-                        $color = unpack('v', $part);
+                        $Vv03lfntnmczolor = unpack('v', $Vksopkgqixkyart);
 
-                        if (empty($meta['rMask']) || $meta['rMask'] != 0xf800) {
-                            $color[1] = (($color[1] & 0x7c00) >> 7) * 65536 + (($color[1] & 0x03e0) >> 2) * 256 + (($color[1] & 0x001f) << 3); // 555
+                        if (empty($V5wavc1ylt2ieta['rMask']) || $V5wavc1ylt2ieta['rMask'] != 0xf800) {
+                            $Vv03lfntnmczolor[1] = (($Vv03lfntnmczolor[1] & 0x7c00) >> 7) * 65536 + (($Vv03lfntnmczolor[1] & 0x03e0) >> 2) * 256 + (($Vv03lfntnmczolor[1] & 0x001f) << 3); 
                         } else {
-                            $color[1] = (($color[1] & 0xf800) >> 8) * 65536 + (($color[1] & 0x07e0) >> 3) * 256 + (($color[1] & 0x001f) << 3); // 565
+                            $Vv03lfntnmczolor[1] = (($Vv03lfntnmczolor[1] & 0xf800) >> 8) * 65536 + (($Vv03lfntnmczolor[1] & 0x07e0) >> 3) * 256 + (($Vv03lfntnmczolor[1] & 0x001f) << 3); 
                         }
                         break;
                     case 8:
-                        $color = unpack('n', $vide . substr($data, $p, 1));
-                        $color[1] = $palette[$color[1] + 1];
+                        $Vv03lfntnmczolor = unpack('n', $Vd155fmh5hnd . substr($Vb3z3shnu1vn, $Vksopkgqixky, 1));
+                        $Vv03lfntnmczolor[1] = $Vdh1ynponut5[$Vv03lfntnmczolor[1] + 1];
                         break;
                     case 4:
-                        $color = unpack('n', $vide . substr($data, floor($p), 1));
-                        $color[1] = ($p * 2) % 2 == 0 ? $color[1] >> 4 : $color[1] & 0x0F;
-                        $color[1] = $palette[$color[1] + 1];
+                        $Vv03lfntnmczolor = unpack('n', $Vd155fmh5hnd . substr($Vb3z3shnu1vn, floor($Vksopkgqixky), 1));
+                        $Vv03lfntnmczolor[1] = ($Vksopkgqixky * 2) % 2 == 0 ? $Vv03lfntnmczolor[1] >> 4 : $Vv03lfntnmczolor[1] & 0x0F;
+                        $Vv03lfntnmczolor[1] = $Vdh1ynponut5[$Vv03lfntnmczolor[1] + 1];
                         break;
                     case 1:
-                        $color = unpack('n', $vide . substr($data, floor($p), 1));
-                        switch (($p * 8) % 8) {
+                        $Vv03lfntnmczolor = unpack('n', $Vd155fmh5hnd . substr($Vb3z3shnu1vn, floor($Vksopkgqixky), 1));
+                        switch (($Vksopkgqixky * 8) % 8) {
                             case 0:
-                                $color[1] = $color[1] >> 7;
+                                $Vv03lfntnmczolor[1] = $Vv03lfntnmczolor[1] >> 7;
                                 break;
                             case 1:
-                                $color[1] = ($color[1] & 0x40) >> 6;
+                                $Vv03lfntnmczolor[1] = ($Vv03lfntnmczolor[1] & 0x40) >> 6;
                                 break;
                             case 2:
-                                $color[1] = ($color[1] & 0x20) >> 5;
+                                $Vv03lfntnmczolor[1] = ($Vv03lfntnmczolor[1] & 0x20) >> 5;
                                 break;
                             case 3:
-                                $color[1] = ($color[1] & 0x10) >> 4;
+                                $Vv03lfntnmczolor[1] = ($Vv03lfntnmczolor[1] & 0x10) >> 4;
                                 break;
                             case 4:
-                                $color[1] = ($color[1] & 0x8) >> 3;
+                                $Vv03lfntnmczolor[1] = ($Vv03lfntnmczolor[1] & 0x8) >> 3;
                                 break;
                             case 5:
-                                $color[1] = ($color[1] & 0x4) >> 2;
+                                $Vv03lfntnmczolor[1] = ($Vv03lfntnmczolor[1] & 0x4) >> 2;
                                 break;
                             case 6:
-                                $color[1] = ($color[1] & 0x2) >> 1;
+                                $Vv03lfntnmczolor[1] = ($Vv03lfntnmczolor[1] & 0x2) >> 1;
                                 break;
                             case 7:
-                                $color[1] = ($color[1] & 0x1);
+                                $Vv03lfntnmczolor[1] = ($Vv03lfntnmczolor[1] & 0x1);
                                 break;
                         }
-                        $color[1] = $palette[$color[1] + 1];
+                        $Vv03lfntnmczolor[1] = $Vdh1ynponut5[$Vv03lfntnmczolor[1] + 1];
                         break;
                     default:
-                        trigger_error('imagecreatefrombmp: ' . $filename . ' has ' . $meta['bits'] . ' bits and this is not supported!', E_USER_WARNING);
+                        trigger_error('imagecreatefrombmp: ' . $Vaqmmjdxljsi . ' has ' . $V5wavc1ylt2ieta['bits'] . ' bits and this is not supported!', E_USER_WARNING);
                         return false;
                 }
-                imagesetpixel($im, $x, $y, $color[1]);
-                $x++;
-                $p += $meta['bytes'];
+                imagesetpixel($V3xsptcgzss2m, $Vs4gloy23a1d, $Vopgub02o3q2, $Vv03lfntnmczolor[1]);
+                $Vs4gloy23a1d++;
+                $Vksopkgqixky += $V5wavc1ylt2ieta['bytes'];
             }
-            $y--;
-            $p += $meta['decal'];
+            $Vopgub02o3q2--;
+            $Vksopkgqixky += $V5wavc1ylt2ieta['decal'];
         }
-        fclose($fh);
-        return $im;
+        fclose($V23aw3elgvet);
+        return $V3xsptcgzss2m;
     }
 
-    /**
-     * Gets the content of the file at the specified path using one of
-     * the following methods, in preferential order:
-     *  - file_get_contents: if allow_url_fopen is true or the file is local
-     *  - curl: if allow_url_fopen is false and curl is available
-     *
-     * @param string $uri
-     * @param resource $context (ignored if curl is used)
-     * @param int $offset
-     * @param int $maxlen (ignored if curl is used)
-     * @return bool|array
-     */
-    public static function getFileContent($uri, $context = null, $offset = 0, $maxlen = null)
+    
+    public static function getFileContent($Vqnvjr1nxmrx, $Vv03lfntnmczontext = null, $Vsz1vjk4tj2cffset = 0, $V5wavc1ylt2iaxlen = null)
     {
-        $result = false;
-        $headers = null;
-        list($proto, $host, $path, $file) = Helpers::explode_url($uri);
-        $is_local_path = ($proto == "" || $proto === "file://");
+        $Vxrvbhqnqlwj = false;
+        $Vebqaigzmksq = null;
+        list($Vksopkgqixkyroto, $Vg5lte3qjxow, $Vio2vixcckdr, $Vtkhurg4sowd) = Helpers::explode_url($Vqnvjr1nxmrx);
+        $V3xsptcgzss2s_local_path = ($Vksopkgqixkyroto == "" || $Vksopkgqixkyroto === "file://");
 
         set_error_handler(array("\\Dompdf\\Helpers", "record_warnings"));
 
-        if ($is_local_path || ini_get("allow_url_fopen")) {
-            if ($is_local_path === false) {
-                $uri = Helpers::encodeURI($uri);
+        if ($V3xsptcgzss2s_local_path || ini_get("allow_url_fopen")) {
+            if ($V3xsptcgzss2s_local_path === false) {
+                $Vqnvjr1nxmrx = Helpers::encodeURI($Vqnvjr1nxmrx);
             }
-            if (isset($maxlen)) {
-                $result = file_get_contents($uri, null, $context, $offset, $maxlen);
+            if (isset($V5wavc1ylt2iaxlen)) {
+                $Vxrvbhqnqlwj = file_get_contents($Vqnvjr1nxmrx, null, $Vv03lfntnmczontext, $Vsz1vjk4tj2cffset, $V5wavc1ylt2iaxlen);
             } else {
-                $result = file_get_contents($uri, null, $context, $offset);
+                $Vxrvbhqnqlwj = file_get_contents($Vqnvjr1nxmrx, null, $Vv03lfntnmczontext, $Vsz1vjk4tj2cffset);
             }
             if (isset($http_response_header)) {
-                $headers = $http_response_header;
+                $Vebqaigzmksq = $http_response_header;
             }
 
         } elseif (function_exists("curl_exec")) {
-            $curl = curl_init($uri);
+            $Vv03lfntnmczurl = curl_init($Vqnvjr1nxmrx);
 
-            //TODO: use $context to define additional curl options
-            curl_setopt($curl, CURLOPT_TIMEOUT, 10);
-            curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_HEADER, true);
-            if ($offset > 0) {
-                curl_setopt($curl, CURLOPT_RESUME_FROM, $offset);
+            
+            curl_setopt($Vv03lfntnmczurl, CURLOPT_TIMEOUT, 10);
+            curl_setopt($Vv03lfntnmczurl, CURLOPT_CONNECTTIMEOUT, 10);
+            curl_setopt($Vv03lfntnmczurl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($Vv03lfntnmczurl, CURLOPT_HEADER, true);
+            if ($Vsz1vjk4tj2cffset > 0) {
+                curl_setopt($Vv03lfntnmczurl, CURLOPT_RESUME_FROM, $Vsz1vjk4tj2cffset);
             }
 
-            $data = curl_exec($curl);
-            $raw_headers = substr($data, 0, curl_getinfo($curl, CURLINFO_HEADER_SIZE));
-            $headers = preg_split("/[\n\r]+/", trim($raw_headers));
-            $result = substr($data, curl_getinfo($curl, CURLINFO_HEADER_SIZE));
-            curl_close($curl);
+            $Vb3z3shnu1vn = curl_exec($Vv03lfntnmczurl);
+            $Vkabkv5ip0kgaw_headers = substr($Vb3z3shnu1vn, 0, curl_getinfo($Vv03lfntnmczurl, CURLINFO_HEADER_SIZE));
+            $Vebqaigzmksq = preg_split("/[\n\r]+/", trim($Vkabkv5ip0kgaw_headers));
+            $Vxrvbhqnqlwj = substr($Vb3z3shnu1vn, curl_getinfo($Vv03lfntnmczurl, CURLINFO_HEADER_SIZE));
+            curl_close($Vv03lfntnmczurl);
         }
 
         restore_error_handler();
 
-        return array($result, $headers);
+        return array($Vxrvbhqnqlwj, $Vebqaigzmksq);
     }
 
-    public static function mb_ucwords($str) {
-        $max_len = mb_strlen($str);
-        if ($max_len === 1) {
-            return mb_strtoupper($str);
+    public static function mb_ucwords($Vadkcwffkfxw) {
+        $V5wavc1ylt2iax_len = mb_strlen($Vadkcwffkfxw);
+        if ($V5wavc1ylt2iax_len === 1) {
+            return mb_strtoupper($Vadkcwffkfxw);
         }
 
-        $str = mb_strtoupper(mb_substr($str, 0, 1)) . mb_substr($str, 1);
+        $Vadkcwffkfxw = mb_strtoupper(mb_substr($Vadkcwffkfxw, 0, 1)) . mb_substr($Vadkcwffkfxw, 1);
 
-        foreach (array(' ', '.', ',', '!', '?', '-', '+') as $s) {
-            $pos = 0;
-            while (($pos = mb_strpos($str, $s, $pos)) !== false) {
-                $pos++;
-                // Nothing to do if the separator is the last char of the string
-                if ($pos !== false && $pos < $max_len) {
-                    // If the char we want to upper is the last char there is nothing to append behind
-                    if ($pos + 1 < $max_len) {
-                        $str = mb_substr($str, 0, $pos) . mb_strtoupper(mb_substr($str, $pos, 1)) . mb_substr($str, $pos + 1);
+        foreach (array(' ', '.', ',', '!', '?', '-', '+') as $Vujweq34gtl3) {
+            $Vksopkgqixkyos = 0;
+            while (($Vksopkgqixkyos = mb_strpos($Vadkcwffkfxw, $Vujweq34gtl3, $Vksopkgqixkyos)) !== false) {
+                $Vksopkgqixkyos++;
+                
+                if ($Vksopkgqixkyos !== false && $Vksopkgqixkyos < $V5wavc1ylt2iax_len) {
+                    
+                    if ($Vksopkgqixkyos + 1 < $V5wavc1ylt2iax_len) {
+                        $Vadkcwffkfxw = mb_substr($Vadkcwffkfxw, 0, $Vksopkgqixkyos) . mb_strtoupper(mb_substr($Vadkcwffkfxw, $Vksopkgqixkyos, 1)) . mb_substr($Vadkcwffkfxw, $Vksopkgqixkyos + 1);
                     } else {
-                        $str = mb_substr($str, 0, $pos) . mb_strtoupper(mb_substr($str, $pos, 1));
+                        $Vadkcwffkfxw = mb_substr($Vadkcwffkfxw, 0, $Vksopkgqixkyos) . mb_strtoupper(mb_substr($Vadkcwffkfxw, $Vksopkgqixkyos, 1));
                     }
                 }
             }
         }
 
-        return $str;
+        return $Vadkcwffkfxw;
     }
 }

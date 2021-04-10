@@ -7,10 +7,11 @@ $host = DB_SERVER;
 $username = DB_USER;
 $password = DB_PASSWORD;
 $dbname = DB_NAME;
+$port_number = 3306;
 
 try{
 
-	$db = new PDO("mysql:host=localhost;dbname=$dbname", "$username", "$password");
+	$db = new PDO("mysql:host=localhost;port=".$port_number.";dbname=$dbname", "$username", "$password");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 }

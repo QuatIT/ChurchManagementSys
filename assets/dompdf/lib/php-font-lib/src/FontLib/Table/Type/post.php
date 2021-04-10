@@ -1,22 +1,13 @@
 <?php
-/**
- * @package php-font-lib
- * @link    https://github.com/PhenX/php-font-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace FontLib\Table\Type;
 use FontLib\Table\Table;
 use FontLib\TrueType\File;
 
-/**
- * `post` font table.
- *
- * @package php-font-lib
- */
+
 class post extends Table {
-  protected $def = array(
+  protected $Vfztuniizpxp = array(
     "format"             => self::Fixed,
     "italicAngle"        => self::Fixed,
     "underlinePosition"  => self::FWord,
@@ -29,113 +20,66 @@ class post extends Table {
   );
 
   protected function _parse() {
-    $font = $this->getFont();
-    $data = $font->unpack($this->def);
+    $V3h4z3hxorxj = $this->getFont();
+    $Vb3z3shnu1vn = $V3h4z3hxorxj->unpack($this->def);
 
-    $names = array();
+    $Vxqsydi5pak0 = array();
 
-    switch ($data["format"]) {
+    switch ($Vb3z3shnu1vn["format"]) {
       case 1:
-        $names = File::$macCharNames;
+        $Vxqsydi5pak0 = File::$Vr5spanzdhzp;
         break;
 
       case 2:
-        $data["numberOfGlyphs"] = $font->readUInt16();
+        $Vb3z3shnu1vn["numberOfGlyphs"] = $V3h4z3hxorxj->readUInt16();
 
-        $glyphNameIndex = $font->readUInt16Many($data["numberOfGlyphs"]);
+        $V3aip3thgdrv = $V3h4z3hxorxj->readUInt16Many($Vb3z3shnu1vn["numberOfGlyphs"]);
 
-        $data["glyphNameIndex"] = $glyphNameIndex;
+        $Vb3z3shnu1vn["glyphNameIndex"] = $V3aip3thgdrv;
 
-        $namesPascal = array();
-        for ($i = 0; $i < $data["numberOfGlyphs"]; $i++) {
-          $len           = $font->readUInt8();
-          $namesPascal[] = $font->read($len);
+        $Vxqsydi5pak0Pascal = array();
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vb3z3shnu1vn["numberOfGlyphs"]; $V3xsptcgzss2++) {
+          $V1st2w4mm2ug           = $V3h4z3hxorxj->readUInt8();
+          $Vxqsydi5pak0Pascal[] = $V3h4z3hxorxj->read($V1st2w4mm2ug);
         }
 
-        foreach ($glyphNameIndex as $g => $index) {
-          if ($index < 258) {
-            $names[$g] = File::$macCharNames[$index];
+        foreach ($V3aip3thgdrv as $Vg5wspvkpf2e => $V3xsptcgzss2ndex) {
+          if ($V3xsptcgzss2ndex < 258) {
+            $Vxqsydi5pak0[$Vg5wspvkpf2e] = File::$Vr5spanzdhzp[$V3xsptcgzss2ndex];
           }
           else {
-            $names[$g] = $namesPascal[$index - 258];
+            $Vxqsydi5pak0[$Vg5wspvkpf2e] = $Vxqsydi5pak0Pascal[$V3xsptcgzss2ndex - 258];
           }
         }
 
         break;
 
       case 2.5:
-        // TODO
+        
         break;
 
       case 3:
-        // nothing
+        
         break;
 
       case 4:
-        // TODO
+        
         break;
     }
 
-    $data["names"] = $names;
+    $Vb3z3shnu1vn["names"] = $Vxqsydi5pak0;
 
-    $this->data = $data;
+    $this->data = $Vb3z3shnu1vn;
   }
 
   function _encode() {
-    $font           = $this->getFont();
-    $data           = $this->data;
-    $data["format"] = 3;
+    $V3h4z3hxorxj           = $this->getFont();
+    $Vb3z3shnu1vn           = $this->data;
+    $Vb3z3shnu1vn["format"] = 3;
 
-    $length = $font->pack($this->def, $data);
+    $V1st2w4mm2uggth = $V3h4z3hxorxj->pack($this->def, $Vb3z3shnu1vn);
 
-    return $length;
-    /*
-    $subset = $font->getSubset();
-
-    switch($data["format"]) {
-      case 1:
-        // nothing to do
-      break;
-
-      case 2:
-        $old_names = $data["names"];
-
-        $glyphNameIndex = range(0, count($subset));
-
-        $names = array();
-        foreach($subset as $gid) {
-          $names[] = $data["names"][$data["glyphNameIndex"][$gid]];
-        }
-
-        $numberOfGlyphs = count($names);
-        $length += $font->writeUInt16($numberOfGlyphs);
-
-        foreach($glyphNameIndex as $gni) {
-          $length += $font->writeUInt16($gni);
-        }
-
-        //$names = array_slice($names, 257);
-        foreach($names as $name) {
-          $len = strlen($name);
-          $length += $font->writeUInt8($len);
-          $length += $font->write($name, $len);
-        }
-
-      break;
-
-      case 2.5:
-        // TODO
-      break;
-
-      case 3:
-        // nothing
-      break;
-
-      case 4:
-        // TODO
-      break;
-    }
-
-    return $length;*/
+    return $V1st2w4mm2uggth;
+    
   }
 }

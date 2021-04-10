@@ -6,9 +6,7 @@ use FontLib\Font;
 
 class FontTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @expectedException \Fontlib\Exception\FontNotFoundException
-     */
+    
     public function testLoadFileNotFound()
     {
         Font::load('non-existing/font.ttf');
@@ -16,33 +14,33 @@ class FontTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadTTFFontSuccessfully()
     {
-        $trueTypeFont = Font::load('sample-fonts/IntelClear-Light.ttf');
+        $Vpo2nfuz0suo = Font::load('sample-fonts/IntelClear-Light.ttf');
 
-        $this->assertInstanceOf('FontLib\TrueType\File', $trueTypeFont);
+        $this->assertInstanceOf('FontLib\TrueType\File', $Vpo2nfuz0suo);
     }
 
     public function test12CmapFormat()
     {
-        $trueTypeFont = Font::load('sample-fonts/NotoSansShavian-Regular.ttf');
+        $Vpo2nfuz0suo = Font::load('sample-fonts/NotoSansShavian-Regular.ttf');
 
-        $trueTypeFont->parse();
+        $Vpo2nfuz0suo->parse();
 
-        $cmapTable = $trueTypeFont->getData("cmap", "subtables");
+        $Vhh1bww3ynlj = $Vpo2nfuz0suo->getData("cmap", "subtables");
 
-        $cmapFormat4Table = $cmapTable[0];
+        $Vbrwitnyhbw3 = $Vhh1bww3ynlj[0];
 
-        $this->assertEquals(4, $cmapFormat4Table['format']);
-        $this->assertEquals(6, $cmapFormat4Table['segCount']);
-        $this->assertEquals($cmapFormat4Table['segCount'], count($cmapFormat4Table['startCode']));
-        $this->assertEquals($cmapFormat4Table['segCount'], count($cmapFormat4Table['endCode']));
+        $this->assertEquals(4, $Vbrwitnyhbw3['format']);
+        $this->assertEquals(6, $Vbrwitnyhbw3['segCount']);
+        $this->assertEquals($Vbrwitnyhbw3['segCount'], count($Vbrwitnyhbw3['startCode']));
+        $this->assertEquals($Vbrwitnyhbw3['segCount'], count($Vbrwitnyhbw3['endCode']));
 
-        $cmapFormat12Table = $cmapTable[1];
+        $Vq3vaqifikau = $Vhh1bww3ynlj[1];
 
-        $this->assertEquals(12, $cmapFormat12Table['format']);
-        $this->assertEquals(6, $cmapFormat12Table['ngroups']);
-        $this->assertEquals(6, count($cmapFormat12Table['startCode']));
-        $this->assertEquals(6, count($cmapFormat12Table['endCode']));
-        $this->assertEquals(53, count($cmapFormat12Table['glyphIndexArray']));
+        $this->assertEquals(12, $Vq3vaqifikau['format']);
+        $this->assertEquals(6, $Vq3vaqifikau['ngroups']);
+        $this->assertEquals(6, count($Vq3vaqifikau['startCode']));
+        $this->assertEquals(6, count($Vq3vaqifikau['endCode']));
+        $this->assertEquals(53, count($Vq3vaqifikau['glyphIndexArray']));
     }
 
 }

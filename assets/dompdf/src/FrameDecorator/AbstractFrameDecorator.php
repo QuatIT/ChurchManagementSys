@@ -15,104 +15,54 @@ use Dompdf\Css\Style;
 use Dompdf\Positioner\AbstractPositioner;
 use Dompdf\Exception;
 
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
 
-/**
- * Base AbstractFrameDecorator class
- *
- * @package dompdf
- */
+
+
 abstract class AbstractFrameDecorator extends Frame
 {
     const DEFAULT_COUNTER = "-dompdf-default-counter";
 
-    public $_counters = array(); // array([id] => counter_value) (for generated content)
+    public $V4mnmoxszifc = array(); 
 
-    /**
-     * The root node of the DOM tree
-     *
-     * @var Frame
-     */
-    protected $_root;
+    
+    protected $Vnjwlrkwnjsn;
 
-    /**
-     * The decorated frame
-     *
-     * @var Frame
-     */
-    protected $_frame;
+    
+    protected $Vtabfexfghu0;
 
-    /**
-     * AbstractPositioner object used to position this frame (Strategy pattern)
-     *
-     * @var AbstractPositioner
-     */
-    protected $_positioner;
+    
+    protected $Vi23oywkj4ma;
 
-    /**
-     * Reflower object used to calculate frame dimensions (Strategy pattern)
-     *
-     * @var \Dompdf\FrameReflower\AbstractFrameReflower
-     */
-    protected $_reflower;
+    
+    protected $V0pzclzyr2hm;
 
-    /**
-     * Reference to the current dompdf instance
-     *
-     * @var Dompdf
-     */
-    protected $_dompdf;
+    
+    protected $V3mbiykvshg0;
 
-    /**
-     * First block parent
-     *
-     * @var Block
-     */
-    private $_block_parent;
+    
+    private $V5zqjd5hivpj;
 
-    /**
-     * First positionned parent (position: relative | absolute | fixed)
-     *
-     * @var AbstractFrameDecorator
-     */
-    private $_positionned_parent;
+    
+    private $Vro4gbdxprck;
 
-    /**
-     * Cache for the get_parent wehile loop results
-     *
-     * @var Frame
-     */
-    private $_cached_parent;
+    
+    private $Vayvai2mepbp;
 
-    /**
-     * Class constructor
-     *
-     * @param Frame $frame   The decoration target
-     * @param Dompdf $dompdf The Dompdf object
-     */
-    function __construct(Frame $frame, Dompdf $dompdf)
+    
+    function __construct(Frame $Vnk2ly5jcvjf, Dompdf $Vhvghaoacagz)
     {
-        $this->_frame = $frame;
+        $this->_frame = $Vnk2ly5jcvjf;
         $this->_root = null;
-        $this->_dompdf = $dompdf;
-        $frame->set_decorator($this);
+        $this->_dompdf = $Vhvghaoacagz;
+        $Vnk2ly5jcvjf->set_decorator($this);
     }
 
-    /**
-     * "Destructor": foribly free all references held by this object
-     *
-     * @param bool $recursive if true, call dispose on all children
-     */
-    function dispose($recursive = false)
+    
+    function dispose($V2snefhk4mtq = false)
     {
-        if ($recursive) {
-            while ($child = $this->get_first_child()) {
-                $child->dispose(true);
+        if ($V2snefhk4mtq) {
+            while ($Vtcc233inn5m = $this->get_first_child()) {
+                $Vtcc233inn5m->dispose(true);
             }
         }
 
@@ -130,783 +80,638 @@ abstract class AbstractFrameDecorator extends Frame
         unset($this->_reflower);
     }
 
-    /**
-     * Return a copy of this frame with $node as its node
-     *
-     * @param DOMNode $node
-     *
-     * @return Frame
-     */
-    function copy(DOMNode $node)
+    
+    function copy(DOMNode $Vbr2bywdrplx)
     {
-        $frame = new Frame($node);
-        $frame->set_style(clone $this->_frame->get_original_style());
+        $Vnk2ly5jcvjf = new Frame($Vbr2bywdrplx);
+        $Vnk2ly5jcvjf->set_style(clone $this->_frame->get_original_style());
 
-        return Factory::decorate_frame($frame, $this->_dompdf, $this->_root);
+        return Factory::decorate_frame($Vnk2ly5jcvjf, $this->_dompdf, $this->_root);
     }
 
-    /**
-     * Create a deep copy: copy this node and all children
-     *
-     * @return Frame
-     */
+    
     function deep_copy()
     {
-        $node = $this->_frame->get_node();
+        $Vbr2bywdrplx = $this->_frame->get_node();
 
-        if ($node instanceof DOMElement && $node->hasAttribute("id")) {
-            $node->setAttribute("data-dompdf-original-id", $node->getAttribute("id"));
-            $node->removeAttribute("id");
+        if ($Vbr2bywdrplx instanceof DOMElement && $Vbr2bywdrplx->hasAttribute("id")) {
+            $Vbr2bywdrplx->setAttribute("data-dompdf-original-id", $Vbr2bywdrplx->getAttribute("id"));
+            $Vbr2bywdrplx->removeAttribute("id");
         }
 
-        $frame = new Frame($node->cloneNode());
-        $frame->set_style(clone $this->_frame->get_original_style());
+        $Vnk2ly5jcvjf = new Frame($Vbr2bywdrplx->cloneNode());
+        $Vnk2ly5jcvjf->set_style(clone $this->_frame->get_original_style());
 
-        $deco = Factory::decorate_frame($frame, $this->_dompdf, $this->_root);
+        $V134ns25tz1t = Factory::decorate_frame($Vnk2ly5jcvjf, $this->_dompdf, $this->_root);
 
-        foreach ($this->get_children() as $child) {
-            $deco->append_child($child->deep_copy());
+        foreach ($this->get_children() as $Vtcc233inn5m) {
+            $V134ns25tz1t->append_child($Vtcc233inn5m->deep_copy());
         }
 
-        return $deco;
+        return $V134ns25tz1t;
     }
 
-    /**
-     * Delegate calls to decorated frame object
-     */
+    
     function reset()
     {
         $this->_frame->reset();
 
         $this->_counters = array();
 
-        $this->_cached_parent = null; //clear get_parent() cache
+        $this->_cached_parent = null; 
 
-        // Reset all children
-        foreach ($this->get_children() as $child) {
-            $child->reset();
+        
+        foreach ($this->get_children() as $Vtcc233inn5m) {
+            $Vtcc233inn5m->reset();
         }
     }
 
-    // Getters -----------
+    
 
-    /**
-     * @return string
-     */
+    
     function get_id()
     {
         return $this->_frame->get_id();
     }
 
-    /**
-     * @return Frame
-     */
+    
     function get_frame()
     {
         return $this->_frame;
     }
 
-    /**
-     * @return DOMElement|DOMText
-     */
+    
     function get_node()
     {
         return $this->_frame->get_node();
     }
 
-    /**
-     * @return Style
-     */
+    
     function get_style()
     {
         return $this->_frame->get_style();
     }
 
-    /**
-     * @return Style
-     */
+    
     function get_original_style()
     {
         return $this->_frame->get_original_style();
     }
 
-    /**
-     * @param integer $i
-     *
-     * @return array|float
-     */
-    function get_containing_block($i = null)
+    
+    function get_containing_block($V3xsptcgzss2 = null)
     {
-        return $this->_frame->get_containing_block($i);
+        return $this->_frame->get_containing_block($V3xsptcgzss2);
     }
 
-    /**
-     * @param integer $i
-     *
-     * @return array|float
-     */
-    function get_position($i = null)
+    
+    function get_position($V3xsptcgzss2 = null)
     {
-        return $this->_frame->get_position($i);
+        return $this->_frame->get_position($V3xsptcgzss2);
     }
 
-    /**
-     * @return Dompdf
-     */
+    
     function get_dompdf()
     {
         return $this->_dompdf;
     }
 
-    /**
-     * @return float
-     */
+    
     function get_margin_height()
     {
         return $this->_frame->get_margin_height();
     }
 
-    /**
-     * @return float
-     */
+    
     function get_margin_width()
     {
         return $this->_frame->get_margin_width();
     }
 
-    /**
-     * @return array
-     */
+    
     function get_content_box()
     {
         return $this->_frame->get_content_box();
     }
 
-    /**
-     * @return array
-     */
+    
     function get_padding_box()
     {
         return $this->_frame->get_padding_box();
     }
 
-    /**
-     * @return array
-     */
+    
     function get_border_box()
     {
         return $this->_frame->get_border_box();
     }
 
-    /**
-     * @param integer $id
-     */
-    function set_id($id)
+    
+    function set_id($V3xsptcgzss2d)
     {
-        $this->_frame->set_id($id);
+        $this->_frame->set_id($V3xsptcgzss2d);
     }
 
-    /**
-     * @param Style $style
-     */
-    function set_style(Style $style)
+    
+    function set_style(Style $Vdidzwb0w3vc)
     {
-        $this->_frame->set_style($style);
+        $this->_frame->set_style($Vdidzwb0w3vc);
     }
 
-    /**
-     * @param float $x
-     * @param float $y
-     * @param float $w
-     * @param float $h
-     */
-    function set_containing_block($x = null, $y = null, $w = null, $h = null)
+    
+    function set_containing_block($Vs4gloy23a1d = null, $Vopgub02o3q2 = null, $Vhoifq2kocyt = null, $Vjlmjalejjxa = null)
     {
-        $this->_frame->set_containing_block($x, $y, $w, $h);
+        $this->_frame->set_containing_block($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa);
     }
 
-    /**
-     * @param float $x
-     * @param float $y
-     */
-    function set_position($x = null, $y = null)
+    
+    function set_position($Vs4gloy23a1d = null, $Vopgub02o3q2 = null)
     {
-        $this->_frame->set_position($x, $y);
+        $this->_frame->set_position($Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    /**
-     * @return bool
-     */
+    
     function is_auto_height()
     {
         return $this->_frame->is_auto_height();
     }
 
-    /**
-     * @return bool
-     */
+    
     function is_auto_width()
     {
         return $this->_frame->is_auto_width();
     }
 
-    /**
-     * @return string
-     */
+    
     function __toString()
     {
         return $this->_frame->__toString();
     }
 
-    /**
-     * @param Frame $child
-     * @param bool $update_node
-     */
-    function prepend_child(Frame $child, $update_node = true)
+    
+    function prepend_child(Frame $Vtcc233inn5m, $Vs0pda3r3hsl = true)
     {
-        while ($child instanceof AbstractFrameDecorator) {
-            $child = $child->_frame;
+        while ($Vtcc233inn5m instanceof AbstractFrameDecorator) {
+            $Vtcc233inn5m = $Vtcc233inn5m->_frame;
         }
 
-        $this->_frame->prepend_child($child, $update_node);
+        $this->_frame->prepend_child($Vtcc233inn5m, $Vs0pda3r3hsl);
     }
 
-    /**
-     * @param Frame $child
-     * @param bool $update_node
-     */
-    function append_child(Frame $child, $update_node = true)
+    
+    function append_child(Frame $Vtcc233inn5m, $Vs0pda3r3hsl = true)
     {
-        while ($child instanceof AbstractFrameDecorator) {
-            $child = $child->_frame;
+        while ($Vtcc233inn5m instanceof AbstractFrameDecorator) {
+            $Vtcc233inn5m = $Vtcc233inn5m->_frame;
         }
 
-        $this->_frame->append_child($child, $update_node);
+        $this->_frame->append_child($Vtcc233inn5m, $Vs0pda3r3hsl);
     }
 
-    /**
-     * @param Frame $new_child
-     * @param Frame $ref
-     * @param bool $update_node
-     */
-    function insert_child_before(Frame $new_child, Frame $ref, $update_node = true)
+    
+    function insert_child_before(Frame $Vtoj55lv2rsr, Frame $Vvaic4pvtywk, $Vs0pda3r3hsl = true)
     {
-        while ($new_child instanceof AbstractFrameDecorator) {
-            $new_child = $new_child->_frame;
+        while ($Vtoj55lv2rsr instanceof AbstractFrameDecorator) {
+            $Vtoj55lv2rsr = $Vtoj55lv2rsr->_frame;
         }
 
-        if ($ref instanceof AbstractFrameDecorator) {
-            $ref = $ref->_frame;
+        if ($Vvaic4pvtywk instanceof AbstractFrameDecorator) {
+            $Vvaic4pvtywk = $Vvaic4pvtywk->_frame;
         }
 
-        $this->_frame->insert_child_before($new_child, $ref, $update_node);
+        $this->_frame->insert_child_before($Vtoj55lv2rsr, $Vvaic4pvtywk, $Vs0pda3r3hsl);
     }
 
-    /**
-     * @param Frame $new_child
-     * @param Frame $ref
-     * @param bool $update_node
-     */
-    function insert_child_after(Frame $new_child, Frame $ref, $update_node = true)
+    
+    function insert_child_after(Frame $Vtoj55lv2rsr, Frame $Vvaic4pvtywk, $Vs0pda3r3hsl = true)
     {
-        $insert_frame = $new_child;
-        while ($insert_frame instanceof AbstractFrameDecorator) {
-            $insert_frame = $insert_frame->_frame;
+        $V3xsptcgzss2nsert_frame = $Vtoj55lv2rsr;
+        while ($V3xsptcgzss2nsert_frame instanceof AbstractFrameDecorator) {
+            $V3xsptcgzss2nsert_frame = $V3xsptcgzss2nsert_frame->_frame;
         }
 
-        $reference_frame = $ref;
-        while ($reference_frame instanceof AbstractFrameDecorator) {
-            $reference_frame = $reference_frame->_frame;
+        $Vvaic4pvtywkerence_frame = $Vvaic4pvtywk;
+        while ($Vvaic4pvtywkerence_frame instanceof AbstractFrameDecorator) {
+            $Vvaic4pvtywkerence_frame = $Vvaic4pvtywkerence_frame->_frame;
         }
 
-        $this->_frame->insert_child_after($insert_frame, $reference_frame, $update_node);
+        $this->_frame->insert_child_after($V3xsptcgzss2nsert_frame, $Vvaic4pvtywkerence_frame, $Vs0pda3r3hsl);
     }
 
-    /**
-     * @param Frame $child
-     * @param bool $update_node
-     *
-     * @return Frame
-     */
-    function remove_child(Frame $child, $update_node = true)
+    
+    function remove_child(Frame $Vtcc233inn5m, $Vs0pda3r3hsl = true)
     {
-        while ($child instanceof AbstractFrameDecorator) {
-            $child = $child->_frame;
+        while ($Vtcc233inn5m instanceof AbstractFrameDecorator) {
+            $Vtcc233inn5m = $Vtcc233inn5m->_frame;
         }
 
-        return $this->_frame->remove_child($child, $update_node);
+        return $this->_frame->remove_child($Vtcc233inn5m, $Vs0pda3r3hsl);
     }
 
-    /**
-     * @return AbstractFrameDecorator
-     */
-    function get_parent($use_cache = true)
+    
+    function get_parent($Vs41xhcqpk3a = true)
     {
-        if ($use_cache && $this->_cached_parent) {
+        if ($Vs41xhcqpk3a && $this->_cached_parent) {
             return $this->_cached_parent;
         }
-        $p = $this->_frame->get_parent();
-        if ($p && $deco = $p->get_decorator()) {
-            while ($tmp = $deco->get_decorator()) {
-                $deco = $tmp;
+        $Vksopkgqixky = $this->_frame->get_parent();
+        if ($Vksopkgqixky && $V134ns25tz1t = $Vksopkgqixky->get_decorator()) {
+            while ($Vynpm04a4fx0 = $V134ns25tz1t->get_decorator()) {
+                $V134ns25tz1t = $Vynpm04a4fx0;
             }
 
-            return $this->_cached_parent = $deco;
+            return $this->_cached_parent = $V134ns25tz1t;
         } else {
-            return $this->_cached_parent = $p;
+            return $this->_cached_parent = $Vksopkgqixky;
         }
     }
 
-    /**
-     * @return AbstractFrameDecorator
-     */
+    
     function get_first_child()
     {
-        $c = $this->_frame->get_first_child();
-        if ($c && $deco = $c->get_decorator()) {
-            while ($tmp = $deco->get_decorator()) {
-                $deco = $tmp;
+        $Vv03lfntnmcz = $this->_frame->get_first_child();
+        if ($Vv03lfntnmcz && $V134ns25tz1t = $Vv03lfntnmcz->get_decorator()) {
+            while ($Vynpm04a4fx0 = $V134ns25tz1t->get_decorator()) {
+                $V134ns25tz1t = $Vynpm04a4fx0;
             }
 
-            return $deco;
+            return $V134ns25tz1t;
         } else {
-            if ($c) {
-                return $c;
+            if ($Vv03lfntnmcz) {
+                return $Vv03lfntnmcz;
             }
         }
 
         return null;
     }
 
-    /**
-     * @return AbstractFrameDecorator
-     */
+    
     function get_last_child()
     {
-        $c = $this->_frame->get_last_child();
-        if ($c && $deco = $c->get_decorator()) {
-            while ($tmp = $deco->get_decorator()) {
-                $deco = $tmp;
+        $Vv03lfntnmcz = $this->_frame->get_last_child();
+        if ($Vv03lfntnmcz && $V134ns25tz1t = $Vv03lfntnmcz->get_decorator()) {
+            while ($Vynpm04a4fx0 = $V134ns25tz1t->get_decorator()) {
+                $V134ns25tz1t = $Vynpm04a4fx0;
             }
 
-            return $deco;
+            return $V134ns25tz1t;
         } else {
-            if ($c) {
-                return $c;
+            if ($Vv03lfntnmcz) {
+                return $Vv03lfntnmcz;
             }
         }
 
         return null;
     }
 
-    /**
-     * @return AbstractFrameDecorator
-     */
+    
     function get_prev_sibling()
     {
-        $s = $this->_frame->get_prev_sibling();
-        if ($s && $deco = $s->get_decorator()) {
-            while ($tmp = $deco->get_decorator()) {
-                $deco = $tmp;
+        $Vujweq34gtl3 = $this->_frame->get_prev_sibling();
+        if ($Vujweq34gtl3 && $V134ns25tz1t = $Vujweq34gtl3->get_decorator()) {
+            while ($Vynpm04a4fx0 = $V134ns25tz1t->get_decorator()) {
+                $V134ns25tz1t = $Vynpm04a4fx0;
             }
 
-            return $deco;
+            return $V134ns25tz1t;
         } else {
-            if ($s) {
-                return $s;
+            if ($Vujweq34gtl3) {
+                return $Vujweq34gtl3;
             }
         }
 
         return null;
     }
 
-    /**
-     * @return AbstractFrameDecorator
-     */
+    
     function get_next_sibling()
     {
-        $s = $this->_frame->get_next_sibling();
-        if ($s && $deco = $s->get_decorator()) {
-            while ($tmp = $deco->get_decorator()) {
-                $deco = $tmp;
+        $Vujweq34gtl3 = $this->_frame->get_next_sibling();
+        if ($Vujweq34gtl3 && $V134ns25tz1t = $Vujweq34gtl3->get_decorator()) {
+            while ($Vynpm04a4fx0 = $V134ns25tz1t->get_decorator()) {
+                $V134ns25tz1t = $Vynpm04a4fx0;
             }
 
-            return $deco;
+            return $V134ns25tz1t;
         } else {
-            if ($s) {
-                return $s;
+            if ($Vujweq34gtl3) {
+                return $Vujweq34gtl3;
             }
         }
 
         return null;
     }
 
-    /**
-     * @return FrameTreeList
-     */
+    
     function get_subtree()
     {
         return new FrameTreeList($this);
     }
 
-    function set_positioner(AbstractPositioner $posn)
+    function set_positioner(AbstractPositioner $Vksopkgqixkyosn)
     {
-        $this->_positioner = $posn;
+        $this->_positioner = $Vksopkgqixkyosn;
         if ($this->_frame instanceof AbstractFrameDecorator) {
-            $this->_frame->set_positioner($posn);
+            $this->_frame->set_positioner($Vksopkgqixkyosn);
         }
     }
 
-    function set_reflower(AbstractFrameReflower $reflower)
+    function set_reflower(AbstractFrameReflower $Vvaic4pvtywklower)
     {
-        $this->_reflower = $reflower;
+        $this->_reflower = $Vvaic4pvtywklower;
         if ($this->_frame instanceof AbstractFrameDecorator) {
-            $this->_frame->set_reflower($reflower);
+            $this->_frame->set_reflower($Vvaic4pvtywklower);
         }
     }
 
-    /**
-     * @return \Dompdf\FrameReflower\AbstractFrameReflower
-     */
+    
     function get_reflower()
     {
         return $this->_reflower;
     }
 
-    /**
-     * @param Frame $root
-     */
-    function set_root(Frame $root)
+    
+    function set_root(Frame $Vzlqynjxsspd)
     {
-        $this->_root = $root;
+        $this->_root = $Vzlqynjxsspd;
 
         if ($this->_frame instanceof AbstractFrameDecorator) {
-            $this->_frame->set_root($root);
+            $this->_frame->set_root($Vzlqynjxsspd);
         }
     }
 
-    /**
-     * @return Page
-     */
+    
     function get_root()
     {
         return $this->_root;
     }
 
-    /**
-     * @return Block
-     */
+    
     function find_block_parent()
     {
-        // Find our nearest block level parent
-        $p = $this->get_parent();
+        
+        $Vksopkgqixky = $this->get_parent();
 
-        while ($p) {
-            if ($p->is_block()) {
+        while ($Vksopkgqixky) {
+            if ($Vksopkgqixky->is_block()) {
                 break;
             }
 
-            $p = $p->get_parent();
+            $Vksopkgqixky = $Vksopkgqixky->get_parent();
         }
 
-        return $this->_block_parent = $p;
+        return $this->_block_parent = $Vksopkgqixky;
     }
 
-    /**
-     * @return AbstractFrameDecorator
-     */
+    
     function find_positionned_parent()
     {
-        // Find our nearest relative positionned parent
-        $p = $this->get_parent();
-        while ($p) {
-            if ($p->is_positionned()) {
+        
+        $Vksopkgqixky = $this->get_parent();
+        while ($Vksopkgqixky) {
+            if ($Vksopkgqixky->is_positionned()) {
                 break;
             }
 
-            $p = $p->get_parent();
+            $Vksopkgqixky = $Vksopkgqixky->get_parent();
         }
 
-        if (!$p) {
-            $p = $this->_root->get_first_child(); // <body>
+        if (!$Vksopkgqixky) {
+            $Vksopkgqixky = $this->_root->get_first_child(); 
         }
 
-        return $this->_positionned_parent = $p;
+        return $this->_positionned_parent = $Vksopkgqixky;
     }
 
-    /**
-     * split this frame at $child.
-     * The current frame is cloned and $child and all children following
-     * $child are added to the clone.  The clone is then passed to the
-     * current frame's parent->split() method.
-     *
-     * @param Frame $child
-     * @param boolean $force_pagebreak
-     *
-     * @throws Exception
-     * @return void
-     */
-    function split(Frame $child = null, $force_pagebreak = false)
+    
+    function split(Frame $Vtcc233inn5m = null, $Vxx1fnm322ds = false)
     {
-        // decrement any counters that were incremented on the current node, unless that node is the body
-        $style = $this->_frame->get_style();
+        
+        $Vdidzwb0w3vc = $this->_frame->get_style();
         if (
             $this->_frame->get_node()->nodeName !== "body" &&
-            $style->counter_increment &&
-            ($decrement = $style->counter_increment) !== "none"
+            $Vdidzwb0w3vc->counter_increment &&
+            ($Vrg4i3nocvk4 = $Vdidzwb0w3vc->counter_increment) !== "none"
         ) {
-            $this->decrement_counters($decrement);
+            $this->decrement_counters($Vrg4i3nocvk4);
         }
 
-        if (is_null($child)) {
-            // check for counter increment on :before content (always a child of the selected element @link AbstractFrameReflower::_set_content)
-            // this can push the current node to the next page before counter rules have bubbled up (but only if
-            // it's been rendered, thus the position check)
+        if (is_null($Vtcc233inn5m)) {
+            
+            
+            
             if (!$this->is_text_node() && $this->get_node()->hasAttribute("dompdf_before_frame_id")) {
-                foreach ($this->_frame->get_children() as $child) {
+                foreach ($this->_frame->get_children() as $Vtcc233inn5m) {
                     if (
-                        $this->get_node()->getAttribute("dompdf_before_frame_id") == $child->get_id() &&
-                        $child->get_position('x') !== null
+                        $this->get_node()->getAttribute("dompdf_before_frame_id") == $Vtcc233inn5m->get_id() &&
+                        $Vtcc233inn5m->get_position('x') !== null
                     ) {
-                        $style = $child->get_style();
-                        if ($style->counter_increment && ($decrement = $style->counter_increment) !== "none") {
-                            $this->decrement_counters($decrement);
+                        $Vdidzwb0w3vc = $Vtcc233inn5m->get_style();
+                        if ($Vdidzwb0w3vc->counter_increment && ($Vrg4i3nocvk4 = $Vdidzwb0w3vc->counter_increment) !== "none") {
+                            $this->decrement_counters($Vrg4i3nocvk4);
                         }
                     }
                 }
             }
-            $this->get_parent()->split($this, $force_pagebreak);
+            $this->get_parent()->split($this, $Vxx1fnm322ds);
 
             return;
         }
 
-        if ($child->get_parent() !== $this) {
+        if ($Vtcc233inn5m->get_parent() !== $this) {
             throw new Exception("Unable to split: frame is not a child of this one.");
         }
 
-        $node = $this->_frame->get_node();
+        $Vbr2bywdrplx = $this->_frame->get_node();
 
-        if ($node instanceof DOMElement && $node->hasAttribute("id")) {
-            $node->setAttribute("data-dompdf-original-id", $node->getAttribute("id"));
-            $node->removeAttribute("id");
+        if ($Vbr2bywdrplx instanceof DOMElement && $Vbr2bywdrplx->hasAttribute("id")) {
+            $Vbr2bywdrplx->setAttribute("data-dompdf-original-id", $Vbr2bywdrplx->getAttribute("id"));
+            $Vbr2bywdrplx->removeAttribute("id");
         }
 
-        $split = $this->copy($node->cloneNode());
-        $split->reset();
-        $split->get_original_style()->text_indent = 0;
-        $split->_splitted = true;
-        $split->_already_pushed = true;
+        $Vujweq34gtl3plit = $this->copy($Vbr2bywdrplx->cloneNode());
+        $Vujweq34gtl3plit->reset();
+        $Vujweq34gtl3plit->get_original_style()->text_indent = 0;
+        $Vujweq34gtl3plit->_splitted = true;
+        $Vujweq34gtl3plit->_already_pushed = true;
 
-        // The body's properties must be kept
-        if ($node->nodeName !== "body") {
-            // Style reset on the first and second parts
-            $style = $this->_frame->get_style();
-            $style->margin_bottom = 0;
-            $style->padding_bottom = 0;
-            $style->border_bottom = 0;
+        
+        if ($Vbr2bywdrplx->nodeName !== "body") {
+            
+            $Vdidzwb0w3vc = $this->_frame->get_style();
+            $Vdidzwb0w3vc->margin_bottom = 0;
+            $Vdidzwb0w3vc->padding_bottom = 0;
+            $Vdidzwb0w3vc->border_bottom = 0;
 
-            // second
-            $orig_style = $split->get_original_style();
-            $orig_style->text_indent = 0;
-            $orig_style->margin_top = 0;
-            $orig_style->padding_top = 0;
-            $orig_style->border_top = 0;
-            $orig_style->page_break_before = "auto";
+            
+            $Vfdmsptgjprm = $Vujweq34gtl3plit->get_original_style();
+            $Vfdmsptgjprm->text_indent = 0;
+            $Vfdmsptgjprm->margin_top = 0;
+            $Vfdmsptgjprm->padding_top = 0;
+            $Vfdmsptgjprm->border_top = 0;
+            $Vfdmsptgjprm->page_break_before = "auto";
         }
 
-        // recalculate the float offsets after paging
-        $this->get_parent()->insert_child_after($split, $this);
+        
+        $this->get_parent()->insert_child_after($Vujweq34gtl3plit, $this);
         if ($this instanceof Block) {
-            foreach ($this->get_line_boxes() as $index => $line_box) {
-                $line_box->get_float_offsets();
+            foreach ($this->get_line_boxes() as $V3xsptcgzss2ndex => $Vdp4botbvmgp) {
+                $Vdp4botbvmgp->get_float_offsets();
             }
         }
 
-        // Add $frame and all following siblings to the new split node
-        $iter = $child;
-        while ($iter) {
-            $frame = $iter;
-            $iter = $iter->get_next_sibling();
-            $frame->reset();
-            $frame->_parent = $split;
-            $split->append_child($frame);
+        
+        $V3xsptcgzss2ter = $Vtcc233inn5m;
+        while ($V3xsptcgzss2ter) {
+            $Vnk2ly5jcvjf = $V3xsptcgzss2ter;
+            $V3xsptcgzss2ter = $V3xsptcgzss2ter->get_next_sibling();
+            $Vnk2ly5jcvjf->reset();
+            $Vnk2ly5jcvjf->_parent = $Vujweq34gtl3plit;
+            $Vujweq34gtl3plit->append_child($Vnk2ly5jcvjf);
 
-            // recalculate the float offsets
-            if ($frame instanceof Block) {
-                foreach ($frame->get_line_boxes() as $index => $line_box) {
-                    $line_box->get_float_offsets();
+            
+            if ($Vnk2ly5jcvjf instanceof Block) {
+                foreach ($Vnk2ly5jcvjf->get_line_boxes() as $V3xsptcgzss2ndex => $Vdp4botbvmgp) {
+                    $Vdp4botbvmgp->get_float_offsets();
                 }
             }
         }
 
-        $this->get_parent()->split($split, $force_pagebreak);
+        $this->get_parent()->split($Vujweq34gtl3plit, $Vxx1fnm322ds);
 
-        // If this node resets a counter save the current value to use when rendering on the next page
-        if ($style->counter_reset && ($reset = $style->counter_reset) !== "none") {
-            $vars = preg_split('/\s+/', trim($reset), 2);
-            $split->_counters['__' . $vars[0]] = $this->lookup_counter_frame($vars[0])->_counters[$vars[0]];
+        
+        if ($Vdidzwb0w3vc->counter_reset && ($Vw4ekldf5fca = $Vdidzwb0w3vc->counter_reset) !== "none") {
+            $Vjtba0lz024s = preg_split('/\s+/', trim($Vw4ekldf5fca), 2);
+            $Vujweq34gtl3plit->_counters['__' . $Vjtba0lz024s[0]] = $this->lookup_counter_frame($Vjtba0lz024s[0])->_counters[$Vjtba0lz024s[0]];
         }
     }
 
-    /**
-     * @param string $id
-     * @param int $value
-     */
-    function reset_counter($id = self::DEFAULT_COUNTER, $value = 0)
+    
+    function reset_counter($V3xsptcgzss2d = self::DEFAULT_COUNTER, $Vqfra35f14fv = 0)
     {
-        $this->get_parent()->_counters[$id] = intval($value);
+        $this->get_parent()->_counters[$V3xsptcgzss2d] = intval($Vqfra35f14fv);
     }
 
-    /**
-     * @param $counters
-     */
-    function decrement_counters($counters)
+    
+    function decrement_counters($Vv03lfntnmczounters)
     {
-        foreach ($counters as $id => $increment) {
-            $this->increment_counter($id, intval($increment) * -1);
+        foreach ($Vv03lfntnmczounters as $V3xsptcgzss2d => $V3xsptcgzss2ncrement) {
+            $this->increment_counter($V3xsptcgzss2d, intval($V3xsptcgzss2ncrement) * -1);
         }
     }
 
-    /**
-     * @param $counters
-     */
-    function increment_counters($counters)
+    
+    function increment_counters($Vv03lfntnmczounters)
     {
-        foreach ($counters as $id => $increment) {
-            $this->increment_counter($id, intval($increment));
+        foreach ($Vv03lfntnmczounters as $V3xsptcgzss2d => $V3xsptcgzss2ncrement) {
+            $this->increment_counter($V3xsptcgzss2d, intval($V3xsptcgzss2ncrement));
         }
     }
 
-    /**
-     * @param string $id
-     * @param int $increment
-     */
-    function increment_counter($id = self::DEFAULT_COUNTER, $increment = 1)
+    
+    function increment_counter($V3xsptcgzss2d = self::DEFAULT_COUNTER, $V3xsptcgzss2ncrement = 1)
     {
-        $counter_frame = $this->lookup_counter_frame($id);
+        $Vv03lfntnmczounter_frame = $this->lookup_counter_frame($V3xsptcgzss2d);
 
-        if ($counter_frame) {
-            if (!isset($counter_frame->_counters[$id])) {
-                $counter_frame->_counters[$id] = 0;
+        if ($Vv03lfntnmczounter_frame) {
+            if (!isset($Vv03lfntnmczounter_frame->_counters[$V3xsptcgzss2d])) {
+                $Vv03lfntnmczounter_frame->_counters[$V3xsptcgzss2d] = 0;
             }
 
-            $counter_frame->_counters[$id] += $increment;
+            $Vv03lfntnmczounter_frame->_counters[$V3xsptcgzss2d] += $V3xsptcgzss2ncrement;
         }
     }
 
-    /**
-     * @param string $id
-     * @return AbstractFrameDecorator|null
-     */
-    function lookup_counter_frame($id = self::DEFAULT_COUNTER)
+    
+    function lookup_counter_frame($V3xsptcgzss2d = self::DEFAULT_COUNTER)
     {
-        $f = $this->get_parent();
+        $V4ljftfdeqpl = $this->get_parent();
 
-        while ($f) {
-            if (isset($f->_counters[$id])) {
-                return $f;
+        while ($V4ljftfdeqpl) {
+            if (isset($V4ljftfdeqpl->_counters[$V3xsptcgzss2d])) {
+                return $V4ljftfdeqpl;
             }
-            $fp = $f->get_parent();
+            $V4ljftfdeqplp = $V4ljftfdeqpl->get_parent();
 
-            if (!$fp) {
-                return $f;
+            if (!$V4ljftfdeqplp) {
+                return $V4ljftfdeqpl;
             }
 
-            $f = $fp;
+            $V4ljftfdeqpl = $V4ljftfdeqplp;
         }
 
         return null;
     }
 
-    /**
-     * @param string $id
-     * @param string $type
-     * @return bool|string
-     *
-     * TODO: What version is the best : this one or the one in ListBullet ?
-     */
-    function counter_value($id = self::DEFAULT_COUNTER, $type = "decimal")
+    
+    function counter_value($V3xsptcgzss2d = self::DEFAULT_COUNTER, $Vxeifmjzikkj = "decimal")
     {
-        $type = mb_strtolower($type);
+        $Vxeifmjzikkj = mb_strtolower($Vxeifmjzikkj);
 
-        if (!isset($this->_counters[$id])) {
-            $this->_counters[$id] = 0;
+        if (!isset($this->_counters[$V3xsptcgzss2d])) {
+            $this->_counters[$V3xsptcgzss2d] = 0;
         }
 
-        $value = $this->_counters[$id];
+        $Vqfra35f14fv = $this->_counters[$V3xsptcgzss2d];
 
-        switch ($type) {
+        switch ($Vxeifmjzikkj) {
             default:
             case "decimal":
-                return $value;
+                return $Vqfra35f14fv;
 
             case "decimal-leading-zero":
-                return str_pad($value, 2, "0", STR_PAD_LEFT);
+                return str_pad($Vqfra35f14fv, 2, "0", STR_PAD_LEFT);
 
             case "lower-roman":
-                return Helpers::dec2roman($value);
+                return Helpers::dec2roman($Vqfra35f14fv);
 
             case "upper-roman":
-                return mb_strtoupper(Helpers::dec2roman($value));
+                return mb_strtoupper(Helpers::dec2roman($Vqfra35f14fv));
 
             case "lower-latin":
             case "lower-alpha":
-                return chr(($value % 26) + ord('a') - 1);
+                return chr(($Vqfra35f14fv % 26) + ord('a') - 1);
 
             case "upper-latin":
             case "upper-alpha":
-                return chr(($value % 26) + ord('A') - 1);
+                return chr(($Vqfra35f14fv % 26) + ord('A') - 1);
 
             case "lower-greek":
-                return Helpers::unichr($value + 944);
+                return Helpers::unichr($Vqfra35f14fv + 944);
 
             case "upper-greek":
-                return Helpers::unichr($value + 912);
+                return Helpers::unichr($Vqfra35f14fv + 912);
         }
     }
 
-    /**
-     *
-     */
+    
     final function position()
     {
         $this->_positioner->position($this);
     }
 
-    /**
-     * @param $offset_x
-     * @param $offset_y
-     * @param bool $ignore_self
-     */
-    final function move($offset_x, $offset_y, $ignore_self = false)
+    
+    final function move($Valgvhs5my1x, $Vezx3f4fziht, $V3xsptcgzss2gnore_self = false)
     {
-        $this->_positioner->move($this, $offset_x, $offset_y, $ignore_self);
+        $this->_positioner->move($this, $Valgvhs5my1x, $Vezx3f4fziht, $V3xsptcgzss2gnore_self);
     }
 
-    /**
-     * @param Block|null $block
-     */
-    final function reflow(Block $block = null)
+    
+    final function reflow(Block $Vwoflziz3q5d = null)
     {
-        // Uncomment this to see the frames before they're laid out, instead of
-        // during rendering.
-        //echo $this->_frame; flush();
-        $this->_reflower->reflow($block);
+        
+        
+        
+        $this->_reflower->reflow($Vwoflziz3q5d);
     }
 
-    /**
-     * @return array
-     */
+    
     final function get_min_max_width()
     {
         return $this->_reflower->get_min_max_width();
     }
 
-    /**
-     * Determine current frame width based on contents
-     *
-     * @return float
-     */
+    
     final function calculate_auto_width()
     {
         return $this->_reflower->calculate_auto_width();

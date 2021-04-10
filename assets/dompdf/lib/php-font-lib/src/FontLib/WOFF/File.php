@@ -1,22 +1,11 @@
 <?php
-/**
- * @package php-font-lib
- * @link    https://github.com/PhenX/php-font-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace FontLib\WOFF;
 
 use FontLib\Table\DirectoryEntry;
 
-/**
- * WOFF font file.
- *
- * @package php-font-lib
- *
- * @property TableDirectoryEntry[] $directory
- */
+
 class File extends \FontLib\TrueType\File {
   function parseHeader() {
     if (!empty($this->header)) {
@@ -27,53 +16,53 @@ class File extends \FontLib\TrueType\File {
     $this->header->parse();
   }
 
-  public function load($file) {
-    parent::load($file);
+  public function load($Vtkhurg4sowd) {
+    parent::load($Vtkhurg4sowd);
 
     $this->parseTableEntries();
-    $dataOffset = $this->pos() + count($this->directory) * 20;
+    $Vasaiglsyrtt = $this->pos() + count($this->directory) * 20;
 
-    $fw = $this->getTempFile(false);
-    $fr = $this->f;
+    $Vs3yv4fcocwa = $this->getTempFile(false);
+    $Vvln5rty3lxq = $this->f;
 
-    $this->f = $fw;
-    $offset  = $this->header->encode();
+    $this->f = $Vs3yv4fcocwa;
+    $Vq154qppcleo  = $this->header->encode();
 
-    foreach ($this->directory as $entry) {
-      // Read ...
-      $this->f = $fr;
-      $this->seek($entry->offset);
-      $data = $this->read($entry->length);
+    foreach ($this->directory as $Voeexclyb0j3) {
+      
+      $this->f = $Vvln5rty3lxq;
+      $this->seek($Voeexclyb0j3->offset);
+      $Vb3z3shnu1vn = $this->read($Voeexclyb0j3->length);
 
-      if ($entry->length < $entry->origLength) {
-        $data = gzuncompress($data);
+      if ($Voeexclyb0j3->length < $Voeexclyb0j3->origLength) {
+        $Vb3z3shnu1vn = gzuncompress($Vb3z3shnu1vn);
       }
 
-      // Prepare data ...
-      $length        = strlen($data);
-      $entry->length = $entry->origLength = $length;
-      $entry->offset = $dataOffset;
+      
+      $Vjxpogd0afis        = strlen($Vb3z3shnu1vn);
+      $Voeexclyb0j3->length = $Voeexclyb0j3->origLength = $Vjxpogd0afis;
+      $Voeexclyb0j3->offset = $Vasaiglsyrtt;
 
-      // Write ...
-      $this->f = $fw;
+      
+      $this->f = $Vs3yv4fcocwa;
 
-      // Woff Entry
-      $this->seek($offset);
-      $offset += $this->write($entry->tag, 4); // tag
-      $offset += $this->writeUInt32($dataOffset); // offset
-      $offset += $this->writeUInt32($length); // length
-      $offset += $this->writeUInt32($length); // origLength
-      $offset += $this->writeUInt32(DirectoryEntry::computeChecksum($data)); // checksum
+      
+      $this->seek($Vq154qppcleo);
+      $Vq154qppcleo += $this->write($Voeexclyb0j3->tag, 4); 
+      $Vq154qppcleo += $this->writeUInt32($Vasaiglsyrtt); 
+      $Vq154qppcleo += $this->writeUInt32($Vjxpogd0afis); 
+      $Vq154qppcleo += $this->writeUInt32($Vjxpogd0afis); 
+      $Vq154qppcleo += $this->writeUInt32(DirectoryEntry::computeChecksum($Vb3z3shnu1vn)); 
 
-      // Data
-      $this->seek($dataOffset);
-      $dataOffset += $this->write($data, $length);
+      
+      $this->seek($Vasaiglsyrtt);
+      $Vasaiglsyrtt += $this->write($Vb3z3shnu1vn, $Vjxpogd0afis);
     }
 
-    $this->f = $fw;
+    $this->f = $Vs3yv4fcocwa;
     $this->seek(0);
 
-    // Need to re-parse this, don't know why
+    
     $this->header    = null;
     $this->directory = array();
     $this->parseTableEntries();

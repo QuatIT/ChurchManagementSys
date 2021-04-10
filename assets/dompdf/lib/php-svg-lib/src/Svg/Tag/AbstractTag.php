@@ -1,10 +1,5 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Tag;
 
@@ -13,70 +8,68 @@ use Svg\Style;
 
 abstract class AbstractTag
 {
-    /** @var Document */
-    protected $document;
+    
+    protected $V0trxkwhezv5;
 
-    public $tagName;
+    public $Vayc0zv2qn4b;
 
-    /** @var Style */
-    protected $style;
+    
+    protected $Vdidzwb0w3vc;
 
-    protected $attributes;
+    protected $Voywws15cvz5;
 
-    protected $hasShape = true;
+    protected $Vdimy1aghirt = true;
 
-    /** @var self[] */
-    protected $children = array();
+    
+    protected $Vrzhplmxukeb = array();
 
-    public function __construct(Document $document, $tagName)
+    public function __construct(Document $V0trxkwhezv5, $Vayc0zv2qn4b)
     {
-        $this->document = $document;
-        $this->tagName = $tagName;
+        $Vcki4t4qmybshis->document = $V0trxkwhezv5;
+        $Vcki4t4qmybshis->tagName = $Vayc0zv2qn4b;
     }
 
     public function getDocument(){
-        return $this->document;
+        return $Vcki4t4qmybshis->document;
     }
 
-    /**
-     * @return Group|null
-     */
+    
     public function getParentGroup() {
-        $stack = $this->getDocument()->getStack();
-        for ($i = count($stack)-2; $i >= 0; $i--) {
-            $tag = $stack[$i];
+        $Vwvjp3dx4uxt = $Vcki4t4qmybshis->getDocument()->getStack();
+        for ($V3xsptcgzss2 = count($Vwvjp3dx4uxt)-2; $V3xsptcgzss2 >= 0; $V3xsptcgzss2--) {
+            $Vudn5fb5ck4i = $Vwvjp3dx4uxt[$V3xsptcgzss2];
 
-            if ($tag instanceof Group || $tag instanceof Document) {
-                return $tag;
+            if ($Vudn5fb5ck4i instanceof Group || $Vudn5fb5ck4i instanceof Document) {
+                return $Vudn5fb5ck4i;
             }
         }
 
         return null;
     }
 
-    public function handle($attributes)
+    public function handle($Voywws15cvz5)
     {
-        $this->attributes = $attributes;
+        $Vcki4t4qmybshis->attributes = $Voywws15cvz5;
 
-        if (!$this->getDocument()->inDefs) {
-            $this->before($attributes);
-            $this->start($attributes);
+        if (!$Vcki4t4qmybshis->getDocument()->inDefs) {
+            $Vcki4t4qmybshis->before($Voywws15cvz5);
+            $Vcki4t4qmybshis->start($Voywws15cvz5);
         }
     }
 
     public function handleEnd()
     {
-        if (!$this->getDocument()->inDefs) {
-            $this->end();
-            $this->after();
+        if (!$Vcki4t4qmybshis->getDocument()->inDefs) {
+            $Vcki4t4qmybshis->end();
+            $Vcki4t4qmybshis->after();
         }
     }
 
-    protected function before($attributes)
+    protected function before($Voywws15cvz5)
     {
     }
 
-    protected function start($attributes)
+    protected function start($Voywws15cvz5)
     {
     }
 
@@ -90,91 +83,83 @@ abstract class AbstractTag
 
     public function getAttributes()
     {
-        return $this->attributes;
+        return $Vcki4t4qmybshis->attributes;
     }
 
-    protected function setStyle(Style $style)
+    protected function setStyle(Style $Vdidzwb0w3vc)
     {
-        $this->style = $style;
+        $Vcki4t4qmybshis->style = $Vdidzwb0w3vc;
 
-        if ($style->display === "none") {
-            $this->hasShape = false;
+        if ($Vdidzwb0w3vc->display === "none") {
+            $Vcki4t4qmybshis->hasShape = false;
         }
     }
 
-    /**
-     * @return Style
-     */
+    
     public function getStyle()
     {
-        return $this->style;
+        return $Vcki4t4qmybshis->style;
     }
 
-    /**
-     * Make a style object from the tag and its attributes
-     *
-     * @param array $attributes
-     *
-     * @return Style
-     */
-    protected function makeStyle($attributes) {
-        $style = new Style();
-        $style->inherit($this);
-        $style->fromStyleSheets($this, $attributes);
-        $style->fromAttributes($attributes);
+    
+    protected function makeStyle($Voywws15cvz5) {
+        $Vdidzwb0w3vc = new Style();
+        $Vdidzwb0w3vc->inherit($Vcki4t4qmybshis);
+        $Vdidzwb0w3vc->fromStyleSheets($Vcki4t4qmybshis, $Voywws15cvz5);
+        $Vdidzwb0w3vc->fromAttributes($Voywws15cvz5);
 
-        return $style;
+        return $Vdidzwb0w3vc;
     }
 
-    protected function applyTransform($attributes)
+    protected function applyTransform($Voywws15cvz5)
     {
 
-        if (isset($attributes["transform"])) {
-            $surface = $this->document->getSurface();
+        if (isset($Voywws15cvz5["transform"])) {
+            $Vyjtkau4njyv = $Vcki4t4qmybshis->document->getSurface();
 
-            $transform = $attributes["transform"];
+            $Ve4n4fbmoxik = $Voywws15cvz5["transform"];
 
-            $match = array();
+            $Vyupu15qqw5c = array();
             preg_match_all(
                 '/(matrix|translate|scale|rotate|skewX|skewY)\((.*?)\)/is',
-                $transform,
-                $match,
+                $Ve4n4fbmoxik,
+                $Vyupu15qqw5c,
                 PREG_SET_ORDER
             );
 
-            $transformations = array();
-            if (count($match[0])) {
-                foreach ($match as $_match) {
-                    $arguments = preg_split('/[ ,]+/', $_match[2]);
-                    array_unshift($arguments, $_match[1]);
-                    $transformations[] = $arguments;
+            $Ve4n4fbmoxikations = array();
+            if (count($Vyupu15qqw5c[0])) {
+                foreach ($Vyupu15qqw5c as $Vgiscjbf2cap) {
+                    $Vtuyql0vigxq = preg_split('/[ ,]+/', $Vgiscjbf2cap[2]);
+                    array_unshift($Vtuyql0vigxq, $Vgiscjbf2cap[1]);
+                    $Ve4n4fbmoxikations[] = $Vtuyql0vigxq;
                 }
             }
 
-            foreach ($transformations as $t) {
-                switch ($t[0]) {
+            foreach ($Ve4n4fbmoxikations as $Vcki4t4qmybs) {
+                switch ($Vcki4t4qmybs[0]) {
                     case "matrix":
-                        $surface->transform($t[1], $t[2], $t[3], $t[4], $t[5], $t[6]);
+                        $Vyjtkau4njyv->transform($Vcki4t4qmybs[1], $Vcki4t4qmybs[2], $Vcki4t4qmybs[3], $Vcki4t4qmybs[4], $Vcki4t4qmybs[5], $Vcki4t4qmybs[6]);
                         break;
 
                     case "translate":
-                        $surface->translate($t[1], isset($t[2]) ? $t[2] : 0);
+                        $Vyjtkau4njyv->translate($Vcki4t4qmybs[1], isset($Vcki4t4qmybs[2]) ? $Vcki4t4qmybs[2] : 0);
                         break;
 
                     case "scale":
-                        $surface->scale($t[1], isset($t[2]) ? $t[2] : $t[1]);
+                        $Vyjtkau4njyv->scale($Vcki4t4qmybs[1], isset($Vcki4t4qmybs[2]) ? $Vcki4t4qmybs[2] : $Vcki4t4qmybs[1]);
                         break;
 
                     case "rotate":
-                        $surface->rotate($t[1]);
+                        $Vyjtkau4njyv->rotate($Vcki4t4qmybs[1]);
                         break;
 
                     case "skewX":
-                        $surface->skewX($t[1]);
+                        $Vyjtkau4njyv->skewX($Vcki4t4qmybs[1]);
                         break;
 
                     case "skewY":
-                        $surface->skewY($t[1]);
+                        $Vyjtkau4njyv->skewY($Vcki4t4qmybs[1]);
                         break;
                 }
             }

@@ -1,139 +1,126 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\Renderer;
 
 use Dompdf\Frame;
 use Dompdf\Image\Cache;
 
-/**
- * Image renderer
- *
- * @access  private
- * @package dompdf
- */
+
 class Image extends Block
 {
 
-    /**
-     * @param Frame $frame
-     */
-    function render(Frame $frame)
+    
+    function render(Frame $Vnk2ly5jcvjf)
     {
-        // Render background & borders
-        $style = $frame->get_style();
-        $cb = $frame->get_containing_block();
-        list($x, $y, $w, $h) = $frame->get_border_box();
+        
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
+        $Vavdpq045wub = $Vnk2ly5jcvjf->get_containing_block();
+        list($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa) = $Vnk2ly5jcvjf->get_border_box();
 
-        $this->_set_opacity($frame->get_opacity($style->opacity));
+        $this->_set_opacity($Vnk2ly5jcvjf->get_opacity($Vdidzwb0w3vc->opacity));
 
-        list($tl, $tr, $br, $bl) = $style->get_computed_border_radius($w, $h);
+        list($Vz2hkt0r22ia, $Vzmfvefqwysh, $Vxo14t4heoku, $V5e5dzlyursk) = $Vdidzwb0w3vc->get_computed_border_radius($Vhoifq2kocyt, $Vjlmjalejjxa);
 
-        $has_border_radius = $tl + $tr + $br + $bl > 0;
+        $Vjlmjalejjxaas_border_radius = $Vz2hkt0r22ia + $Vzmfvefqwysh + $Vxo14t4heoku + $V5e5dzlyursk > 0;
 
-        if ($has_border_radius) {
-            $this->_canvas->clipping_roundrectangle($x, $y, (float)$w, (float)$h, $tl, $tr, $br, $bl);
+        if ($Vjlmjalejjxaas_border_radius) {
+            $this->_canvas->clipping_roundrectangle($Vs4gloy23a1d, $Vopgub02o3q2, (float)$Vhoifq2kocyt, (float)$Vjlmjalejjxa, $Vz2hkt0r22ia, $Vzmfvefqwysh, $Vxo14t4heoku, $V5e5dzlyursk);
         }
 
-        if (($bg = $style->background_color) !== "transparent") {
-            $this->_canvas->filled_rectangle($x, $y, (float)$w, (float)$h, $bg);
+        if (($Vbk1alfdu2xe = $Vdidzwb0w3vc->background_color) !== "transparent") {
+            $this->_canvas->filled_rectangle($Vs4gloy23a1d, $Vopgub02o3q2, (float)$Vhoifq2kocyt, (float)$Vjlmjalejjxa, $Vbk1alfdu2xe);
         }
 
-        if (($url = $style->background_image) && $url !== "none") {
-            $this->_background_image($url, $x, $y, $w, $h, $style);
+        if (($Vsp0omgzz2yw = $Vdidzwb0w3vc->background_image) && $Vsp0omgzz2yw !== "none") {
+            $this->_background_image($Vsp0omgzz2yw, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vdidzwb0w3vc);
         }
 
-        if ($has_border_radius) {
+        if ($Vjlmjalejjxaas_border_radius) {
             $this->_canvas->clipping_end();
         }
 
-        $this->_render_border($frame);
-        $this->_render_outline($frame);
+        $this->_render_border($Vnk2ly5jcvjf);
+        $this->_render_outline($Vnk2ly5jcvjf);
 
-        list($x, $y) = $frame->get_padding_box();
+        list($Vs4gloy23a1d, $Vopgub02o3q2) = $Vnk2ly5jcvjf->get_padding_box();
 
-        $x += (float)$style->length_in_pt($style->padding_left, $cb["w"]);
-        $y += (float)$style->length_in_pt($style->padding_top, $cb["h"]);
+        $Vs4gloy23a1d += (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->padding_left, $Vavdpq045wub["w"]);
+        $Vopgub02o3q2 += (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->padding_top, $Vavdpq045wub["h"]);
 
-        $w = (float)$style->length_in_pt($style->width, $cb["w"]);
-        $h = (float)$style->length_in_pt($style->height, $cb["h"]);
+        $Vhoifq2kocyt = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->width, $Vavdpq045wub["w"]);
+        $Vjlmjalejjxa = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->height, $Vavdpq045wub["h"]);
 
-        if ($has_border_radius) {
-            list($wt, $wr, $wb, $wl) = array(
-                $style->border_top_width,
-                $style->border_right_width,
-                $style->border_bottom_width,
-                $style->border_left_width,
+        if ($Vjlmjalejjxaas_border_radius) {
+            list($Vhoifq2kocytt, $Vhoifq2kocytr, $Vhoifq2kocytb, $Vhoifq2kocytl) = array(
+                $Vdidzwb0w3vc->border_top_width,
+                $Vdidzwb0w3vc->border_right_width,
+                $Vdidzwb0w3vc->border_bottom_width,
+                $Vdidzwb0w3vc->border_left_width,
             );
 
-            // we have to get the "inner" radius
-            if ($tl > 0) {
-                $tl -= ($wt + $wl) / 2;
+            
+            if ($Vz2hkt0r22ia > 0) {
+                $Vz2hkt0r22ia -= ($Vhoifq2kocytt + $Vhoifq2kocytl) / 2;
             }
-            if ($tr > 0) {
-                $tr -= ($wt + $wr) / 2;
+            if ($Vzmfvefqwysh > 0) {
+                $Vzmfvefqwysh -= ($Vhoifq2kocytt + $Vhoifq2kocytr) / 2;
             }
-            if ($br > 0) {
-                $br -= ($wb + $wr) / 2;
+            if ($Vxo14t4heoku > 0) {
+                $Vxo14t4heoku -= ($Vhoifq2kocytb + $Vhoifq2kocytr) / 2;
             }
-            if ($bl > 0) {
-                $bl -= ($wb + $wl) / 2;
+            if ($V5e5dzlyursk > 0) {
+                $V5e5dzlyursk -= ($Vhoifq2kocytb + $Vhoifq2kocytl) / 2;
             }
 
-            $this->_canvas->clipping_roundrectangle($x, $y, $w, $h, $tl, $tr, $br, $bl);
+            $this->_canvas->clipping_roundrectangle($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vz2hkt0r22ia, $Vzmfvefqwysh, $Vxo14t4heoku, $V5e5dzlyursk);
         }
 
-        $src = $frame->get_image_url();
-        $alt = null;
+        $Veo0deounvgk = $Vnk2ly5jcvjf->get_image_url();
+        $Vyynnxlbqs2n = null;
 
-        if (Cache::is_broken($src) &&
-            $alt = $frame->get_node()->getAttribute("alt")
+        if (Cache::is_broken($Veo0deounvgk) &&
+            $Vyynnxlbqs2n = $Vnk2ly5jcvjf->get_node()->getAttribute("alt")
         ) {
-            $font = $style->font_family;
-            $size = $style->font_size;
-            $spacing = $style->word_spacing;
+            $V3h4z3hxorxj = $Vdidzwb0w3vc->font_family;
+            $Vlak25col1u3 = $Vdidzwb0w3vc->font_size;
+            $Vuwwdaccmizk = $Vdidzwb0w3vc->word_spacing;
             $this->_canvas->text(
-                $x,
-                $y,
-                $alt,
-                $font,
-                $size,
-                $style->color,
-                $spacing
+                $Vs4gloy23a1d,
+                $Vopgub02o3q2,
+                $Vyynnxlbqs2n,
+                $V3h4z3hxorxj,
+                $Vlak25col1u3,
+                $Vdidzwb0w3vc->color,
+                $Vuwwdaccmizk
             );
         } else {
-            $this->_canvas->image($src, $x, $y, $w, $h, $style->image_resolution);
+            $this->_canvas->image($Veo0deounvgk, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vdidzwb0w3vc->image_resolution);
         }
 
-        if ($has_border_radius) {
+        if ($Vjlmjalejjxaas_border_radius) {
             $this->_canvas->clipping_end();
         }
 
-        if ($msg = $frame->get_image_msg()) {
-            $parts = preg_split("/\s*\n\s*/", $msg);
-            $height = 10;
-            $_y = $alt ? $y + $h - count($parts) * $height : $y;
+        if ($Vmgxrjtj0g2j = $Vnk2ly5jcvjf->get_image_msg()) {
+            $V2crka1tlwcy = preg_split("/\s*\n\s*/", $Vmgxrjtj0g2j);
+            $Vjlmjalejjxaeight = 10;
+            $Voi0k3v0og1c = $Vyynnxlbqs2n ? $Vopgub02o3q2 + $Vjlmjalejjxa - count($V2crka1tlwcy) * $Vjlmjalejjxaeight : $Vopgub02o3q2;
 
-            foreach ($parts as $i => $_part) {
-                $this->_canvas->text($x, $_y + $i * $height, $_part, "times", $height * 0.8, array(0.5, 0.5, 0.5));
+            foreach ($V2crka1tlwcy as $V3xsptcgzss2 => $V1no5st1xhsr) {
+                $this->_canvas->text($Vs4gloy23a1d, $Voi0k3v0og1c + $V3xsptcgzss2 * $Vjlmjalejjxaeight, $V1no5st1xhsr, "times", $Vjlmjalejjxaeight * 0.8, array(0.5, 0.5, 0.5));
             }
         }
 
         if ($this->_dompdf->getOptions()->getDebugLayout() && $this->_dompdf->getOptions()->getDebugLayoutBlocks()) {
-            $this->_debug_layout($frame->get_border_box(), "blue");
+            $this->_debug_layout($Vnk2ly5jcvjf->get_border_box(), "blue");
             if ($this->_dompdf->getOptions()->getDebugLayoutPaddingBox()) {
-                $this->_debug_layout($frame->get_padding_box(), "blue", array(0.5, 0.5));
+                $this->_debug_layout($Vnk2ly5jcvjf->get_padding_box(), "blue", array(0.5, 0.5));
             }
         }
 
-        $id = $frame->get_node()->getAttribute("id");
-        if (strlen($id) > 0)  {
-            $this->_canvas->add_named_dest($id);
+        $V3xsptcgzss2d = $Vnk2ly5jcvjf->get_node()->getAttribute("id");
+        if (strlen($V3xsptcgzss2d) > 0)  {
+            $this->_canvas->add_named_dest($V3xsptcgzss2d);
         }
     }
 }

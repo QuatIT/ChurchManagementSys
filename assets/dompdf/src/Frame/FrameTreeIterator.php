@@ -4,93 +4,68 @@ namespace Dompdf\Frame;
 use Iterator;
 use Dompdf\Frame;
 
-/**
- * Pre-order Iterator
- *
- * Returns frames in preorder traversal order (parent then children)
- *
- * @access private
- * @package dompdf
- */
+
 class FrameTreeIterator implements Iterator
 {
-    /**
-     * @var Frame
-     */
-    protected $_root;
+    
+    protected $Vnjwlrkwnjsn;
 
-    /**
-     * @var array
-     */
-    protected $_stack = array();
+    
+    protected $V0h3aou20d2y = array();
 
-    /**
-     * @var int
-     */
-    protected $_num;
+    
+    protected $V5fbz1ntsxwy;
 
-    /**
-     * @param Frame $root
-     */
-    public function __construct(Frame $root)
+    
+    public function __construct(Frame $Vzlqynjxsspd)
     {
-        $this->_stack[] = $this->_root = $root;
+        $this->_stack[] = $this->_root = $Vzlqynjxsspd;
         $this->_num = 0;
     }
 
-    /**
-     *
-     */
+    
     public function rewind()
     {
         $this->_stack = array($this->_root);
         $this->_num = 0;
     }
 
-    /**
-     * @return bool
-     */
+    
     public function valid()
     {
         return count($this->_stack) > 0;
     }
 
-    /**
-     * @return int
-     */
+    
     public function key()
     {
         return $this->_num;
     }
 
-    /**
-     * @return Frame
-     */
+    
     public function current()
     {
         return end($this->_stack);
     }
 
-    /**
-     * @return Frame
-     */
+    
     public function next()
     {
-        $b = end($this->_stack);
+        $Vbz3vmbr1h2v = end($this->_stack);
 
-        // Pop last element
+        
         unset($this->_stack[key($this->_stack)]);
         $this->_num++;
 
-        // Push all children onto the stack in reverse order
-        if ($c = $b->get_last_child()) {
-            $this->_stack[] = $c;
-            while ($c = $c->get_prev_sibling()) {
-                $this->_stack[] = $c;
+        
+        if ($Vv03lfntnmcz = $Vbz3vmbr1h2v->get_last_child()) {
+            $this->_stack[] = $Vv03lfntnmcz;
+            while ($Vv03lfntnmcz = $Vv03lfntnmcz->get_prev_sibling()) {
+                $this->_stack[] = $Vv03lfntnmcz;
             }
         }
 
-        return $b;
+        return $Vbz3vmbr1h2v;
     }
 }
 

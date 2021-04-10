@@ -1,63 +1,44 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf;
 
-/**
- * Executes inline PHP code during the rendering process
- *
- * @package dompdf
- */
+
 class PhpEvaluator
 {
 
-    /**
-     * @var Canvas
-     */
-    protected $_canvas;
+    
+    protected $Vuxbwvazzzwh;
 
-    /**
-     * PhpEvaluator constructor.
-     * @param Canvas $canvas
-     */
-    public function __construct(Canvas $canvas)
+    
+    public function __construct(Canvas $Vvzurwoc24em)
     {
-        $this->_canvas = $canvas;
+        $this->_canvas = $Vvzurwoc24em;
     }
 
-    /**
-     * @param $code
-     * @param array $vars
-     */
-    public function evaluate($code, $vars = array())
+    
+    public function evaluate($Vl0bhwxpf0qo, $Vjtba0lz024s = array())
     {
         if (!$this->_canvas->get_dompdf()->getOptions()->getIsPhpEnabled()) {
             return;
         }
 
-        // Set up some variables for the inline code
-        $pdf = $this->_canvas;
-        $fontMetrics = $pdf->get_dompdf()->getFontMetrics();
-        $PAGE_NUM = $pdf->get_page_number();
-        $PAGE_COUNT = $pdf->get_page_count();
+        
+        $Vsvnz5bsmrgs = $this->_canvas;
+        $Vj1pbeciqvz4 = $Vsvnz5bsmrgs->get_dompdf()->getFontMetrics();
+        $Vluq23se3xsk = $Vsvnz5bsmrgs->get_page_number();
+        $Vvkmmu1xk2sf = $Vsvnz5bsmrgs->get_page_count();
 
-        // Override those variables if passed in
-        foreach ($vars as $k => $v) {
-            $$k = $v;
+        
+        foreach ($Vjtba0lz024s as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+            $$Vgu5dsd35kdp = $Vpszt12nvbau;
         }
 
-        eval($code);
+        eval($Vl0bhwxpf0qo);
     }
 
-    /**
-     * @param Frame $frame
-     */
-    public function render(Frame $frame)
+    
+    public function render(Frame $Vnk2ly5jcvjf)
     {
-        $this->evaluate($frame->get_node()->nodeValue);
+        $this->evaluate($Vnk2ly5jcvjf->get_node()->nodeValue);
     }
 }

@@ -1,10 +1,5 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien M�nager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg;
 
@@ -18,28 +13,28 @@ class Style
     const TYPE_ANGLE = 4;
     const TYPE_NUMBER = 5;
 
-    public $color;
-    public $opacity;
-    public $display;
+    public $Vexxkxtdr01j;
+    public $Vdrvff4n2sqc;
+    public $Vsagginauquc;
 
-    public $fill;
-    public $fillOpacity;
-    public $fillRule;
+    public $Vm4rhtdms15t;
+    public $Vm4rhtdms15tOpacity;
+    public $Vm4rhtdms15tRule;
 
-    public $stroke;
-    public $strokeOpacity;
-    public $strokeLinecap;
-    public $strokeLinejoin;
-    public $strokeMiterlimit;
-    public $strokeWidth;
-    public $strokeDasharray;
-    public $strokeDashoffset;
+    public $Vihuafvzvxcv;
+    public $VihuafvzvxcvOpacity;
+    public $VihuafvzvxcvLinecap;
+    public $VihuafvzvxcvLinejoin;
+    public $VihuafvzvxcvMiterlimit;
+    public $VihuafvzvxcvWidth;
+    public $VihuafvzvxcvDasharray;
+    public $VihuafvzvxcvDashoffset;
 
-    public $fontFamily = 'serif';
-    public $fontSize = 12;
-    public $fontWeight = 'normal';
-    public $fontStyle = 'normal';
-    public $textAnchor = 'start';
+    public $Vm0ghucuw3u5 = 'serif';
+    public $V2vyeyucys34 = 12;
+    public $Vxiywr3wk111 = 'normal';
+    public $Vaug005sqclg = 'normal';
+    public $Vof4xe5fvrek = 'start';
 
     protected function getStyleMap()
     {
@@ -69,57 +64,53 @@ class Style
         );
     }
 
-    /**
-     * @param $attributes
-     *
-     * @return Style
-     */
-    public function fromAttributes($attributes)
+    
+    public function fromAttributes($Voywws15cvz5)
     {
-        $this->fillStyles($attributes);
+        $this->fillStyles($Voywws15cvz5);
 
-        if (isset($attributes["style"])) {
-            $styles = self::parseCssStyle($attributes["style"]);
-            $this->fillStyles($styles);
+        if (isset($Voywws15cvz5["style"])) {
+            $Vkrr1cq50rfu = self::parseCssStyle($Voywws15cvz5["style"]);
+            $this->fillStyles($Vkrr1cq50rfu);
         }
     }
 
-    public function inherit(AbstractTag $tag) {
-        $group = $tag->getParentGroup();
-        if ($group) {
-            $parent_style = $group->getStyle();
+    public function inherit(AbstractTag $Vudn5fb5ck4i) {
+        $V0o4wg1ye23g = $Vudn5fb5ck4i->getParentGroup();
+        if ($V0o4wg1ye23g) {
+            $Vbm5qtos3haz = $V0o4wg1ye23g->getStyle();
 
-            foreach ($parent_style as $_key => $_value) {
-                if ($_value !== null) {
-                    $this->$_key = $_value;
+            foreach ($Vbm5qtos3haz as $Vpdk4bkpdbzm => $Vdsb33s4wre5) {
+                if ($Vdsb33s4wre5 !== null) {
+                    $this->$Vpdk4bkpdbzm = $Vdsb33s4wre5;
                 }
             }
         }
     }
 
-    public function fromStyleSheets(AbstractTag $tag, $attributes) {
-        $class = isset($attributes["class"]) ? preg_split('/\s+/', trim($attributes["class"])) : null;
+    public function fromStyleSheets(AbstractTag $Vudn5fb5ck4i, $Voywws15cvz5) {
+        $V4ulrrtmqxqc = isset($Voywws15cvz5["class"]) ? preg_split('/\s+/', trim($Voywws15cvz5["class"])) : null;
 
-        $stylesheets = $tag->getDocument()->getStyleSheets();
+        $Vkrr1cq50rfuheets = $Vudn5fb5ck4i->getDocument()->getStyleSheets();
 
-        $styles = array();
+        $Vkrr1cq50rfu = array();
 
-        foreach ($stylesheets as $_sc) {
+        foreach ($Vkrr1cq50rfuheets as $Vpwgfwwxhstm) {
 
-            /** @var \Sabberworm\CSS\RuleSet\DeclarationBlock $_decl */
-            foreach ($_sc->getAllDeclarationBlocks() as $_decl) {
+            
+            foreach ($Vpwgfwwxhstm->getAllDeclarationBlocks() as $Vfrrsb3ai0f1) {
 
-                /** @var \Sabberworm\CSS\Property\Selector $_selector */
-                foreach ($_decl->getSelectors() as $_selector) {
-                    $_selector = $_selector->getSelector();
+                
+                foreach ($Vfrrsb3ai0f1->getSelectors() as $Vlj3zkjxq0hf) {
+                    $Vlj3zkjxq0hf = $Vlj3zkjxq0hf->getSelector();
 
-                    // Match class name
-                    if ($class !== null) {
-                        foreach ($class as $_class) {
-                            if ($_selector === ".$_class") {
-                                /** @var \Sabberworm\CSS\Rule\Rule $_rule */
-                                foreach ($_decl->getRules() as $_rule) {
-                                    $styles[$_rule->getRule()] = $_rule->getValue() . "";
+                    
+                    if ($V4ulrrtmqxqc !== null) {
+                        foreach ($V4ulrrtmqxqc as $V2gn0vo3zyqf) {
+                            if ($Vlj3zkjxq0hf === ".$V2gn0vo3zyqf") {
+                                
+                                foreach ($Vfrrsb3ai0f1->getRules() as $Vlhylkxt3vpm) {
+                                    $Vkrr1cq50rfu[$Vlhylkxt3vpm->getRule()] = $Vlhylkxt3vpm->getValue() . "";
                                 }
 
                                 break 2;
@@ -127,11 +118,11 @@ class Style
                         }
                     }
 
-                    // Match tag name
-                    if ($_selector === $tag->tagName) {
-                        /** @var \Sabberworm\CSS\Rule\Rule $_rule */
-                        foreach ($_decl->getRules() as $_rule) {
-                            $styles[$_rule->getRule()] = $_rule->getValue() . "";
+                    
+                    if ($Vlj3zkjxq0hf === $Vudn5fb5ck4i->tagName) {
+                        
+                        foreach ($Vfrrsb3ai0f1->getRules() as $Vlhylkxt3vpm) {
+                            $Vkrr1cq50rfu[$Vlhylkxt3vpm->getRule()] = $Vlhylkxt3vpm->getValue() . "";
                         }
 
                         break;
@@ -140,264 +131,250 @@ class Style
             }
         }
 
-        $this->fillStyles($styles);
+        $this->fillStyles($Vkrr1cq50rfu);
     }
 
-    protected function fillStyles($styles)
+    protected function fillStyles($Vkrr1cq50rfu)
     {
-        foreach ($this->getStyleMap() as $from => $spec) {
-            if (isset($styles[$from])) {
-                list($to, $type) = $spec;
-                $value = null;
-                switch ($type) {
+        foreach ($this->getStyleMap() as $Vnypsd01ojjn => $Vtny4oge5prb) {
+            if (isset($Vkrr1cq50rfu[$Vnypsd01ojjn])) {
+                list($Vqjeupemp40q, $Vxeifmjzikkj) = $Vtny4oge5prb;
+                $Vqfra35f14fv = null;
+                switch ($Vxeifmjzikkj) {
                     case self::TYPE_COLOR:
-                        $value = self::parseColor($styles[$from]);
+                        $Vqfra35f14fv = self::parseColor($Vkrr1cq50rfu[$Vnypsd01ojjn]);
                         break;
 
                     case self::TYPE_NUMBER:
-                        $value = ($styles[$from] === null) ? null : (float)$styles[$from];
+                        $Vqfra35f14fv = ($Vkrr1cq50rfu[$Vnypsd01ojjn] === null) ? null : (float)$Vkrr1cq50rfu[$Vnypsd01ojjn];
                         break;
 
                     default:
-                        $value = $styles[$from];
+                        $Vqfra35f14fv = $Vkrr1cq50rfu[$Vnypsd01ojjn];
                 }
 
-                if ($value !== null) {
-                    $this->$to = $value;
+                if ($Vqfra35f14fv !== null) {
+                    $this->$Vqjeupemp40q = $Vqfra35f14fv;
                 }
             }
         }
     }
 
-    static function parseColor($color)
+    static function parseColor($Vexxkxtdr01j)
     {
-        $color = strtolower(trim($color));
+        $Vexxkxtdr01j = strtolower(trim($Vexxkxtdr01j));
 
-        $parts = preg_split('/[^,]\s+/', $color, 2);
+        $V2crka1tlwcy = preg_split('/[^,]\s+/', $Vexxkxtdr01j, 2);
 
-        if (count($parts) == 2) {
-            $color = $parts[1];
+        if (count($V2crka1tlwcy) == 2) {
+            $Vexxkxtdr01j = $V2crka1tlwcy[1];
         }
         else {
-            $color = $parts[0];
+            $Vexxkxtdr01j = $V2crka1tlwcy[0];
         }
 
-        if ($color === "none") {
+        if ($Vexxkxtdr01j === "none") {
             return "none";
         }
 
-        // SVG color name
-        if (isset(self::$colorNames[$color])) {
-            return self::parseHexColor(self::$colorNames[$color]);
+        
+        if (isset(self::$Vexxkxtdr01jNames[$Vexxkxtdr01j])) {
+            return self::parseHexColor(self::$Vexxkxtdr01jNames[$Vexxkxtdr01j]);
         }
 
-        // Hex color
-        if ($color[0] === "#") {
-            return self::parseHexColor($color);
+        
+        if ($Vexxkxtdr01j[0] === "#") {
+            return self::parseHexColor($Vexxkxtdr01j);
         }
 
-        // RGB color
-        if (strpos($color, "rgb") !== false) {
-            return self::getTriplet($color);
+        
+        if (strpos($Vexxkxtdr01j, "rgb") !== false) {
+            return self::getTriplet($Vexxkxtdr01j);
         }
 
-        // RGB color
-        if (strpos($color, "hsl") !== false) {
-            $triplet = self::getTriplet($color, true);
+        
+        if (strpos($Vexxkxtdr01j, "hsl") !== false) {
+            $Vsfgwuuky2eq = self::getTriplet($Vexxkxtdr01j, true);
 
-            if ($triplet == null) {
+            if ($Vsfgwuuky2eq == null) {
                 return null;
             }
 
-            list($h, $s, $l) = $triplet;
+            list($Vjlmjalejjxa, $Vujweq34gtl3, $V3nb02w01gr5) = $Vsfgwuuky2eq;
 
-            $r = $l;
-            $g = $l;
-            $b = $l;
-            $v = ($l <= 0.5) ? ($l * (1.0 + $s)) : ($l + $s - $l * $s);
-            if ($v > 0) {
-                $m = $l + $l - $v;
-                $sv = ($v - $m) / $v;
-                $h *= 6.0;
-                $sextant = floor($h);
-                $fract = $h - $sextant;
-                $vsf = $v * $sv * $fract;
-                $mid1 = $m + $vsf;
-                $mid2 = $v - $vsf;
+            $Vkabkv5ip0kg = $V3nb02w01gr5;
+            $Vg5wspvkpf2e = $V3nb02w01gr5;
+            $Vbz3vmbr1h2v = $V3nb02w01gr5;
+            $Vpszt12nvbau = ($V3nb02w01gr5 <= 0.5) ? ($V3nb02w01gr5 * (1.0 + $Vujweq34gtl3)) : ($V3nb02w01gr5 + $Vujweq34gtl3 - $V3nb02w01gr5 * $Vujweq34gtl3);
+            if ($Vpszt12nvbau > 0) {
+                $V5wavc1ylt2i = $V3nb02w01gr5 + $V3nb02w01gr5 - $Vpszt12nvbau;
+                $Vujweq34gtl3v = ($Vpszt12nvbau - $V5wavc1ylt2i) / $Vpszt12nvbau;
+                $Vjlmjalejjxa *= 6.0;
+                $Vujweq34gtl3extant = floor($Vjlmjalejjxa);
+                $Vuvt014mzzzz = $Vjlmjalejjxa - $Vujweq34gtl3extant;
+                $Vpszt12nvbausf = $Vpszt12nvbau * $Vujweq34gtl3v * $Vuvt014mzzzz;
+                $V5wavc1ylt2iid1 = $V5wavc1ylt2i + $Vpszt12nvbausf;
+                $V5wavc1ylt2iid2 = $Vpszt12nvbau - $Vpszt12nvbausf;
 
-                switch ($sextant) {
+                switch ($Vujweq34gtl3extant) {
                     case 0:
-                        $r = $v;
-                        $g = $mid1;
-                        $b = $m;
+                        $Vkabkv5ip0kg = $Vpszt12nvbau;
+                        $Vg5wspvkpf2e = $V5wavc1ylt2iid1;
+                        $Vbz3vmbr1h2v = $V5wavc1ylt2i;
                         break;
                     case 1:
-                        $r = $mid2;
-                        $g = $v;
-                        $b = $m;
+                        $Vkabkv5ip0kg = $V5wavc1ylt2iid2;
+                        $Vg5wspvkpf2e = $Vpszt12nvbau;
+                        $Vbz3vmbr1h2v = $V5wavc1ylt2i;
                         break;
                     case 2:
-                        $r = $m;
-                        $g = $v;
-                        $b = $mid1;
+                        $Vkabkv5ip0kg = $V5wavc1ylt2i;
+                        $Vg5wspvkpf2e = $Vpszt12nvbau;
+                        $Vbz3vmbr1h2v = $V5wavc1ylt2iid1;
                         break;
                     case 3:
-                        $r = $m;
-                        $g = $mid2;
-                        $b = $v;
+                        $Vkabkv5ip0kg = $V5wavc1ylt2i;
+                        $Vg5wspvkpf2e = $V5wavc1ylt2iid2;
+                        $Vbz3vmbr1h2v = $Vpszt12nvbau;
                         break;
                     case 4:
-                        $r = $mid1;
-                        $g = $m;
-                        $b = $v;
+                        $Vkabkv5ip0kg = $V5wavc1ylt2iid1;
+                        $Vg5wspvkpf2e = $V5wavc1ylt2i;
+                        $Vbz3vmbr1h2v = $Vpszt12nvbau;
                         break;
                     case 5:
-                        $r = $v;
-                        $g = $m;
-                        $b = $mid2;
+                        $Vkabkv5ip0kg = $Vpszt12nvbau;
+                        $Vg5wspvkpf2e = $V5wavc1ylt2i;
+                        $Vbz3vmbr1h2v = $V5wavc1ylt2iid2;
                         break;
                 }
             }
 
             return array(
-                $r * 255.0,
-                $g * 255.0,
-                $b * 255.0,
+                $Vkabkv5ip0kg * 255.0,
+                $Vg5wspvkpf2e * 255.0,
+                $Vbz3vmbr1h2v * 255.0,
             );
         }
 
-        // Gradient
-        if (strpos($color, "url(#") !== false) {
-            $i = strpos($color, "(");
-            $j = strpos($color, ")");
+        
+        if (strpos($Vexxkxtdr01j, "url(#") !== false) {
+            $V3xsptcgzss2 = strpos($Vexxkxtdr01j, "(");
+            $V0hg12l10vfx = strpos($Vexxkxtdr01j, ")");
 
-            // Bad url format
-            if ($i === false || $j === false) {
+            
+            if ($V3xsptcgzss2 === false || $V0hg12l10vfx === false) {
                 return null;
             }
 
-            return trim(substr($color, $i + 1, $j - $i - 1));
+            return trim(substr($Vexxkxtdr01j, $V3xsptcgzss2 + 1, $V0hg12l10vfx - $V3xsptcgzss2 - 1));
         }
 
         return null;
     }
 
-    static function getTriplet($color, $percent = false) {
-        $i = strpos($color, "(");
-        $j = strpos($color, ")");
+    static function getTriplet($Vexxkxtdr01j, $Vkqkxt2mptjx = false) {
+        $V3xsptcgzss2 = strpos($Vexxkxtdr01j, "(");
+        $V0hg12l10vfx = strpos($Vexxkxtdr01j, ")");
 
-        // Bad color value
-        if ($i === false || $j === false) {
+        
+        if ($V3xsptcgzss2 === false || $V0hg12l10vfx === false) {
             return null;
         }
 
-        $triplet = preg_split("/\\s*,\\s*/", trim(substr($color, $i + 1, $j - $i - 1)));
+        $Vsfgwuuky2eq = preg_split("/\\s*,\\s*/", trim(substr($Vexxkxtdr01j, $V3xsptcgzss2 + 1, $V0hg12l10vfx - $V3xsptcgzss2 - 1)));
 
-        if (count($triplet) != 3) {
+        if (count($Vsfgwuuky2eq) != 3) {
             return null;
         }
 
-        foreach (array_keys($triplet) as $c) {
-            $triplet[$c] = trim($triplet[$c]);
+        foreach (array_keys($Vsfgwuuky2eq) as $Vv03lfntnmcz) {
+            $Vsfgwuuky2eq[$Vv03lfntnmcz] = trim($Vsfgwuuky2eq[$Vv03lfntnmcz]);
 
-            if ($percent) {
-                if ($triplet[$c][strlen($triplet[$c]) - 1] === "%") {
-                    $triplet[$c] = $triplet[$c] / 100;
+            if ($Vkqkxt2mptjx) {
+                if ($Vsfgwuuky2eq[$Vv03lfntnmcz][strlen($Vsfgwuuky2eq[$Vv03lfntnmcz]) - 1] === "%") {
+                    $Vsfgwuuky2eq[$Vv03lfntnmcz] = $Vsfgwuuky2eq[$Vv03lfntnmcz] / 100;
                 }
                 else {
-                    $triplet[$c] = $triplet[$c] / 255;
+                    $Vsfgwuuky2eq[$Vv03lfntnmcz] = $Vsfgwuuky2eq[$Vv03lfntnmcz] / 255;
                 }
             }
             else {
-                if ($triplet[$c][strlen($triplet[$c]) - 1] === "%") {
-                    $triplet[$c] = round($triplet[$c] * 2.55);
+                if ($Vsfgwuuky2eq[$Vv03lfntnmcz][strlen($Vsfgwuuky2eq[$Vv03lfntnmcz]) - 1] === "%") {
+                    $Vsfgwuuky2eq[$Vv03lfntnmcz] = round($Vsfgwuuky2eq[$Vv03lfntnmcz] * 2.55);
                 }
             }
         }
 
-        return $triplet;
+        return $Vsfgwuuky2eq;
     }
 
-    static function parseHexColor($hex)
+    static function parseHexColor($Vjlmjalejjxaex)
     {
-        $c = array(0, 0, 0);
+        $Vv03lfntnmcz = array(0, 0, 0);
 
-        // #FFFFFF
-        if (isset($hex[6])) {
-            $c[0] = hexdec(substr($hex, 1, 2));
-            $c[1] = hexdec(substr($hex, 3, 2));
-            $c[2] = hexdec(substr($hex, 5, 2));
+        
+        if (isset($Vjlmjalejjxaex[6])) {
+            $Vv03lfntnmcz[0] = hexdec(substr($Vjlmjalejjxaex, 1, 2));
+            $Vv03lfntnmcz[1] = hexdec(substr($Vjlmjalejjxaex, 3, 2));
+            $Vv03lfntnmcz[2] = hexdec(substr($Vjlmjalejjxaex, 5, 2));
         } else {
-            $c[0] = hexdec($hex[1] . $hex[1]);
-            $c[1] = hexdec($hex[2] . $hex[2]);
-            $c[2] = hexdec($hex[3] . $hex[3]);
+            $Vv03lfntnmcz[0] = hexdec($Vjlmjalejjxaex[1] . $Vjlmjalejjxaex[1]);
+            $Vv03lfntnmcz[1] = hexdec($Vjlmjalejjxaex[2] . $Vjlmjalejjxaex[2]);
+            $Vv03lfntnmcz[2] = hexdec($Vjlmjalejjxaex[3] . $Vjlmjalejjxaex[3]);
         }
 
-        return $c;
+        return $Vv03lfntnmcz;
     }
 
-    /**
-     * Simple CSS parser
-     *
-     * @param $style
-     *
-     * @return array
-     */
-    static function parseCssStyle($style)
+    
+    static function parseCssStyle($Vujweq34gtl3tyle)
     {
-        $matches = array();
-        preg_match_all("/([a-z-]+)\\s*:\\s*([^;$]+)/si", $style, $matches, PREG_SET_ORDER);
+        $V5wavc1ylt2iatches = array();
+        preg_match_all("/([a-z-]+)\\s*:\\s*([^;$]+)/si", $Vujweq34gtl3tyle, $V5wavc1ylt2iatches, PREG_SET_ORDER);
 
-        $styles = array();
-        foreach ($matches as $match) {
-            $styles[$match[1]] = $match[2];
+        $Vkrr1cq50rfu = array();
+        foreach ($V5wavc1ylt2iatches as $V5wavc1ylt2iatch) {
+            $Vkrr1cq50rfu[$V5wavc1ylt2iatch[1]] = $V5wavc1ylt2iatch[2];
         }
 
-        return $styles;
+        return $Vkrr1cq50rfu;
     }
 
-    /**
-     * Convert a size to a float
-     *
-     * @param string $size          SVG size
-     * @param float  $dpi           DPI
-     * @param float  $referenceSize Reference size
-     *
-     * @return float|null
-     */
-    static function convertSize($size, $referenceSize = 11.0, $dpi = 96.0) {
-        $size = trim(strtolower($size));
+    
+    static function convertSize($Vujweq34gtl3ize, $Vkabkv5ip0kgeferenceSize = 11.0, $Vs5sugw0qedn = 96.0) {
+        $Vujweq34gtl3ize = trim(strtolower($Vujweq34gtl3ize));
 
-        if (is_numeric($size)) {
-            return $size;
+        if (is_numeric($Vujweq34gtl3ize)) {
+            return $Vujweq34gtl3ize;
         }
 
-        if ($pos = strpos($size, "px")) {
-            return floatval(substr($size, 0, $pos));
+        if ($Vepim3znzh4w = strpos($Vujweq34gtl3ize, "px")) {
+            return floatval(substr($Vujweq34gtl3ize, 0, $Vepim3znzh4w));
         }
 
-        if ($pos = strpos($size, "pt")) {
-            return floatval(substr($size, 0, $pos));
+        if ($Vepim3znzh4w = strpos($Vujweq34gtl3ize, "pt")) {
+            return floatval(substr($Vujweq34gtl3ize, 0, $Vepim3znzh4w));
         }
 
-        if ($pos = strpos($size, "cm")) {
-            return floatval(substr($size, 0, $pos)) * $dpi;
+        if ($Vepim3znzh4w = strpos($Vujweq34gtl3ize, "cm")) {
+            return floatval(substr($Vujweq34gtl3ize, 0, $Vepim3znzh4w)) * $Vs5sugw0qedn;
         }
 
-        if ($pos = strpos($size, "%")) {
-            return $referenceSize * substr($size, 0, $pos) / 100;
+        if ($Vepim3znzh4w = strpos($Vujweq34gtl3ize, "%")) {
+            return $Vkabkv5ip0kgeferenceSize * substr($Vujweq34gtl3ize, 0, $Vepim3znzh4w) / 100;
         }
 
-        if ($pos = strpos($size, "em")) {
-            return $referenceSize * substr($size, 0, $pos);
+        if ($Vepim3znzh4w = strpos($Vujweq34gtl3ize, "em")) {
+            return $Vkabkv5ip0kgeferenceSize * substr($Vujweq34gtl3ize, 0, $Vepim3znzh4w);
         }
 
-        // TODO cm, mm, pc, in, etc
+        
 
         return null;
     }
 
-    static $colorNames = array(
+    static $Vexxkxtdr01jNames = array(
         'antiquewhite'         => '#FAEBD7',
         'aqua'                 => '#00FFFF',
         'aquamarine'           => '#7FFFD4',

@@ -1,12 +1,5 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Helmut Tischer <htischer@weihenstephan.org>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\Css;
 
 use Dompdf\Adapter\CPDF;
@@ -15,366 +8,259 @@ use Dompdf\Helpers;
 use Dompdf\FontMetrics;
 use Dompdf\Frame;
 
-/**
- * Represents CSS properties.
- *
- * The Style class is responsible for handling and storing CSS properties.
- * It includes methods to resolve colors and lengths, as well as getters &
- * setters for many CSS properites.
- *
- * Actual CSS parsing is performed in the {@link Stylesheet} class.
- *
- * @package dompdf
- */
+
 class Style
 {
 
     const CSS_IDENTIFIER = "-?[_a-zA-Z]+[_a-zA-Z0-9-]*";
     const CSS_INTEGER = "-?\d+";
 
-    /**
-     * Default font size, in points.
-     *
-     * @var float
-     */
-    static $default_font_size = 12;
+    
+    static $V0pkeukzj3tv = 12;
 
-    /**
-     * Default line height, as a fraction of the font size.
-     *
-     * @var float
-     */
-    static $default_line_height = 1.2;
+    
+    static $Vqpbory0b2vd = 1.2;
 
-    /**
-     * Default "absolute" font sizes relative to the default font-size
-     * http://www.w3.org/TR/css3-fonts/#font-size-the-font-size-property
-     * @var array<float>
-     */
-    static $font_size_keywords = array(
-        "xx-small" => 0.6, // 3/5
-        "x-small" => 0.75, // 3/4
-        "small" => 0.889, // 8/9
-        "medium" => 1, // 1
-        "large" => 1.2, // 6/5
-        "x-large" => 1.5, // 3/2
-        "xx-large" => 2.0, // 2/1
+    
+    static $Vjpaaekslmk0 = array(
+        "xx-small" => 0.6, 
+        "x-small" => 0.75, 
+        "small" => 0.889, 
+        "medium" => 1, 
+        "large" => 1.2, 
+        "x-large" => 1.5, 
+        "xx-large" => 2.0, 
     );
 
-    /**
-     * List of valid vertical-align keywords.  Should also really be a constant.
-     *
-     * @var array
-     */
-    static $vertical_align_keywords = array("baseline", "bottom", "middle", "sub",
+    
+    static $Vgkblykdxhiz = array("baseline", "bottom", "middle", "sub",
         "super", "text-bottom", "text-top", "top");
 
-    /**
-     * List of all inline types.  Should really be a constant.
-     *
-     * @var array
-     */
-    static $INLINE_TYPES = array("inline");
+    
+    static $V3irmujeshqx = array("inline");
 
-    /**
-     * List of all block types.  Should really be a constant.
-     *
-     * @var array
-     */
-    static $BLOCK_TYPES = array("block", "inline-block", "table-cell", "list-item");
+    
+    static $Vb34q1c1cezy = array("block", "inline-block", "table-cell", "list-item");
 
-    /**
-     * List of all positionned types.  Should really be a constant.
-     *
-     * @var array
-     */
-    static $POSITIONNED_TYPES = array("relative", "absolute", "fixed");
+    
+    static $Vad23z5m2olf = array("relative", "absolute", "fixed");
 
-    /**
-     * List of all table types.  Should really be a constant.
-     *
-     * @var array;
-     */
-    static $TABLE_TYPES = array("table", "inline-table");
+    
+    static $Vwc5svvuqws2 = array("table", "inline-table");
 
-    /**
-     * List of valid border styles.  Should also really be a constant.
-     *
-     * @var array
-     */
-    static $BORDER_STYLES = array("none", "hidden", "dotted", "dashed", "solid",
+    
+    static $Vn2tnb4bpsay = array("none", "hidden", "dotted", "dashed", "solid",
         "double", "groove", "ridge", "inset", "outset");
 
-    /**
-     * Default style values.
-     *
-     * @link http://www.w3.org/TR/CSS21/propidx.html
-     *
-     * @var array
-     */
-    static protected $_defaults = null;
+    
+    static protected $Vg2bme5jlm5x = null;
 
-    /**
-     * List of inherited properties
-     *
-     * @link http://www.w3.org/TR/CSS21/propidx.html
-     *
-     * @var array
-     */
-    static protected $_inherited = null;
+    
+    static protected $V01d001lnt0o = null;
 
-    /**
-     * Caches method_exists result
-     *
-     * @var array<bool>
-     */
-    static protected $_methods_cache = array();
+    
+    static protected $Vr0sfrk1yr4a = array();
 
-    /**
-     * The stylesheet this style belongs to
-     *
-     * @see Stylesheet
-     * @var Stylesheet
-     */
-    protected $_stylesheet; // stylesheet this style is attached to
+    
+    protected $Vmknuyjgom32; 
 
-    /**
-     * Media queries attached to the style
-     *
-     * @var int
-     */
-    protected $_media_queries;
+    
+    protected $V0x0vdkyux5q;
 
-    /**
-     * Main array of all CSS properties & values
-     *
-     * @var array
-     */
-    protected $_props;
+    
+    protected $Vdp43fjbxgwr;
 
-    /* var instead of protected would allow access outside of class */
-    protected $_important_props;
+    
+    protected $Vro4bg4buwad;
 
-    /**
-     * Cached property values
-     *
-     * @var array
-     */
-    protected $_prop_cache;
+    
+    protected $V03k2ery1xln;
 
-    /**
-     * Font size of parent element in document tree.  Used for relative font
-     * size resolution.
-     *
-     * @var float
-     */
-    protected $_parent_font_size; // Font size of parent element
+    
+    protected $V5zeqtnsnsef; 
 
-    protected $_font_family;
+    protected $Vabssqa1smhs;
 
-    /**
-     * @var Frame
-     */
-    protected $_frame;
+    
+    protected $Vtabfexfghu0;
 
-    /**
-     * The origin of the style
-     *
-     * @var int
-     */
-    protected $_origin = Stylesheet::ORIG_AUTHOR;
+    
+    protected $Vjkyspaz2bs1 = Stylesheet::ORIG_AUTHOR;
 
-    // private members
-    /**
-     * True once the font size is resolved absolutely
-     *
-     * @var bool
-     */
-    private $__font_size_calculated; // Cache flag
+    
+    
+    private $Vfqugfjo1mar; 
 
-    /**
-     * The computed bottom spacing
-     */
-    private $_computed_bottom_spacing = null;
+    
+    private $V3wchz4tus0e = null;
 
-    /**
-     * The computed border radius
-     */
-    private $_computed_border_radius = null;
+    
+    private $Vewsykrkyy14 = null;
 
-    /**
-     * @var bool
-     */
-    public $_has_border_radius = false;
+    
+    public $V3yhtwqbuhrq = false;
 
-    /**
-     * @var FontMetrics
-     */
-    private $fontMetrics;
+    
+    private $Vj1pbeciqvz4;
 
-    /**
-     * Class constructor
-     *
-     * @param Stylesheet $stylesheet the stylesheet this Style is associated with.
-     * @param int $origin
-     */
-    public function __construct(Stylesheet $stylesheet, $origin = Stylesheet::ORIG_AUTHOR)
+    
+    public function __construct(Stylesheet $V5fvtlalkarx, $Vineliqwe2ne = Stylesheet::ORIG_AUTHOR)
     {
-        $this->setFontMetrics($stylesheet->getFontMetrics());
+        $Vcki4t4qmybshis->setFontMetrics($V5fvtlalkarx->getFontMetrics());
 
-        $this->_props = array();
-        $this->_important_props = array();
-        $this->_stylesheet = $stylesheet;
-        $this->_media_queries = array();
-        $this->_origin = $origin;
-        $this->_parent_font_size = null;
-        $this->__font_size_calculated = false;
+        $Vcki4t4qmybshis->_props = array();
+        $Vcki4t4qmybshis->_important_props = array();
+        $Vcki4t4qmybshis->_stylesheet = $V5fvtlalkarx;
+        $Vcki4t4qmybshis->_media_queries = array();
+        $Vcki4t4qmybshis->_origin = $Vineliqwe2ne;
+        $Vcki4t4qmybshis->_parent_font_size = null;
+        $Vcki4t4qmybshis->__font_size_calculated = false;
 
-        if (!isset(self::$_defaults)) {
+        if (!isset(self::$Vg2bme5jlm5x)) {
 
-            // Shorthand
-            $d =& self::$_defaults;
+            
+            $Vcyg5xmwfpxo =& self::$Vg2bme5jlm5x;
 
-            // All CSS 2.1 properties, and their default values
-            $d["azimuth"] = "center";
-            $d["background_attachment"] = "scroll";
-            $d["background_color"] = "transparent";
-            $d["background_image"] = "none";
-            $d["background_image_resolution"] = "normal";
-            $d["_dompdf_background_image_resolution"] = $d["background_image_resolution"];
-            $d["background_position"] = "0% 0%";
-            $d["background_repeat"] = "repeat";
-            $d["background"] = "";
-            $d["border_collapse"] = "separate";
-            $d["border_color"] = "";
-            $d["border_spacing"] = "0";
-            $d["border_style"] = "";
-            $d["border_top"] = "";
-            $d["border_right"] = "";
-            $d["border_bottom"] = "";
-            $d["border_left"] = "";
-            $d["border_top_color"] = "";
-            $d["border_right_color"] = "";
-            $d["border_bottom_color"] = "";
-            $d["border_left_color"] = "";
-            $d["border_top_style"] = "none";
-            $d["border_right_style"] = "none";
-            $d["border_bottom_style"] = "none";
-            $d["border_left_style"] = "none";
-            $d["border_top_width"] = "medium";
-            $d["border_right_width"] = "medium";
-            $d["border_bottom_width"] = "medium";
-            $d["border_left_width"] = "medium";
-            $d["border_width"] = "medium";
-            $d["border_bottom_left_radius"] = "";
-            $d["border_bottom_right_radius"] = "";
-            $d["border_top_left_radius"] = "";
-            $d["border_top_right_radius"] = "";
-            $d["border_radius"] = "";
-            $d["border"] = "";
-            $d["bottom"] = "auto";
-            $d["caption_side"] = "top";
-            $d["clear"] = "none";
-            $d["clip"] = "auto";
-            $d["color"] = "#000000";
-            $d["content"] = "normal";
-            $d["counter_increment"] = "none";
-            $d["counter_reset"] = "none";
-            $d["cue_after"] = "none";
-            $d["cue_before"] = "none";
-            $d["cue"] = "";
-            $d["cursor"] = "auto";
-            $d["direction"] = "ltr";
-            $d["display"] = "inline";
-            $d["elevation"] = "level";
-            $d["empty_cells"] = "show";
-            $d["float"] = "none";
-            $d["font_family"] = $stylesheet->get_dompdf()->getOptions()->getDefaultFont();
-            $d["font_size"] = "medium";
-            $d["font_style"] = "normal";
-            $d["font_variant"] = "normal";
-            $d["font_weight"] = "normal";
-            $d["font"] = "";
-            $d["height"] = "auto";
-            $d["image_resolution"] = "normal";
-            $d["_dompdf_image_resolution"] = $d["image_resolution"];
-            $d["_dompdf_keep"] = "";
-            $d["left"] = "auto";
-            $d["letter_spacing"] = "normal";
-            $d["line_height"] = "normal";
-            $d["list_style_image"] = "none";
-            $d["list_style_position"] = "outside";
-            $d["list_style_type"] = "disc";
-            $d["list_style"] = "";
-            $d["margin_right"] = "0";
-            $d["margin_left"] = "0";
-            $d["margin_top"] = "0";
-            $d["margin_bottom"] = "0";
-            $d["margin"] = "";
-            $d["max_height"] = "none";
-            $d["max_width"] = "none";
-            $d["min_height"] = "0";
-            $d["min_width"] = "0";
-            $d["opacity"] = "1.0"; // CSS3
-            $d["orphans"] = "2";
-            $d["outline_color"] = ""; // "invert" special color is not supported
-            $d["outline_style"] = "none";
-            $d["outline_width"] = "medium";
-            $d["outline"] = "";
-            $d["overflow"] = "visible";
-            $d["padding_top"] = "0";
-            $d["padding_right"] = "0";
-            $d["padding_bottom"] = "0";
-            $d["padding_left"] = "0";
-            $d["padding"] = "";
-            $d["page_break_after"] = "auto";
-            $d["page_break_before"] = "auto";
-            $d["page_break_inside"] = "auto";
-            $d["pause_after"] = "0";
-            $d["pause_before"] = "0";
-            $d["pause"] = "";
-            $d["pitch_range"] = "50";
-            $d["pitch"] = "medium";
-            $d["play_during"] = "auto";
-            $d["position"] = "static";
-            $d["quotes"] = "";
-            $d["richness"] = "50";
-            $d["right"] = "auto";
-            $d["size"] = "auto"; // @page
-            $d["speak_header"] = "once";
-            $d["speak_numeral"] = "continuous";
-            $d["speak_punctuation"] = "none";
-            $d["speak"] = "normal";
-            $d["speech_rate"] = "medium";
-            $d["stress"] = "50";
-            $d["table_layout"] = "auto";
-            $d["text_align"] = "left";
-            $d["text_decoration"] = "none";
-            $d["text_indent"] = "0";
-            $d["text_transform"] = "none";
-            $d["top"] = "auto";
-            $d["transform"] = "none"; // CSS3
-            $d["transform_origin"] = "50% 50%"; // CSS3
-            $d["_webkit_transform"] = $d["transform"]; // CSS3
-            $d["_webkit_transform_origin"] = $d["transform_origin"]; // CSS3
-            $d["unicode_bidi"] = "normal";
-            $d["vertical_align"] = "baseline";
-            $d["visibility"] = "visible";
-            $d["voice_family"] = "";
-            $d["volume"] = "medium";
-            $d["white_space"] = "normal";
-            $d["word_wrap"] = "normal";
-            $d["widows"] = "2";
-            $d["width"] = "auto";
-            $d["word_spacing"] = "normal";
-            $d["z_index"] = "auto";
+            
+            $Vcyg5xmwfpxo["azimuth"] = "center";
+            $Vcyg5xmwfpxo["background_attachment"] = "scroll";
+            $Vcyg5xmwfpxo["background_color"] = "transparent";
+            $Vcyg5xmwfpxo["background_image"] = "none";
+            $Vcyg5xmwfpxo["background_image_resolution"] = "normal";
+            $Vcyg5xmwfpxo["_dompdf_background_image_resolution"] = $Vcyg5xmwfpxo["background_image_resolution"];
+            $Vcyg5xmwfpxo["background_position"] = "0% 0%";
+            $Vcyg5xmwfpxo["background_repeat"] = "repeat";
+            $Vcyg5xmwfpxo["background"] = "";
+            $Vcyg5xmwfpxo["border_collapse"] = "separate";
+            $Vcyg5xmwfpxo["border_color"] = "";
+            $Vcyg5xmwfpxo["border_spacing"] = "0";
+            $Vcyg5xmwfpxo["border_style"] = "";
+            $Vcyg5xmwfpxo["border_top"] = "";
+            $Vcyg5xmwfpxo["border_right"] = "";
+            $Vcyg5xmwfpxo["border_bottom"] = "";
+            $Vcyg5xmwfpxo["border_left"] = "";
+            $Vcyg5xmwfpxo["border_top_color"] = "";
+            $Vcyg5xmwfpxo["border_right_color"] = "";
+            $Vcyg5xmwfpxo["border_bottom_color"] = "";
+            $Vcyg5xmwfpxo["border_left_color"] = "";
+            $Vcyg5xmwfpxo["border_top_style"] = "none";
+            $Vcyg5xmwfpxo["border_right_style"] = "none";
+            $Vcyg5xmwfpxo["border_bottom_style"] = "none";
+            $Vcyg5xmwfpxo["border_left_style"] = "none";
+            $Vcyg5xmwfpxo["border_top_width"] = "medium";
+            $Vcyg5xmwfpxo["border_right_width"] = "medium";
+            $Vcyg5xmwfpxo["border_bottom_width"] = "medium";
+            $Vcyg5xmwfpxo["border_left_width"] = "medium";
+            $Vcyg5xmwfpxo["border_width"] = "medium";
+            $Vcyg5xmwfpxo["border_bottom_left_radius"] = "";
+            $Vcyg5xmwfpxo["border_bottom_right_radius"] = "";
+            $Vcyg5xmwfpxo["border_top_left_radius"] = "";
+            $Vcyg5xmwfpxo["border_top_right_radius"] = "";
+            $Vcyg5xmwfpxo["border_radius"] = "";
+            $Vcyg5xmwfpxo["border"] = "";
+            $Vcyg5xmwfpxo["bottom"] = "auto";
+            $Vcyg5xmwfpxo["caption_side"] = "top";
+            $Vcyg5xmwfpxo["clear"] = "none";
+            $Vcyg5xmwfpxo["clip"] = "auto";
+            $Vcyg5xmwfpxo["color"] = "#000000";
+            $Vcyg5xmwfpxo["content"] = "normal";
+            $Vcyg5xmwfpxo["counter_increment"] = "none";
+            $Vcyg5xmwfpxo["counter_reset"] = "none";
+            $Vcyg5xmwfpxo["cue_after"] = "none";
+            $Vcyg5xmwfpxo["cue_before"] = "none";
+            $Vcyg5xmwfpxo["cue"] = "";
+            $Vcyg5xmwfpxo["cursor"] = "auto";
+            $Vcyg5xmwfpxo["direction"] = "ltr";
+            $Vcyg5xmwfpxo["display"] = "inline";
+            $Vcyg5xmwfpxo["elevation"] = "level";
+            $Vcyg5xmwfpxo["empty_cells"] = "show";
+            $Vcyg5xmwfpxo["float"] = "none";
+            $Vcyg5xmwfpxo["font_family"] = $V5fvtlalkarx->get_dompdf()->getOptions()->getDefaultFont();
+            $Vcyg5xmwfpxo["font_size"] = "medium";
+            $Vcyg5xmwfpxo["font_style"] = "normal";
+            $Vcyg5xmwfpxo["font_variant"] = "normal";
+            $Vcyg5xmwfpxo["font_weight"] = "normal";
+            $Vcyg5xmwfpxo["font"] = "";
+            $Vcyg5xmwfpxo["height"] = "auto";
+            $Vcyg5xmwfpxo["image_resolution"] = "normal";
+            $Vcyg5xmwfpxo["_dompdf_image_resolution"] = $Vcyg5xmwfpxo["image_resolution"];
+            $Vcyg5xmwfpxo["_dompdf_keep"] = "";
+            $Vcyg5xmwfpxo["left"] = "auto";
+            $Vcyg5xmwfpxo["letter_spacing"] = "normal";
+            $Vcyg5xmwfpxo["line_height"] = "normal";
+            $Vcyg5xmwfpxo["list_style_image"] = "none";
+            $Vcyg5xmwfpxo["list_style_position"] = "outside";
+            $Vcyg5xmwfpxo["list_style_type"] = "disc";
+            $Vcyg5xmwfpxo["list_style"] = "";
+            $Vcyg5xmwfpxo["margin_right"] = "0";
+            $Vcyg5xmwfpxo["margin_left"] = "0";
+            $Vcyg5xmwfpxo["margin_top"] = "0";
+            $Vcyg5xmwfpxo["margin_bottom"] = "0";
+            $Vcyg5xmwfpxo["margin"] = "";
+            $Vcyg5xmwfpxo["max_height"] = "none";
+            $Vcyg5xmwfpxo["max_width"] = "none";
+            $Vcyg5xmwfpxo["min_height"] = "0";
+            $Vcyg5xmwfpxo["min_width"] = "0";
+            $Vcyg5xmwfpxo["opacity"] = "1.0"; 
+            $Vcyg5xmwfpxo["orphans"] = "2";
+            $Vcyg5xmwfpxo["outline_color"] = ""; 
+            $Vcyg5xmwfpxo["outline_style"] = "none";
+            $Vcyg5xmwfpxo["outline_width"] = "medium";
+            $Vcyg5xmwfpxo["outline"] = "";
+            $Vcyg5xmwfpxo["overflow"] = "visible";
+            $Vcyg5xmwfpxo["padding_top"] = "0";
+            $Vcyg5xmwfpxo["padding_right"] = "0";
+            $Vcyg5xmwfpxo["padding_bottom"] = "0";
+            $Vcyg5xmwfpxo["padding_left"] = "0";
+            $Vcyg5xmwfpxo["padding"] = "";
+            $Vcyg5xmwfpxo["page_break_after"] = "auto";
+            $Vcyg5xmwfpxo["page_break_before"] = "auto";
+            $Vcyg5xmwfpxo["page_break_inside"] = "auto";
+            $Vcyg5xmwfpxo["pause_after"] = "0";
+            $Vcyg5xmwfpxo["pause_before"] = "0";
+            $Vcyg5xmwfpxo["pause"] = "";
+            $Vcyg5xmwfpxo["pitch_range"] = "50";
+            $Vcyg5xmwfpxo["pitch"] = "medium";
+            $Vcyg5xmwfpxo["play_during"] = "auto";
+            $Vcyg5xmwfpxo["position"] = "static";
+            $Vcyg5xmwfpxo["quotes"] = "";
+            $Vcyg5xmwfpxo["richness"] = "50";
+            $Vcyg5xmwfpxo["right"] = "auto";
+            $Vcyg5xmwfpxo["size"] = "auto"; 
+            $Vcyg5xmwfpxo["speak_header"] = "once";
+            $Vcyg5xmwfpxo["speak_numeral"] = "continuous";
+            $Vcyg5xmwfpxo["speak_punctuation"] = "none";
+            $Vcyg5xmwfpxo["speak"] = "normal";
+            $Vcyg5xmwfpxo["speech_rate"] = "medium";
+            $Vcyg5xmwfpxo["stress"] = "50";
+            $Vcyg5xmwfpxo["table_layout"] = "auto";
+            $Vcyg5xmwfpxo["text_align"] = "left";
+            $Vcyg5xmwfpxo["text_decoration"] = "none";
+            $Vcyg5xmwfpxo["text_indent"] = "0";
+            $Vcyg5xmwfpxo["text_transform"] = "none";
+            $Vcyg5xmwfpxo["top"] = "auto";
+            $Vcyg5xmwfpxo["transform"] = "none"; 
+            $Vcyg5xmwfpxo["transform_origin"] = "50% 50%"; 
+            $Vcyg5xmwfpxo["_webkit_transform"] = $Vcyg5xmwfpxo["transform"]; 
+            $Vcyg5xmwfpxo["_webkit_transform_origin"] = $Vcyg5xmwfpxo["transform_origin"]; 
+            $Vcyg5xmwfpxo["unicode_bidi"] = "normal";
+            $Vcyg5xmwfpxo["vertical_align"] = "baseline";
+            $Vcyg5xmwfpxo["visibility"] = "visible";
+            $Vcyg5xmwfpxo["voice_family"] = "";
+            $Vcyg5xmwfpxo["volume"] = "medium";
+            $Vcyg5xmwfpxo["white_space"] = "normal";
+            $Vcyg5xmwfpxo["word_wrap"] = "normal";
+            $Vcyg5xmwfpxo["widows"] = "2";
+            $Vcyg5xmwfpxo["width"] = "auto";
+            $Vcyg5xmwfpxo["word_spacing"] = "normal";
+            $Vcyg5xmwfpxo["z_index"] = "auto";
 
-            // for @font-face
-            $d["src"] = "";
-            $d["unicode_range"] = "";
+            
+            $Vcyg5xmwfpxo["src"] = "";
+            $Vcyg5xmwfpxo["unicode_range"] = "";
 
-            // Properties that inherit by default
-            self::$_inherited = array(
+            
+            self::$V01d001lnt0o = array(
                 "azimuth",
                 "background_image_resolution",
                 "border_collapse",
@@ -424,604 +310,485 @@ class Style
         }
     }
 
-    /**
-     * "Destructor": forcibly free all references held by this object
-     */
+    
     function dispose()
     {
     }
 
-    /**
-     * @param $media_queries
-     */
-    function set_media_queries($media_queries)
+    
+    function set_media_queries($V0vifsuncaba)
     {
-        $this->_media_queries = $media_queries;
+        $Vcki4t4qmybshis->_media_queries = $V0vifsuncaba;
     }
 
-    /**
-     * @return array|int
-     */
+    
     function get_media_queries()
     {
-        return $this->_media_queries;
+        return $Vcki4t4qmybshis->_media_queries;
     }
 
-    /**
-     * @param Frame $frame
-     */
-    function set_frame(Frame $frame)
+    
+    function set_frame(Frame $Vnk2ly5jcvjf)
     {
-        $this->_frame = $frame;
+        $Vcki4t4qmybshis->_frame = $Vnk2ly5jcvjf;
     }
 
-    /**
-     * @return Frame
-     */
+    
     function get_frame()
     {
-        return $this->_frame;
+        return $Vcki4t4qmybshis->_frame;
     }
 
-    /**
-     * @param $origin
-     */
-    function set_origin($origin)
+    
+    function set_origin($Vineliqwe2ne)
     {
-        $this->_origin = $origin;
+        $Vcki4t4qmybshis->_origin = $Vineliqwe2ne;
     }
 
-    /**
-     * @return int
-     */
+    
     function get_origin()
     {
-        return $this->_origin;
+        return $Vcki4t4qmybshis->_origin;
     }
 
-    /**
-     * returns the {@link Stylesheet} this Style is associated with.
-     *
-     * @return Stylesheet
-     */
+    
     function get_stylesheet()
     {
-        return $this->_stylesheet;
+        return $Vcki4t4qmybshis->_stylesheet;
     }
 
-    /**
-     * Converts any CSS length value into an absolute length in points.
-     *
-     * length_in_pt() takes a single length (e.g. '1em') or an array of
-     * lengths and returns an absolute length.  If an array is passed, then
-     * the return value is the sum of all elements. If any of the lengths
-     * provided are "auto" or "none" then that value is returned.
-     *
-     * If a reference size is not provided, the default font size is used
-     * ({@link Style::$default_font_size}).
-     *
-     * @param float|string|array $length the numeric length (or string measurement) or array of lengths to resolve
-     * @param float $ref_size an absolute reference size to resolve percentage lengths
-     * @return float|string
-     */
-    function length_in_pt($length, $ref_size = null)
+    
+    function length_in_pt($Vjxpogd0afis, $Vxbpazqv01ao = null)
     {
-        static $cache = array();
+        static $V1ph4ewhj5yc = array();
 
-        if (!isset($ref_size)) {
-            $ref_size = self::$default_font_size;
+        if (!isset($Vxbpazqv01ao)) {
+            $Vxbpazqv01ao = self::$V0pkeukzj3tv;
         }
 
-        if (!is_array($length)) {
-            $key = $length . "/$ref_size";
-            //Early check on cache, before converting $length to array
-            if (isset($cache[$key])) {
-                return $cache[$key];
+        if (!is_array($Vjxpogd0afis)) {
+            $Vqwhzgethmgj = $Vjxpogd0afis . "/$Vxbpazqv01ao";
+            
+            if (isset($V1ph4ewhj5yc[$Vqwhzgethmgj])) {
+                return $V1ph4ewhj5yc[$Vqwhzgethmgj];
             }
-            $length = array($length);
+            $Vjxpogd0afis = array($Vjxpogd0afis);
         } else {
-            $key = implode("@", $length) . "/$ref_size";
-            if (isset($cache[$key])) {
-                return $cache[$key];
+            $Vqwhzgethmgj = implode("@", $Vjxpogd0afis) . "/$Vxbpazqv01ao";
+            if (isset($V1ph4ewhj5yc[$Vqwhzgethmgj])) {
+                return $V1ph4ewhj5yc[$Vqwhzgethmgj];
             }
         }
 
-        $ret = 0;
-        foreach ($length as $l) {
+        $Vc00k54nbbvf = 0;
+        foreach ($Vjxpogd0afis as $V3nb02w01gr5) {
 
-            if ($l === "auto") {
+            if ($V3nb02w01gr5 === "auto") {
                 return "auto";
             }
 
-            if ($l === "none") {
+            if ($V3nb02w01gr5 === "none") {
                 return "none";
             }
 
-            // Assume numeric values are already in points
-            if (is_numeric($l)) {
-                $ret += $l;
+            
+            if (is_numeric($V3nb02w01gr5)) {
+                $Vc00k54nbbvf += $V3nb02w01gr5;
                 continue;
             }
 
-            if ($l === "normal") {
-                $ret += (float)$ref_size;
+            if ($V3nb02w01gr5 === "normal") {
+                $Vc00k54nbbvf += (float)$Vxbpazqv01ao;
                 continue;
             }
 
-            // Border lengths
-            if ($l === "thin") {
-                $ret += 0.5;
+            
+            if ($V3nb02w01gr5 === "thin") {
+                $Vc00k54nbbvf += 0.5;
                 continue;
             }
 
-            if ($l === "medium") {
-                $ret += 1.5;
+            if ($V3nb02w01gr5 === "medium") {
+                $Vc00k54nbbvf += 1.5;
                 continue;
             }
 
-            if ($l === "thick") {
-                $ret += 2.5;
+            if ($V3nb02w01gr5 === "thick") {
+                $Vc00k54nbbvf += 2.5;
                 continue;
             }
 
-            if (($i = mb_strpos($l, "px")) !== false) {
-                $dpi = $this->_stylesheet->get_dompdf()->getOptions()->getDpi();
-                $ret += ((float)mb_substr($l, 0, $i) * 72) / $dpi;
+            if (($V3xsptcgzss2 = mb_strpos($V3nb02w01gr5, "px")) !== false) {
+                $Vcyg5xmwfpxopi = $Vcki4t4qmybshis->_stylesheet->get_dompdf()->getOptions()->getDpi();
+                $Vc00k54nbbvf += ((float)mb_substr($V3nb02w01gr5, 0, $V3xsptcgzss2) * 72) / $Vcyg5xmwfpxopi;
                 continue;
             }
 
-            if (($i = mb_strpos($l, "pt")) !== false) {
-                $ret += (float)mb_substr($l, 0, $i);
+            if (($V3xsptcgzss2 = mb_strpos($V3nb02w01gr5, "pt")) !== false) {
+                $Vc00k54nbbvf += (float)mb_substr($V3nb02w01gr5, 0, $V3xsptcgzss2);
                 continue;
             }
 
-            if (($i = mb_strpos($l, "%")) !== false) {
-                $ret += (float)mb_substr($l, 0, $i) / 100 * (float)$ref_size;
+            if (($V3xsptcgzss2 = mb_strpos($V3nb02w01gr5, "%")) !== false) {
+                $Vc00k54nbbvf += (float)mb_substr($V3nb02w01gr5, 0, $V3xsptcgzss2) / 100 * (float)$Vxbpazqv01ao;
                 continue;
             }
 
-            if (($i = mb_strpos($l, "rem")) !== false) {
-                if ($this->_stylesheet->get_dompdf()->getTree()->get_root()->get_style() === null) {
-                    // Interpreting it as "em", see https://github.com/dompdf/dompdf/issues/1406
-                    $ret += (float)mb_substr($l, 0, $i) * $this->__get("font_size");
+            if (($V3xsptcgzss2 = mb_strpos($V3nb02w01gr5, "rem")) !== false) {
+                if ($Vcki4t4qmybshis->_stylesheet->get_dompdf()->getTree()->get_root()->get_style() === null) {
+                    
+                    $Vc00k54nbbvf += (float)mb_substr($V3nb02w01gr5, 0, $V3xsptcgzss2) * $Vcki4t4qmybshis->__get("font_size");
                 } else {
-                    $ret += (float)mb_substr($l, 0, $i) * $this->_stylesheet->get_dompdf()->getTree()->get_root()->get_style()->font_size;
+                    $Vc00k54nbbvf += (float)mb_substr($V3nb02w01gr5, 0, $V3xsptcgzss2) * $Vcki4t4qmybshis->_stylesheet->get_dompdf()->getTree()->get_root()->get_style()->font_size;
                 }
                 continue;
             }
 
-            if (($i = mb_strpos($l, "em")) !== false) {
-                $ret += (float)mb_substr($l, 0, $i) * $this->__get("font_size");
+            if (($V3xsptcgzss2 = mb_strpos($V3nb02w01gr5, "em")) !== false) {
+                $Vc00k54nbbvf += (float)mb_substr($V3nb02w01gr5, 0, $V3xsptcgzss2) * $Vcki4t4qmybshis->__get("font_size");
                 continue;
             }
 
-            if (($i = mb_strpos($l, "cm")) !== false) {
-                $ret += (float)mb_substr($l, 0, $i) * 72 / 2.54;
+            if (($V3xsptcgzss2 = mb_strpos($V3nb02w01gr5, "cm")) !== false) {
+                $Vc00k54nbbvf += (float)mb_substr($V3nb02w01gr5, 0, $V3xsptcgzss2) * 72 / 2.54;
                 continue;
             }
 
-            if (($i = mb_strpos($l, "mm")) !== false) {
-                $ret += (float)mb_substr($l, 0, $i) * 72 / 25.4;
+            if (($V3xsptcgzss2 = mb_strpos($V3nb02w01gr5, "mm")) !== false) {
+                $Vc00k54nbbvf += (float)mb_substr($V3nb02w01gr5, 0, $V3xsptcgzss2) * 72 / 25.4;
                 continue;
             }
 
-            // FIXME: em:ex ratio?
-            if (($i = mb_strpos($l, "ex")) !== false) {
-                $ret += (float)mb_substr($l, 0, $i) * $this->__get("font_size") / 2;
+            
+            if (($V3xsptcgzss2 = mb_strpos($V3nb02w01gr5, "ex")) !== false) {
+                $Vc00k54nbbvf += (float)mb_substr($V3nb02w01gr5, 0, $V3xsptcgzss2) * $Vcki4t4qmybshis->__get("font_size") / 2;
                 continue;
             }
 
-            if (($i = mb_strpos($l, "in")) !== false) {
-                $ret += (float)mb_substr($l, 0, $i) * 72;
+            if (($V3xsptcgzss2 = mb_strpos($V3nb02w01gr5, "in")) !== false) {
+                $Vc00k54nbbvf += (float)mb_substr($V3nb02w01gr5, 0, $V3xsptcgzss2) * 72;
                 continue;
             }
 
-            if (($i = mb_strpos($l, "pc")) !== false) {
-                $ret += (float)mb_substr($l, 0, $i) * 12;
+            if (($V3xsptcgzss2 = mb_strpos($V3nb02w01gr5, "pc")) !== false) {
+                $Vc00k54nbbvf += (float)mb_substr($V3nb02w01gr5, 0, $V3xsptcgzss2) * 12;
                 continue;
             }
 
-            // Bogus value
-            $ret += (float)$ref_size;
+            
+            $Vc00k54nbbvf += (float)$Vxbpazqv01ao;
         }
 
-        return $cache[$key] = $ret;
+        return $V1ph4ewhj5yc[$Vqwhzgethmgj] = $Vc00k54nbbvf;
     }
 
 
-    /**
-     * Set inherited properties in this style using values in $parent
-     *
-     * @param Style $parent
-     *
-     * @return Style
-     */
-    function inherit(Style $parent)
+    
+    function inherit(Style $Vycghhqowrim)
     {
 
-        // Set parent font size
-        $this->_parent_font_size = $parent->get_font_size();
+        
+        $Vcki4t4qmybshis->_parent_font_size = $Vycghhqowrim->get_font_size();
 
-        foreach (self::$_inherited as $prop) {
-            //inherit the !important property also.
-            //if local property is also !important, don't inherit.
-            if (isset($parent->_props[$prop]) &&
-                (!isset($this->_props[$prop]) ||
-                    (isset($parent->_important_props[$prop]) && !isset($this->_important_props[$prop]))
+        foreach (self::$V01d001lnt0o as $V3ztho1nxwdy) {
+            
+            
+            if (isset($Vycghhqowrim->_props[$V3ztho1nxwdy]) &&
+                (!isset($Vcki4t4qmybshis->_props[$V3ztho1nxwdy]) ||
+                    (isset($Vycghhqowrim->_important_props[$V3ztho1nxwdy]) && !isset($Vcki4t4qmybshis->_important_props[$V3ztho1nxwdy]))
                 )
             ) {
-                if (isset($parent->_important_props[$prop])) {
-                    $this->_important_props[$prop] = true;
+                if (isset($Vycghhqowrim->_important_props[$V3ztho1nxwdy])) {
+                    $Vcki4t4qmybshis->_important_props[$V3ztho1nxwdy] = true;
                 }
-                //see __set and __get, on all assignments clear cache!
-                $this->_prop_cache[$prop] = null;
-                $this->_props[$prop] = $parent->_props[$prop];
+                
+                $Vcki4t4qmybshis->_prop_cache[$V3ztho1nxwdy] = null;
+                $Vcki4t4qmybshis->_props[$V3ztho1nxwdy] = $Vycghhqowrim->_props[$V3ztho1nxwdy];
             }
         }
 
-        foreach ($this->_props as $prop => $value) {
-            if ($value === "inherit") {
-                if (isset($parent->_important_props[$prop])) {
-                    $this->_important_props[$prop] = true;
+        foreach ($Vcki4t4qmybshis->_props as $V3ztho1nxwdy => $Vqfra35f14fv) {
+            if ($Vqfra35f14fv === "inherit") {
+                if (isset($Vycghhqowrim->_important_props[$V3ztho1nxwdy])) {
+                    $Vcki4t4qmybshis->_important_props[$V3ztho1nxwdy] = true;
                 }
-                //do not assign direct, but
-                //implicite assignment through __set, redirect to specialized, get value with __get
-                //This is for computing defaults if the parent setting is also missing.
-                //Therefore do not directly assign the value without __set
-                //set _important_props before that to be able to propagate.
-                //see __set and __get, on all assignments clear cache!
-                //$this->_prop_cache[$prop] = null;
-                //$this->_props[$prop] = $parent->_props[$prop];
-                //props_set for more obvious explicite assignment not implemented, because
-                //too many implicite uses.
-                // $this->props_set($prop, $parent->$prop);
-                $this->__set($prop, $parent->__get($prop));
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                $Vcki4t4qmybshis->__set($V3ztho1nxwdy, $Vycghhqowrim->__get($V3ztho1nxwdy));
             }
         }
 
-        return $this;
+        return $Vcki4t4qmybshis;
     }
 
-    /**
-     * Override properties in this style with those in $style
-     *
-     * @param Style $style
-     */
-    function merge(Style $style)
+    
+    function merge(Style $Vdidzwb0w3vc)
     {
-        $shorthand_properties = array("background", "border", "border_bottom", "border_color", "border_left", "border_radius", "border_right", "border_style", "border_top", "border_width", "flex", "font", "list_style", "margin", "padding", "transform");
-        //treat the !important attribute
-        //if old rule has !important attribute, override with new rule only if
-        //the new rule is also !important
-        foreach ($style->_props as $prop => $val) {
-            $can_merge = false;
-            if (isset($style->_important_props[$prop])) {
-                $this->_important_props[$prop] = true;
-                $can_merge = true;
-            } else if (!isset($this->_important_props[$prop])) {
-                $can_merge = true;
+        $Vzwlmrelseuh = array("background", "border", "border_bottom", "border_color", "border_left", "border_radius", "border_right", "border_style", "border_top", "border_width", "flex", "font", "list_style", "margin", "padding", "transform");
+        
+        
+        
+        foreach ($Vdidzwb0w3vc->_props as $V3ztho1nxwdy => $Vzyqcsfbm3q4) {
+            $V4egyxwz0cll = false;
+            if (isset($Vdidzwb0w3vc->_important_props[$V3ztho1nxwdy])) {
+                $Vcki4t4qmybshis->_important_props[$V3ztho1nxwdy] = true;
+                $V4egyxwz0cll = true;
+            } else if (!isset($Vcki4t4qmybshis->_important_props[$V3ztho1nxwdy])) {
+                $V4egyxwz0cll = true;
             }
 
-            if ($can_merge) {
-                //see __set and __get, on all assignments clear cache!
-                $this->_prop_cache[$prop] = null;
-                $this->_props[$prop] = $val;
+            if ($V4egyxwz0cll) {
+                
+                $Vcki4t4qmybshis->_prop_cache[$V3ztho1nxwdy] = null;
+                $Vcki4t4qmybshis->_props[$V3ztho1nxwdy] = $Vzyqcsfbm3q4;
 
-                // Clear out "inherit" shorthand properties if specific properties have been set
-                $shorthands = array_filter($shorthand_properties, function($el) use ($prop) {
-                    return ( strpos($prop, $el."_") !== false );
+                
+                $Vzbzwpwarypn = array_filter($Vzwlmrelseuh, function($Vklvnn4ydnaz) use ($V3ztho1nxwdy) {
+                    return ( strpos($V3ztho1nxwdy, $Vklvnn4ydnaz."_") !== false );
                 });
-                foreach ($shorthands as $shorthand) {
-                    if (array_key_exists($shorthand, $this->_props) && $this->_props[$shorthand] === "inherit") {
-                        unset($this->_props[$shorthand]);
+                foreach ($Vzbzwpwarypn as $Vdjg1mi2xgi2) {
+                    if (array_key_exists($Vdjg1mi2xgi2, $Vcki4t4qmybshis->_props) && $Vcki4t4qmybshis->_props[$Vdjg1mi2xgi2] === "inherit") {
+                        unset($Vcki4t4qmybshis->_props[$Vdjg1mi2xgi2]);
                     }
                 }
             }
         }
 
-        if (isset($style->_props["font_size"])) {
-            $this->__font_size_calculated = false;
+        if (isset($Vdidzwb0w3vc->_props["font_size"])) {
+            $Vcki4t4qmybshis->__font_size_calculated = false;
         }
     }
 
-    /**
-     * Returns an array(r, g, b, "r"=> r, "g"=>g, "b"=>b, "hex"=>"#rrggbb")
-     * based on the provided CSS color value.
-     *
-     * @param string $color
-     * @return array
-     */
-    function munge_color($color)
+    
+    function munge_color($Vexxkxtdr01j)
     {
-        return Color::parse($color);
+        return Color::parse($Vexxkxtdr01j);
     }
 
-    /* direct access to _important_props array from outside would work only when declared as
-     * 'var $_important_props;' instead of 'protected $_important_props;'
-     * Don't call _set/__get on missing attribute. Therefore need a special access.
-     * Assume that __set will be also called when this is called, so do not check validity again.
-     * Only created, if !important exists -> always set true.
-     */
-    function important_set($prop)
+    
+    function important_set($V3ztho1nxwdy)
     {
-        $prop = str_replace("-", "_", $prop);
-        $this->_important_props[$prop] = true;
+        $V3ztho1nxwdy = str_replace("-", "_", $V3ztho1nxwdy);
+        $Vcki4t4qmybshis->_important_props[$V3ztho1nxwdy] = true;
     }
 
-    /**
-     * @param $prop
-     * @return bool
-     */
-    function important_get($prop)
+    
+    function important_get($V3ztho1nxwdy)
     {
-        return isset($this->_important_props[$prop]);
+        return isset($Vcki4t4qmybshis->_important_props[$V3ztho1nxwdy]);
     }
 
-    /**
-     * PHP5 overloaded setter
-     *
-     * This function along with {@link Style::__get()} permit a user of the
-     * Style class to access any (CSS) property using the following syntax:
-     * <code>
-     *  Style->margin_top = "1em";
-     *  echo (Style->margin_top);
-     * </code>
-     *
-     * __set() automatically calls the provided set function, if one exists,
-     * otherwise it sets the property directly.  Typically, __set() is not
-     * called directly from outside of this class.
-     *
-     * On each modification clear cache to return accurate setting.
-     * Also affects direct settings not using __set
-     * For easier finding all assignments, attempted to allowing only explicite assignment:
-     * Very many uses, e.g. AbstractFrameReflower.php -> for now leave as it is
-     * function __set($prop, $val) {
-     *   throw new Exception("Implicite replacement of assignment by __set.  Not good.");
-     * }
-     * function props_set($prop, $val) { ... }
-     *
-     * @param string $prop the property to set
-     * @param mixed $val the value of the property
-     *
-     */
-    function __set($prop, $val)
+    
+    function __set($V3ztho1nxwdy, $Vzyqcsfbm3q4)
     {
-        $prop = str_replace("-", "_", $prop);
-        $this->_prop_cache[$prop] = null;
+        $V3ztho1nxwdy = str_replace("-", "_", $V3ztho1nxwdy);
+        $Vcki4t4qmybshis->_prop_cache[$V3ztho1nxwdy] = null;
 
-        if (!isset(self::$_defaults[$prop])) {
-            global $_dompdf_warnings;
-            $_dompdf_warnings[] = "'$prop' is not a valid CSS2 property.";
+        if (!isset(self::$Vg2bme5jlm5x[$V3ztho1nxwdy])) {
+            global $Vzm5jqiedkr4;
+            $Vzm5jqiedkr4[] = "'$V3ztho1nxwdy' is not a valid CSS2 property.";
             return;
         }
 
-        if ($prop !== "content" && is_string($val) && strlen($val) > 5 && mb_strpos($val, "url") === false) {
-            $val = mb_strtolower(trim(str_replace(array("\n", "\t"), array(" "), $val)));
-            $val = preg_replace("/([0-9]+) (pt|px|pc|em|ex|in|cm|mm|%)/S", "\\1\\2", $val);
+        if ($V3ztho1nxwdy !== "content" && is_string($Vzyqcsfbm3q4) && strlen($Vzyqcsfbm3q4) > 5 && mb_strpos($Vzyqcsfbm3q4, "url") === false) {
+            $Vzyqcsfbm3q4 = mb_strtolower(trim(str_replace(array("\n", "\t"), array(" "), $Vzyqcsfbm3q4)));
+            $Vzyqcsfbm3q4 = preg_replace("/([0-9]+) (pt|px|pc|em|ex|in|cm|mm|%)/S", "\\1\\2", $Vzyqcsfbm3q4);
         }
 
-        $method = "set_$prop";
+        $V1svcpcbr4nm = "set_$V3ztho1nxwdy";
 
-        if (!isset(self::$_methods_cache[$method])) {
-            self::$_methods_cache[$method] = method_exists($this, $method);
+        if (!isset(self::$Vr0sfrk1yr4a[$V1svcpcbr4nm])) {
+            self::$Vr0sfrk1yr4a[$V1svcpcbr4nm] = method_exists($Vcki4t4qmybshis, $V1svcpcbr4nm);
         }
 
-        if (self::$_methods_cache[$method]) {
-            $this->$method($val);
+        if (self::$Vr0sfrk1yr4a[$V1svcpcbr4nm]) {
+            $Vcki4t4qmybshis->$V1svcpcbr4nm($Vzyqcsfbm3q4);
         } else {
-            $this->_props[$prop] = $val;
+            $Vcki4t4qmybshis->_props[$V3ztho1nxwdy] = $Vzyqcsfbm3q4;
         }
     }
 
-    /**
-     * PHP5 overloaded getter
-     * Along with {@link Style::__set()} __get() provides access to all CSS
-     * properties directly.  Typically __get() is not called directly outside
-     * of this class.
-     * On each modification clear cache to return accurate setting.
-     * Also affects direct settings not using __set
-     *
-     * @param string $prop
-     *
-     * @throws Exception
-     * @return mixed
-     */
-    function __get($prop)
+    
+    function __get($V3ztho1nxwdy)
     {
-        if (!isset(self::$_defaults[$prop])) {
-            throw new Exception("'$prop' is not a valid CSS2 property.");
+        if (!isset(self::$Vg2bme5jlm5x[$V3ztho1nxwdy])) {
+            throw new Exception("'$V3ztho1nxwdy' is not a valid CSS2 property.");
         }
 
-        if (isset($this->_prop_cache[$prop]) && $this->_prop_cache[$prop] != null) {
-            return $this->_prop_cache[$prop];
+        if (isset($Vcki4t4qmybshis->_prop_cache[$V3ztho1nxwdy]) && $Vcki4t4qmybshis->_prop_cache[$V3ztho1nxwdy] != null) {
+            return $Vcki4t4qmybshis->_prop_cache[$V3ztho1nxwdy];
         }
 
-        $method = "get_$prop";
+        $V1svcpcbr4nm = "get_$V3ztho1nxwdy";
 
-        // Fall back on defaults if property is not set
-        if (!isset($this->_props[$prop])) {
-            $this->_props[$prop] = self::$_defaults[$prop];
+        
+        if (!isset($Vcki4t4qmybshis->_props[$V3ztho1nxwdy])) {
+            $Vcki4t4qmybshis->_props[$V3ztho1nxwdy] = self::$Vg2bme5jlm5x[$V3ztho1nxwdy];
         }
 
-        if (!isset(self::$_methods_cache[$method])) {
-            self::$_methods_cache[$method] = method_exists($this, $method);
+        if (!isset(self::$Vr0sfrk1yr4a[$V1svcpcbr4nm])) {
+            self::$Vr0sfrk1yr4a[$V1svcpcbr4nm] = method_exists($Vcki4t4qmybshis, $V1svcpcbr4nm);
         }
 
-        if (self::$_methods_cache[$method]) {
-            return $this->_prop_cache[$prop] = $this->$method();
+        if (self::$Vr0sfrk1yr4a[$V1svcpcbr4nm]) {
+            return $Vcki4t4qmybshis->_prop_cache[$V3ztho1nxwdy] = $Vcki4t4qmybshis->$V1svcpcbr4nm();
         }
 
-        return $this->_prop_cache[$prop] = $this->_props[$prop];
+        return $Vcki4t4qmybshis->_prop_cache[$V3ztho1nxwdy] = $Vcki4t4qmybshis->_props[$V3ztho1nxwdy];
     }
 
-    /**
-     * Similar to __get() without storing the result. Useful for accessing
-     * properties while loading stylesheets.
-     *
-     * @param $prop
-     * @return string
-     * @throws Exception
-     */
-    function get_prop($prop)
+    
+    function get_prop($V3ztho1nxwdy)
     {
-        if (!isset(self::$_defaults[$prop])) {
-            throw new Exception("'$prop' is not a valid CSS2 property.");
+        if (!isset(self::$Vg2bme5jlm5x[$V3ztho1nxwdy])) {
+            throw new Exception("'$V3ztho1nxwdy' is not a valid CSS2 property.");
         }
 
-        $method = "get_$prop";
+        $V1svcpcbr4nm = "get_$V3ztho1nxwdy";
 
-        // Fall back on defaults if property is not set
-        if (!isset($this->_props[$prop])) {
-            return self::$_defaults[$prop];
+        
+        if (!isset($Vcki4t4qmybshis->_props[$V3ztho1nxwdy])) {
+            return self::$Vg2bme5jlm5x[$V3ztho1nxwdy];
         }
 
-        if (method_exists($this, $method)) {
-            return $this->$method();
+        if (method_exists($Vcki4t4qmybshis, $V1svcpcbr4nm)) {
+            return $Vcki4t4qmybshis->$V1svcpcbr4nm();
         }
 
-        return $this->_props[$prop];
+        return $Vcki4t4qmybshis->_props[$V3ztho1nxwdy];
     }
 
-    /**
-     * @return float|null|string
-     */
+    
     function computed_bottom_spacing() {
-        if ($this->_computed_bottom_spacing !== null) {
-            return $this->_computed_bottom_spacing;
+        if ($Vcki4t4qmybshis->_computed_bottom_spacing !== null) {
+            return $Vcki4t4qmybshis->_computed_bottom_spacing;
         }
-        return $this->_computed_bottom_spacing = $this->length_in_pt(
+        return $Vcki4t4qmybshis->_computed_bottom_spacing = $Vcki4t4qmybshis->length_in_pt(
             array(
-                $this->margin_bottom,
-                $this->padding_bottom,
-                $this->border_bottom_width
+                $Vcki4t4qmybshis->margin_bottom,
+                $Vcki4t4qmybshis->padding_bottom,
+                $Vcki4t4qmybshis->border_bottom_width
             )
         );
     }
 
-    /**
-     * @return string
-     */
+    
     function get_font_family_raw()
     {
-        return trim($this->_props["font_family"], " \t\n\r\x0B\"'");
+        return trim($Vcki4t4qmybshis->_props["font_family"], " \t\n\r\x0B\"'");
     }
 
-    /**
-     * Getter for the 'font-family' CSS property.
-     * Uses the {@link FontMetrics} class to resolve the font family into an
-     * actual font file.
-     *
-     * @link http://www.w3.org/TR/CSS21/fonts.html#propdef-font-family
-     * @throws Exception
-     *
-     * @return string
-     */
+    
     function get_font_family()
     {
-        if (isset($this->_font_family)) {
-            return $this->_font_family;
+        if (isset($Vcki4t4qmybshis->_font_family)) {
+            return $Vcki4t4qmybshis->_font_family;
         }
 
-        $DEBUGCSS = $this->_stylesheet->get_dompdf()->getOptions()->getDebugCss();
+        $Vi3tzeasy1pp = $Vcki4t4qmybshis->_stylesheet->get_dompdf()->getOptions()->getDebugCss();
 
-        // Select the appropriate font.  First determine the subtype, then check
-        // the specified font-families for a candidate.
+        
+        
 
-        // Resolve font-weight
-        $weight = $this->__get("font_weight");
+        
+        $Vpapt1ooifql = $Vcki4t4qmybshis->__get("font_weight");
 
-        if (is_numeric($weight)) {
-            if ($weight < 600) {
-                $weight = "normal";
+        if (is_numeric($Vpapt1ooifql)) {
+            if ($Vpapt1ooifql < 600) {
+                $Vpapt1ooifql = "normal";
             } else {
-                $weight = "bold";
+                $Vpapt1ooifql = "bold";
             }
-        } else if ($weight === "bold" || $weight === "bolder") {
-            $weight = "bold";
+        } else if ($Vpapt1ooifql === "bold" || $Vpapt1ooifql === "bolder") {
+            $Vpapt1ooifql = "bold";
         } else {
-            $weight = "normal";
+            $Vpapt1ooifql = "normal";
         }
 
-        // Resolve font-style
-        $font_style = $this->__get("font_style");
+        
+        $Vm0tqflv4ydt = $Vcki4t4qmybshis->__get("font_style");
 
-        if ($weight === "bold" && ($font_style === "italic" || $font_style === "oblique")) {
-            $subtype = "bold_italic";
-        } else if ($weight === "bold" && $font_style !== "italic" && $font_style !== "oblique") {
-            $subtype = "bold";
-        } else if ($weight !== "bold" && ($font_style === "italic" || $font_style === "oblique")) {
-            $subtype = "italic";
+        if ($Vpapt1ooifql === "bold" && ($Vm0tqflv4ydt === "italic" || $Vm0tqflv4ydt === "oblique")) {
+            $Vt33g5i2zccw = "bold_italic";
+        } else if ($Vpapt1ooifql === "bold" && $Vm0tqflv4ydt !== "italic" && $Vm0tqflv4ydt !== "oblique") {
+            $Vt33g5i2zccw = "bold";
+        } else if ($Vpapt1ooifql !== "bold" && ($Vm0tqflv4ydt === "italic" || $Vm0tqflv4ydt === "oblique")) {
+            $Vt33g5i2zccw = "italic";
         } else {
-            $subtype = "normal";
+            $Vt33g5i2zccw = "normal";
         }
 
-        // Resolve the font family
-        if ($DEBUGCSS) {
+        
+        if ($Vi3tzeasy1pp) {
             print "<pre>[get_font_family:";
-            print '(' . $this->_props["font_family"] . '.' . $font_style . '.' . $this->__get("font_weight") . '.' . $weight . '.' . $subtype . ')';
+            print '(' . $Vcki4t4qmybshis->_props["font_family"] . '.' . $Vm0tqflv4ydt . '.' . $Vcki4t4qmybshis->__get("font_weight") . '.' . $Vpapt1ooifql . '.' . $Vt33g5i2zccw . ')';
         }
 
-        $families = preg_split("/\s*,\s*/", $this->_props["font_family"]);
+        $Vk31cmghwxrd = preg_split("/\s*,\s*/", $Vcki4t4qmybshis->_props["font_family"]);
 
-        $font = null;
-        foreach ($families as $family) {
-            //remove leading and trailing string delimiters, e.g. on font names with spaces;
-            //remove leading and trailing whitespace
-            $family = trim($family, " \t\n\r\x0B\"'");
-            if ($DEBUGCSS) {
-                print '(' . $family . ')';
+        $V3h4z3hxorxj = null;
+        foreach ($Vk31cmghwxrd as $Vu3vfak1w4uv) {
+            
+            
+            $Vu3vfak1w4uv = trim($Vu3vfak1w4uv, " \t\n\r\x0B\"'");
+            if ($Vi3tzeasy1pp) {
+                print '(' . $Vu3vfak1w4uv . ')';
             }
-            $font = $this->getFontMetrics()->getFont($family, $subtype);
+            $V3h4z3hxorxj = $Vcki4t4qmybshis->getFontMetrics()->getFont($Vu3vfak1w4uv, $Vt33g5i2zccw);
 
-            if ($font) {
-                if ($DEBUGCSS) {
-                    print '(' . $font . ")get_font_family]\n</pre>";
+            if ($V3h4z3hxorxj) {
+                if ($Vi3tzeasy1pp) {
+                    print '(' . $V3h4z3hxorxj . ")get_font_family]\n</pre>";
                 }
-                return $this->_font_family = $font;
+                return $Vcki4t4qmybshis->_font_family = $V3h4z3hxorxj;
             }
         }
 
-        $family = null;
-        if ($DEBUGCSS) {
+        $Vu3vfak1w4uv = null;
+        if ($Vi3tzeasy1pp) {
             print '(default)';
         }
-        $font = $this->getFontMetrics()->getFont($family, $subtype);
+        $V3h4z3hxorxj = $Vcki4t4qmybshis->getFontMetrics()->getFont($Vu3vfak1w4uv, $Vt33g5i2zccw);
 
-        if ($font) {
-            if ($DEBUGCSS) {
-                print '(' . $font . ")get_font_family]\n</pre>";
+        if ($V3h4z3hxorxj) {
+            if ($Vi3tzeasy1pp) {
+                print '(' . $V3h4z3hxorxj . ")get_font_family]\n</pre>";
             }
-            return $this->_font_family = $font;
+            return $Vcki4t4qmybshis->_font_family = $V3h4z3hxorxj;
         }
 
-        throw new Exception("Unable to find a suitable font replacement for: '" . $this->_props["font_family"] . "'");
+        throw new Exception("Unable to find a suitable font replacement for: '" . $Vcki4t4qmybshis->_props["font_family"] . "'");
 
     }
 
-    /**
-     * Returns the resolved font size, in points
-     *
-     * @link http://www.w3.org/TR/CSS21/fonts.html#propdef-font-size
-     * @return float
-     */
+    
     function get_font_size()
     {
 
-        if ($this->__font_size_calculated) {
-            return $this->_props["font_size"];
+        if ($Vcki4t4qmybshis->__font_size_calculated) {
+            return $Vcki4t4qmybshis->_props["font_size"];
         }
 
-        if (!isset($this->_props["font_size"])) {
-            $fs = self::$_defaults["font_size"];
+        if (!isset($Vcki4t4qmybshis->_props["font_size"])) {
+            $Vj2dp31yq2k0 = self::$Vg2bme5jlm5x["font_size"];
         } else {
-            $fs = $this->_props["font_size"];
+            $Vj2dp31yq2k0 = $Vcki4t4qmybshis->_props["font_size"];
         }
 
-        if (!isset($this->_parent_font_size)) {
-            $this->_parent_font_size = self::$default_font_size;
+        if (!isset($Vcki4t4qmybshis->_parent_font_size)) {
+            $Vcki4t4qmybshis->_parent_font_size = self::$V0pkeukzj3tv;
         }
 
-        switch ((string)$fs) {
+        switch ((string)$Vj2dp31yq2k0) {
             case "xx-small":
             case "x-small":
             case "small":
@@ -1029,463 +796,346 @@ class Style
             case "large":
             case "x-large":
             case "xx-large":
-                $fs = self::$default_font_size * self::$font_size_keywords[$fs];
+                $Vj2dp31yq2k0 = self::$V0pkeukzj3tv * self::$Vjpaaekslmk0[$Vj2dp31yq2k0];
                 break;
 
             case "smaller":
-                $fs = 8 / 9 * $this->_parent_font_size;
+                $Vj2dp31yq2k0 = 8 / 9 * $Vcki4t4qmybshis->_parent_font_size;
                 break;
 
             case "larger":
-                $fs = 6 / 5 * $this->_parent_font_size;
+                $Vj2dp31yq2k0 = 6 / 5 * $Vcki4t4qmybshis->_parent_font_size;
                 break;
 
             default:
                 break;
         }
 
-        // Ensure relative sizes resolve to something
-        if (($i = mb_strpos($fs, "em")) !== false) {
-            $fs = (float)mb_substr($fs, 0, $i) * $this->_parent_font_size;
-        } else if (($i = mb_strpos($fs, "ex")) !== false) {
-            $fs = (float)mb_substr($fs, 0, $i) * $this->_parent_font_size;
+        
+        if (($V3xsptcgzss2 = mb_strpos($Vj2dp31yq2k0, "em")) !== false) {
+            $Vj2dp31yq2k0 = (float)mb_substr($Vj2dp31yq2k0, 0, $V3xsptcgzss2) * $Vcki4t4qmybshis->_parent_font_size;
+        } else if (($V3xsptcgzss2 = mb_strpos($Vj2dp31yq2k0, "ex")) !== false) {
+            $Vj2dp31yq2k0 = (float)mb_substr($Vj2dp31yq2k0, 0, $V3xsptcgzss2) * $Vcki4t4qmybshis->_parent_font_size;
         } else {
-            $fs = (float)$this->length_in_pt($fs);
+            $Vj2dp31yq2k0 = (float)$Vcki4t4qmybshis->length_in_pt($Vj2dp31yq2k0);
         }
 
-        //see __set and __get, on all assignments clear cache!
-        $this->_prop_cache["font_size"] = null;
-        $this->_props["font_size"] = $fs;
-        $this->__font_size_calculated = true;
-        return $this->_props["font_size"];
+        
+        $Vcki4t4qmybshis->_prop_cache["font_size"] = null;
+        $Vcki4t4qmybshis->_props["font_size"] = $Vj2dp31yq2k0;
+        $Vcki4t4qmybshis->__font_size_calculated = true;
+        return $Vcki4t4qmybshis->_props["font_size"];
 
     }
 
-    /**
-     * @link http://www.w3.org/TR/CSS21/text.html#propdef-word-spacing
-     * @return float
-     */
+    
     function get_word_spacing()
     {
-        if ($this->_props["word_spacing"] === "normal") {
+        if ($Vcki4t4qmybshis->_props["word_spacing"] === "normal") {
             return 0;
         }
 
-        return $this->_props["word_spacing"];
+        return $Vcki4t4qmybshis->_props["word_spacing"];
     }
 
-    /**
-     * @link http://www.w3.org/TR/CSS21/text.html#propdef-letter-spacing
-     * @return float
-     */
+    
     function get_letter_spacing()
     {
-        if ($this->_props["letter_spacing"] === "normal") {
+        if ($Vcki4t4qmybshis->_props["letter_spacing"] === "normal") {
             return 0;
         }
 
-        return $this->_props["letter_spacing"];
+        return $Vcki4t4qmybshis->_props["letter_spacing"];
     }
 
-    /**
-     * @link http://www.w3.org/TR/CSS21/visudet.html#propdef-line-height
-     * @return float
-     */
+    
     function get_line_height()
     {
-        if (array_key_exists("line_height", $this->_props) === false) {
-            $this->_props["line_height"] = self::$_defaults["line_height"];
+        if (array_key_exists("line_height", $Vcki4t4qmybshis->_props) === false) {
+            $Vcki4t4qmybshis->_props["line_height"] = self::$Vg2bme5jlm5x["line_height"];
         }
-        $line_height = $this->_props["line_height"];
+        $V3nb02w01gr5ine_height = $Vcki4t4qmybshis->_props["line_height"];
 
-        if ($line_height === "normal") {
-            return self::$default_line_height * $this->get_font_size();
-        }
-
-        if (is_numeric($line_height)) {
-            return $this->length_in_pt($line_height . "em", $this->get_font_size());
+        if ($V3nb02w01gr5ine_height === "normal") {
+            return self::$Vqpbory0b2vd * $Vcki4t4qmybshis->get_font_size();
         }
 
-        return $this->length_in_pt($line_height, $this->_parent_font_size);
+        if (is_numeric($V3nb02w01gr5ine_height)) {
+            return $Vcki4t4qmybshis->length_in_pt($V3nb02w01gr5ine_height . "em", $Vcki4t4qmybshis->get_font_size());
+        }
+
+        return $Vcki4t4qmybshis->length_in_pt($V3nb02w01gr5ine_height, $Vcki4t4qmybshis->_parent_font_size);
     }
 
-    /**
-     * Returns the color as an array
-     *
-     * The array has the following format:
-     * <code>array(r,g,b, "r" => r, "g" => g, "b" => b, "hex" => "#rrggbb")</code>
-     *
-     * @link http://www.w3.org/TR/CSS21/colors.html#propdef-color
-     * @return array
-     */
+    
     function get_color()
     {
-        return $this->munge_color($this->_props["color"]);
+        return $Vcki4t4qmybshis->munge_color($Vcki4t4qmybshis->_props["color"]);
     }
 
-    /**
-     * Returns the background color as an array
-     *
-     * The returned array has the same format as {@link Style::get_color()}
-     *
-     * @link http://www.w3.org/TR/CSS21/colors.html#propdef-background-color
-     * @return array
-     */
+    
     function get_background_color()
     {
-        return $this->munge_color($this->_props["background_color"]);
+        return $Vcki4t4qmybshis->munge_color($Vcki4t4qmybshis->_props["background_color"]);
     }
 
-    /**
-     * Returns the background position as an array
-     *
-     * The returned array has the following format:
-     * <code>array(x,y, "x" => x, "y" => y)</code>
-     *
-     * @link http://www.w3.org/TR/CSS21/colors.html#propdef-background-position
-     * @return array
-     */
+    
     function get_background_position()
     {
-        $tmp = explode(" ", $this->_props["background_position"]);
+        $Vynpm04a4fx0 = explode(" ", $Vcki4t4qmybshis->_props["background_position"]);
 
-        switch ($tmp[0]) {
+        switch ($Vynpm04a4fx0[0]) {
             case "left":
-                $x = "0%";
+                $Vs4gloy23a1d = "0%";
                 break;
 
             case "right":
-                $x = "100%";
+                $Vs4gloy23a1d = "100%";
                 break;
 
             case "top":
-                $y = "0%";
+                $Vopgub02o3q2 = "0%";
                 break;
 
             case "bottom":
-                $y = "100%";
+                $Vopgub02o3q2 = "100%";
                 break;
 
             case "center":
-                $x = "50%";
-                $y = "50%";
+                $Vs4gloy23a1d = "50%";
+                $Vopgub02o3q2 = "50%";
                 break;
 
             default:
-                $x = $tmp[0];
+                $Vs4gloy23a1d = $Vynpm04a4fx0[0];
                 break;
         }
 
-        if (isset($tmp[1])) {
-            switch ($tmp[1]) {
+        if (isset($Vynpm04a4fx0[1])) {
+            switch ($Vynpm04a4fx0[1]) {
                 case "left":
-                    $x = "0%";
+                    $Vs4gloy23a1d = "0%";
                     break;
 
                 case "right":
-                    $x = "100%";
+                    $Vs4gloy23a1d = "100%";
                     break;
 
                 case "top":
-                    $y = "0%";
+                    $Vopgub02o3q2 = "0%";
                     break;
 
                 case "bottom":
-                    $y = "100%";
+                    $Vopgub02o3q2 = "100%";
                     break;
 
                 case "center":
-                    if ($tmp[0] === "left" || $tmp[0] === "right" || $tmp[0] === "center") {
-                        $y = "50%";
+                    if ($Vynpm04a4fx0[0] === "left" || $Vynpm04a4fx0[0] === "right" || $Vynpm04a4fx0[0] === "center") {
+                        $Vopgub02o3q2 = "50%";
                     } else {
-                        $x = "50%";
+                        $Vs4gloy23a1d = "50%";
                     }
                     break;
 
                 default:
-                    $y = $tmp[1];
+                    $Vopgub02o3q2 = $Vynpm04a4fx0[1];
                     break;
             }
         } else {
-            $y = "50%";
+            $Vopgub02o3q2 = "50%";
         }
 
-        if (!isset($x)) {
-            $x = "0%";
+        if (!isset($Vs4gloy23a1d)) {
+            $Vs4gloy23a1d = "0%";
         }
 
-        if (!isset($y)) {
-            $y = "0%";
+        if (!isset($Vopgub02o3q2)) {
+            $Vopgub02o3q2 = "0%";
         }
 
         return array(
-            0 => $x, "x" => $x,
-            1 => $y, "y" => $y,
+            0 => $Vs4gloy23a1d, "x" => $Vs4gloy23a1d,
+            1 => $Vopgub02o3q2, "y" => $Vopgub02o3q2,
         );
     }
 
 
-    /**
-     * Returns the background as it is currently stored
-     *
-     * (currently anyway only for completeness.
-     * not used for further processing)
-     *
-     * @link http://www.w3.org/TR/CSS21/colors.html#propdef-background-attachment
-     * @return string
-     */
+    
     function get_background_attachment()
     {
-        return $this->_props["background_attachment"];
+        return $Vcki4t4qmybshis->_props["background_attachment"];
     }
 
 
-    /**
-     * Returns the background_repeat as it is currently stored
-     *
-     * (currently anyway only for completeness.
-     * not used for further processing)
-     *
-     * @link http://www.w3.org/TR/CSS21/colors.html#propdef-background-repeat
-     * @return string
-     */
+    
     function get_background_repeat()
     {
-        return $this->_props["background_repeat"];
+        return $Vcki4t4qmybshis->_props["background_repeat"];
     }
 
 
-    /**
-     * Returns the background as it is currently stored
-     *
-     * (currently anyway only for completeness.
-     * not used for further processing, but the individual get_background_xxx)
-     *
-     * @link http://www.w3.org/TR/CSS21/colors.html#propdef-background
-     * @return string
-     */
+    
     function get_background()
     {
-        return $this->_props["background"];
+        return $Vcki4t4qmybshis->_props["background"];
     }
 
 
-    /**#@+
-     * Returns the border color as an array
-     *
-     * See {@link Style::get_color()}
-     *
-     * @link http://www.w3.org/TR/CSS21/box.html#border-color-properties
-     * @return array
-     */
+    
     function get_border_top_color()
     {
-        if ($this->_props["border_top_color"] === "") {
-            //see __set and __get, on all assignments clear cache!
-            $this->_prop_cache["border_top_color"] = null;
-            $this->_props["border_top_color"] = $this->__get("color");
+        if ($Vcki4t4qmybshis->_props["border_top_color"] === "") {
+            
+            $Vcki4t4qmybshis->_prop_cache["border_top_color"] = null;
+            $Vcki4t4qmybshis->_props["border_top_color"] = $Vcki4t4qmybshis->__get("color");
         }
 
-        return $this->munge_color($this->_props["border_top_color"]);
+        return $Vcki4t4qmybshis->munge_color($Vcki4t4qmybshis->_props["border_top_color"]);
     }
 
-    /**
-     * @return array
-     */
+    
     function get_border_right_color()
     {
-        if ($this->_props["border_right_color"] === "") {
-            //see __set and __get, on all assignments clear cache!
-            $this->_prop_cache["border_right_color"] = null;
-            $this->_props["border_right_color"] = $this->__get("color");
+        if ($Vcki4t4qmybshis->_props["border_right_color"] === "") {
+            
+            $Vcki4t4qmybshis->_prop_cache["border_right_color"] = null;
+            $Vcki4t4qmybshis->_props["border_right_color"] = $Vcki4t4qmybshis->__get("color");
         }
 
-        return $this->munge_color($this->_props["border_right_color"]);
+        return $Vcki4t4qmybshis->munge_color($Vcki4t4qmybshis->_props["border_right_color"]);
     }
 
-    /**
-     * @return array
-     */
+    
     function get_border_bottom_color()
     {
-        if ($this->_props["border_bottom_color"] === "") {
-            //see __set and __get, on all assignments clear cache!
-            $this->_prop_cache["border_bottom_color"] = null;
-            $this->_props["border_bottom_color"] = $this->__get("color");
+        if ($Vcki4t4qmybshis->_props["border_bottom_color"] === "") {
+            
+            $Vcki4t4qmybshis->_prop_cache["border_bottom_color"] = null;
+            $Vcki4t4qmybshis->_props["border_bottom_color"] = $Vcki4t4qmybshis->__get("color");
         }
 
-        return $this->munge_color($this->_props["border_bottom_color"]);
+        return $Vcki4t4qmybshis->munge_color($Vcki4t4qmybshis->_props["border_bottom_color"]);
     }
 
-    /**
-     * @return array
-     */
+    
     function get_border_left_color()
     {
-        if ($this->_props["border_left_color"] === "") {
-            //see __set and __get, on all assignments clear cache!
-            $this->_prop_cache["border_left_color"] = null;
-            $this->_props["border_left_color"] = $this->__get("color");
+        if ($Vcki4t4qmybshis->_props["border_left_color"] === "") {
+            
+            $Vcki4t4qmybshis->_prop_cache["border_left_color"] = null;
+            $Vcki4t4qmybshis->_props["border_left_color"] = $Vcki4t4qmybshis->__get("color");
         }
 
-        return $this->munge_color($this->_props["border_left_color"]);
+        return $Vcki4t4qmybshis->munge_color($Vcki4t4qmybshis->_props["border_left_color"]);
     }
 
-    /**#@-*/
+    
 
-    /**#@+
-     * Returns the border width, as it is currently stored
-     *
-     * @link http://www.w3.org/TR/CSS21/box.html#border-width-properties
-     * @return float|string
-     */
+    
     function get_border_top_width()
     {
-        $style = $this->__get("border_top_style");
-        return $style !== "none" && $style !== "hidden" ? $this->length_in_pt($this->_props["border_top_width"]) : 0;
+        $Vdidzwb0w3vc = $Vcki4t4qmybshis->__get("border_top_style");
+        return $Vdidzwb0w3vc !== "none" && $Vdidzwb0w3vc !== "hidden" ? $Vcki4t4qmybshis->length_in_pt($Vcki4t4qmybshis->_props["border_top_width"]) : 0;
     }
 
-    /**
-     * @return float|int|string
-     */
+    
     function get_border_right_width()
     {
-        $style = $this->__get("border_right_style");
-        return $style !== "none" && $style !== "hidden" ? $this->length_in_pt($this->_props["border_right_width"]) : 0;
+        $Vdidzwb0w3vc = $Vcki4t4qmybshis->__get("border_right_style");
+        return $Vdidzwb0w3vc !== "none" && $Vdidzwb0w3vc !== "hidden" ? $Vcki4t4qmybshis->length_in_pt($Vcki4t4qmybshis->_props["border_right_width"]) : 0;
     }
 
-    /**
-     * @return float|int|string
-     */
+    
     function get_border_bottom_width()
     {
-        $style = $this->__get("border_bottom_style");
-        return $style !== "none" && $style !== "hidden" ? $this->length_in_pt($this->_props["border_bottom_width"]) : 0;
+        $Vdidzwb0w3vc = $Vcki4t4qmybshis->__get("border_bottom_style");
+        return $Vdidzwb0w3vc !== "none" && $Vdidzwb0w3vc !== "hidden" ? $Vcki4t4qmybshis->length_in_pt($Vcki4t4qmybshis->_props["border_bottom_width"]) : 0;
     }
 
-    /**
-     * @return float|int|string
-     */
+    
     function get_border_left_width()
     {
-        $style = $this->__get("border_left_style");
-        return $style !== "none" && $style !== "hidden" ? $this->length_in_pt($this->_props["border_left_width"]) : 0;
+        $Vdidzwb0w3vc = $Vcki4t4qmybshis->__get("border_left_style");
+        return $Vdidzwb0w3vc !== "none" && $Vdidzwb0w3vc !== "hidden" ? $Vcki4t4qmybshis->length_in_pt($Vcki4t4qmybshis->_props["border_left_width"]) : 0;
     }
-    /**#@-*/
+    
 
-    /**
-     * Return an array of all border properties.
-     *
-     * The returned array has the following structure:
-     * <code>
-     * array("top" => array("width" => [border-width],
-     *                      "style" => [border-style],
-     *                      "color" => [border-color (array)]),
-     *       "bottom" ... )
-     * </code>
-     *
-     * @return array
-     */
+    
     function get_border_properties()
     {
         return array(
             "top" => array(
-                "width" => $this->__get("border_top_width"),
-                "style" => $this->__get("border_top_style"),
-                "color" => $this->__get("border_top_color"),
+                "width" => $Vcki4t4qmybshis->__get("border_top_width"),
+                "style" => $Vcki4t4qmybshis->__get("border_top_style"),
+                "color" => $Vcki4t4qmybshis->__get("border_top_color"),
             ),
             "bottom" => array(
-                "width" => $this->__get("border_bottom_width"),
-                "style" => $this->__get("border_bottom_style"),
-                "color" => $this->__get("border_bottom_color"),
+                "width" => $Vcki4t4qmybshis->__get("border_bottom_width"),
+                "style" => $Vcki4t4qmybshis->__get("border_bottom_style"),
+                "color" => $Vcki4t4qmybshis->__get("border_bottom_color"),
             ),
             "right" => array(
-                "width" => $this->__get("border_right_width"),
-                "style" => $this->__get("border_right_style"),
-                "color" => $this->__get("border_right_color"),
+                "width" => $Vcki4t4qmybshis->__get("border_right_width"),
+                "style" => $Vcki4t4qmybshis->__get("border_right_style"),
+                "color" => $Vcki4t4qmybshis->__get("border_right_color"),
             ),
             "left" => array(
-                "width" => $this->__get("border_left_width"),
-                "style" => $this->__get("border_left_style"),
-                "color" => $this->__get("border_left_color"),
+                "width" => $Vcki4t4qmybshis->__get("border_left_width"),
+                "style" => $Vcki4t4qmybshis->__get("border_left_style"),
+                "color" => $Vcki4t4qmybshis->__get("border_left_color"),
             ),
         );
     }
 
-    /**
-     * Return a single border property
-     *
-     * @param string $side
-     *
-     * @return mixed
-     */
-    protected function _get_border($side)
+    
+    protected function _get_border($Voj5js1i2adw)
     {
-        $color = $this->__get("border_" . $side . "_color");
+        $Vexxkxtdr01j = $Vcki4t4qmybshis->__get("border_" . $Voj5js1i2adw . "_color");
 
-        return $this->__get("border_" . $side . "_width") . " " .
-        $this->__get("border_" . $side . "_style") . " " . $color["hex"];
+        return $Vcki4t4qmybshis->__get("border_" . $Voj5js1i2adw . "_width") . " " .
+        $Vcki4t4qmybshis->__get("border_" . $Voj5js1i2adw . "_style") . " " . $Vexxkxtdr01j["hex"];
     }
 
-    /**#@+
-     * Return full border properties as a string
-     *
-     * Border properties are returned just as specified in CSS:
-     * <pre>[width] [style] [color]</pre>
-     * e.g. "1px solid blue"
-     *
-     * @link http://www.w3.org/TR/CSS21/box.html#border-shorthand-properties
-     * @return string
-     */
+    
     function get_border_top()
     {
-        return $this->_get_border("top");
+        return $Vcki4t4qmybshis->_get_border("top");
     }
 
-    /**
-     * @return mixed
-     */
+    
     function get_border_right()
     {
-        return $this->_get_border("right");
+        return $Vcki4t4qmybshis->_get_border("right");
     }
 
-    /**
-     * @return mixed
-     */
+    
     function get_border_bottom()
     {
-        return $this->_get_border("bottom");
+        return $Vcki4t4qmybshis->_get_border("bottom");
     }
 
-    /**
-     * @return mixed
-     */
+    
     function get_border_left()
     {
-        return $this->_get_border("left");
+        return $Vcki4t4qmybshis->_get_border("left");
     }
 
-    /**
-     * @param $w
-     * @param $h
-     * @return array|null
-     */
-    function get_computed_border_radius($w, $h)
+    
+    function get_computed_border_radius($Vhoifq2kocyt, $Vjlmjalejjxa)
     {
-        if (!empty($this->_computed_border_radius)) {
-            return $this->_computed_border_radius;
+        if (!empty($Vcki4t4qmybshis->_computed_border_radius)) {
+            return $Vcki4t4qmybshis->_computed_border_radius;
         }
 
-        $w = (float)$w;
-        $h = (float)$h;
-        $rTL = (float)$this->__get("border_top_left_radius");
-        $rTR = (float)$this->__get("border_top_right_radius");
-        $rBL = (float)$this->__get("border_bottom_left_radius");
-        $rBR = (float)$this->__get("border_bottom_right_radius");
+        $Vhoifq2kocyt = (float)$Vhoifq2kocyt;
+        $Vjlmjalejjxa = (float)$Vjlmjalejjxa;
+        $Vhsnbs0gwraw = (float)$Vcki4t4qmybshis->__get("border_top_left_radius");
+        $Voxjadvbzbkb = (float)$Vcki4t4qmybshis->__get("border_top_right_radius");
+        $Vlbh2hh1w1uq = (float)$Vcki4t4qmybshis->__get("border_bottom_left_radius");
+        $Vpzh1agu5pge = (float)$Vcki4t4qmybshis->__get("border_bottom_right_radius");
 
-        if ($rTL + $rTR + $rBL + $rBR == 0) {
-            return $this->_computed_border_radius = array(
+        if ($Vhsnbs0gwraw + $Voxjadvbzbkb + $Vlbh2hh1w1uq + $Vpzh1agu5pge == 0) {
+            return $Vcki4t4qmybshis->_computed_border_radius = array(
                 0, 0, 0, 0,
                 "top-left" => 0,
                 "top-right" => 0,
@@ -1494,1031 +1144,738 @@ class Style
             );
         }
 
-        $t = (float)$this->__get("border_top_width");
-        $r = (float)$this->__get("border_right_width");
-        $b = (float)$this->__get("border_bottom_width");
-        $l = (float)$this->__get("border_left_width");
+        $Vcki4t4qmybs = (float)$Vcki4t4qmybshis->__get("border_top_width");
+        $Vkabkv5ip0kg = (float)$Vcki4t4qmybshis->__get("border_right_width");
+        $Vbz3vmbr1h2v = (float)$Vcki4t4qmybshis->__get("border_bottom_width");
+        $V3nb02w01gr5 = (float)$Vcki4t4qmybshis->__get("border_left_width");
 
-        $rTL = min($rTL, $h - $rBL - $t / 2 - $b / 2, $w - $rTR - $l / 2 - $r / 2);
-        $rTR = min($rTR, $h - $rBR - $t / 2 - $b / 2, $w - $rTL - $l / 2 - $r / 2);
-        $rBL = min($rBL, $h - $rTL - $t / 2 - $b / 2, $w - $rBR - $l / 2 - $r / 2);
-        $rBR = min($rBR, $h - $rTR - $t / 2 - $b / 2, $w - $rBL - $l / 2 - $r / 2);
+        $Vhsnbs0gwraw = min($Vhsnbs0gwraw, $Vjlmjalejjxa - $Vlbh2hh1w1uq - $Vcki4t4qmybs / 2 - $Vbz3vmbr1h2v / 2, $Vhoifq2kocyt - $Voxjadvbzbkb - $V3nb02w01gr5 / 2 - $Vkabkv5ip0kg / 2);
+        $Voxjadvbzbkb = min($Voxjadvbzbkb, $Vjlmjalejjxa - $Vpzh1agu5pge - $Vcki4t4qmybs / 2 - $Vbz3vmbr1h2v / 2, $Vhoifq2kocyt - $Vhsnbs0gwraw - $V3nb02w01gr5 / 2 - $Vkabkv5ip0kg / 2);
+        $Vlbh2hh1w1uq = min($Vlbh2hh1w1uq, $Vjlmjalejjxa - $Vhsnbs0gwraw - $Vcki4t4qmybs / 2 - $Vbz3vmbr1h2v / 2, $Vhoifq2kocyt - $Vpzh1agu5pge - $V3nb02w01gr5 / 2 - $Vkabkv5ip0kg / 2);
+        $Vpzh1agu5pge = min($Vpzh1agu5pge, $Vjlmjalejjxa - $Voxjadvbzbkb - $Vcki4t4qmybs / 2 - $Vbz3vmbr1h2v / 2, $Vhoifq2kocyt - $Vlbh2hh1w1uq - $V3nb02w01gr5 / 2 - $Vkabkv5ip0kg / 2);
 
-        return $this->_computed_border_radius = array(
-            $rTL, $rTR, $rBR, $rBL,
-            "top-left" => $rTL,
-            "top-right" => $rTR,
-            "bottom-right" => $rBR,
-            "bottom-left" => $rBL,
+        return $Vcki4t4qmybshis->_computed_border_radius = array(
+            $Vhsnbs0gwraw, $Voxjadvbzbkb, $Vpzh1agu5pge, $Vlbh2hh1w1uq,
+            "top-left" => $Vhsnbs0gwraw,
+            "top-right" => $Voxjadvbzbkb,
+            "bottom-right" => $Vpzh1agu5pge,
+            "bottom-left" => $Vlbh2hh1w1uq,
         );
     }
 
-    /**
-     * Returns the outline color as an array
-     *
-     * See {@link Style::get_color()}
-     *
-     * @link http://www.w3.org/TR/CSS21/box.html#border-color-properties
-     * @return array
-     */
+    
     function get_outline_color()
     {
-        if ($this->_props["outline_color"] === "") {
-            //see __set and __get, on all assignments clear cache!
-            $this->_prop_cache["outline_color"] = null;
-            $this->_props["outline_color"] = $this->__get("color");
+        if ($Vcki4t4qmybshis->_props["outline_color"] === "") {
+            
+            $Vcki4t4qmybshis->_prop_cache["outline_color"] = null;
+            $Vcki4t4qmybshis->_props["outline_color"] = $Vcki4t4qmybshis->__get("color");
         }
 
-        return $this->munge_color($this->_props["outline_color"]);
+        return $Vcki4t4qmybshis->munge_color($Vcki4t4qmybshis->_props["outline_color"]);
     }
 
-    /**#@+
-     * Returns the outline width, as it is currently stored
-     * @return float|string
-     */
+    
     function get_outline_width()
     {
-        $style = $this->__get("outline_style");
-        return $style !== "none" && $style !== "hidden" ? $this->length_in_pt($this->_props["outline_width"]) : 0;
+        $Vdidzwb0w3vc = $Vcki4t4qmybshis->__get("outline_style");
+        return $Vdidzwb0w3vc !== "none" && $Vdidzwb0w3vc !== "hidden" ? $Vcki4t4qmybshis->length_in_pt($Vcki4t4qmybshis->_props["outline_width"]) : 0;
     }
 
-    /**#@+
-     * Return full outline properties as a string
-     *
-     * Outline properties are returned just as specified in CSS:
-     * <pre>[width] [style] [color]</pre>
-     * e.g. "1px solid blue"
-     *
-     * @link http://www.w3.org/TR/CSS21/box.html#border-shorthand-properties
-     * @return string
-     */
+    
     function get_outline()
     {
-        $color = $this->__get("outline_color");
+        $Vexxkxtdr01j = $Vcki4t4qmybshis->__get("outline_color");
         return
-            $this->__get("outline_width") . " " .
-            $this->__get("outline_style") . " " .
-            $color["hex"];
+            $Vcki4t4qmybshis->__get("outline_width") . " " .
+            $Vcki4t4qmybshis->__get("outline_style") . " " .
+            $Vexxkxtdr01j["hex"];
     }
-    /**#@-*/
+    
 
-    /**
-     * Returns border spacing as an array
-     *
-     * The array has the format (h_space,v_space)
-     *
-     * @link http://www.w3.org/TR/CSS21/tables.html#propdef-border-spacing
-     * @return array
-     */
+    
     function get_border_spacing()
     {
-        $arr = explode(" ", $this->_props["border_spacing"]);
-        if (count($arr) == 1) {
-            $arr[1] = $arr[0];
+        $Vnr1h2vcbxvj = explode(" ", $Vcki4t4qmybshis->_props["border_spacing"]);
+        if (count($Vnr1h2vcbxvj) == 1) {
+            $Vnr1h2vcbxvj[1] = $Vnr1h2vcbxvj[0];
         }
-        return $arr;
+        return $Vnr1h2vcbxvj;
     }
 
-    /*==============================*/
+    
 
-    /*
-     !important attribute
-     For basic functionality of the !important attribute with overloading
-     of several styles of an element, changes in inherit(), merge() and _parse_properties()
-     are sufficient [helpers var $_important_props, __construct(), important_set(), important_get()]
+    
 
-     Only for combined attributes extra treatment needed. See below.
-
-     div { border: 1px red; }
-     div { border: solid; } // Not combined! Only one occurence of same style per context
-     //
-     div { border: 1px red; }
-     div a { border: solid; } // Adding to border style ok by inheritance
-     //
-     div { border-style: solid; } // Adding to border style ok because of different styles
-     div { border: 1px red; }
-     //
-     div { border-style: solid; !important} // border: overrides, even though not !important
-     div { border: 1px dashed red; }
-     //
-     div { border: 1px red; !important }
-     div a { border-style: solid; } // Need to override because not set
-
-     Special treatment:
-     At individual property like border-top-width need to check whether overriding value is also !important.
-     Also store the !important condition for later overrides.
-     Since not known who is initiating the override, need to get passed !important as parameter.
-     !important Paramter taken as in the original style in the css file.
-     When property border !important given, do not mark subsets like border_style as important. Only
-     individual properties.
-
-     Note:
-     Setting individual property directly from css with e.g. set_border_top_style() is not needed, because
-     missing set funcions handled by a generic handler __set(), including the !important.
-     Setting individual property of as sub-property is handled below.
-
-     Implementation see at _set_style_side_type()
-     Callers _set_style_sides_type(), _set_style_type, _set_style_type_important()
-
-     Related functionality for background, padding, margin, font, list_style
-    */
-
-    /**
-     * Generalized set function for individual attribute of combined style.
-     * With check for !important
-     * Applicable for background, border, padding, margin, font, list_style
-     *
-     * Note: $type has a leading underscore (or is empty), the others not.
-     *
-     * @param $style
-     * @param $side
-     * @param $type
-     * @param $val
-     * @param $important
-     */
-    protected function _set_style_side_type($style, $side, $type, $val, $important)
+    
+    protected function _set_style_side_type($Vdidzwb0w3vc, $Voj5js1i2adw, $Vcki4t4qmybsype, $Vzyqcsfbm3q4, $V3xsptcgzss2mportant)
     {
-        $prop = $style . '_' . $side . $type;
+        $V3ztho1nxwdy = $Vdidzwb0w3vc . '_' . $Voj5js1i2adw . $Vcki4t4qmybsype;
 
-        if (!isset($this->_important_props[$prop]) || $important) {
-            if ($side === "bottom") {
-                $this->_computed_bottom_spacing = null; //reset computed cache, border style can disable/enable border calculations
+        if (!isset($Vcki4t4qmybshis->_important_props[$V3ztho1nxwdy]) || $V3xsptcgzss2mportant) {
+            if ($Voj5js1i2adw === "bottom") {
+                $Vcki4t4qmybshis->_computed_bottom_spacing = null; 
             }
-            //see __set and __get, on all assignments clear cache!
-            $this->_prop_cache[$prop] = null;
-            if ($important) {
-                $this->_important_props[$prop] = true;
+            
+            $Vcki4t4qmybshis->_prop_cache[$V3ztho1nxwdy] = null;
+            if ($V3xsptcgzss2mportant) {
+                $Vcki4t4qmybshis->_important_props[$V3ztho1nxwdy] = true;
             }
-            $this->_props[$prop] = $val;
+            $Vcki4t4qmybshis->_props[$V3ztho1nxwdy] = $Vzyqcsfbm3q4;
         }
     }
 
-    /**
-     * @param $style
-     * @param $top
-     * @param $right
-     * @param $bottom
-     * @param $left
-     * @param $type
-     * @param $important
-     */
-    protected function _set_style_sides_type($style, $top, $right, $bottom, $left, $type, $important)
+    
+    protected function _set_style_sides_type($Vdidzwb0w3vc, $Vcki4t4qmybsop, $Vkabkv5ip0kgight, $Vbz3vmbr1h2vottom, $V3nb02w01gr5eft, $Vcki4t4qmybsype, $V3xsptcgzss2mportant)
     {
-        $this->_set_style_side_type($style, 'top', $type, $top, $important);
-        $this->_set_style_side_type($style, 'right', $type, $right, $important);
-        $this->_set_style_side_type($style, 'bottom', $type, $bottom, $important);
-        $this->_set_style_side_type($style, 'left', $type, $left, $important);
+        $Vcki4t4qmybshis->_set_style_side_type($Vdidzwb0w3vc, 'top', $Vcki4t4qmybsype, $Vcki4t4qmybsop, $V3xsptcgzss2mportant);
+        $Vcki4t4qmybshis->_set_style_side_type($Vdidzwb0w3vc, 'right', $Vcki4t4qmybsype, $Vkabkv5ip0kgight, $V3xsptcgzss2mportant);
+        $Vcki4t4qmybshis->_set_style_side_type($Vdidzwb0w3vc, 'bottom', $Vcki4t4qmybsype, $Vbz3vmbr1h2vottom, $V3xsptcgzss2mportant);
+        $Vcki4t4qmybshis->_set_style_side_type($Vdidzwb0w3vc, 'left', $Vcki4t4qmybsype, $V3nb02w01gr5eft, $V3xsptcgzss2mportant);
     }
 
-    /**
-     * @param $style
-     * @param $type
-     * @param $val
-     * @param $important
-     */
-    protected function _set_style_type($style, $type, $val, $important)
+    
+    protected function _set_style_type($Vdidzwb0w3vc, $Vcki4t4qmybsype, $Vzyqcsfbm3q4, $V3xsptcgzss2mportant)
     {
-        $val = preg_replace("/\s*\,\s*/", ",", $val); // when rgb() has spaces
-        $arr = explode(" ", $val);
+        $Vzyqcsfbm3q4 = preg_replace("/\s*\,\s*/", ",", $Vzyqcsfbm3q4); 
+        $Vnr1h2vcbxvj = explode(" ", $Vzyqcsfbm3q4);
 
-        switch (count($arr)) {
+        switch (count($Vnr1h2vcbxvj)) {
             case 1:
-                $this->_set_style_sides_type($style, $arr[0], $arr[0], $arr[0], $arr[0], $type, $important);
+                $Vcki4t4qmybshis->_set_style_sides_type($Vdidzwb0w3vc, $Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[0], $Vcki4t4qmybsype, $V3xsptcgzss2mportant);
                 break;
             case 2:
-                $this->_set_style_sides_type($style, $arr[0], $arr[1], $arr[0], $arr[1], $type, $important);
+                $Vcki4t4qmybshis->_set_style_sides_type($Vdidzwb0w3vc, $Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[1], $Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[1], $Vcki4t4qmybsype, $V3xsptcgzss2mportant);
                 break;
             case 3:
-                $this->_set_style_sides_type($style, $arr[0], $arr[1], $arr[2], $arr[1], $type, $important);
+                $Vcki4t4qmybshis->_set_style_sides_type($Vdidzwb0w3vc, $Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[1], $Vnr1h2vcbxvj[2], $Vnr1h2vcbxvj[1], $Vcki4t4qmybsype, $V3xsptcgzss2mportant);
                 break;
             case 4:
-                $this->_set_style_sides_type($style, $arr[0], $arr[1], $arr[2], $arr[3], $type, $important);
+                $Vcki4t4qmybshis->_set_style_sides_type($Vdidzwb0w3vc, $Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[1], $Vnr1h2vcbxvj[2], $Vnr1h2vcbxvj[3], $Vcki4t4qmybsype, $V3xsptcgzss2mportant);
                 break;
         }
 
-        //see __set and __get, on all assignments clear cache!
-        $this->_prop_cache[$style . $type] = null;
-        $this->_props[$style . $type] = $val;
+        
+        $Vcki4t4qmybshis->_prop_cache[$Vdidzwb0w3vc . $Vcki4t4qmybsype] = null;
+        $Vcki4t4qmybshis->_props[$Vdidzwb0w3vc . $Vcki4t4qmybsype] = $Vzyqcsfbm3q4;
     }
 
-    /**
-     * @param $style
-     * @param $type
-     * @param $val
-     */
-    protected function _set_style_type_important($style, $type, $val)
+    
+    protected function _set_style_type_important($Vdidzwb0w3vc, $Vcki4t4qmybsype, $Vzyqcsfbm3q4)
     {
-        $this->_set_style_type($style, $type, $val, isset($this->_important_props[$style . $type]));
+        $Vcki4t4qmybshis->_set_style_type($Vdidzwb0w3vc, $Vcki4t4qmybsype, $Vzyqcsfbm3q4, isset($Vcki4t4qmybshis->_important_props[$Vdidzwb0w3vc . $Vcki4t4qmybsype]));
     }
 
-    /**
-     * Anyway only called if _important matches and is assigned
-     * E.g. _set_style_side_type($style,$side,'',str_replace("none", "0px", $val),isset($this->_important_props[$style.'_'.$side]));
-     *
-     * @param $style
-     * @param $side
-     * @param $val
-     */
-    protected function _set_style_side_width_important($style, $side, $val)
+    
+    protected function _set_style_side_width_important($Vdidzwb0w3vc, $Voj5js1i2adw, $Vzyqcsfbm3q4)
     {
-        if ($side === "bottom") {
-            $this->_computed_bottom_spacing = null; //reset cache for any bottom width changes
+        if ($Voj5js1i2adw === "bottom") {
+            $Vcki4t4qmybshis->_computed_bottom_spacing = null; 
         }
-        //see __set and __get, on all assignments clear cache!
-        $this->_prop_cache[$style . '_' . $side] = null;
-        $this->_props[$style . '_' . $side] = str_replace("none", "0px", $val);
+        
+        $Vcki4t4qmybshis->_prop_cache[$Vdidzwb0w3vc . '_' . $Voj5js1i2adw] = null;
+        $Vcki4t4qmybshis->_props[$Vdidzwb0w3vc . '_' . $Voj5js1i2adw] = str_replace("none", "0px", $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $style
-     * @param $val
-     * @param $important
-     */
-    protected function _set_style($style, $val, $important)
+    
+    protected function _set_style($Vdidzwb0w3vc, $Vzyqcsfbm3q4, $V3xsptcgzss2mportant)
     {
-        if (!isset($this->_important_props[$style]) || $important) {
-            if ($important) {
-                $this->_important_props[$style] = true;
+        if (!isset($Vcki4t4qmybshis->_important_props[$Vdidzwb0w3vc]) || $V3xsptcgzss2mportant) {
+            if ($V3xsptcgzss2mportant) {
+                $Vcki4t4qmybshis->_important_props[$Vdidzwb0w3vc] = true;
             }
-            //see __set and __get, on all assignments clear cache!
-            $this->_prop_cache[$style] = null;
-            $this->_props[$style] = $val;
+            
+            $Vcki4t4qmybshis->_prop_cache[$Vdidzwb0w3vc] = null;
+            $Vcki4t4qmybshis->_props[$Vdidzwb0w3vc] = $Vzyqcsfbm3q4;
         }
     }
 
-    /**
-     * @param $val
-     * @return string
-     */
-    protected function _image($val)
+    
+    protected function _image($Vzyqcsfbm3q4)
     {
-        $DEBUGCSS = $this->_stylesheet->get_dompdf()->getOptions()->getDebugCss();
-        $parsed_url = "none";
+        $Vi3tzeasy1pp = $Vcki4t4qmybshis->_stylesheet->get_dompdf()->getOptions()->getDebugCss();
+        $Vvqnovizplzf = "none";
 
-        if (mb_strpos($val, "url") === false) {
-            $path = "none"; //Don't resolve no image -> otherwise would prefix path and no longer recognize as none
+        if (mb_strpos($Vzyqcsfbm3q4, "url") === false) {
+            $Vio2vixcckdr = "none"; 
         } else {
-            $val = preg_replace("/url\(\s*['\"]?([^'\")]+)['\"]?\s*\)/", "\\1", trim($val));
+            $Vzyqcsfbm3q4 = preg_replace("/url\(\s*['\"]?([^'\")]+)['\"]?\s*\)/", "\\1", trim($Vzyqcsfbm3q4));
 
-            // Resolve the url now in the context of the current stylesheet
-            $parsed_url = Helpers::explode_url($val);
-            if ($parsed_url["protocol"] == "" && $this->_stylesheet->get_protocol() == "") {
-                if ($parsed_url["path"][0] === '/' || $parsed_url["path"][0] === '\\') {
-                    $path = $_SERVER["DOCUMENT_ROOT"] . '/';
+            
+            $Vvqnovizplzf = Helpers::explode_url($Vzyqcsfbm3q4);
+            if ($Vvqnovizplzf["protocol"] == "" && $Vcki4t4qmybshis->_stylesheet->get_protocol() == "") {
+                if ($Vvqnovizplzf["path"][0] === '/' || $Vvqnovizplzf["path"][0] === '\\') {
+                    $Vio2vixcckdr = $_SERVER["DOCUMENT_ROOT"] . '/';
                 } else {
-                    $path = $this->_stylesheet->get_base_path();
+                    $Vio2vixcckdr = $Vcki4t4qmybshis->_stylesheet->get_base_path();
                 }
 
-                $path .= $parsed_url["path"] . $parsed_url["file"];
-                $path = realpath($path);
-                // If realpath returns FALSE then specifically state that there is no background image
-                if (!$path) {
-                    $path = 'none';
+                $Vio2vixcckdr .= $Vvqnovizplzf["path"] . $Vvqnovizplzf["file"];
+                $Vio2vixcckdr = realpath($Vio2vixcckdr);
+                
+                if (!$Vio2vixcckdr) {
+                    $Vio2vixcckdr = 'none';
                 }
             } else {
-                $path = Helpers::build_url($this->_stylesheet->get_protocol(),
-                    $this->_stylesheet->get_host(),
-                    $this->_stylesheet->get_base_path(),
-                    $val);
+                $Vio2vixcckdr = Helpers::build_url($Vcki4t4qmybshis->_stylesheet->get_protocol(),
+                    $Vcki4t4qmybshis->_stylesheet->get_host(),
+                    $Vcki4t4qmybshis->_stylesheet->get_base_path(),
+                    $Vzyqcsfbm3q4);
             }
         }
-        if ($DEBUGCSS) {
+        if ($Vi3tzeasy1pp) {
             print "<pre>[_image\n";
-            print_r($parsed_url);
-            print $this->_stylesheet->get_protocol() . "\n" . $this->_stylesheet->get_base_path() . "\n" . $path . "\n";
+            print_r($Vvqnovizplzf);
+            print $Vcki4t4qmybshis->_stylesheet->get_protocol() . "\n" . $Vcki4t4qmybshis->_stylesheet->get_base_path() . "\n" . $Vio2vixcckdr . "\n";
             print "_image]</pre>";;
         }
-        return $path;
+        return $Vio2vixcckdr;
     }
 
-    /*======================*/
+    
 
-    /**
-     * Sets color
-     *
-     * The color parameter can be any valid CSS color value
-     *
-     * @link http://www.w3.org/TR/CSS21/colors.html#propdef-color
-     * @param string $color
-     */
-    function set_color($color)
+    
+    function set_color($Vexxkxtdr01j)
     {
-        $col = $this->munge_color($color);
+        $Vhxdswanopzr = $Vcki4t4qmybshis->munge_color($Vexxkxtdr01j);
 
-        if (is_null($col) || !isset($col["hex"])) {
-            $color = "inherit";
+        if (is_null($Vhxdswanopzr) || !isset($Vhxdswanopzr["hex"])) {
+            $Vexxkxtdr01j = "inherit";
         } else {
-            $color = $col["hex"];
+            $Vexxkxtdr01j = $Vhxdswanopzr["hex"];
         }
 
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["color"] = null;
-        $this->_props["color"] = $color;
+        
+        $Vcki4t4qmybshis->_prop_cache["color"] = null;
+        $Vcki4t4qmybshis->_props["color"] = $Vexxkxtdr01j;
     }
 
-    /**
-     * Sets the background color
-     *
-     * @link http://www.w3.org/TR/CSS21/colors.html#propdef-background-color
-     * @param string $color
-     */
-    function set_background_color($color)
+    
+    function set_background_color($Vexxkxtdr01j)
     {
-        $col = $this->munge_color($color);
+        $Vhxdswanopzr = $Vcki4t4qmybshis->munge_color($Vexxkxtdr01j);
 
-        if (is_null($col)) {
+        if (is_null($Vhxdswanopzr)) {
             return;
-            //$col = self::$_defaults["background_color"];
+            
         }
 
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["background_color"] = null;
-        $this->_props["background_color"] = is_array($col) ? $col["hex"] : $col;
+        
+        $Vcki4t4qmybshis->_prop_cache["background_color"] = null;
+        $Vcki4t4qmybshis->_props["background_color"] = is_array($Vhxdswanopzr) ? $Vhxdswanopzr["hex"] : $Vhxdswanopzr;
     }
 
-    /**
-     * Set the background image url
-     * @link     http://www.w3.org/TR/CSS21/colors.html#background-properties
-     *
-     * @param string $val
-     */
-    function set_background_image($val)
+    
+    function set_background_image($Vzyqcsfbm3q4)
     {
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["background_image"] = null;
-        $this->_props["background_image"] = $this->_image($val);
+        
+        $Vcki4t4qmybshis->_prop_cache["background_image"] = null;
+        $Vcki4t4qmybshis->_props["background_image"] = $Vcki4t4qmybshis->_image($Vzyqcsfbm3q4);
     }
 
-    /**
-     * Sets the background repeat
-     *
-     * @link http://www.w3.org/TR/CSS21/colors.html#propdef-background-repeat
-     * @param string $val
-     */
-    function set_background_repeat($val)
+    
+    function set_background_repeat($Vzyqcsfbm3q4)
     {
-        if (is_null($val)) {
-            $val = self::$_defaults["background_repeat"];
+        if (is_null($Vzyqcsfbm3q4)) {
+            $Vzyqcsfbm3q4 = self::$Vg2bme5jlm5x["background_repeat"];
         }
 
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["background_repeat"] = null;
-        $this->_props["background_repeat"] = $val;
+        
+        $Vcki4t4qmybshis->_prop_cache["background_repeat"] = null;
+        $Vcki4t4qmybshis->_props["background_repeat"] = $Vzyqcsfbm3q4;
     }
 
-    /**
-     * Sets the background attachment
-     *
-     * @link http://www.w3.org/TR/CSS21/colors.html#propdef-background-attachment
-     * @param string $val
-     */
-    function set_background_attachment($val)
+    
+    function set_background_attachment($Vzyqcsfbm3q4)
     {
-        if (is_null($val)) {
-            $val = self::$_defaults["background_attachment"];
+        if (is_null($Vzyqcsfbm3q4)) {
+            $Vzyqcsfbm3q4 = self::$Vg2bme5jlm5x["background_attachment"];
         }
 
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["background_attachment"] = null;
-        $this->_props["background_attachment"] = $val;
+        
+        $Vcki4t4qmybshis->_prop_cache["background_attachment"] = null;
+        $Vcki4t4qmybshis->_props["background_attachment"] = $Vzyqcsfbm3q4;
     }
 
-    /**
-     * Sets the background position
-     *
-     * @link http://www.w3.org/TR/CSS21/colors.html#propdef-background-position
-     * @param string $val
-     */
-    function set_background_position($val)
+    
+    function set_background_position($Vzyqcsfbm3q4)
     {
-        if (is_null($val)) {
-            $val = self::$_defaults["background_position"];
+        if (is_null($Vzyqcsfbm3q4)) {
+            $Vzyqcsfbm3q4 = self::$Vg2bme5jlm5x["background_position"];
         }
 
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["background_position"] = null;
-        $this->_props["background_position"] = $val;
+        
+        $Vcki4t4qmybshis->_prop_cache["background_position"] = null;
+        $Vcki4t4qmybshis->_props["background_position"] = $Vzyqcsfbm3q4;
     }
 
-    /**
-     * Sets the background - combined options
-     *
-     * @link http://www.w3.org/TR/CSS21/colors.html#propdef-background
-     * @param string $val
-     */
-    function set_background($val)
+    
+    function set_background($Vzyqcsfbm3q4)
     {
-        $val = trim($val);
-        $important = isset($this->_important_props["background"]);
+        $Vzyqcsfbm3q4 = trim($Vzyqcsfbm3q4);
+        $V3xsptcgzss2mportant = isset($Vcki4t4qmybshis->_important_props["background"]);
 
-        if ($val === "none") {
-            $this->_set_style("background_image", "none", $important);
-            $this->_set_style("background_color", "transparent", $important);
+        if ($Vzyqcsfbm3q4 === "none") {
+            $Vcki4t4qmybshis->_set_style("background_image", "none", $V3xsptcgzss2mportant);
+            $Vcki4t4qmybshis->_set_style("background_color", "transparent", $V3xsptcgzss2mportant);
         } else {
-            $pos = array();
-            $tmp = preg_replace("/\s*\,\s*/", ",", $val); // when rgb() has spaces
-            $tmp = preg_split("/\s+/", $tmp);
+            $Vepim3znzh4w = array();
+            $Vynpm04a4fx0 = preg_replace("/\s*\,\s*/", ",", $Vzyqcsfbm3q4); 
+            $Vynpm04a4fx0 = preg_split("/\s+/", $Vynpm04a4fx0);
 
-            foreach ($tmp as $attr) {
-                if (mb_substr($attr, 0, 3) === "url" || $attr === "none") {
-                    $this->_set_style("background_image", $this->_image($attr), $important);
-                } elseif ($attr === "fixed" || $attr === "scroll") {
-                    $this->_set_style("background_attachment", $attr, $important);
-                } elseif ($attr === "repeat" || $attr === "repeat-x" || $attr === "repeat-y" || $attr === "no-repeat") {
-                    $this->_set_style("background_repeat", $attr, $important);
-                } elseif (($col = $this->munge_color($attr)) != null) {
-                    $this->_set_style("background_color", is_array($col) ? $col["hex"] : $col, $important);
+            foreach ($Vynpm04a4fx0 as $Vfhakhidzne2) {
+                if (mb_substr($Vfhakhidzne2, 0, 3) === "url" || $Vfhakhidzne2 === "none") {
+                    $Vcki4t4qmybshis->_set_style("background_image", $Vcki4t4qmybshis->_image($Vfhakhidzne2), $V3xsptcgzss2mportant);
+                } elseif ($Vfhakhidzne2 === "fixed" || $Vfhakhidzne2 === "scroll") {
+                    $Vcki4t4qmybshis->_set_style("background_attachment", $Vfhakhidzne2, $V3xsptcgzss2mportant);
+                } elseif ($Vfhakhidzne2 === "repeat" || $Vfhakhidzne2 === "repeat-x" || $Vfhakhidzne2 === "repeat-y" || $Vfhakhidzne2 === "no-repeat") {
+                    $Vcki4t4qmybshis->_set_style("background_repeat", $Vfhakhidzne2, $V3xsptcgzss2mportant);
+                } elseif (($Vhxdswanopzr = $Vcki4t4qmybshis->munge_color($Vfhakhidzne2)) != null) {
+                    $Vcki4t4qmybshis->_set_style("background_color", is_array($Vhxdswanopzr) ? $Vhxdswanopzr["hex"] : $Vhxdswanopzr, $V3xsptcgzss2mportant);
                 } else {
-                    $pos[] = $attr;
+                    $Vepim3znzh4w[] = $Vfhakhidzne2;
                 }
             }
 
-            if (count($pos)) {
-                $this->_set_style("background_position", implode(" ", $pos), $important);
+            if (count($Vepim3znzh4w)) {
+                $Vcki4t4qmybshis->_set_style("background_position", implode(" ", $Vepim3znzh4w), $V3xsptcgzss2mportant);
             }
         }
 
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["background"] = null;
-        $this->_props["background"] = $val;
+        
+        $Vcki4t4qmybshis->_prop_cache["background"] = null;
+        $Vcki4t4qmybshis->_props["background"] = $Vzyqcsfbm3q4;
     }
 
-    /**
-     * Sets the font size
-     *
-     * $size can be any acceptable CSS size
-     *
-     * @link http://www.w3.org/TR/CSS21/fonts.html#propdef-font-size
-     * @param string|float $size
-     */
-    function set_font_size($size)
+    
+    function set_font_size($Vlak25col1u3)
     {
-        $this->__font_size_calculated = false;
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["font_size"] = null;
-        $this->_props["font_size"] = $size;
+        $Vcki4t4qmybshis->__font_size_calculated = false;
+        
+        $Vcki4t4qmybshis->_prop_cache["font_size"] = null;
+        $Vcki4t4qmybshis->_props["font_size"] = $Vlak25col1u3;
     }
 
-    /**
-     * Sets the font style
-     *
-     * combined attributes
-     * set individual attributes also, respecting !important mark
-     * exactly this order, separate by space. Multiple fonts separated by comma:
-     * font-style, font-variant, font-weight, font-size, line-height, font-family
-     *
-     * Other than with border and list, existing partial attributes should
-     * reset when starting here, even when not mentioned.
-     * If individual attribute is !important and explicite or implicite replacement is not,
-     * keep individual attribute
-     *
-     * require whitespace as delimiters for single value attributes
-     * On delimiter "/" treat first as font height, second as line height
-     * treat all remaining at the end of line as font
-     * font-style, font-variant, font-weight, font-size, line-height, font-family
-     *
-     * missing font-size and font-family might be not allowed, but accept it here and
-     * use default (medium size, enpty font name)
-     *
-     * @link http://www.w3.org/TR/CSS21/generate.html#propdef-list-style
-     * @param $val
-     */
-    function set_font($val)
+    
+    function set_font($Vzyqcsfbm3q4)
     {
-        $this->__font_size_calculated = false;
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["font"] = null;
-        $this->_props["font"] = $val;
+        $Vcki4t4qmybshis->__font_size_calculated = false;
+        
+        $Vcki4t4qmybshis->_prop_cache["font"] = null;
+        $Vcki4t4qmybshis->_props["font"] = $Vzyqcsfbm3q4;
 
-        $important = isset($this->_important_props["font"]);
+        $V3xsptcgzss2mportant = isset($Vcki4t4qmybshis->_important_props["font"]);
 
-        if (preg_match("/^(italic|oblique|normal)\s*(.*)$/i", $val, $match)) {
-            $this->_set_style("font_style", $match[1], $important);
-            $val = $match[2];
+        if (preg_match("/^(italic|oblique|normal)\s*(.*)$/i", $Vzyqcsfbm3q4, $Vyupu15qqw5c)) {
+            $Vcki4t4qmybshis->_set_style("font_style", $Vyupu15qqw5c[1], $V3xsptcgzss2mportant);
+            $Vzyqcsfbm3q4 = $Vyupu15qqw5c[2];
         } else {
-            $this->_set_style("font_style", self::$_defaults["font_style"], $important);
+            $Vcki4t4qmybshis->_set_style("font_style", self::$Vg2bme5jlm5x["font_style"], $V3xsptcgzss2mportant);
         }
 
-        if (preg_match("/^(small-caps|normal)\s*(.*)$/i", $val, $match)) {
-            $this->_set_style("font_variant", $match[1], $important);
-            $val = $match[2];
+        if (preg_match("/^(small-caps|normal)\s*(.*)$/i", $Vzyqcsfbm3q4, $Vyupu15qqw5c)) {
+            $Vcki4t4qmybshis->_set_style("font_variant", $Vyupu15qqw5c[1], $V3xsptcgzss2mportant);
+            $Vzyqcsfbm3q4 = $Vyupu15qqw5c[2];
         } else {
-            $this->_set_style("font_variant", self::$_defaults["font_variant"], $important);
+            $Vcki4t4qmybshis->_set_style("font_variant", self::$Vg2bme5jlm5x["font_variant"], $V3xsptcgzss2mportant);
         }
 
-        //matching numeric value followed by unit -> this is indeed a subsequent font size. Skip!
-        if (preg_match("/^(bold|bolder|lighter|100|200|300|400|500|600|700|800|900|normal)\s*(.*)$/i", $val, $match) &&
-            !preg_match("/^(?:pt|px|pc|em|ex|in|cm|mm|%)/", $match[2])
+        
+        if (preg_match("/^(bold|bolder|lighter|100|200|300|400|500|600|700|800|900|normal)\s*(.*)$/i", $Vzyqcsfbm3q4, $Vyupu15qqw5c) &&
+            !preg_match("/^(?:pt|px|pc|em|ex|in|cm|mm|%)/", $Vyupu15qqw5c[2])
         ) {
-            $this->_set_style("font_weight", $match[1], $important);
-            $val = $match[2];
+            $Vcki4t4qmybshis->_set_style("font_weight", $Vyupu15qqw5c[1], $V3xsptcgzss2mportant);
+            $Vzyqcsfbm3q4 = $Vyupu15qqw5c[2];
         } else {
-            $this->_set_style("font_weight", self::$_defaults["font_weight"], $important);
+            $Vcki4t4qmybshis->_set_style("font_weight", self::$Vg2bme5jlm5x["font_weight"], $V3xsptcgzss2mportant);
         }
 
-        if (preg_match("/^(xx-small|x-small|small|medium|large|x-large|xx-large|smaller|larger|\d+\s*(?:pt|px|pc|em|ex|in|cm|mm|%))(?:\/|\s*)(.*)$/i", $val, $match)) {
-            $this->_set_style("font_size", $match[1], $important);
-            $val = $match[2];
-            if (preg_match("/^(?:\/|\s*)(\d+\s*(?:pt|px|pc|em|ex|in|cm|mm|%)?)\s*(.*)$/i", $val, $match)) {
-                $this->_set_style("line_height", $match[1], $important);
-                $val = $match[2];
+        if (preg_match("/^(xx-small|x-small|small|medium|large|x-large|xx-large|smaller|larger|\d+\s*(?:pt|px|pc|em|ex|in|cm|mm|%))(?:\/|\s*)(.*)$/i", $Vzyqcsfbm3q4, $Vyupu15qqw5c)) {
+            $Vcki4t4qmybshis->_set_style("font_size", $Vyupu15qqw5c[1], $V3xsptcgzss2mportant);
+            $Vzyqcsfbm3q4 = $Vyupu15qqw5c[2];
+            if (preg_match("/^(?:\/|\s*)(\d+\s*(?:pt|px|pc|em|ex|in|cm|mm|%)?)\s*(.*)$/i", $Vzyqcsfbm3q4, $Vyupu15qqw5c)) {
+                $Vcki4t4qmybshis->_set_style("line_height", $Vyupu15qqw5c[1], $V3xsptcgzss2mportant);
+                $Vzyqcsfbm3q4 = $Vyupu15qqw5c[2];
             } else {
-                $this->_set_style("line_height", self::$_defaults["line_height"], $important);
+                $Vcki4t4qmybshis->_set_style("line_height", self::$Vg2bme5jlm5x["line_height"], $V3xsptcgzss2mportant);
             }
         } else {
-            $this->_set_style("font_size", self::$_defaults["font_size"], $important);
-            $this->_set_style("line_height", self::$_defaults["line_height"], $important);
+            $Vcki4t4qmybshis->_set_style("font_size", self::$Vg2bme5jlm5x["font_size"], $V3xsptcgzss2mportant);
+            $Vcki4t4qmybshis->_set_style("line_height", self::$Vg2bme5jlm5x["line_height"], $V3xsptcgzss2mportant);
         }
 
-        if (strlen($val) != 0) {
-            $this->_set_style("font_family", $val, $important);
+        if (strlen($Vzyqcsfbm3q4) != 0) {
+            $Vcki4t4qmybshis->_set_style("font_family", $Vzyqcsfbm3q4, $V3xsptcgzss2mportant);
         } else {
-            $this->_set_style("font_family", self::$_defaults["font_family"], $important);
+            $Vcki4t4qmybshis->_set_style("font_family", self::$Vg2bme5jlm5x["font_family"], $V3xsptcgzss2mportant);
         }
     }
 
-    /**
-     * Sets page break properties
-     *
-     * @link http://www.w3.org/TR/CSS21/page.html#page-breaks
-     * @param string $break
-     */
-    function set_page_break_before($break)
+    
+    function set_page_break_before($Vbz3vmbr1h2vreak)
     {
-        if ($break === "left" || $break === "right") {
-            $break = "always";
+        if ($Vbz3vmbr1h2vreak === "left" || $Vbz3vmbr1h2vreak === "right") {
+            $Vbz3vmbr1h2vreak = "always";
         }
 
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["page_break_before"] = null;
-        $this->_props["page_break_before"] = $break;
+        
+        $Vcki4t4qmybshis->_prop_cache["page_break_before"] = null;
+        $Vcki4t4qmybshis->_props["page_break_before"] = $Vbz3vmbr1h2vreak;
     }
 
-    /**
-     * @param $break
-     */
-    function set_page_break_after($break)
+    
+    function set_page_break_after($Vbz3vmbr1h2vreak)
     {
-        if ($break === "left" || $break === "right") {
-            $break = "always";
+        if ($Vbz3vmbr1h2vreak === "left" || $Vbz3vmbr1h2vreak === "right") {
+            $Vbz3vmbr1h2vreak = "always";
         }
 
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["page_break_after"] = null;
-        $this->_props["page_break_after"] = $break;
+        
+        $Vcki4t4qmybshis->_prop_cache["page_break_after"] = null;
+        $Vcki4t4qmybshis->_props["page_break_after"] = $Vbz3vmbr1h2vreak;
     }
 
-    /**
-     * Sets the margin size
-     *
-     * @link http://www.w3.org/TR/CSS21/box.html#margin-properties
-     * @param $val
-     */
-    function set_margin_top($val)
+    
+    function set_margin_top($Vzyqcsfbm3q4)
     {
-        $this->_set_style_side_width_important('margin', 'top', $val);
+        $Vcki4t4qmybshis->_set_style_side_width_important('margin', 'top', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_margin_right($val)
+    
+    function set_margin_right($Vzyqcsfbm3q4)
     {
-        $this->_set_style_side_width_important('margin', 'right', $val);
+        $Vcki4t4qmybshis->_set_style_side_width_important('margin', 'right', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_margin_bottom($val)
+    
+    function set_margin_bottom($Vzyqcsfbm3q4)
     {
-        $this->_set_style_side_width_important('margin', 'bottom', $val);
+        $Vcki4t4qmybshis->_set_style_side_width_important('margin', 'bottom', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_margin_left($val)
+    
+    function set_margin_left($Vzyqcsfbm3q4)
     {
-        $this->_set_style_side_width_important('margin', 'left', $val);
+        $Vcki4t4qmybshis->_set_style_side_width_important('margin', 'left', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_margin($val)
+    
+    function set_margin($Vzyqcsfbm3q4)
     {
-        $val = str_replace("none", "0px", $val);
-        $this->_set_style_type_important('margin', '', $val);
+        $Vzyqcsfbm3q4 = str_replace("none", "0px", $Vzyqcsfbm3q4);
+        $Vcki4t4qmybshis->_set_style_type_important('margin', '', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * Sets the padding size
-     *
-     * @link http://www.w3.org/TR/CSS21/box.html#padding-properties
-     * @param $val
-     */
-    function set_padding_top($val)
+    
+    function set_padding_top($Vzyqcsfbm3q4)
     {
-        $this->_set_style_side_width_important('padding', 'top', $val);
+        $Vcki4t4qmybshis->_set_style_side_width_important('padding', 'top', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_padding_right($val)
+    
+    function set_padding_right($Vzyqcsfbm3q4)
     {
-        $this->_set_style_side_width_important('padding', 'right', $val);
+        $Vcki4t4qmybshis->_set_style_side_width_important('padding', 'right', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_padding_bottom($val)
+    
+    function set_padding_bottom($Vzyqcsfbm3q4)
     {
-        $this->_set_style_side_width_important('padding', 'bottom', $val);
+        $Vcki4t4qmybshis->_set_style_side_width_important('padding', 'bottom', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_padding_left($val)
+    
+    function set_padding_left($Vzyqcsfbm3q4)
     {
-        $this->_set_style_side_width_important('padding', 'left', $val);
+        $Vcki4t4qmybshis->_set_style_side_width_important('padding', 'left', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_padding($val)
+    
+    function set_padding($Vzyqcsfbm3q4)
     {
-        $val = str_replace("none", "0px", $val);
-        $this->_set_style_type_important('padding', '', $val);
+        $Vzyqcsfbm3q4 = str_replace("none", "0px", $Vzyqcsfbm3q4);
+        $Vcki4t4qmybshis->_set_style_type_important('padding', '', $Vzyqcsfbm3q4);
     }
-    /**#@-*/
+    
 
-    /**
-     * Sets a single border
-     *
-     * @param string $side
-     * @param string $border_spec ([width] [style] [color])
-     * @param boolean $important
-     */
-    protected function _set_border($side, $border_spec, $important)
+    
+    protected function _set_border($Voj5js1i2adw, $Vbz3vmbr1h2vorder_spec, $V3xsptcgzss2mportant)
     {
-        $border_spec = preg_replace("/\s*\,\s*/", ",", $border_spec);
-        //$border_spec = str_replace(",", " ", $border_spec); // Why did we have this ?? rbg(10, 102, 10) > rgb(10  102  10)
-        $arr = explode(" ", $border_spec);
+        $Vbz3vmbr1h2vorder_spec = preg_replace("/\s*\,\s*/", ",", $Vbz3vmbr1h2vorder_spec);
+        
+        $Vnr1h2vcbxvj = explode(" ", $Vbz3vmbr1h2vorder_spec);
 
-        // FIXME: handle partial values
+        
 
-        //For consistency of individal and combined properties, and with ie8 and firefox3
-        //reset all attributes, even if only partially given
-        $this->_set_style_side_type('border', $side, '_style', self::$_defaults['border_' . $side . '_style'], $important);
-        $this->_set_style_side_type('border', $side, '_width', self::$_defaults['border_' . $side . '_width'], $important);
-        $this->_set_style_side_type('border', $side, '_color', self::$_defaults['border_' . $side . '_color'], $important);
+        
+        
+        $Vcki4t4qmybshis->_set_style_side_type('border', $Voj5js1i2adw, '_style', self::$Vg2bme5jlm5x['border_' . $Voj5js1i2adw . '_style'], $V3xsptcgzss2mportant);
+        $Vcki4t4qmybshis->_set_style_side_type('border', $Voj5js1i2adw, '_width', self::$Vg2bme5jlm5x['border_' . $Voj5js1i2adw . '_width'], $V3xsptcgzss2mportant);
+        $Vcki4t4qmybshis->_set_style_side_type('border', $Voj5js1i2adw, '_color', self::$Vg2bme5jlm5x['border_' . $Voj5js1i2adw . '_color'], $V3xsptcgzss2mportant);
 
-        foreach ($arr as $value) {
-            $value = trim($value);
-            if (in_array($value, self::$BORDER_STYLES)) {
-                $this->_set_style_side_type('border', $side, '_style', $value, $important);
-            } else if (preg_match("/[.0-9]+(?:px|pt|pc|em|ex|%|in|mm|cm)|(?:thin|medium|thick)/", $value)) {
-                $this->_set_style_side_type('border', $side, '_width', $value, $important);
+        foreach ($Vnr1h2vcbxvj as $Vqfra35f14fv) {
+            $Vqfra35f14fv = trim($Vqfra35f14fv);
+            if (in_array($Vqfra35f14fv, self::$Vn2tnb4bpsay)) {
+                $Vcki4t4qmybshis->_set_style_side_type('border', $Voj5js1i2adw, '_style', $Vqfra35f14fv, $V3xsptcgzss2mportant);
+            } else if (preg_match("/[.0-9]+(?:px|pt|pc|em|ex|%|in|mm|cm)|(?:thin|medium|thick)/", $Vqfra35f14fv)) {
+                $Vcki4t4qmybshis->_set_style_side_type('border', $Voj5js1i2adw, '_width', $Vqfra35f14fv, $V3xsptcgzss2mportant);
             } else {
-                // must be color
-                $this->_set_style_side_type('border', $side, '_color', $value, $important);
+                
+                $Vcki4t4qmybshis->_set_style_side_type('border', $Voj5js1i2adw, '_color', $Vqfra35f14fv, $V3xsptcgzss2mportant);
             }
         }
 
-        //see __set and __get, on all assignments clear cache!
-        $this->_prop_cache['border_' . $side] = null;
-        $this->_props['border_' . $side] = $border_spec;
+        
+        $Vcki4t4qmybshis->_prop_cache['border_' . $Voj5js1i2adw] = null;
+        $Vcki4t4qmybshis->_props['border_' . $Voj5js1i2adw] = $Vbz3vmbr1h2vorder_spec;
     }
 
-    /**
-     * Sets the border styles
-     *
-     * @link http://www.w3.org/TR/CSS21/box.html#border-properties
-     * @param string $val
-     */
-    function set_border_top($val)
+    
+    function set_border_top($Vzyqcsfbm3q4)
     {
-        $this->_set_border("top", $val, isset($this->_important_props['border_top']));
+        $Vcki4t4qmybshis->_set_border("top", $Vzyqcsfbm3q4, isset($Vcki4t4qmybshis->_important_props['border_top']));
     }
 
-    /**
-     * @param $val
-     */
-    function set_border_right($val)
+    
+    function set_border_right($Vzyqcsfbm3q4)
     {
-        $this->_set_border("right", $val, isset($this->_important_props['border_right']));
+        $Vcki4t4qmybshis->_set_border("right", $Vzyqcsfbm3q4, isset($Vcki4t4qmybshis->_important_props['border_right']));
     }
 
-    /**
-     * @param $val
-     */
-    function set_border_bottom($val)
+    
+    function set_border_bottom($Vzyqcsfbm3q4)
     {
-        $this->_set_border("bottom", $val, isset($this->_important_props['border_bottom']));
+        $Vcki4t4qmybshis->_set_border("bottom", $Vzyqcsfbm3q4, isset($Vcki4t4qmybshis->_important_props['border_bottom']));
     }
 
-    /**
-     * @param $val
-     */
-    function set_border_left($val)
+    
+    function set_border_left($Vzyqcsfbm3q4)
     {
-        $this->_set_border("left", $val, isset($this->_important_props['border_left']));
+        $Vcki4t4qmybshis->_set_border("left", $Vzyqcsfbm3q4, isset($Vcki4t4qmybshis->_important_props['border_left']));
     }
 
-    /**
-     * @param $val
-     */
-    function set_border($val)
+    
+    function set_border($Vzyqcsfbm3q4)
     {
-        $important = isset($this->_important_props["border"]);
-        $this->_set_border("top", $val, $important);
-        $this->_set_border("right", $val, $important);
-        $this->_set_border("bottom", $val, $important);
-        $this->_set_border("left", $val, $important);
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["border"] = null;
-        $this->_props["border"] = $val;
+        $V3xsptcgzss2mportant = isset($Vcki4t4qmybshis->_important_props["border"]);
+        $Vcki4t4qmybshis->_set_border("top", $Vzyqcsfbm3q4, $V3xsptcgzss2mportant);
+        $Vcki4t4qmybshis->_set_border("right", $Vzyqcsfbm3q4, $V3xsptcgzss2mportant);
+        $Vcki4t4qmybshis->_set_border("bottom", $Vzyqcsfbm3q4, $V3xsptcgzss2mportant);
+        $Vcki4t4qmybshis->_set_border("left", $Vzyqcsfbm3q4, $V3xsptcgzss2mportant);
+        
+        $Vcki4t4qmybshis->_prop_cache["border"] = null;
+        $Vcki4t4qmybshis->_props["border"] = $Vzyqcsfbm3q4;
     }
 
-    /**
-     * @param $val
-     */
-    function set_border_width($val)
+    
+    function set_border_width($Vzyqcsfbm3q4)
     {
-        $this->_set_style_type_important('border', '_width', $val);
+        $Vcki4t4qmybshis->_set_style_type_important('border', '_width', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_border_color($val)
+    
+    function set_border_color($Vzyqcsfbm3q4)
     {
-        $this->_set_style_type_important('border', '_color', $val);
+        $Vcki4t4qmybshis->_set_style_type_important('border', '_color', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_border_style($val)
+    
+    function set_border_style($Vzyqcsfbm3q4)
     {
-        $this->_set_style_type_important('border', '_style', $val);
+        $Vcki4t4qmybshis->_set_style_type_important('border', '_style', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * Sets the border radius size
-     *
-     * http://www.w3.org/TR/css3-background/#corners
-     *
-     * @param $val
-     */
-    function set_border_top_left_radius($val)
+    
+    function set_border_top_left_radius($Vzyqcsfbm3q4)
     {
-        $this->_set_border_radius_corner($val, "top_left");
+        $Vcki4t4qmybshis->_set_border_radius_corner($Vzyqcsfbm3q4, "top_left");
     }
 
-    /**
-     * @param $val
-     */
-    function set_border_top_right_radius($val)
+    
+    function set_border_top_right_radius($Vzyqcsfbm3q4)
     {
-        $this->_set_border_radius_corner($val, "top_right");
+        $Vcki4t4qmybshis->_set_border_radius_corner($Vzyqcsfbm3q4, "top_right");
     }
 
-    /**
-     * @param $val
-     */
-    function set_border_bottom_left_radius($val)
+    
+    function set_border_bottom_left_radius($Vzyqcsfbm3q4)
     {
-        $this->_set_border_radius_corner($val, "bottom_left");
+        $Vcki4t4qmybshis->_set_border_radius_corner($Vzyqcsfbm3q4, "bottom_left");
     }
 
-    /**
-     * @param $val
-     */
-    function set_border_bottom_right_radius($val)
+    
+    function set_border_bottom_right_radius($Vzyqcsfbm3q4)
     {
-        $this->_set_border_radius_corner($val, "bottom_right");
+        $Vcki4t4qmybshis->_set_border_radius_corner($Vzyqcsfbm3q4, "bottom_right");
     }
 
-    /**
-     * @param $val
-     */
-    function set_border_radius($val)
+    
+    function set_border_radius($Vzyqcsfbm3q4)
     {
-        $val = preg_replace("/\s*\,\s*/", ",", $val); // when border-radius has spaces
-        $arr = explode(" ", $val);
+        $Vzyqcsfbm3q4 = preg_replace("/\s*\,\s*/", ",", $Vzyqcsfbm3q4); 
+        $Vnr1h2vcbxvj = explode(" ", $Vzyqcsfbm3q4);
 
-        switch (count($arr)) {
+        switch (count($Vnr1h2vcbxvj)) {
             case 1:
-                $this->_set_border_radii($arr[0], $arr[0], $arr[0], $arr[0]);
+                $Vcki4t4qmybshis->_set_border_radii($Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[0]);
                 break;
             case 2:
-                $this->_set_border_radii($arr[0], $arr[1], $arr[0], $arr[1]);
+                $Vcki4t4qmybshis->_set_border_radii($Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[1], $Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[1]);
                 break;
             case 3:
-                $this->_set_border_radii($arr[0], $arr[1], $arr[2], $arr[1]);
+                $Vcki4t4qmybshis->_set_border_radii($Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[1], $Vnr1h2vcbxvj[2], $Vnr1h2vcbxvj[1]);
                 break;
             case 4:
-                $this->_set_border_radii($arr[0], $arr[1], $arr[2], $arr[3]);
+                $Vcki4t4qmybshis->_set_border_radii($Vnr1h2vcbxvj[0], $Vnr1h2vcbxvj[1], $Vnr1h2vcbxvj[2], $Vnr1h2vcbxvj[3]);
                 break;
         }
     }
 
-    /**
-     * @param $val1
-     * @param $val2
-     * @param $val3
-     * @param $val4
-     */
-    protected function _set_border_radii($val1, $val2, $val3, $val4)
+    
+    protected function _set_border_radii($Vzyqcsfbm3q41, $Vzyqcsfbm3q42, $Vzyqcsfbm3q43, $Vzyqcsfbm3q44)
     {
-        $this->_set_border_radius_corner($val1, "top_left");
-        $this->_set_border_radius_corner($val2, "top_right");
-        $this->_set_border_radius_corner($val3, "bottom_right");
-        $this->_set_border_radius_corner($val4, "bottom_left");
+        $Vcki4t4qmybshis->_set_border_radius_corner($Vzyqcsfbm3q41, "top_left");
+        $Vcki4t4qmybshis->_set_border_radius_corner($Vzyqcsfbm3q42, "top_right");
+        $Vcki4t4qmybshis->_set_border_radius_corner($Vzyqcsfbm3q43, "bottom_right");
+        $Vcki4t4qmybshis->_set_border_radius_corner($Vzyqcsfbm3q44, "bottom_left");
     }
 
-    /**
-     * @param $val
-     * @param $corner
-     */
-    protected function _set_border_radius_corner($val, $corner)
+    
+    protected function _set_border_radius_corner($Vzyqcsfbm3q4, $Vlgnos3mkad2)
     {
-        $this->_has_border_radius = true;
+        $Vcki4t4qmybshis->_has_border_radius = true;
 
-        //see __set and __get, on all assignments clear cache!
-        $this->_prop_cache["border_" . $corner . "_radius"] = null;
+        
+        $Vcki4t4qmybshis->_prop_cache["border_" . $Vlgnos3mkad2 . "_radius"] = null;
 
-        $this->_props["border_" . $corner . "_radius"] = $val;
+        $Vcki4t4qmybshis->_props["border_" . $Vlgnos3mkad2 . "_radius"] = $Vzyqcsfbm3q4;
     }
 
-    /**
-     * @return float|int|string
-     */
+    
     function get_border_top_left_radius()
     {
-        return $this->_get_border_radius_corner("top_left");
+        return $Vcki4t4qmybshis->_get_border_radius_corner("top_left");
     }
 
-    /**
-     * @return float|int|string
-     */
+    
     function get_border_top_right_radius()
     {
-        return $this->_get_border_radius_corner("top_right");
+        return $Vcki4t4qmybshis->_get_border_radius_corner("top_right");
     }
 
-    /**
-     * @return float|int|string
-     */
+    
     function get_border_bottom_left_radius()
     {
-        return $this->_get_border_radius_corner("bottom_left");
+        return $Vcki4t4qmybshis->_get_border_radius_corner("bottom_left");
     }
 
-    /**
-     * @return float|int|string
-     */
+    
     function get_border_bottom_right_radius()
     {
-        return $this->_get_border_radius_corner("bottom_right");
+        return $Vcki4t4qmybshis->_get_border_radius_corner("bottom_right");
     }
 
-    /**
-     * @param $corner
-     * @return float|int|string
-     */
-    protected function _get_border_radius_corner($corner)
+    
+    protected function _get_border_radius_corner($Vlgnos3mkad2)
     {
-        if (!isset($this->_props["border_" . $corner . "_radius"]) || empty($this->_props["border_" . $corner . "_radius"])) {
+        if (!isset($Vcki4t4qmybshis->_props["border_" . $Vlgnos3mkad2 . "_radius"]) || empty($Vcki4t4qmybshis->_props["border_" . $Vlgnos3mkad2 . "_radius"])) {
             return 0;
         }
 
-        return $this->length_in_pt($this->_props["border_" . $corner . "_radius"]);
+        return $Vcki4t4qmybshis->length_in_pt($Vcki4t4qmybshis->_props["border_" . $Vlgnos3mkad2 . "_radius"]);
     }
 
-    /**
-     * Sets the outline styles
-     *
-     * @link http://www.w3.org/TR/CSS21/ui.html#dynamic-outlines
-     * @param string $val
-     */
-    function set_outline($val)
+    
+    function set_outline($Vzyqcsfbm3q4)
     {
-        $important = isset($this->_important_props["outline"]);
+        $V3xsptcgzss2mportant = isset($Vcki4t4qmybshis->_important_props["outline"]);
 
-        $props = array(
+        $V3ztho1nxwdys = array(
             "outline_style",
             "outline_width",
             "outline_color",
         );
 
-        foreach ($props as $prop) {
-            $_val = self::$_defaults[$prop];
+        foreach ($V3ztho1nxwdys as $V3ztho1nxwdy) {
+            $Vzfs2sbna2w1 = self::$Vg2bme5jlm5x[$V3ztho1nxwdy];
 
-            if (!isset($this->_important_props[$prop]) || $important) {
-                //see __set and __get, on all assignments clear cache!
-                $this->_prop_cache[$prop] = null;
-                if ($important) {
-                    $this->_important_props[$prop] = true;
+            if (!isset($Vcki4t4qmybshis->_important_props[$V3ztho1nxwdy]) || $V3xsptcgzss2mportant) {
+                
+                $Vcki4t4qmybshis->_prop_cache[$V3ztho1nxwdy] = null;
+                if ($V3xsptcgzss2mportant) {
+                    $Vcki4t4qmybshis->_important_props[$V3ztho1nxwdy] = true;
                 }
-                $this->_props[$prop] = $_val;
+                $Vcki4t4qmybshis->_props[$V3ztho1nxwdy] = $Vzfs2sbna2w1;
             }
         }
 
-        $val = preg_replace("/\s*\,\s*/", ",", $val); // when rgb() has spaces
-        $arr = explode(" ", $val);
-        foreach ($arr as $value) {
-            $value = trim($value);
+        $Vzyqcsfbm3q4 = preg_replace("/\s*\,\s*/", ",", $Vzyqcsfbm3q4); 
+        $Vnr1h2vcbxvj = explode(" ", $Vzyqcsfbm3q4);
+        foreach ($Vnr1h2vcbxvj as $Vqfra35f14fv) {
+            $Vqfra35f14fv = trim($Vqfra35f14fv);
 
-            if (in_array($value, self::$BORDER_STYLES)) {
-                $this->set_outline_style($value);
-            } else if (preg_match("/[.0-9]+(?:px|pt|pc|em|ex|%|in|mm|cm)|(?:thin|medium|thick)/", $value)) {
-                $this->set_outline_width($value);
+            if (in_array($Vqfra35f14fv, self::$Vn2tnb4bpsay)) {
+                $Vcki4t4qmybshis->set_outline_style($Vqfra35f14fv);
+            } else if (preg_match("/[.0-9]+(?:px|pt|pc|em|ex|%|in|mm|cm)|(?:thin|medium|thick)/", $Vqfra35f14fv)) {
+                $Vcki4t4qmybshis->set_outline_width($Vqfra35f14fv);
             } else {
-                // must be color
-                $this->set_outline_color($value);
+                
+                $Vcki4t4qmybshis->set_outline_color($Vqfra35f14fv);
             }
         }
 
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["outline"] = null;
-        $this->_props["outline"] = $val;
+        
+        $Vcki4t4qmybshis->_prop_cache["outline"] = null;
+        $Vcki4t4qmybshis->_props["outline"] = $Vzyqcsfbm3q4;
     }
 
-    /**
-     * @param $val
-     */
-    function set_outline_width($val)
+    
+    function set_outline_width($Vzyqcsfbm3q4)
     {
-        $this->_set_style_type_important('outline', '_width', $val);
+        $Vcki4t4qmybshis->_set_style_type_important('outline', '_width', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_outline_color($val)
+    
+    function set_outline_color($Vzyqcsfbm3q4)
     {
-        $this->_set_style_type_important('outline', '_color', $val);
+        $Vcki4t4qmybshis->_set_style_type_important('outline', '_color', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_outline_style($val)
+    
+    function set_outline_style($Vzyqcsfbm3q4)
     {
-        $this->_set_style_type_important('outline', '_style', $val);
+        $Vcki4t4qmybshis->_set_style_type_important('outline', '_style', $Vzyqcsfbm3q4);
     }
 
-    /**
-     * Sets the border spacing
-     *
-     * @link http://www.w3.org/TR/CSS21/box.html#border-properties
-     * @param float $val
-     */
-    function set_border_spacing($val)
+    
+    function set_border_spacing($Vzyqcsfbm3q4)
     {
-        $arr = explode(" ", $val);
+        $Vnr1h2vcbxvj = explode(" ", $Vzyqcsfbm3q4);
 
-        if (count($arr) == 1) {
-            $arr[1] = $arr[0];
+        if (count($Vnr1h2vcbxvj) == 1) {
+            $Vnr1h2vcbxvj[1] = $Vnr1h2vcbxvj[0];
         }
 
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["border_spacing"] = null;
-        $this->_props["border_spacing"] = "$arr[0] $arr[1]";
+        
+        $Vcki4t4qmybshis->_prop_cache["border_spacing"] = null;
+        $Vcki4t4qmybshis->_props["border_spacing"] = "$Vnr1h2vcbxvj[0] $Vnr1h2vcbxvj[1]";
     }
 
-    /**
-     * Sets the list style image
-     *
-     * @link http://www.w3.org/TR/CSS21/generate.html#propdef-list-style-image
-     * @param $val
-     */
-    function set_list_style_image($val)
+    
+    function set_list_style_image($Vzyqcsfbm3q4)
     {
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["list_style_image"] = null;
-        $this->_props["list_style_image"] = $this->_image($val);
+        
+        $Vcki4t4qmybshis->_prop_cache["list_style_image"] = null;
+        $Vcki4t4qmybshis->_props["list_style_image"] = $Vcki4t4qmybshis->_image($Vzyqcsfbm3q4);
     }
 
-    /**
-     * Sets the list style
-     *
-     * @link http://www.w3.org/TR/CSS21/generate.html#propdef-list-style
-     * @param $val
-     */
-    function set_list_style($val)
+    
+    function set_list_style($Vzyqcsfbm3q4)
     {
-        $important = isset($this->_important_props["list_style"]);
-        $arr = explode(" ", str_replace(",", " ", $val));
+        $V3xsptcgzss2mportant = isset($Vcki4t4qmybshis->_important_props["list_style"]);
+        $Vnr1h2vcbxvj = explode(" ", str_replace(",", " ", $Vzyqcsfbm3q4));
 
-        static $types = array(
+        static $Vcki4t4qmybsypes = array(
             "disc", "circle", "square",
             "decimal-leading-zero", "decimal", "1",
             "lower-roman", "upper-roman", "a", "A",
@@ -2530,423 +1887,367 @@ class Style
             "hiragana-iroha", "katakana-iroha", "none"
         );
 
-        static $positions = array("inside", "outside");
+        static $Vepim3znzh4witions = array("inside", "outside");
 
-        foreach ($arr as $value) {
-            /* http://www.w3.org/TR/CSS21/generate.html#list-style
-             * A value of 'none' for the 'list-style' property sets both 'list-style-type' and 'list-style-image' to 'none'
-             */
-            if ($value === "none") {
-                $this->_set_style("list_style_type", $value, $important);
-                $this->_set_style("list_style_image", $value, $important);
+        foreach ($Vnr1h2vcbxvj as $Vqfra35f14fv) {
+            
+            if ($Vqfra35f14fv === "none") {
+                $Vcki4t4qmybshis->_set_style("list_style_type", $Vqfra35f14fv, $V3xsptcgzss2mportant);
+                $Vcki4t4qmybshis->_set_style("list_style_image", $Vqfra35f14fv, $V3xsptcgzss2mportant);
                 continue;
             }
 
-            //On setting or merging or inheriting list_style_image as well as list_style_type,
-            //and url exists, then url has precedence, otherwise fall back to list_style_type
-            //Firefox is wrong here (list_style_image gets overwritten on explicite list_style_type)
-            //Internet Explorer 7/8 and dompdf is right.
+            
+            
+            
+            
 
-            if (mb_substr($value, 0, 3) === "url") {
-                $this->_set_style("list_style_image", $this->_image($value), $important);
+            if (mb_substr($Vqfra35f14fv, 0, 3) === "url") {
+                $Vcki4t4qmybshis->_set_style("list_style_image", $Vcki4t4qmybshis->_image($Vqfra35f14fv), $V3xsptcgzss2mportant);
                 continue;
             }
 
-            if (in_array($value, $types)) {
-                $this->_set_style("list_style_type", $value, $important);
-            } else if (in_array($value, $positions)) {
-                $this->_set_style("list_style_position", $value, $important);
+            if (in_array($Vqfra35f14fv, $Vcki4t4qmybsypes)) {
+                $Vcki4t4qmybshis->_set_style("list_style_type", $Vqfra35f14fv, $V3xsptcgzss2mportant);
+            } else if (in_array($Vqfra35f14fv, $Vepim3znzh4witions)) {
+                $Vcki4t4qmybshis->_set_style("list_style_position", $Vqfra35f14fv, $V3xsptcgzss2mportant);
             }
         }
 
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["list_style"] = null;
-        $this->_props["list_style"] = $val;
+        
+        $Vcki4t4qmybshis->_prop_cache["list_style"] = null;
+        $Vcki4t4qmybshis->_props["list_style"] = $Vzyqcsfbm3q4;
     }
 
-    /**
-     * @param $val
-     */
-    function set_size($val)
+    
+    function set_size($Vzyqcsfbm3q4)
     {
-        $length_re = "/(\d+\s*(?:pt|px|pc|em|ex|in|cm|mm|%))/";
+        $Vjxpogd0afis_re = "/(\d+\s*(?:pt|px|pc|em|ex|in|cm|mm|%))/";
 
-        $val = mb_strtolower($val);
+        $Vzyqcsfbm3q4 = mb_strtolower($Vzyqcsfbm3q4);
 
-        if ($val === "auto") {
+        if ($Vzyqcsfbm3q4 === "auto") {
             return;
         }
 
-        $parts = preg_split("/\s+/", $val);
+        $V2crka1tlwcy = preg_split("/\s+/", $Vzyqcsfbm3q4);
 
-        $computed = array();
-        if (preg_match($length_re, $parts[0])) {
-            $computed[] = $this->length_in_pt($parts[0]);
+        $Vyladn51gygj = array();
+        if (preg_match($Vjxpogd0afis_re, $V2crka1tlwcy[0])) {
+            $Vyladn51gygj[] = $Vcki4t4qmybshis->length_in_pt($V2crka1tlwcy[0]);
 
-            if (isset($parts[1]) && preg_match($length_re, $parts[1])) {
-                $computed[] = $this->length_in_pt($parts[1]);
+            if (isset($V2crka1tlwcy[1]) && preg_match($Vjxpogd0afis_re, $V2crka1tlwcy[1])) {
+                $Vyladn51gygj[] = $Vcki4t4qmybshis->length_in_pt($V2crka1tlwcy[1]);
             } else {
-                $computed[] = $computed[0];
+                $Vyladn51gygj[] = $Vyladn51gygj[0];
             }
 
-            if (isset($parts[2]) && $parts[2] === "landscape") {
-                $computed = array_reverse($computed);
+            if (isset($V2crka1tlwcy[2]) && $V2crka1tlwcy[2] === "landscape") {
+                $Vyladn51gygj = array_reverse($Vyladn51gygj);
             }
-        } elseif (isset(CPDF::$PAPER_SIZES[$parts[0]])) {
-            $computed = array_slice(CPDF::$PAPER_SIZES[$parts[0]], 2, 2);
+        } elseif (isset(CPDF::$Vjvvabr4mx10[$V2crka1tlwcy[0]])) {
+            $Vyladn51gygj = array_slice(CPDF::$Vjvvabr4mx10[$V2crka1tlwcy[0]], 2, 2);
 
-            if (isset($parts[1]) && $parts[1] === "landscape") {
-                $computed = array_reverse($computed);
+            if (isset($V2crka1tlwcy[1]) && $V2crka1tlwcy[1] === "landscape") {
+                $Vyladn51gygj = array_reverse($Vyladn51gygj);
             }
         } else {
             return;
         }
 
-        $this->_props["size"] = $computed;
+        $Vcki4t4qmybshis->_props["size"] = $Vyladn51gygj;
     }
 
-    /**
-     * Gets the CSS3 transform property
-     *
-     * @link http://www.w3.org/TR/css3-2d-transforms/#transform-property
-     * @return array|null
-     */
+    
     function get_transform()
     {
-        $number = "\s*([^,\s]+)\s*";
-        $tr_value = "\s*([^,\s]+)\s*";
-        $angle = "\s*([^,\s]+(?:deg|rad)?)\s*";
+        $Vz2gmrcgy33o = "\s*([^,\s]+)\s*";
+        $Vcki4t4qmybsr_value = "\s*([^,\s]+)\s*";
+        $Vtmcaiuo2hqy = "\s*([^,\s]+(?:deg|rad)?)\s*";
 
-        if (!preg_match_all("/[a-z]+\([^\)]+\)/i", $this->_props["transform"], $parts, PREG_SET_ORDER)) {
+        if (!preg_match_all("/[a-z]+\([^\)]+\)/i", $Vcki4t4qmybshis->_props["transform"], $V2crka1tlwcy, PREG_SET_ORDER)) {
             return null;
         }
 
-        $functions = array(
-            //"matrix"     => "\($number,$number,$number,$number,$number,$number\)",
+        $V2lwcwa4i2jw = array(
+            
 
-            "translate" => "\($tr_value(?:,$tr_value)?\)",
-            "translateX" => "\($tr_value\)",
-            "translateY" => "\($tr_value\)",
+            "translate" => "\($Vcki4t4qmybsr_value(?:,$Vcki4t4qmybsr_value)?\)",
+            "translateX" => "\($Vcki4t4qmybsr_value\)",
+            "translateY" => "\($Vcki4t4qmybsr_value\)",
 
-            "scale" => "\($number(?:,$number)?\)",
-            "scaleX" => "\($number\)",
-            "scaleY" => "\($number\)",
+            "scale" => "\($Vz2gmrcgy33o(?:,$Vz2gmrcgy33o)?\)",
+            "scaleX" => "\($Vz2gmrcgy33o\)",
+            "scaleY" => "\($Vz2gmrcgy33o\)",
 
-            "rotate" => "\($angle\)",
+            "rotate" => "\($Vtmcaiuo2hqy\)",
 
-            "skew" => "\($angle(?:,$angle)?\)",
-            "skewX" => "\($angle\)",
-            "skewY" => "\($angle\)",
+            "skew" => "\($Vtmcaiuo2hqy(?:,$Vtmcaiuo2hqy)?\)",
+            "skewX" => "\($Vtmcaiuo2hqy\)",
+            "skewY" => "\($Vtmcaiuo2hqy\)",
         );
 
-        $transforms = array();
+        $Vcki4t4qmybsransforms = array();
 
-        foreach ($parts as $part) {
-            $t = $part[0];
+        foreach ($V2crka1tlwcy as $Vtug2ggkwwbt) {
+            $Vcki4t4qmybs = $Vtug2ggkwwbt[0];
 
-            foreach ($functions as $name => $pattern) {
-                if (preg_match("/$name\s*$pattern/i", $t, $matches)) {
-                    $values = array_slice($matches, 1);
+            foreach ($V2lwcwa4i2jw as $Vpgf1maodsla => $Vsxwpun1fvg4) {
+                if (preg_match("/$Vpgf1maodsla\s*$Vsxwpun1fvg4/i", $Vcki4t4qmybs, $Vyupu15qqw5ces)) {
+                    $Vqfra35f14fvs = array_slice($Vyupu15qqw5ces, 1);
 
-                    switch ($name) {
-                        // <angle> units
+                    switch ($Vpgf1maodsla) {
+                        
                         case "rotate":
                         case "skew":
                         case "skewX":
                         case "skewY":
 
-                            foreach ($values as $i => $value) {
-                                if (strpos($value, "rad")) {
-                                    $values[$i] = rad2deg(floatval($value));
+                            foreach ($Vqfra35f14fvs as $V3xsptcgzss2 => $Vqfra35f14fv) {
+                                if (strpos($Vqfra35f14fv, "rad")) {
+                                    $Vqfra35f14fvs[$V3xsptcgzss2] = rad2deg(floatval($Vqfra35f14fv));
                                 } else {
-                                    $values[$i] = floatval($value);
+                                    $Vqfra35f14fvs[$V3xsptcgzss2] = floatval($Vqfra35f14fv);
                                 }
                             }
 
-                            switch ($name) {
+                            switch ($Vpgf1maodsla) {
                                 case "skew":
-                                    if (!isset($values[1])) {
-                                        $values[1] = 0;
+                                    if (!isset($Vqfra35f14fvs[1])) {
+                                        $Vqfra35f14fvs[1] = 0;
                                     }
                                     break;
                                 case "skewX":
-                                    $name = "skew";
-                                    $values = array($values[0], 0);
+                                    $Vpgf1maodsla = "skew";
+                                    $Vqfra35f14fvs = array($Vqfra35f14fvs[0], 0);
                                     break;
                                 case "skewY":
-                                    $name = "skew";
-                                    $values = array(0, $values[0]);
+                                    $Vpgf1maodsla = "skew";
+                                    $Vqfra35f14fvs = array(0, $Vqfra35f14fvs[0]);
                                     break;
                             }
                             break;
 
-                        // <translation-value> units
+                        
                         case "translate":
-                            $values[0] = $this->length_in_pt($values[0], (float)$this->length_in_pt($this->width));
+                            $Vqfra35f14fvs[0] = $Vcki4t4qmybshis->length_in_pt($Vqfra35f14fvs[0], (float)$Vcki4t4qmybshis->length_in_pt($Vcki4t4qmybshis->width));
 
-                            if (isset($values[1])) {
-                                $values[1] = $this->length_in_pt($values[1], (float)$this->length_in_pt($this->height));
+                            if (isset($Vqfra35f14fvs[1])) {
+                                $Vqfra35f14fvs[1] = $Vcki4t4qmybshis->length_in_pt($Vqfra35f14fvs[1], (float)$Vcki4t4qmybshis->length_in_pt($Vcki4t4qmybshis->height));
                             } else {
-                                $values[1] = 0;
+                                $Vqfra35f14fvs[1] = 0;
                             }
                             break;
 
                         case "translateX":
-                            $name = "translate";
-                            $values = array($this->length_in_pt($values[0], (float)$this->length_in_pt($this->width)), 0);
+                            $Vpgf1maodsla = "translate";
+                            $Vqfra35f14fvs = array($Vcki4t4qmybshis->length_in_pt($Vqfra35f14fvs[0], (float)$Vcki4t4qmybshis->length_in_pt($Vcki4t4qmybshis->width)), 0);
                             break;
 
                         case "translateY":
-                            $name = "translate";
-                            $values = array(0, $this->length_in_pt($values[0], (float)$this->length_in_pt($this->height)));
+                            $Vpgf1maodsla = "translate";
+                            $Vqfra35f14fvs = array(0, $Vcki4t4qmybshis->length_in_pt($Vqfra35f14fvs[0], (float)$Vcki4t4qmybshis->length_in_pt($Vcki4t4qmybshis->height)));
                             break;
 
-                        // <number> units
+                        
                         case "scale":
-                            if (!isset($values[1])) {
-                                $values[1] = $values[0];
+                            if (!isset($Vqfra35f14fvs[1])) {
+                                $Vqfra35f14fvs[1] = $Vqfra35f14fvs[0];
                             }
                             break;
 
                         case "scaleX":
-                            $name = "scale";
-                            $values = array($values[0], 1.0);
+                            $Vpgf1maodsla = "scale";
+                            $Vqfra35f14fvs = array($Vqfra35f14fvs[0], 1.0);
                             break;
 
                         case "scaleY":
-                            $name = "scale";
-                            $values = array(1.0, $values[0]);
+                            $Vpgf1maodsla = "scale";
+                            $Vqfra35f14fvs = array(1.0, $Vqfra35f14fvs[0]);
                             break;
                     }
 
-                    $transforms[] = array(
-                        $name,
-                        $values,
+                    $Vcki4t4qmybsransforms[] = array(
+                        $Vpgf1maodsla,
+                        $Vqfra35f14fvs,
                     );
                 }
             }
         }
 
-        return $transforms;
+        return $Vcki4t4qmybsransforms;
     }
 
-    /**
-     * @param $val
-     */
-    function set_transform($val)
+    
+    function set_transform($Vzyqcsfbm3q4)
     {
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["transform"] = null;
-        $this->_props["transform"] = $val;
+        
+        $Vcki4t4qmybshis->_prop_cache["transform"] = null;
+        $Vcki4t4qmybshis->_props["transform"] = $Vzyqcsfbm3q4;
     }
 
-    /**
-     * @param $val
-     */
-    function set__webkit_transform($val)
+    
+    function set__webkit_transform($Vzyqcsfbm3q4)
     {
-        $this->set_transform($val);
+        $Vcki4t4qmybshis->set_transform($Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set__webkit_transform_origin($val)
+    
+    function set__webkit_transform_origin($Vzyqcsfbm3q4)
     {
-        $this->set_transform_origin($val);
+        $Vcki4t4qmybshis->set_transform_origin($Vzyqcsfbm3q4);
     }
 
-    /**
-     * Sets the CSS3 transform-origin property
-     *
-     * @link http://www.w3.org/TR/css3-2d-transforms/#transform-origin
-     * @param string $val
-     */
-    function set_transform_origin($val)
+    
+    function set_transform_origin($Vzyqcsfbm3q4)
     {
-        //see __set and __get, on all assignments clear cache, not needed on direct set through __set
-        $this->_prop_cache["transform_origin"] = null;
-        $this->_props["transform_origin"] = $val;
+        
+        $Vcki4t4qmybshis->_prop_cache["transform_origin"] = null;
+        $Vcki4t4qmybshis->_props["transform_origin"] = $Vzyqcsfbm3q4;
     }
 
-    /**
-     * Gets the CSS3 transform-origin property
-     *
-     * @link http://www.w3.org/TR/css3-2d-transforms/#transform-origin
-     * @return mixed[]
-     */
+    
     function get_transform_origin() {
-        $values = preg_split("/\s+/", $this->_props['transform_origin']);
+        $Vqfra35f14fvs = preg_split("/\s+/", $Vcki4t4qmybshis->_props['transform_origin']);
 
-        if (count($values) === 0) {
-            $values = preg_split("/\s+/", self::$_defaults["transform_origin"]);
+        if (count($Vqfra35f14fvs) === 0) {
+            $Vqfra35f14fvs = preg_split("/\s+/", self::$Vg2bme5jlm5x["transform_origin"]);
         }
 
-        $values = array_map(function($value) {
-            if (in_array($value, array("top", "left"))) {
+        $Vqfra35f14fvs = array_map(function($Vqfra35f14fv) {
+            if (in_array($Vqfra35f14fv, array("top", "left"))) {
                 return 0;
-            } else if (in_array($value, array("bottom", "right"))) {
+            } else if (in_array($Vqfra35f14fv, array("bottom", "right"))) {
                 return "100%";
             } else {
-                return $value;
+                return $Vqfra35f14fv;
             }
-        }, $values);
+        }, $Vqfra35f14fvs);
 
-        if (!isset($values[1])) {
-            $values[1] = $values[0];
+        if (!isset($Vqfra35f14fvs[1])) {
+            $Vqfra35f14fvs[1] = $Vqfra35f14fvs[0];
         }
 
-        return $values;
+        return $Vqfra35f14fvs;
     }
 
-    /**
-     * @param $val
-     * @return null
-     */
-    protected function parse_image_resolution($val)
+    
+    protected function parse_image_resolution($Vzyqcsfbm3q4)
     {
-        // If exif data could be get:
-        // $re = '/^\s*(\d+|normal|auto)(?:\s*,\s*(\d+|normal))?\s*$/';
+        
+        
 
-        $re = '/^\s*(\d+|normal|auto)\s*$/';
+        $Vkabkv5ip0kge = '/^\s*(\d+|normal|auto)\s*$/';
 
-        if (!preg_match($re, $val, $matches)) {
+        if (!preg_match($Vkabkv5ip0kge, $Vzyqcsfbm3q4, $Vyupu15qqw5ces)) {
             return null;
         }
 
-        return $matches[1];
+        return $Vyupu15qqw5ces[1];
     }
 
-    /**
-     * auto | normal | dpi
-     *
-     * @param $val
-     */
-    function set_background_image_resolution($val)
+    
+    function set_background_image_resolution($Vzyqcsfbm3q4)
     {
-        $parsed = $this->parse_image_resolution($val);
+        $Vhgbyoewrl3x = $Vcki4t4qmybshis->parse_image_resolution($Vzyqcsfbm3q4);
 
-        $this->_prop_cache["background_image_resolution"] = null;
-        $this->_props["background_image_resolution"] = $parsed;
+        $Vcki4t4qmybshis->_prop_cache["background_image_resolution"] = null;
+        $Vcki4t4qmybshis->_props["background_image_resolution"] = $Vhgbyoewrl3x;
     }
 
-    /**
-     * auto | normal | dpi
-     *
-     * @param $val
-     */
-    function set_image_resolution($val)
+    
+    function set_image_resolution($Vzyqcsfbm3q4)
     {
-        $parsed = $this->parse_image_resolution($val);
+        $Vhgbyoewrl3x = $Vcki4t4qmybshis->parse_image_resolution($Vzyqcsfbm3q4);
 
-        $this->_prop_cache["image_resolution"] = null;
-        $this->_props["image_resolution"] = $parsed;
+        $Vcki4t4qmybshis->_prop_cache["image_resolution"] = null;
+        $Vcki4t4qmybshis->_props["image_resolution"] = $Vhgbyoewrl3x;
     }
 
-    /**
-     * @param $val
-     */
-    function set__dompdf_background_image_resolution($val)
+    
+    function set__dompdf_background_image_resolution($Vzyqcsfbm3q4)
     {
-        $this->set_background_image_resolution($val);
+        $Vcki4t4qmybshis->set_background_image_resolution($Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set__dompdf_image_resolution($val)
+    
+    function set__dompdf_image_resolution($Vzyqcsfbm3q4)
     {
-        $this->set_image_resolution($val);
+        $Vcki4t4qmybshis->set_image_resolution($Vzyqcsfbm3q4);
     }
 
-    /**
-     * @param $val
-     */
-    function set_z_index($val)
+    
+    function set_z_index($Vzyqcsfbm3q4)
     {
-        if (round($val) != $val && $val !== "auto") {
+        if (round($Vzyqcsfbm3q4) != $Vzyqcsfbm3q4 && $Vzyqcsfbm3q4 !== "auto") {
             return;
         }
 
-        $this->_prop_cache["z_index"] = null;
-        $this->_props["z_index"] = $val;
+        $Vcki4t4qmybshis->_prop_cache["z_index"] = null;
+        $Vcki4t4qmybshis->_props["z_index"] = $Vzyqcsfbm3q4;
     }
 
-    /**
-     * @param $val
-     */
-    function set_counter_increment($val)
+    
+    function set_counter_increment($Vzyqcsfbm3q4)
     {
-        $val = trim($val);
-        $value = null;
+        $Vzyqcsfbm3q4 = trim($Vzyqcsfbm3q4);
+        $Vqfra35f14fv = null;
 
-        if (in_array($val, array("none", "inherit"))) {
-            $value = $val;
+        if (in_array($Vzyqcsfbm3q4, array("none", "inherit"))) {
+            $Vqfra35f14fv = $Vzyqcsfbm3q4;
         } else {
-            if (preg_match_all("/(" . self::CSS_IDENTIFIER . ")(?:\s+(" . self::CSS_INTEGER . "))?/", $val, $matches, PREG_SET_ORDER)) {
-                $value = array();
-                foreach ($matches as $match) {
-                    $value[$match[1]] = isset($match[2]) ? $match[2] : 1;
+            if (preg_match_all("/(" . self::CSS_IDENTIFIER . ")(?:\s+(" . self::CSS_INTEGER . "))?/", $Vzyqcsfbm3q4, $Vyupu15qqw5ces, PREG_SET_ORDER)) {
+                $Vqfra35f14fv = array();
+                foreach ($Vyupu15qqw5ces as $Vyupu15qqw5c) {
+                    $Vqfra35f14fv[$Vyupu15qqw5c[1]] = isset($Vyupu15qqw5c[2]) ? $Vyupu15qqw5c[2] : 1;
                 }
             }
         }
 
-        $this->_prop_cache["counter_increment"] = null;
-        $this->_props["counter_increment"] = $value;
+        $Vcki4t4qmybshis->_prop_cache["counter_increment"] = null;
+        $Vcki4t4qmybshis->_props["counter_increment"] = $Vqfra35f14fv;
     }
 
-    /**
-     * @param FontMetrics $fontMetrics
-     * @return $this
-     */
-    public function setFontMetrics(FontMetrics $fontMetrics)
+    
+    public function setFontMetrics(FontMetrics $Vj1pbeciqvz4)
     {
-        $this->fontMetrics = $fontMetrics;
-        return $this;
+        $Vcki4t4qmybshis->fontMetrics = $Vj1pbeciqvz4;
+        return $Vcki4t4qmybshis;
     }
 
-    /**
-     * @return FontMetrics
-     */
+    
     public function getFontMetrics()
     {
-        return $this->fontMetrics;
+        return $Vcki4t4qmybshis->fontMetrics;
     }
 
-    /**
-     * Generate a string representation of the Style
-     *
-     * This dumps the entire property array into a string via print_r.  Useful
-     * for debugging.
-     *
-     * @return string
-     */
-    /*DEBUGCSS print: see below additional debugging util*/
+    
+    
     function __toString()
     {
-        return print_r(array_merge(array("parent_font_size" => $this->_parent_font_size),
-            $this->_props), true);
+        return print_r(array_merge(array("parent_font_size" => $Vcki4t4qmybshis->_parent_font_size),
+            $Vcki4t4qmybshis->_props), true);
     }
 
-    /*DEBUGCSS*/
+    
     function debug_print()
     {
-        /*DEBUGCSS*/
-        print "parent_font_size:" . $this->_parent_font_size . ";\n";
-        /*DEBUGCSS*/
-        foreach ($this->_props as $prop => $val) {
-            /*DEBUGCSS*/
-            print $prop . ':' . $val;
-            /*DEBUGCSS*/
-            if (isset($this->_important_props[$prop])) {
-                /*DEBUGCSS*/
+        
+        print "parent_font_size:" . $Vcki4t4qmybshis->_parent_font_size . ";\n";
+        
+        foreach ($Vcki4t4qmybshis->_props as $V3ztho1nxwdy => $Vzyqcsfbm3q4) {
+            
+            print $V3ztho1nxwdy . ':' . $Vzyqcsfbm3q4;
+            
+            if (isset($Vcki4t4qmybshis->_important_props[$V3ztho1nxwdy])) {
+                
                 print '!important';
-                /*DEBUGCSS*/
+                
             }
-            /*DEBUGCSS*/
+            
             print ";\n";
-            /*DEBUGCSS*/
+            
         }
-        /*DEBUGCSS*/
+        
     }
 }

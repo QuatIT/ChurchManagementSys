@@ -1,535 +1,374 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Helmut Tischer <htischer@weihenstephan.org>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Dompdf;
 
 use FontLib\Font;
 
-/**
- * The font metrics class
- *
- * This class provides information about fonts and text.  It can resolve
- * font names into actual installed font files, as well as determine the
- * size of text in a particular font and size.
- *
- * @static
- * @package dompdf
- */
+
 class FontMetrics
 {
-    /**
-     * Name of the font cache file
-     *
-     * This file must be writable by the webserver process only to update it
-     * with save_font_families() after adding the .afm file references of a new font family
-     * with FontMetrics::saveFontFamilies().
-     * This is typically done only from command line with load_font.php on converting
-     * ttf fonts to ufm with php-font-lib.
-     */
+    
     const CACHE_FILE = "dompdf_font_family_cache.php";
 
-    /**
-     * @var Canvas
-     * @deprecated
-     */
-    protected $pdf;
+    
+    protected $Vsvnz5bsmrgs;
 
-    /**
-     * Underlying {@link Canvas} object to perform text size calculations
-     *
-     * @var Canvas
-     */
-    protected $canvas;
+    
+    protected $Vvzurwoc24em;
 
-    /**
-     * Array of font family names to font files
-     *
-     * Usually cached by the {@link load_font.php} script
-     *
-     * @var array
-     */
-    protected $fontLookup = array();
+    
+    protected $Vf04yd5vmrjx = array();
 
-    /**
-     * @var Options
-     */
-    private $options;
+    
+    private $Vi43cktvy0zi;
 
-    /**
-     * Class initialization
-     */
-    public function __construct(Canvas $canvas, Options $options)
+    
+    public function __construct(Canvas $Vvzurwoc24em, Options $Vi43cktvy0zi)
     {
-        $this->setCanvas($canvas);
-        $this->setOptions($options);
+        $this->setCanvas($Vvzurwoc24em);
+        $this->setOptions($Vi43cktvy0zi);
         $this->loadFontFamilies();
     }
 
-    /**
-     * @deprecated
-     */
+    
     public function save_font_families()
     {
         $this->saveFontFamilies();
     }
 
-    /**
-     * Saves the stored font family cache
-     *
-     * The name and location of the cache file are determined by {@link
-     * FontMetrics::CACHE_FILE}. This file should be writable by the
-     * webserver process.
-     *
-     * @see FontMetrics::loadFontFamilies()
-     */
+    
     public function saveFontFamilies()
     {
-        // replace the path to the DOMPDF font directories with the corresponding constants (allows for more portability)
-        $cacheData = sprintf("<?php return array (%s", PHP_EOL);
-        foreach ($this->fontLookup as $family => $variants) {
-            $cacheData .= sprintf("  '%s' => array(%s", addslashes($family), PHP_EOL);
-            foreach ($variants as $variant => $path) {
-                $path = sprintf("'%s'", $path);
-                $path = str_replace('\'' . $this->getOptions()->getFontDir() , '$fontDir . \'' , $path);
-                $path = str_replace('\'' . $this->getOptions()->getRootDir() , '$rootDir . \'' , $path);
-                $cacheData .= sprintf("    '%s' => %s,%s", $variant, $path, PHP_EOL);
+        
+        $Vyoxqlnpccdm = sprintf("<?php return array (%s", PHP_EOL);
+        foreach ($this->fontLookup as $Vu3vfak1w4uv => $Vnza520455xg) {
+            $Vyoxqlnpccdm .= sprintf("  '%s' => array(%s", addslashes($Vu3vfak1w4uv), PHP_EOL);
+            foreach ($Vnza520455xg as $Vxicgdp33yi2 => $Vio2vixcckdr) {
+                $Vio2vixcckdr = sprintf("'%s'", $Vio2vixcckdr);
+                $Vio2vixcckdr = str_replace('\'' . $this->getOptions()->getFontDir() , '$Vuztfk54rrx1 . \'' , $Vio2vixcckdr);
+                $Vio2vixcckdr = str_replace('\'' . $this->getOptions()->getRootDir() , '$Vk2wykqydwqb . \'' , $Vio2vixcckdr);
+                $Vyoxqlnpccdm .= sprintf("    '%s' => %s,%s", $Vxicgdp33yi2, $Vio2vixcckdr, PHP_EOL);
             }
-            $cacheData .= sprintf("  ),%s", PHP_EOL);
+            $Vyoxqlnpccdm .= sprintf("  ),%s", PHP_EOL);
         }
-        $cacheData .= ") ?>";
-        file_put_contents($this->getCacheFile(), $cacheData);
+        $Vyoxqlnpccdm .= ") ?>";
+        file_put_contents($this->getCacheFile(), $Vyoxqlnpccdm);
     }
 
-    /**
-     * @deprecated
-     */
+    
     public function load_font_families()
     {
         $this->loadFontFamilies();
     }
 
-    /**
-     * Loads the stored font family cache
-     *
-     * @see FontMetrics::saveFontFamilies()
-     */
+    
     public function loadFontFamilies()
     {
-        $fontDir = $this->getOptions()->getFontDir();
-        $rootDir = $this->getOptions()->getRootDir();
+        $Vuztfk54rrx1 = $this->getOptions()->getFontDir();
+        $Vk2wykqydwqb = $this->getOptions()->getRootDir();
 
-        // FIXME: tempoarary define constants for cache files <= v0.6.2
-        if (!defined("DOMPDF_DIR")) { define("DOMPDF_DIR", $rootDir); }
-        if (!defined("DOMPDF_FONT_DIR")) { define("DOMPDF_FONT_DIR", $fontDir); }
+        
+        if (!defined("DOMPDF_DIR")) { define("DOMPDF_DIR", $Vk2wykqydwqb); }
+        if (!defined("DOMPDF_FONT_DIR")) { define("DOMPDF_FONT_DIR", $Vuztfk54rrx1); }
 
-        $file = $rootDir . "/lib/fonts/dompdf_font_family_cache.dist.php";
-        $distFonts = require $file;
+        $Vtkhurg4sowd = $Vk2wykqydwqb . "/lib/fonts/dompdf_font_family_cache.dist.php";
+        $V2iorgggdlao = require $Vtkhurg4sowd;
 
         if (!is_readable($this->getCacheFile())) {
-            $this->fontLookup = $distFonts;
+            $this->fontLookup = $V2iorgggdlao;
             return;
         }
 
-        $cacheData = require $this->getCacheFile();
+        $Vyoxqlnpccdm = require $this->getCacheFile();
 
         $this->fontLookup = array();
         if (is_array($this->fontLookup)) {
-            foreach ($cacheData as $key => $value) {
-                $this->fontLookup[stripslashes($key)] = $value;
+            foreach ($Vyoxqlnpccdm as $Vqwhzgethmgj => $Vqfra35f14fv) {
+                $this->fontLookup[stripslashes($Vqwhzgethmgj)] = $Vqfra35f14fv;
             }
         }
 
-        // Merge provided fonts
-        $this->fontLookup += $distFonts;
+        
+        $this->fontLookup += $V2iorgggdlao;
     }
 
-    /**
-     * @param array $style
-     * @param string $remote_file
-     * @param resource $context
-     * @return bool
-     * @deprecated
-     */
-    public function register_font($style, $remote_file, $context = null)
+    
+    public function register_font($Vdidzwb0w3vc, $V4w3yzeqzfek, $V0skazf5h5xa = null)
     {
-        return $this->registerFont($style, $remote_file);
+        return $this->registerFont($Vdidzwb0w3vc, $V4w3yzeqzfek);
     }
 
-    /**
-     * @param array $style
-     * @param string $remoteFile
-     * @param resource $context
-     * @return bool
-     */
-    public function registerFont($style, $remoteFile, $context = null)
+    
+    public function registerFont($Vdidzwb0w3vc, $Vjkjrbzdetxb, $V0skazf5h5xa = null)
     {
-        $fontname = mb_strtolower($style["family"]);
-        $families = $this->getFontFamilies();
+        $Vjkcyqqklsga = mb_strtolower($Vdidzwb0w3vc["family"]);
+        $Vk31cmghwxrd = $this->getFontFamilies();
 
-        $entry = array();
-        if (isset($families[$fontname])) {
-            $entry = $families[$fontname];
+        $Voeexclyb0j3 = array();
+        if (isset($Vk31cmghwxrd[$Vjkcyqqklsga])) {
+            $Voeexclyb0j3 = $Vk31cmghwxrd[$Vjkcyqqklsga];
         }
 
-        $styleString = $this->getType("{$style['weight']} {$style['style']}");
-        if (isset($entry[$styleString])) {
+        $Vdidzwb0w3vcString = $this->getType("{$Vdidzwb0w3vc['weight']} {$Vdidzwb0w3vc['style']}");
+        if (isset($Voeexclyb0j3[$Vdidzwb0w3vcString])) {
             return true;
         }
 
-        $fontDir = $this->getOptions()->getFontDir();
-        $remoteHash = md5($remoteFile);
-        $localFile = $fontDir . DIRECTORY_SEPARATOR . $remoteHash;
-        $localTempFile = tempnam($this->options->get("tempDir"), "dompdf-font-");
+        $Vuztfk54rrx1 = $this->getOptions()->getFontDir();
+        $Vvhba1i51n3u = md5($Vjkjrbzdetxb);
+        $Vsqrqpu2z31o = $Vuztfk54rrx1 . DIRECTORY_SEPARATOR . $Vvhba1i51n3u;
+        $Viccrtkea33k = tempnam($this->options->get("tempDir"), "dompdf-font-");
 
-        $cacheEntry = $localFile;
-        $localFile .= ".".strtolower(pathinfo(parse_url($remoteFile, PHP_URL_PATH),PATHINFO_EXTENSION));
+        $Vigltn0kyqrd = $Vsqrqpu2z31o;
+        $Vsqrqpu2z31o .= ".".strtolower(pathinfo(parse_url($Vjkjrbzdetxb, PHP_URL_PATH),PATHINFO_EXTENSION));
 
-        $entry[$styleString] = $cacheEntry;
+        $Voeexclyb0j3[$Vdidzwb0w3vcString] = $Vigltn0kyqrd;
 
-        // Download the remote file
-        list($remoteFileContent, $http_response_header) = @Helpers::getFileContent($remoteFile, $context);
-        if (false === $remoteFileContent) {
+        
+        list($VjkjrbzdetxbContent, $http_response_header) = @Helpers::getFileContent($Vjkjrbzdetxb, $V0skazf5h5xa);
+        if (false === $VjkjrbzdetxbContent) {
             return false;
         }
-        file_put_contents($localTempFile, $remoteFileContent);
+        file_put_contents($Viccrtkea33k, $VjkjrbzdetxbContent);
 
-        $font = Font::load($localTempFile);
+        $V3h4z3hxorxj = Font::load($Viccrtkea33k);
 
-        if (!$font) {
-            unlink($localTempFile);
-            return false;
-        }
-
-        $font->parse();
-        $font->saveAdobeFontMetrics("$cacheEntry.ufm");
-        $font->close();
-
-        unlink($localTempFile);
-
-        if ( !file_exists("$cacheEntry.ufm") ) {
+        if (!$V3h4z3hxorxj) {
+            unlink($Viccrtkea33k);
             return false;
         }
 
-        // Save the changes
-        file_put_contents($localFile, $remoteFileContent);
+        $V3h4z3hxorxj->parse();
+        $V3h4z3hxorxj->saveAdobeFontMetrics("$Vigltn0kyqrd.ufm");
+        $V3h4z3hxorxj->close();
 
-        if ( !file_exists($localFile) ) {
-            unlink("$cacheEntry.ufm");
+        unlink($Viccrtkea33k);
+
+        if ( !file_exists("$Vigltn0kyqrd.ufm") ) {
             return false;
         }
 
-        $this->setFontFamily($fontname, $entry);
+        
+        file_put_contents($Vsqrqpu2z31o, $VjkjrbzdetxbContent);
+
+        if ( !file_exists($Vsqrqpu2z31o) ) {
+            unlink("$Vigltn0kyqrd.ufm");
+            return false;
+        }
+
+        $this->setFontFamily($Vjkcyqqklsga, $Voeexclyb0j3);
         $this->saveFontFamilies();
 
         return true;
     }
 
-    /**
-     * @param $text
-     * @param $font
-     * @param $size
-     * @param float $word_spacing
-     * @param float $char_spacing
-     * @return float
-     * @deprecated
-     */
-    public function get_text_width($text, $font, $size, $word_spacing = 0.0, $char_spacing = 0.0)
+    
+    public function get_text_width($Vnlbbd31sxbf, $V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4 = 0.0, $Vaohjovek4hi = 0.0)
     {
-        //return self::$_pdf->get_text_width($text, $font, $size, $word_spacing, $char_spacing);
-        return $this->getTextWidth($text, $font, $size, $word_spacing, $char_spacing);
+        
+        return $this->getTextWidth($Vnlbbd31sxbf, $V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4, $Vaohjovek4hi);
     }
 
-    /**
-     * Calculates text size, in points
-     *
-     * @param string $text the text to be sized
-     * @param string $font the desired font
-     * @param float $size  the desired font size
-     * @param float $wordSpacing
-     * @param float $charSpacing
-     *
-     * @internal param float $spacing word spacing, if any
-     * @return float
-     */
-    public function getTextWidth($text, $font, $size, $wordSpacing = 0.0, $charSpacing = 0.0)
+    
+    public function getTextWidth($Vnlbbd31sxbf, $V3h4z3hxorxj, $Vlak25col1u3, $V2qzmw3lruf4 = 0.0, $Vhotl3kvzzhx = 0.0)
     {
-        // @todo Make sure this cache is efficient before enabling it
-        static $cache = array();
+        
+        static $V1ph4ewhj5yc = array();
 
-        if ($text === "") {
+        if ($Vnlbbd31sxbf === "") {
             return 0;
         }
 
-        // Don't cache long strings
-        $useCache = !isset($text[50]); // Faster than strlen
+        
+        $Vleudvfq1zow = !isset($Vnlbbd31sxbf[50]); 
 
-        $key = "$font/$size/$wordSpacing/$charSpacing";
+        $Vqwhzgethmgj = "$V3h4z3hxorxj/$Vlak25col1u3/$V2qzmw3lruf4/$Vhotl3kvzzhx";
 
-        if ($useCache && isset($cache[$key][$text])) {
-            return $cache[$key]["$text"];
+        if ($Vleudvfq1zow && isset($V1ph4ewhj5yc[$Vqwhzgethmgj][$Vnlbbd31sxbf])) {
+            return $V1ph4ewhj5yc[$Vqwhzgethmgj]["$Vnlbbd31sxbf"];
         }
 
-        $width = $this->getCanvas()->get_text_width($text, $font, $size, $wordSpacing, $charSpacing);
+        $Vztt3qdrrikx = $this->getCanvas()->get_text_width($Vnlbbd31sxbf, $V3h4z3hxorxj, $Vlak25col1u3, $V2qzmw3lruf4, $Vhotl3kvzzhx);
 
-        if ($useCache) {
-            $cache[$key][$text] = $width;
+        if ($Vleudvfq1zow) {
+            $V1ph4ewhj5yc[$Vqwhzgethmgj][$Vnlbbd31sxbf] = $Vztt3qdrrikx;
         }
 
-        return $width;
+        return $Vztt3qdrrikx;
     }
 
-    /**
-     * @param $font
-     * @param $size
-     * @return float
-     * @deprecated
-     */
-    public function get_font_height($font, $size)
+    
+    public function get_font_height($V3h4z3hxorxj, $Vlak25col1u3)
     {
-        return $this->getFontHeight($font, $size);
+        return $this->getFontHeight($V3h4z3hxorxj, $Vlak25col1u3);
     }
 
-    /**
-     * Calculates font height
-     *
-     * @param string $font
-     * @param float $size
-     *
-     * @return float
-     */
-    public function getFontHeight($font, $size)
+    
+    public function getFontHeight($V3h4z3hxorxj, $Vlak25col1u3)
     {
-        return $this->getCanvas()->get_font_height($font, $size);
+        return $this->getCanvas()->get_font_height($V3h4z3hxorxj, $Vlak25col1u3);
     }
 
-    /**
-     * @param $family_raw
-     * @param string $subtype_raw
-     * @return string
-     * @deprecated
-     */
-    public function get_font($family_raw, $subtype_raw = "normal")
+    
+    public function get_font($Vu3vfak1w4uv_raw, $Vetwegihca4v = "normal")
     {
-        return $this->getFont($family_raw, $subtype_raw);
+        return $this->getFont($Vu3vfak1w4uv_raw, $Vetwegihca4v);
     }
 
-    /**
-     * Resolves a font family & subtype into an actual font file
-     * Subtype can be one of 'normal', 'bold', 'italic' or 'bold_italic'.  If
-     * the particular font family has no suitable font file, the default font
-     * ({@link Options::defaultFont}) is used.  The font file returned
-     * is the absolute pathname to the font file on the system.
-     *
-     * @param string $familyRaw
-     * @param string $subtypeRaw
-     *
-     * @return string
-     */
-    public function getFont($familyRaw, $subtypeRaw = "normal")
+    
+    public function getFont($Vu3vfak1w4uvRaw, $Vc5xef1hsasl = "normal")
     {
-        static $cache = array();
+        static $V1ph4ewhj5yc = array();
 
-        if (isset($cache[$familyRaw][$subtypeRaw])) {
-            return $cache[$familyRaw][$subtypeRaw];
+        if (isset($V1ph4ewhj5yc[$Vu3vfak1w4uvRaw][$Vc5xef1hsasl])) {
+            return $V1ph4ewhj5yc[$Vu3vfak1w4uvRaw][$Vc5xef1hsasl];
         }
 
-        /* Allow calling for various fonts in search path. Therefore not immediately
-         * return replacement on non match.
-         * Only when called with NULL try replacement.
-         * When this is also missing there is really trouble.
-         * If only the subtype fails, nevertheless return failure.
-         * Only on checking the fallback font, check various subtypes on same font.
-         */
+        
 
-        $subtype = strtolower($subtypeRaw);
+        $Vt33g5i2zccw = strtolower($Vc5xef1hsasl);
 
-        if ($familyRaw) {
-            $family = str_replace(array("'", '"'), "", strtolower($familyRaw));
+        if ($Vu3vfak1w4uvRaw) {
+            $Vu3vfak1w4uv = str_replace(array("'", '"'), "", strtolower($Vu3vfak1w4uvRaw));
 
-            if (isset($this->fontLookup[$family][$subtype])) {
-                return $cache[$familyRaw][$subtypeRaw] = $this->fontLookup[$family][$subtype];
+            if (isset($this->fontLookup[$Vu3vfak1w4uv][$Vt33g5i2zccw])) {
+                return $V1ph4ewhj5yc[$Vu3vfak1w4uvRaw][$Vc5xef1hsasl] = $this->fontLookup[$Vu3vfak1w4uv][$Vt33g5i2zccw];
             }
 
             return null;
         }
 
-        $family = "serif";
+        $Vu3vfak1w4uv = "serif";
 
-        if (isset($this->fontLookup[$family][$subtype])) {
-            return $cache[$familyRaw][$subtypeRaw] = $this->fontLookup[$family][$subtype];
+        if (isset($this->fontLookup[$Vu3vfak1w4uv][$Vt33g5i2zccw])) {
+            return $V1ph4ewhj5yc[$Vu3vfak1w4uvRaw][$Vc5xef1hsasl] = $this->fontLookup[$Vu3vfak1w4uv][$Vt33g5i2zccw];
         }
 
-        if (!isset($this->fontLookup[$family])) {
+        if (!isset($this->fontLookup[$Vu3vfak1w4uv])) {
             return null;
         }
 
-        $family = $this->fontLookup[$family];
+        $Vu3vfak1w4uv = $this->fontLookup[$Vu3vfak1w4uv];
 
-        foreach ($family as $sub => $font) {
-            if (strpos($subtype, $sub) !== false) {
-                return $cache[$familyRaw][$subtypeRaw] = $font;
+        foreach ($Vu3vfak1w4uv as $Vnkb4ukmwd0n => $V3h4z3hxorxj) {
+            if (strpos($Vt33g5i2zccw, $Vnkb4ukmwd0n) !== false) {
+                return $V1ph4ewhj5yc[$Vu3vfak1w4uvRaw][$Vc5xef1hsasl] = $V3h4z3hxorxj;
             }
         }
 
-        if ($subtype !== "normal") {
-            foreach ($family as $sub => $font) {
-                if ($sub !== "normal") {
-                    return $cache[$familyRaw][$subtypeRaw] = $font;
+        if ($Vt33g5i2zccw !== "normal") {
+            foreach ($Vu3vfak1w4uv as $Vnkb4ukmwd0n => $V3h4z3hxorxj) {
+                if ($Vnkb4ukmwd0n !== "normal") {
+                    return $V1ph4ewhj5yc[$Vu3vfak1w4uvRaw][$Vc5xef1hsasl] = $V3h4z3hxorxj;
                 }
             }
         }
 
-        $subtype = "normal";
+        $Vt33g5i2zccw = "normal";
 
-        if (isset($family[$subtype])) {
-            return $cache[$familyRaw][$subtypeRaw] = $family[$subtype];
+        if (isset($Vu3vfak1w4uv[$Vt33g5i2zccw])) {
+            return $V1ph4ewhj5yc[$Vu3vfak1w4uvRaw][$Vc5xef1hsasl] = $Vu3vfak1w4uv[$Vt33g5i2zccw];
         }
 
         return null;
     }
 
-    /**
-     * @param $family
-     * @return null|string
-     * @deprecated
-     */
-    public function get_family($family)
+    
+    public function get_family($Vu3vfak1w4uv)
     {
-        return $this->getFamily($family);
+        return $this->getFamily($Vu3vfak1w4uv);
     }
 
-    /**
-     * @param string $family
-     * @return null|string
-     */
-    public function getFamily($family)
+    
+    public function getFamily($Vu3vfak1w4uv)
     {
-        $family = str_replace(array("'", '"'), "", mb_strtolower($family));
+        $Vu3vfak1w4uv = str_replace(array("'", '"'), "", mb_strtolower($Vu3vfak1w4uv));
 
-        if (isset($this->fontLookup[$family])) {
-            return $this->fontLookup[$family];
+        if (isset($this->fontLookup[$Vu3vfak1w4uv])) {
+            return $this->fontLookup[$Vu3vfak1w4uv];
         }
 
         return null;
     }
 
-    /**
-     * @param $type
-     * @return string
-     * @deprecated
-     */
-    public function get_type($type)
+    
+    public function get_type($Vxeifmjzikkj)
     {
-        return $this->getType($type);
+        return $this->getType($Vxeifmjzikkj);
     }
 
-    /**
-     * @param string $type
-     * @return string
-     */
-    public function getType($type)
+    
+    public function getType($Vxeifmjzikkj)
     {
-        if (preg_match("/bold/i", $type)) {
-            if (preg_match("/italic|oblique/i", $type)) {
-                $type = "bold_italic";
+        if (preg_match("/bold/i", $Vxeifmjzikkj)) {
+            if (preg_match("/italic|oblique/i", $Vxeifmjzikkj)) {
+                $Vxeifmjzikkj = "bold_italic";
             } else {
-                $type = "bold";
+                $Vxeifmjzikkj = "bold";
             }
-        } elseif (preg_match("/italic|oblique/i", $type)) {
-            $type = "italic";
+        } elseif (preg_match("/italic|oblique/i", $Vxeifmjzikkj)) {
+            $Vxeifmjzikkj = "italic";
         } else {
-            $type = "normal";
+            $Vxeifmjzikkj = "normal";
         }
 
-        return $type;
+        return $Vxeifmjzikkj;
     }
 
-    /**
-     * @return array
-     * @deprecated
-     */
+    
     public function get_font_families()
     {
         return $this->getFontFamilies();
     }
 
-    /**
-     * Returns the current font lookup table
-     *
-     * @return array
-     */
+    
     public function getFontFamilies()
     {
         return $this->fontLookup;
     }
 
-    /**
-     * @param string $fontname
-     * @param mixed $entry
-     * @deprecated
-     */
-    public function set_font_family($fontname, $entry)
+    
+    public function set_font_family($Vjkcyqqklsga, $Voeexclyb0j3)
     {
-        $this->setFontFamily($fontname, $entry);
+        $this->setFontFamily($Vjkcyqqklsga, $Voeexclyb0j3);
     }
 
-    /**
-     * @param string $fontname
-     * @param mixed $entry
-     */
-    public function setFontFamily($fontname, $entry)
+    
+    public function setFontFamily($Vjkcyqqklsga, $Voeexclyb0j3)
     {
-        $this->fontLookup[mb_strtolower($fontname)] = $entry;
+        $this->fontLookup[mb_strtolower($Vjkcyqqklsga)] = $Voeexclyb0j3;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getCacheFile()
     {
         return $this->getOptions()->getFontDir() . DIRECTORY_SEPARATOR . self::CACHE_FILE;
     }
 
-    /**
-     * @param Options $options
-     * @return $this
-     */
-    public function setOptions(Options $options)
+    
+    public function setOptions(Options $Vi43cktvy0zi)
     {
-        $this->options = $options;
+        $this->options = $Vi43cktvy0zi;
         return $this;
     }
 
-    /**
-     * @return Options
-     */
+    
     public function getOptions()
     {
         return $this->options;
     }
 
-    /**
-     * @param Canvas $canvas
-     * @return $this
-     */
-    public function setCanvas(Canvas $canvas)
+    
+    public function setCanvas(Canvas $Vvzurwoc24em)
     {
-        $this->canvas = $canvas;
-        // Still write deprecated pdf for now. It might be used by a parent class.
-        $this->pdf = $canvas;
+        $this->canvas = $Vvzurwoc24em;
+        
+        $this->pdf = $Vvzurwoc24em;
         return $this;
     }
 
-    /**
-     * @return Canvas
-     */
+    
     public function getCanvas()
     {
         return $this->canvas;

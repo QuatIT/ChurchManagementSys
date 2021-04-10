@@ -1,21 +1,12 @@
 <?php
-/**
- * @package php-font-lib
- * @link    https://github.com/PhenX/php-font-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace FontLib\Table\Type;
 use FontLib\Table\Table;
 
-/**
- * `maxp` font table.
- *
- * @package php-font-lib
- */
+
 class maxp extends Table {
-  protected $def = array(
+  protected $Vfztuniizpxp = array(
     "version"               => self::Fixed,
     "numGlyphs"             => self::uint16,
     "maxPoints"             => self::uint16,
@@ -34,8 +25,8 @@ class maxp extends Table {
   );
 
   function _encode() {
-    $font                    = $this->getFont();
-    $this->data["numGlyphs"] = count($font->getSubset());
+    $V3h4z3hxorxj                    = $this->getFont();
+    $this->data["numGlyphs"] = count($V3h4z3hxorxj->getSubset());
 
     return parent::_encode();
   }

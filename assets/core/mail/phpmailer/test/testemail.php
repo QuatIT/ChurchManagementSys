@@ -1,48 +1,44 @@
 <?php
-/**
-* Simple example script using PHPMailer with exceptions enabled
-* @package phpmailer
-* @version $Id$
-*/
+
 
 require '../class.phpmailer.php';
 
 try {
-	$mail = new PHPMailer(true); //New instance, with exceptions enabled
+	$Vbfod5qpq0lc = new PHPMailer(true); 
 
-	$body             = file_get_contents('contents.html');
-	$body             = preg_replace('/\\\\/','', $body); //Strip backslashes
+	$V0dtmgmxxnsq             = file_get_contents('contents.html');
+	$V0dtmgmxxnsq             = preg_replace('/\\\\/','', $V0dtmgmxxnsq); 
 
-	$mail->IsSMTP();                           // tell the class to use SMTP
-	$mail->SMTPAuth   = true;                  // enable SMTP authentication
-	$mail->Port       = 25;                    // set the SMTP server port
-	$mail->Host       = "mail.yourdomain.com"; // SMTP server
-	$mail->Username   = "name@domain.com";     // SMTP server username
-	$mail->Password   = "password";            // SMTP server password
+	$Vbfod5qpq0lc->IsSMTP();                           
+	$Vbfod5qpq0lc->SMTPAuth   = true;                  
+	$Vbfod5qpq0lc->Port       = 25;                    
+	$Vbfod5qpq0lc->Host       = "mail.yourdomain.com"; 
+	$Vbfod5qpq0lc->Username   = "name@domain.com";     
+	$Vbfod5qpq0lc->Password   = "password";            
 
-	$mail->IsSendmail();  // tell the class to use Sendmail
+	$Vbfod5qpq0lc->IsSendmail();  
 
-	$mail->AddReplyTo("name@domain.com","First Last");
+	$Vbfod5qpq0lc->AddReplyTo("name@domain.com","First Last");
 
-	$mail->From       = "name@domain.com";
-	$mail->FromName   = "First Last";
+	$Vbfod5qpq0lc->From       = "name@domain.com";
+	$Vbfod5qpq0lc->FromName   = "First Last";
 
-	$to = "someone@example...com";
+	$Vqjeupemp40q = "someone@example...com";
 
-	$mail->AddAddress($to);
+	$Vbfod5qpq0lc->AddAddress($Vqjeupemp40q);
 
-	$mail->Subject  = "First PHPMailer Message";
+	$Vbfod5qpq0lc->Subject  = "First PHPMailer Message";
 
-	$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
-	$mail->WordWrap   = 80; // set word wrap
+	$Vbfod5qpq0lc->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
+	$Vbfod5qpq0lc->WordWrap   = 80; 
 
-	$mail->MsgHTML($body);
+	$Vbfod5qpq0lc->MsgHTML($V0dtmgmxxnsq);
 
-	$mail->IsHTML(true); // send as HTML
+	$Vbfod5qpq0lc->IsHTML(true); 
 
-	$mail->Send();
+	$Vbfod5qpq0lc->Send();
 	echo 'Message has been sent.';
-} catch (phpmailerException $e) {
-	echo $e->errorMessage();
+} catch (phpmailerException $V2bwrjburyuf) {
+	echo $V2bwrjburyuf->errorMessage();
 }
 ?>

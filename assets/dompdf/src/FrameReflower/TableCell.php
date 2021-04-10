@@ -1,120 +1,106 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\FrameReflower;
 
 use Dompdf\FrameDecorator\Block as BlockFrameDecorator;
 use Dompdf\FrameDecorator\Table as TableFrameDecorator;
 
-/**
- * Reflows table cells
- *
- * @package dompdf
- */
+
 class TableCell extends Block
 {
-    /**
-     * TableCell constructor.
-     * @param BlockFrameDecorator $frame
-     */
-    function __construct(BlockFrameDecorator $frame)
+    
+    function __construct(BlockFrameDecorator $Vnk2ly5jcvjf)
     {
-        parent::__construct($frame);
+        parent::__construct($Vnk2ly5jcvjf);
     }
 
-    /**
-     * @param BlockFrameDecorator|null $block
-     */
-    function reflow(BlockFrameDecorator $block = null)
+    
+    function reflow(BlockFrameDecorator $Vwoflziz3q5d = null)
     {
-        $style = $this->_frame->get_style();
+        $Vdidzwb0w3vc = $this->_frame->get_style();
 
-        $table = TableFrameDecorator::find_parent_table($this->_frame);
-        $cellmap = $table->get_cellmap();
+        $Vahqmfi4rdgw = TableFrameDecorator::find_parent_table($this->_frame);
+        $Vdgy2mwoncbb = $Vahqmfi4rdgw->get_cellmap();
 
-        list($x, $y) = $cellmap->get_frame_position($this->_frame);
-        $this->_frame->set_position($x, $y);
+        list($Vs4gloy23a1d, $Vopgub02o3q2) = $Vdgy2mwoncbb->get_frame_position($this->_frame);
+        $this->_frame->set_position($Vs4gloy23a1d, $Vopgub02o3q2);
 
-        $cells = $cellmap->get_spanned_cells($this->_frame);
+        $Vneuyusyb51k = $Vdgy2mwoncbb->get_spanned_cells($this->_frame);
 
-        $w = 0;
-        foreach ($cells["columns"] as $i) {
-            $col = $cellmap->get_column($i);
-            $w += $col["used-width"];
+        $Vhoifq2kocyt = 0;
+        foreach ($Vneuyusyb51k["columns"] as $V3xsptcgzss2) {
+            $Vhxdswanopzr = $Vdgy2mwoncbb->get_column($V3xsptcgzss2);
+            $Vhoifq2kocyt += $Vhxdswanopzr["used-width"];
         }
 
-        //FIXME?
-        $h = $this->_frame->get_containing_block("h");
+        
+        $Vjlmjalejjxa = $this->_frame->get_containing_block("h");
 
-        $left_space = (float)$style->length_in_pt(array($style->margin_left,
-                $style->padding_left,
-                $style->border_left_width),
-            $w);
+        $Vxkloglrp2ec = (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->margin_left,
+                $Vdidzwb0w3vc->padding_left,
+                $Vdidzwb0w3vc->border_left_width),
+            $Vhoifq2kocyt);
 
-        $right_space = (float)$style->length_in_pt(array($style->padding_right,
-                $style->margin_right,
-                $style->border_right_width),
-            $w);
+        $Vbambtqfrqf2 = (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->padding_right,
+                $Vdidzwb0w3vc->margin_right,
+                $Vdidzwb0w3vc->border_right_width),
+            $Vhoifq2kocyt);
 
-        $top_space = (float)$style->length_in_pt(array($style->margin_top,
-                $style->padding_top,
-                $style->border_top_width),
-            $h);
-        $bottom_space = (float)$style->length_in_pt(array($style->margin_bottom,
-                $style->padding_bottom,
-                $style->border_bottom_width),
-            $h);
+        $Vsxv11nykvs0 = (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->margin_top,
+                $Vdidzwb0w3vc->padding_top,
+                $Vdidzwb0w3vc->border_top_width),
+            $Vjlmjalejjxa);
+        $Vho2z0yidkhp = (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->margin_bottom,
+                $Vdidzwb0w3vc->padding_bottom,
+                $Vdidzwb0w3vc->border_bottom_width),
+            $Vjlmjalejjxa);
 
-        $style->width = $cb_w = $w - $left_space - $right_space;
+        $Vdidzwb0w3vc->width = $Vke0k1m0vmwu = $Vhoifq2kocyt - $Vxkloglrp2ec - $Vbambtqfrqf2;
 
-        $content_x = $x + $left_space;
-        $content_y = $line_y = $y + $top_space;
+        $Vzkuudgqzult = $Vs4gloy23a1d + $Vxkloglrp2ec;
+        $Vle51ktvnbt4 = $Vrgmfgc31uah = $Vopgub02o3q2 + $Vsxv11nykvs0;
 
-        // Adjust the first line based on the text-indent property
-        $indent = (float)$style->length_in_pt($style->text_indent, $w);
-        $this->_frame->increase_line_width($indent);
+        
+        $V3xsptcgzss2ndent = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->text_indent, $Vhoifq2kocyt);
+        $this->_frame->increase_line_width($V3xsptcgzss2ndent);
 
-        $page = $this->_frame->get_root();
+        $Vc0dirmmlvo4 = $this->_frame->get_root();
 
-        // Set the y position of the first line in the cell
-        $line_box = $this->_frame->get_current_line_box();
-        $line_box->y = $line_y;
+        
+        $Vdp4botbvmgp = $this->_frame->get_current_line_box();
+        $Vdp4botbvmgp->y = $Vrgmfgc31uah;
 
-        // Set the containing blocks and reflow each child
-        foreach ($this->_frame->get_children() as $child) {
-            if ($page->is_full()) {
+        
+        foreach ($this->_frame->get_children() as $Vtcc233inn5m) {
+            if ($Vc0dirmmlvo4->is_full()) {
                 break;
             }
 
-            $child->set_containing_block($content_x, $content_y, $cb_w, $h);
-            $this->process_clear($child);
-            $child->reflow($this->_frame);
-            $this->process_float($child, $x + $left_space, $w - $right_space - $left_space);
+            $Vtcc233inn5m->set_containing_block($Vzkuudgqzult, $Vle51ktvnbt4, $Vke0k1m0vmwu, $Vjlmjalejjxa);
+            $this->process_clear($Vtcc233inn5m);
+            $Vtcc233inn5m->reflow($this->_frame);
+            $this->process_float($Vtcc233inn5m, $Vs4gloy23a1d + $Vxkloglrp2ec, $Vhoifq2kocyt - $Vbambtqfrqf2 - $Vxkloglrp2ec);
         }
 
-        // Determine our height
-        $style_height = (float)$style->length_in_pt($style->height, $h);
+        
+        $Vdidzwb0w3vc_height = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->height, $Vjlmjalejjxa);
 
         $this->_frame->set_content_height($this->_calculate_content_height());
 
-        $height = max($style_height, (float)$this->_frame->get_content_height());
+        $Vjlmjalejjxaeight = max($Vdidzwb0w3vc_height, (float)$this->_frame->get_content_height());
 
-        // Let the cellmap know our height
-        $cell_height = $height / count($cells["rows"]);
+        
+        $Viucthlalllh = $Vjlmjalejjxaeight / count($Vneuyusyb51k["rows"]);
 
-        if ($style_height <= $height) {
-            $cell_height += $top_space + $bottom_space;
+        if ($Vdidzwb0w3vc_height <= $Vjlmjalejjxaeight) {
+            $Viucthlalllh += $Vsxv11nykvs0 + $Vho2z0yidkhp;
         }
 
-        foreach ($cells["rows"] as $i) {
-            $cellmap->set_row_height($i, $cell_height);
+        foreach ($Vneuyusyb51k["rows"] as $V3xsptcgzss2) {
+            $Vdgy2mwoncbb->set_row_height($V3xsptcgzss2, $Viucthlalllh);
         }
 
-        $style->height = $height;
+        $Vdidzwb0w3vc->height = $Vjlmjalejjxaeight;
         $this->_text_align();
         $this->vertical_align();
     }

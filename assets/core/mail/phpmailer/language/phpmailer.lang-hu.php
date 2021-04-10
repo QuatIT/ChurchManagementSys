@@ -1,25 +1,22 @@
 <?php
-/**
-* PHPMailer language file: refer to English translation for definitive list
-* Hungarian Version
-*/
 
-$PHPMAILER_LANG['authenticate']         = 'SMTP Hiba: Sikertelen autentikáció.';
-$PHPMAILER_LANG['connect_host']         = 'SMTP Hiba: Nem tudtam csatlakozni az SMTP host-hoz.';
-$PHPMAILER_LANG['data_not_accepted']    = 'SMTP Hiba: Nem elfogadható adat.';
-//$PHPMAILER_LANG['empty_message']        = 'Message body empty';
-$PHPMAILER_LANG['encoding']             = 'Ismeretlen kódolás: ';
-$PHPMAILER_LANG['execute']              = 'Nem tudtam végrehajtani: ';
-$PHPMAILER_LANG['file_access']          = 'Nem sikerült elérni a következõ fájlt: ';
-$PHPMAILER_LANG['file_open']            = 'Fájl Hiba: Nem sikerült megnyitni a következõ fájlt: ';
-$PHPMAILER_LANG['from_failed']          = 'Az alábbi Feladó cím hibás: ';
-$PHPMAILER_LANG['instantiate']          = 'Nem sikerült példányosítani a mail funkciót.';
-//$PHPMAILER_LANG['invalid_email']        = 'Not sending, email address is invalid: ';
-$PHPMAILER_LANG['provide_address']      = 'Meg kell adnod legalább egy címzett email címet.';
-$PHPMAILER_LANG['mailer_not_supported'] = ' levelezõ nem támogatott.';
-$PHPMAILER_LANG['recipients_failed']    = 'SMTP Hiba: Az alábbi címzettek hibásak: ';
-//$PHPMAILER_LANG['signing']              = 'Signing Error: ';
-//$PHPMAILER_LANG['smtp_connect_failed']  = 'SMTP Connect() failed.';
-//$PHPMAILER_LANG['smtp_error']           = 'SMTP server error: ';
-//$PHPMAILER_LANG['variable_set']         = 'Cannot set or reset variable: ';
+
+$Vsqe4yol2m0w['authenticate']         = 'SMTP Hiba: Sikertelen autentikáció.';
+$Vsqe4yol2m0w['connect_host']         = 'SMTP Hiba: Nem tudtam csatlakozni az SMTP host-hoz.';
+$Vsqe4yol2m0w['data_not_accepted']    = 'SMTP Hiba: Nem elfogadható adat.';
+
+$Vsqe4yol2m0w['encoding']             = 'Ismeretlen kódolás: ';
+$Vsqe4yol2m0w['execute']              = 'Nem tudtam végrehajtani: ';
+$Vsqe4yol2m0w['file_access']          = 'Nem sikerült elérni a következõ fájlt: ';
+$Vsqe4yol2m0w['file_open']            = 'Fájl Hiba: Nem sikerült megnyitni a következõ fájlt: ';
+$Vsqe4yol2m0w['from_failed']          = 'Az alábbi Feladó cím hibás: ';
+$Vsqe4yol2m0w['instantiate']          = 'Nem sikerült példányosítani a mail funkciót.';
+
+$Vsqe4yol2m0w['provide_address']      = 'Meg kell adnod legalább egy címzett email címet.';
+$Vsqe4yol2m0w['mailer_not_supported'] = ' levelezõ nem támogatott.';
+$Vsqe4yol2m0w['recipients_failed']    = 'SMTP Hiba: Az alábbi címzettek hibásak: ';
+
+
+
+
 ?>

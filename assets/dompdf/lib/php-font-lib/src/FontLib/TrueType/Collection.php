@@ -1,10 +1,5 @@
 <?php
-/**
- * @package php-font-lib
- * @link    https://github.com/PhenX/php-font-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace FontLib\TrueType;
 
@@ -13,61 +8,48 @@ use FontLib\BinaryStream;
 use Iterator;
 use OutOfBoundsException;
 
-/**
- * TrueType collection font file.
- *
- * @package php-font-lib
- */
-class Collection extends BinaryStream implements Iterator, Countable {
-  /**
-   * Current iterator position.
-   *
-   * @var integer
-   */
-  private $position = 0;
 
-  protected $collectionOffsets = array();
-  protected $collection = array();
-  protected $version;
-  protected $numFonts;
+class Collection extends BinaryStream implements Iterator, Countable {
+  
+  private $Vmriudfrwzj3 = 0;
+
+  protected $Vwghks1pc0ks = array();
+  protected $Vafhpfmnqxvz = array();
+  protected $Vw1yjchm5her;
+  protected $Vf2dci1t3mrr;
 
   function parse() {
     if (isset($this->numFonts)) {
       return;
     }
 
-    $this->read(4); // tag name
+    $this->read(4); 
 
     $this->version  = $this->readFixed();
     $this->numFonts = $this->readUInt32();
 
-    for ($i = 0; $i < $this->numFonts; $i++) {
+    for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $this->numFonts; $V3xsptcgzss2++) {
       $this->collectionOffsets[] = $this->readUInt32();
     }
   }
 
-  /**
-   * @param int $fontId
-   *
-   * @throws OutOfBoundsException
-   * @return File
-   */
-  function getFont($fontId) {
+  
+  function getFont($V0odjf2y4off) {
     $this->parse();
 
-    if (!isset($this->collectionOffsets[$fontId])) {
+    if (!isset($this->collectionOffsets[$V0odjf2y4off])) {
       throw new OutOfBoundsException();
     }
 
-    if (isset($this->collection[$fontId])) {
-      return $this->collection[$fontId];
+    if (isset($this->collection[$V0odjf2y4off])) {
+      return $this->collection[$V0odjf2y4off];
     }
 
-    $font    = new File();
-    $font->f = $this->f;
-    $font->setTableOffset($this->collectionOffsets[$fontId]);
+    $V3h4z3hxorxj    = new File();
+    $V3h4z3hxorxj->f = $this->f;
+    $V3h4z3hxorxj->setTableOffset($this->collectionOffsets[$V0odjf2y4off]);
 
-    return $this->collection[$fontId] = $font;
+    return $this->collection[$V0odjf2y4off] = $V3h4z3hxorxj;
   }
 
   function current() {

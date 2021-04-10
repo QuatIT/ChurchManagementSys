@@ -1,11 +1,5 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\FrameReflower;
 
 use Dompdf\FrameDecorator\Block as BlockFrameDecorator;
@@ -13,490 +7,449 @@ use Dompdf\FrameDecorator\Text as TextFrameDecorator;
 use Dompdf\FontMetrics;
 use Dompdf\Helpers;
 
-/**
- * Reflows text frames.
- *
- * @package dompdf
- */
+
 class Text extends AbstractFrameReflower
 {
 
-    /**
-     * @var BlockFrameDecorator
-     */
-    protected $_block_parent; // Nearest block-level ancestor
+    
+    protected $V5zqjd5hivpj; 
 
-    /**
-     * @var TextFrameDecorator
-     */
-    protected $_frame;
+    
+    protected $Vtabfexfghu0;
 
-    public static $_whitespace_pattern = "/[ \t\r\n\f]+/u";
+    public static $Vc5byizwvv4z = "/[ \t\r\n\f]+/u";
 
-    /**
-     * @var FontMetrics
-     */
-    private $fontMetrics;
+    
+    private $Vj1pbeciqvz4;
 
-    /**
-     * @param TextFrameDecorator $frame
-     * @param FontMetrics $fontMetrics
-     */
-    public function __construct(TextFrameDecorator $frame, FontMetrics $fontMetrics)
+    
+    public function __construct(TextFrameDecorator $Vnk2ly5jcvjf, FontMetrics $Vj1pbeciqvz4)
     {
-        parent::__construct($frame);
-        $this->setFontMetrics($fontMetrics);
+        parent::__construct($Vnk2ly5jcvjf);
+        $Vcki4t4qmybshis->setFontMetrics($Vj1pbeciqvz4);
     }
 
-    /**
-     * @param $text
-     * @return mixed
-     */
-    protected function _collapse_white_space($text)
+    
+    protected function _collapse_white_space($Vnlbbd31sxbf)
     {
-        //$text = $this->_frame->get_text();
-//     if ( $this->_block_parent->get_current_line_box->w == 0 )
-//       $text = ltrim($text, " \n\r\t");
-        return preg_replace(self::$_whitespace_pattern, " ", $text);
+        
+
+
+        return preg_replace(self::$Vc5byizwvv4z, " ", $Vnlbbd31sxbf);
     }
 
-    /**
-     * @param $text
-     * @return bool|int
-     */
-    protected function _line_break($text)
+    
+    protected function _line_break($Vnlbbd31sxbf)
     {
-        $style = $this->_frame->get_style();
-        $size = $style->font_size;
-        $font = $style->font_family;
-        $current_line = $this->_block_parent->get_current_line_box();
+        $Vdidzwb0w3vc = $Vcki4t4qmybshis->_frame->get_style();
+        $Vlak25col1u3 = $Vdidzwb0w3vc->font_size;
+        $V3h4z3hxorxj = $Vdidzwb0w3vc->font_family;
+        $Vd5tclceha1r = $Vcki4t4qmybshis->_block_parent->get_current_line_box();
 
-        // Determine the available width
-        $line_width = $this->_frame->get_containing_block("w");
-        $current_line_width = $current_line->left + $current_line->w + $current_line->right;
+        
+        $Vfdyb0uk2yzq = $Vcki4t4qmybshis->_frame->get_containing_block("w");
+        $Vd5tclceha1r_width = $Vd5tclceha1r->left + $Vd5tclceha1r->w + $Vd5tclceha1r->right;
 
-        $available_width = $line_width - $current_line_width;
+        $Vxvtu2lytc1a = $Vfdyb0uk2yzq - $Vd5tclceha1r_width;
 
-        // Account for word-spacing
-        $word_spacing = (float)$style->length_in_pt($style->word_spacing);
-        $char_spacing = (float)$style->length_in_pt($style->letter_spacing);
+        
+        $Vay4fk3jgmc4 = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->word_spacing);
+        $Vaohjovek4hi = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->letter_spacing);
 
-        // Determine the frame width including margin, padding & border
-        $text_width = $this->getFontMetrics()->getTextWidth($text, $font, $size, $word_spacing, $char_spacing);
-        $mbp_width =
-            (float)$style->length_in_pt(array($style->margin_left,
-                $style->border_left_width,
-                $style->padding_left,
-                $style->padding_right,
-                $style->border_right_width,
-                $style->margin_right), $line_width);
+        
+        $Vnlbbd31sxbf_width = $Vcki4t4qmybshis->getFontMetrics()->getTextWidth($Vnlbbd31sxbf, $V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4, $Vaohjovek4hi);
+        $Vdyivefrcegn =
+            (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->margin_left,
+                $Vdidzwb0w3vc->border_left_width,
+                $Vdidzwb0w3vc->padding_left,
+                $Vdidzwb0w3vc->padding_right,
+                $Vdidzwb0w3vc->border_right_width,
+                $Vdidzwb0w3vc->margin_right), $Vfdyb0uk2yzq);
 
-        $frame_width = $text_width + $mbp_width;
+        $Vnk2ly5jcvjf_width = $Vnlbbd31sxbf_width + $Vdyivefrcegn;
 
-// Debugging:
-//    Helpers::pre_r("Text: '" . htmlspecialchars($text). "'");
-//    Helpers::pre_r("width: " .$frame_width);
-//    Helpers::pre_r("textwidth + delta: $text_width + $mbp_width");
-//    Helpers::pre_r("font-size: $size");
-//    Helpers::pre_r("cb[w]: " .$line_width);
-//    Helpers::pre_r("available width: " . $available_width);
-//    Helpers::pre_r("current line width: " . $current_line_width);
 
-//     Helpers::pre_r($words);
 
-        if ($frame_width <= $available_width) {
+
+
+
+
+
+
+
+
+
+        if ($Vnk2ly5jcvjf_width <= $Vxvtu2lytc1a) {
             return false;
         }
 
-        // split the text into words
-        $words = preg_split('/([\s-]+)/u', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
-        $wc = count($words);
+        
+        $Vy51tmxn20mg = preg_split('/([\s-]+)/u', $Vnlbbd31sxbf, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $Vrjt3xcykhaj = count($Vy51tmxn20mg);
 
-        // Determine the split point
-        $width = 0;
-        $str = "";
-        reset($words);
+        
+        $Vztt3qdrrikx = 0;
+        $Vadkcwffkfxw = "";
+        reset($Vy51tmxn20mg);
 
-        // @todo support <shy>, <wbr>
-        for ($i = 0; $i < $wc; $i += 2) {
-            $word = $words[$i] . (isset($words[$i + 1]) ? $words[$i + 1] : "");
-            $word_width = $this->getFontMetrics()->getTextWidth($word, $font, $size, $word_spacing, $char_spacing);
-            if ($width + $word_width + $mbp_width > $available_width) {
+        
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vrjt3xcykhaj; $V3xsptcgzss2 += 2) {
+            $V2bjyo0c3vm5 = $Vy51tmxn20mg[$V3xsptcgzss2] . (isset($Vy51tmxn20mg[$V3xsptcgzss2 + 1]) ? $Vy51tmxn20mg[$V3xsptcgzss2 + 1] : "");
+            $V2bjyo0c3vm5_width = $Vcki4t4qmybshis->getFontMetrics()->getTextWidth($V2bjyo0c3vm5, $V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4, $Vaohjovek4hi);
+            if ($Vztt3qdrrikx + $V2bjyo0c3vm5_width + $Vdyivefrcegn > $Vxvtu2lytc1a) {
                 break;
             }
 
-            $width += $word_width;
-            $str .= $word;
+            $Vztt3qdrrikx += $V2bjyo0c3vm5_width;
+            $Vadkcwffkfxw .= $V2bjyo0c3vm5;
         }
 
-        $break_word = ($style->word_wrap === "break-word");
+        $Voxg43greno1 = ($Vdidzwb0w3vc->word_wrap === "break-word");
 
-        // The first word has overflowed.   Force it onto the line
-        if ($current_line_width == 0 && $width == 0) {
-            $s = "";
-            $last_width = 0;
+        
+        if ($Vd5tclceha1r_width == 0 && $Vztt3qdrrikx == 0) {
+            $Vujweq34gtl3 = "";
+            $Vvzfi00ik34t = 0;
 
-            if ($break_word) {
-                for ($j = 0; $j < strlen($word); $j++) {
-                    $s .= $word[$j];
-                    $_width = $this->getFontMetrics()->getTextWidth($s, $font, $size, $word_spacing, $char_spacing);
-                    if ($_width > $available_width) {
+            if ($Voxg43greno1) {
+                for ($V0hg12l10vfx = 0; $V0hg12l10vfx < strlen($V2bjyo0c3vm5); $V0hg12l10vfx++) {
+                    $Vujweq34gtl3 .= $V2bjyo0c3vm5[$V0hg12l10vfx];
+                    $Vn1ew5szmvh5 = $Vcki4t4qmybshis->getFontMetrics()->getTextWidth($Vujweq34gtl3, $V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4, $Vaohjovek4hi);
+                    if ($Vn1ew5szmvh5 > $Vxvtu2lytc1a) {
                         break;
                     }
 
-                    $last_width = $_width;
+                    $Vvzfi00ik34t = $Vn1ew5szmvh5;
                 }
             }
 
-            if ($break_word && $last_width > 0) {
-                //$width += $last_width;
-                $str .= substr($s, 0, -1);
+            if ($Voxg43greno1 && $Vvzfi00ik34t > 0) {
+                
+                $Vadkcwffkfxw .= substr($Vujweq34gtl3, 0, -1);
             } else {
-                //$width += $word_width;
-                $str .= $word;
+                
+                $Vadkcwffkfxw .= $V2bjyo0c3vm5;
             }
         }
 
-        $offset = mb_strlen($str);
+        $Vq154qppcleo = mb_strlen($Vadkcwffkfxw);
 
-        // More debugging:
-        //     var_dump($str);
-        //     print_r("Width: ". $width);
-        //     print_r("Offset: " . $offset);
+        
+        
+        
+        
 
-        return $offset;
+        return $Vq154qppcleo;
     }
 
-    //........................................................................
+    
 
-    /**
-     * @param $text
-     * @return bool|int
-     */
-    protected function _newline_break($text)
+    
+    protected function _newline_break($Vnlbbd31sxbf)
     {
-        if (($i = mb_strpos($text, "\n")) === false) {
+        if (($V3xsptcgzss2 = mb_strpos($Vnlbbd31sxbf, "\n")) === false) {
             return false;
         }
 
-        return $i + 1;
+        return $V3xsptcgzss2 + 1;
     }
 
-    /**
-     *
-     */
+    
     protected function _layout_line()
     {
-        $frame = $this->_frame;
-        $style = $frame->get_style();
-        $text = $frame->get_text();
-        $size = $style->font_size;
-        $font = $style->font_family;
+        $Vnk2ly5jcvjf = $Vcki4t4qmybshis->_frame;
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
+        $Vnlbbd31sxbf = $Vnk2ly5jcvjf->get_text();
+        $Vlak25col1u3 = $Vdidzwb0w3vc->font_size;
+        $V3h4z3hxorxj = $Vdidzwb0w3vc->font_family;
 
-        // Determine the text height
-        $style->height = $this->getFontMetrics()->getFontHeight($font, $size);
+        
+        $Vdidzwb0w3vc->height = $Vcki4t4qmybshis->getFontMetrics()->getFontHeight($V3h4z3hxorxj, $Vlak25col1u3);
 
-        $split = false;
-        $add_line = false;
+        $Vujweq34gtl3plit = false;
+        $Vnwsmmx1bd1z = false;
 
-        // Handle text transform:
-        // http://www.w3.org/TR/CSS21/text.html#propdef-text-transform
-        switch (strtolower($style->text_transform)) {
+        
+        
+        switch (strtolower($Vdidzwb0w3vc->text_transform)) {
             default:
                 break;
             case "capitalize":
-                $text = Helpers::mb_ucwords($text);
+                $Vnlbbd31sxbf = Helpers::mb_ucwords($Vnlbbd31sxbf);
                 break;
             case "uppercase":
-                $text = mb_convert_case($text, MB_CASE_UPPER);
+                $Vnlbbd31sxbf = mb_convert_case($Vnlbbd31sxbf, MB_CASE_UPPER);
                 break;
             case "lowercase":
-                $text = mb_convert_case($text, MB_CASE_LOWER);
+                $Vnlbbd31sxbf = mb_convert_case($Vnlbbd31sxbf, MB_CASE_LOWER);
                 break;
         }
 
-        // Handle white-space property:
-        // http://www.w3.org/TR/CSS21/text.html#propdef-white-space
-        switch ($style->white_space) {
+        
+        
+        switch ($Vdidzwb0w3vc->white_space) {
             default:
             case "normal":
-                $frame->set_text($text = $this->_collapse_white_space($text));
-                if ($text == "") {
+                $Vnk2ly5jcvjf->set_text($Vnlbbd31sxbf = $Vcki4t4qmybshis->_collapse_white_space($Vnlbbd31sxbf));
+                if ($Vnlbbd31sxbf == "") {
                     break;
                 }
 
-                $split = $this->_line_break($text);
+                $Vujweq34gtl3plit = $Vcki4t4qmybshis->_line_break($Vnlbbd31sxbf);
                 break;
 
             case "pre":
-                $split = $this->_newline_break($text);
-                $add_line = $split !== false;
+                $Vujweq34gtl3plit = $Vcki4t4qmybshis->_newline_break($Vnlbbd31sxbf);
+                $Vnwsmmx1bd1z = $Vujweq34gtl3plit !== false;
                 break;
 
             case "nowrap":
-                $frame->set_text($text = $this->_collapse_white_space($text));
+                $Vnk2ly5jcvjf->set_text($Vnlbbd31sxbf = $Vcki4t4qmybshis->_collapse_white_space($Vnlbbd31sxbf));
                 break;
 
             case "pre-wrap":
-                $split = $this->_newline_break($text);
+                $Vujweq34gtl3plit = $Vcki4t4qmybshis->_newline_break($Vnlbbd31sxbf);
 
-                if (($tmp = $this->_line_break($text)) !== false) {
-                    $add_line = $split < $tmp;
-                    $split = min($tmp, $split);
+                if (($Vynpm04a4fx0 = $Vcki4t4qmybshis->_line_break($Vnlbbd31sxbf)) !== false) {
+                    $Vnwsmmx1bd1z = $Vujweq34gtl3plit < $Vynpm04a4fx0;
+                    $Vujweq34gtl3plit = min($Vynpm04a4fx0, $Vujweq34gtl3plit);
                 } else
-                    $add_line = true;
+                    $Vnwsmmx1bd1z = true;
 
                 break;
 
             case "pre-line":
-                // Collapse white-space except for \n
-                $frame->set_text($text = preg_replace("/[ \t]+/u", " ", $text));
+                
+                $Vnk2ly5jcvjf->set_text($Vnlbbd31sxbf = preg_replace("/[ \t]+/u", " ", $Vnlbbd31sxbf));
 
-                if ($text == "") {
+                if ($Vnlbbd31sxbf == "") {
                     break;
                 }
 
-                $split = $this->_newline_break($text);
+                $Vujweq34gtl3plit = $Vcki4t4qmybshis->_newline_break($Vnlbbd31sxbf);
 
-                if (($tmp = $this->_line_break($text)) !== false) {
-                    $add_line = $split < $tmp;
-                    $split = min($tmp, $split);
+                if (($Vynpm04a4fx0 = $Vcki4t4qmybshis->_line_break($Vnlbbd31sxbf)) !== false) {
+                    $Vnwsmmx1bd1z = $Vujweq34gtl3plit < $Vynpm04a4fx0;
+                    $Vujweq34gtl3plit = min($Vynpm04a4fx0, $Vujweq34gtl3plit);
                 } else {
-                    $add_line = true;
+                    $Vnwsmmx1bd1z = true;
                 }
 
                 break;
 
         }
 
-        // Handle degenerate case
-        if ($text === "") {
+        
+        if ($Vnlbbd31sxbf === "") {
             return;
         }
 
-        if ($split !== false) {
-            // Handle edge cases
-            if ($split == 0 && $text === " ") {
-                $frame->set_text("");
+        if ($Vujweq34gtl3plit !== false) {
+            
+            if ($Vujweq34gtl3plit == 0 && $Vnlbbd31sxbf === " ") {
+                $Vnk2ly5jcvjf->set_text("");
                 return;
             }
 
-            if ($split == 0) {
-                // Trim newlines from the beginning of the line
-                //$this->_frame->set_text(ltrim($text, "\n\r"));
+            if ($Vujweq34gtl3plit == 0) {
+                
+                
 
-                $this->_block_parent->maximize_line_height($style->height, $frame);
-                $this->_block_parent->add_line();
-                $frame->position();
+                $Vcki4t4qmybshis->_block_parent->maximize_line_height($Vdidzwb0w3vc->height, $Vnk2ly5jcvjf);
+                $Vcki4t4qmybshis->_block_parent->add_line();
+                $Vnk2ly5jcvjf->position();
 
-                // Layout the new line
-                $this->_layout_line();
-            } else if ($split < mb_strlen($frame->get_text())) {
-                // split the line if required
-                $frame->split_text($split);
+                
+                $Vcki4t4qmybshis->_layout_line();
+            } else if ($Vujweq34gtl3plit < mb_strlen($Vnk2ly5jcvjf->get_text())) {
+                
+                $Vnk2ly5jcvjf->split_text($Vujweq34gtl3plit);
 
-                $t = $frame->get_text();
+                $Vcki4t4qmybs = $Vnk2ly5jcvjf->get_text();
 
-                // Remove any trailing newlines
-                if ($split > 1 && $t[$split - 1] === "\n" && !$frame->is_pre()) {
-                    $frame->set_text(mb_substr($t, 0, -1));
+                
+                if ($Vujweq34gtl3plit > 1 && $Vcki4t4qmybs[$Vujweq34gtl3plit - 1] === "\n" && !$Vnk2ly5jcvjf->is_pre()) {
+                    $Vnk2ly5jcvjf->set_text(mb_substr($Vcki4t4qmybs, 0, -1));
                 }
 
-                // Do we need to trim spaces on wrapped lines? This might be desired, however, we
-                // can't trim the lines here or the layout will be affected if trimming the line
-                // leaves enough space to fit the next word in the text stream (because pdf layout
-                // is performed elsewhere).
-                /*if (!$this->_frame->get_prev_sibling() && !$this->_frame->get_next_sibling()) {
-                  $t = $this->_frame->get_text();
-                  $this->_frame->set_text( trim($t) );
-                }*/
+                
+                
+                
+                
+                
             }
 
-            if ($add_line) {
-                $this->_block_parent->add_line();
-                $frame->position();
+            if ($Vnwsmmx1bd1z) {
+                $Vcki4t4qmybshis->_block_parent->add_line();
+                $Vnk2ly5jcvjf->position();
             }
         } else {
-            // Remove empty space from start and end of line, but only where there isn't an inline sibling
-            // and the parent node isn't an inline element with siblings
-            // FIXME: Include non-breaking spaces?
-            $t = $frame->get_text();
-            $parent = $frame->get_parent();
-            $is_inline_frame = ($parent instanceof \Dompdf\FrameDecorator\Inline);
+            
+            
+            
+            $Vcki4t4qmybs = $Vnk2ly5jcvjf->get_text();
+            $Vycghhqowrim = $Vnk2ly5jcvjf->get_parent();
+            $V3xsptcgzss2s_inline_frame = ($Vycghhqowrim instanceof \Dompdf\FrameDecorator\Inline);
 
-            if ((!$is_inline_frame && !$frame->get_next_sibling()) /* ||
-            ( $is_inline_frame && !$parent->get_next_sibling())*/
-            ) { // fails <b>BOLD <u>UNDERLINED</u></b> becomes <b>BOLD<u>UNDERLINED</u></b>
-                $t = rtrim($t);
+            if ((!$V3xsptcgzss2s_inline_frame && !$Vnk2ly5jcvjf->get_next_sibling()) 
+            ) { 
+                $Vcki4t4qmybs = rtrim($Vcki4t4qmybs);
             }
 
-            if ((!$is_inline_frame && !$frame->get_prev_sibling()) /* ||
-            ( $is_inline_frame && !$parent->get_prev_sibling())*/
-            ) { //  <span><span>A<span>B</span> C</span></span> fails (the whitespace is removed)
-                $t = ltrim($t);
+            if ((!$V3xsptcgzss2s_inline_frame && !$Vnk2ly5jcvjf->get_prev_sibling()) 
+            ) { 
+                $Vcki4t4qmybs = ltrim($Vcki4t4qmybs);
             }
 
-            $frame->set_text($t);
+            $Vnk2ly5jcvjf->set_text($Vcki4t4qmybs);
         }
 
-        // Set our new width
-        $width = $frame->recalculate_width();
+        
+        $Vztt3qdrrikx = $Vnk2ly5jcvjf->recalculate_width();
     }
 
-    /**
-     * @param BlockFrameDecorator|null $block
-     */
-    function reflow(BlockFrameDecorator $block = null)
+    
+    function reflow(BlockFrameDecorator $Vwoflziz3q5d = null)
     {
-        $frame = $this->_frame;
-        $page = $frame->get_root();
-        $page->check_forced_page_break($this->_frame);
+        $Vnk2ly5jcvjf = $Vcki4t4qmybshis->_frame;
+        $Vc0dirmmlvo4 = $Vnk2ly5jcvjf->get_root();
+        $Vc0dirmmlvo4->check_forced_page_break($Vcki4t4qmybshis->_frame);
 
-        if ($page->is_full()) {
+        if ($Vc0dirmmlvo4->is_full()) {
             return;
         }
 
-        $this->_block_parent = /*isset($block) ? $block : */
-        $frame->find_block_parent();
+        $Vcki4t4qmybshis->_block_parent = 
+        $Vnk2ly5jcvjf->find_block_parent();
 
-        // Left trim the text if this is the first text on the line and we're
-        // collapsing white space
-//     if ( $this->_block_parent->get_current_line()->w == 0 &&
-//          ($frame->get_style()->white_space !== "pre" ||
-//           $frame->get_style()->white_space !== "pre-wrap") ) {
-//       $frame->set_text( ltrim( $frame->get_text() ) );
-//     }
+        
+        
 
-        $frame->position();
 
-        $this->_layout_line();
 
-        if ($block) {
-            $block->add_frame_to_line($frame);
+
+
+
+        $Vnk2ly5jcvjf->position();
+
+        $Vcki4t4qmybshis->_layout_line();
+
+        if ($Vwoflziz3q5d) {
+            $Vwoflziz3q5d->add_frame_to_line($Vnk2ly5jcvjf);
         }
     }
 
-    //........................................................................
+    
 
-    // Returns an array(0 => min, 1 => max, "min" => min, "max" => max) of the
-    // minimum and maximum widths of this frame
+    
+    
     function get_min_max_width()
     {
-        /*if ( !is_null($this->_min_max_cache)  )
-          return $this->_min_max_cache;*/
-        $frame = $this->_frame;
-        $style = $frame->get_style();
-        $this->_block_parent = $frame->find_block_parent();
-        $line_width = $frame->get_containing_block("w");
+        
+        $Vnk2ly5jcvjf = $Vcki4t4qmybshis->_frame;
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
+        $Vcki4t4qmybshis->_block_parent = $Vnk2ly5jcvjf->find_block_parent();
+        $Vfdyb0uk2yzq = $Vnk2ly5jcvjf->get_containing_block("w");
 
-        $str = $text = $frame->get_text();
-        $size = $style->font_size;
-        $font = $style->font_family;
+        $Vadkcwffkfxw = $Vnlbbd31sxbf = $Vnk2ly5jcvjf->get_text();
+        $Vlak25col1u3 = $Vdidzwb0w3vc->font_size;
+        $V3h4z3hxorxj = $Vdidzwb0w3vc->font_family;
 
-        $word_spacing = (float)$style->length_in_pt($style->word_spacing);
-        $char_spacing = (float)$style->length_in_pt($style->letter_spacing);
+        $Vay4fk3jgmc4 = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->word_spacing);
+        $Vaohjovek4hi = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->letter_spacing);
 
-        switch ($style->white_space) {
+        switch ($Vdidzwb0w3vc->white_space) {
             default:
             case "normal":
-                $str = preg_replace(self::$_whitespace_pattern, " ", $str);
+                $Vadkcwffkfxw = preg_replace(self::$Vc5byizwvv4z, " ", $Vadkcwffkfxw);
             case "pre-wrap":
             case "pre-line":
 
-                // Find the longest word (i.e. minimum length)
+                
 
-                // This technique (using arrays & an anonymous function) is actually
-                // faster than doing a single-pass character by character scan.  Heh,
-                // yes I took the time to bench it ;)
-                $words = array_flip(preg_split("/[\s-]+/u", $str, -1, PREG_SPLIT_DELIM_CAPTURE));
-                $root = $this;
-                array_walk($words, function(&$val, $str) use ($font, $size, $word_spacing, $char_spacing, $root) {
-                    $val = $root->getFontMetrics()->getTextWidth($str, $font, $size, $word_spacing, $char_spacing);
+                
+                
+                
+                $Vy51tmxn20mg = array_flip(preg_split("/[\s-]+/u", $Vadkcwffkfxw, -1, PREG_SPLIT_DELIM_CAPTURE));
+                $Vzlqynjxsspd = $Vcki4t4qmybshis;
+                array_walk($Vy51tmxn20mg, function(&$Vzyqcsfbm3q4, $Vadkcwffkfxw) use ($V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4, $Vaohjovek4hi, $Vzlqynjxsspd) {
+                    $Vzyqcsfbm3q4 = $Vzlqynjxsspd->getFontMetrics()->getTextWidth($Vadkcwffkfxw, $V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4, $Vaohjovek4hi);
                 });
 
-                arsort($words);
-                $min = reset($words);
+                arsort($Vy51tmxn20mg);
+                $V2nh50bvjhl4 = reset($Vy51tmxn20mg);
                 break;
 
             case "pre":
-                $lines = array_flip(preg_split("/\n/u", $str));
-                $root = $this;
-                array_walk($lines, function(&$val, $str) use ($font, $size, $word_spacing, $char_spacing, $root) {
-                    $val = $root->getFontMetrics()->getTextWidth($str, $font, $size, $word_spacing, $char_spacing);
+                $Vnaca15glhj5 = array_flip(preg_split("/\n/u", $Vadkcwffkfxw));
+                $Vzlqynjxsspd = $Vcki4t4qmybshis;
+                array_walk($Vnaca15glhj5, function(&$Vzyqcsfbm3q4, $Vadkcwffkfxw) use ($V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4, $Vaohjovek4hi, $Vzlqynjxsspd) {
+                    $Vzyqcsfbm3q4 = $Vzlqynjxsspd->getFontMetrics()->getTextWidth($Vadkcwffkfxw, $V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4, $Vaohjovek4hi);
                 });
 
-                arsort($lines);
-                $min = reset($lines);
+                arsort($Vnaca15glhj5);
+                $V2nh50bvjhl4 = reset($Vnaca15glhj5);
                 break;
 
             case "nowrap":
-                $min = $this->getFontMetrics()->getTextWidth($this->_collapse_white_space($str), $font, $size, $word_spacing, $char_spacing);
+                $V2nh50bvjhl4 = $Vcki4t4qmybshis->getFontMetrics()->getTextWidth($Vcki4t4qmybshis->_collapse_white_space($Vadkcwffkfxw), $V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4, $Vaohjovek4hi);
                 break;
         }
 
-        switch ($style->white_space) {
+        switch ($Vdidzwb0w3vc->white_space) {
             default:
             case "normal":
             case "nowrap":
-                $str = preg_replace(self::$_whitespace_pattern, " ", $text);
+                $Vadkcwffkfxw = preg_replace(self::$Vc5byizwvv4z, " ", $Vnlbbd31sxbf);
                 break;
 
             case "pre-line":
-                //XXX: Is this correct?
-                $str = preg_replace("/[ \t]+/u", " ", $text);
+                
+                $Vadkcwffkfxw = preg_replace("/[ \t]+/u", " ", $Vnlbbd31sxbf);
 
             case "pre-wrap":
-                // Find the longest word (i.e. minimum length)
-                $lines = array_flip(preg_split("/\n/", $text));
-                $root = $this;
-                array_walk($lines, function(&$val, $str) use ($font, $size, $word_spacing, $char_spacing, $root) {
-                    $val = $root->getFontMetrics()->getTextWidth($str, $font, $size, $word_spacing, $char_spacing);
+                
+                $Vnaca15glhj5 = array_flip(preg_split("/\n/", $Vnlbbd31sxbf));
+                $Vzlqynjxsspd = $Vcki4t4qmybshis;
+                array_walk($Vnaca15glhj5, function(&$Vzyqcsfbm3q4, $Vadkcwffkfxw) use ($V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4, $Vaohjovek4hi, $Vzlqynjxsspd) {
+                    $Vzyqcsfbm3q4 = $Vzlqynjxsspd->getFontMetrics()->getTextWidth($Vadkcwffkfxw, $V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4, $Vaohjovek4hi);
                 });
-                arsort($lines);
-                reset($lines);
-                $str = key($lines);
+                arsort($Vnaca15glhj5);
+                reset($Vnaca15glhj5);
+                $Vadkcwffkfxw = key($Vnaca15glhj5);
                 break;
         }
 
-        $max = $this->getFontMetrics()->getTextWidth($str, $font, $size, $word_spacing, $char_spacing);
+        $Vc1ytxzqpa5h = $Vcki4t4qmybshis->getFontMetrics()->getTextWidth($Vadkcwffkfxw, $V3h4z3hxorxj, $Vlak25col1u3, $Vay4fk3jgmc4, $Vaohjovek4hi);
 
-        $delta = (float)$style->length_in_pt(array($style->margin_left,
-            $style->border_left_width,
-            $style->padding_left,
-            $style->padding_right,
-            $style->border_right_width,
-            $style->margin_right), $line_width);
-        $min += $delta;
-        $max += $delta;
+        $Vdim3b3fegnk = (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->margin_left,
+            $Vdidzwb0w3vc->border_left_width,
+            $Vdidzwb0w3vc->padding_left,
+            $Vdidzwb0w3vc->padding_right,
+            $Vdidzwb0w3vc->border_right_width,
+            $Vdidzwb0w3vc->margin_right), $Vfdyb0uk2yzq);
+        $V2nh50bvjhl4 += $Vdim3b3fegnk;
+        $Vc1ytxzqpa5h += $Vdim3b3fegnk;
 
-        return $this->_min_max_cache = array($min, $max, "min" => $min, "max" => $max);
+        return $Vcki4t4qmybshis->_min_max_cache = array($V2nh50bvjhl4, $Vc1ytxzqpa5h, "min" => $V2nh50bvjhl4, "max" => $Vc1ytxzqpa5h);
     }
 
-    /**
-     * @param FontMetrics $fontMetrics
-     * @return $this
-     */
-    public function setFontMetrics(FontMetrics $fontMetrics)
+    
+    public function setFontMetrics(FontMetrics $Vj1pbeciqvz4)
     {
-        $this->fontMetrics = $fontMetrics;
-        return $this;
+        $Vcki4t4qmybshis->fontMetrics = $Vj1pbeciqvz4;
+        return $Vcki4t4qmybshis;
     }
 
-    /**
-     * @return FontMetrics
-     */
+    
     public function getFontMetrics()
     {
-        return $this->fontMetrics;
+        return $Vcki4t4qmybshis->fontMetrics;
     }
 
-    /**
-     * Determine current frame width based on contents
-     *
-     * @return float
-     */
+    
     public function calculate_auto_width()
     {
-        return $this->_frame->recalculate_width();
+        return $Vcki4t4qmybshis->_frame->recalculate_width();
     }
 }

@@ -1,95 +1,126 @@
 <?php
-include 'layout/head.php';
+$dropactive = "attendance";
+$active = "markattendance";
+include 'layout/headside.php';
 
-$_SESSION['pass'];
-
-$pic_acc = select("SELECT * FROM church_login WHERE user = '".$_SESSION['user']."' && pass='".$_SESSION['pass']."'");
-
-
-if(isset($_POST['h_count'])){
-    echo "<script>window.location.assign('head_count.php')</script>";
-}
-if(isset($_POST['h_count_rep'])){
-    echo "<script>window.location.assign('head_count_report.php')</script>";
-}
-if(isset($_POST['m_att'])){
-    echo "<script>window.location.assign('attendance_report.php')</script>";
-}
-if(isset($_POST['m_att_rep'])){
-echo "<script>window.location.assign('mem_attendance_search.php')</script>";
+//alert from new-member
+if(@$_GET['m'] && @$_GET['d']);
+if(@$_GET['m'] == 'success'){
+    $d = @$_GET['d'];
+    echo "<script type='text/javascript'>toastr.success('MEMBER $d REGISTERED','REGISTRATION SUCCESS',{timeOut: 7000})</script>";
 }
 
-if(isset($_POST['grp_att'])){
-echo "<script>window.location.assign('grp_attendance.php')</script>";
-}
-if(isset($_POST['grp_att_rep'])){
-echo "<script>window.location.assign('grp_attendance_report.php')</script>";
+//alert from absent marking
+if(@$_GET['aba'] == 'absentsuccess'){
+
+    echo "<script type='text/javascript'>toastr.success('MEMBER MAKED ABSENT','ABSENT',{timeOut: 7000})</script>";
+    
+}elseif(@$_GET['aba'] == 'absentfailed'){
+
+    echo "<script type='text/javascript'>toastr.error('RECORDING FAILED, TRY AGAIN','FAILED',{timeOut: 7000})</script>";
 }
 
+//alert from present marking
+if(@$_GET['pra'] == 'presentsuccess'){
+
+    echo "<script type='text/javascript'>toastr.success('MEMBER MAKED PRESENT','PRESENT',{timeOut: 7000})</script>";
+    
+}elseif(@$_GET['pra'] == 'presentfailed'){
+
+    echo "<script type='text/javascript'>toastr.error('RECORDING FAILED, TRY AGAIN','FAILED',{timeOut: 7000})</script>";
+}
 
 
 ?>
-
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-8" style="margin-left:15px;margin-top:15px;margin-bottom:0px;border:2px solid #760373;height:auto; padding:30px;background-color:#fff;">
-
-            <h3>ROHI CHURCH ATTENDANCE</h3><hr>
-
-          <!--   <div class="row">
-                <div class="col-md-12">
-
-
-                </div>
-            </div> -->
-
-
-            <form action="" method="post" enctype="multipart/form-data">
-                     <div class="container-fluid" style="margin-left:20px;">
-                        <div class="row">
-                            <div class="col-md-12 form-group">
-                                <table class="table table-borderless">
-
-                                    <?php
-                                    foreach($pic_acc as $pic_accs){?>
-                                    <tr>
-                                        <?php
-                                        if($pic_accs['a_level']=='2'||$pic_accs['a_level']=='1'){?>
-                                        <td>HEAD COUNT</td><td><input type="submit" class="btn btn-primary" value="HEAD COUNT" name="h_count" style="width:225px;"/></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>HEAD COUNT REPORT</td><td><input type="submit" class="btn btn-primary" value="HEAD COUNT REPORT" style="width:225px;" name="h_count_rep"/></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>MARK MEMBER ATTENDANCE</td><td><input type="submit" class="btn btn-primary" value="MARK MEMBER ATTENDANCE" style="width:225px;" name="m_att"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td>MEMBER ATTENDANCE REPORT</td><td><input type="submit" class="btn btn-primary" value="MEMBER ATTENDANCE  REPORT" style="width:225px;" name="m_att_rep"/></td>
-                                    </tr>
-                                    <?php }?>
-                                    <tr>
-                                        <?php
-                                        if($pic_accs['a_level']=='3'||$pic_accs['a_level']=='1'){?>
-
-                                        <td>MINISTRY/GROUP ATTENDANCE</td><td><input type="submit" class="btn btn-primary" value="MINISTRY/GROUP ATTENDANCE" style="width:225px;" name="grp_att"/></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>MINISTRY/GROUP ATTENDANCE REPORT</td><td><input type="submit" class="btn btn-primary" value="MINISTRY ATTENDANCE REPORT" style="width:225px;" name="grp_att_rep" id="grp_att_rep"/></td>
-                                    </tr>
-                                    <?php }}?>
-
-                    </table>
-                </form>
-            </div></div>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark text-lg">ATTENDANCE</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="">Attendance</a></li>
+              <li class="breadcrumb-item active">Member Attendance</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
-    <div class="col-md-4"></div>
-</div>
+    <!-- /.content-header -->
 
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+                
+            <div class="card">
+<!--
+              <div class="card-header">
+                <h3 class="card-title">Registered Members Table</h3>
+              </div>
+-->
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>MEM. ID</th>
+                    <th>FULL NAME</th>
+                    <th class="text-center">ACTION</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                <?php
+                 $getmember = select("SELECT id, member_id, last_name, first_name, other_name, phone_number FROM membership_tb WHERE member_status='Yes' AND branch_id='$churchID' ");
+                      if($getmember){
+                    foreach($getmember as $memgotten){
+                ?>
+                  <tr>
+                    <td><?php echo $memgotten['member_id'];?></td>
+                    <td><?php echo $memgotten['first_name']." ".$memgotten['last_name']." ".$memgotten['other_name'];?></td>
+<!--                    <td><?php // echo $memgotten['phone_number'];?></td>-->
+                    <td class="text-center">
+                        
+                        <?php
+                        $Today = date("l");
+                            if($Today == "Sunday"){
+                        $dateToday = date("Y-m-d");
+                        $getattendance = select("SELECT * FROM mem_attendance WHERE member_id='".$memgotten['member_id']."' AND date_reg='$dateToday'");
+                        if(!$getattendance){
+                        ?>
+                        
+                <a href="markabsent?mid=<?php echo $memgotten['member_id'];?>" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Absent</a>
+                        
+                <a href="markpresent?mid=<?php echo $memgotten['member_id'];?>" class="btn btn-success btn-xs"><i class="fa fa-check"></i> Present</a>
+                        <?php }else{
+                        foreach($getattendance as $attgotten){
+                            
+                            if($attgotten['status']=='absent'){
+                        ?>
+                        
+                        <span class="btn btn-danger btn-xs"><?php echo strtoupper($attgotten['status']);?></span>
+                        <?php }
+                        
+                        if($attgotten['status']=='present'){?>
+                        <span class="btn btn-success btn-xs"><?php echo strtoupper($attgotten['status']);?></span>
+                        <?php } }}}else{ echo " Marking Disabled Until Sunday"; }?>
+                    </td>
+                  </tr>
+                    <?php }}?>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            </div>
+          </div>
+      </div>
+    </section>
+  </div>
 
-<?php
-include 'layout/foot.php';
-?>
+<?php include 'layout/footer.php';?>

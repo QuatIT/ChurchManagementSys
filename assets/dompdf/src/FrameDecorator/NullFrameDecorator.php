@@ -1,34 +1,21 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\FrameDecorator;
 
 use Dompdf\Dompdf;
 use Dompdf\Frame;
 
-/**
- * Dummy decorator
- *
- * @package dompdf
- */
+
 class NullFrameDecorator extends AbstractFrameDecorator
 {
-    /**
-     * NullFrameDecorator constructor.
-     * @param Frame $frame
-     * @param Dompdf $dompdf
-     */
-    function __construct(Frame $frame, Dompdf $dompdf)
+    
+    function __construct(Frame $Vnk2ly5jcvjf, Dompdf $Vhvghaoacagz)
     {
-        parent::__construct($frame, $dompdf);
-        $style = $this->_frame->get_style();
-        $style->width = 0;
-        $style->height = 0;
-        $style->margin = 0;
-        $style->padding = 0;
+        parent::__construct($Vnk2ly5jcvjf, $Vhvghaoacagz);
+        $Vdidzwb0w3vc = $this->_frame->get_style();
+        $Vdidzwb0w3vc->width = 0;
+        $Vdidzwb0w3vc->height = 0;
+        $Vdidzwb0w3vc->margin = 0;
+        $Vdidzwb0w3vc->padding = 0;
     }
 }

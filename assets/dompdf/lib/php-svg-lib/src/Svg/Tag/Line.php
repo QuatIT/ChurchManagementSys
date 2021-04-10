@@ -1,38 +1,33 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Tag;
 
 class Line extends Shape
 {
-    protected $x1 = 0;
-    protected $y1 = 0;
+    protected $Vjxqwkabkvag = 0;
+    protected $Vzdywlaebz1l = 0;
 
-    protected $x2 = 0;
-    protected $y2 = 0;
+    protected $Vn5yf4urazdd = 0;
+    protected $Vfph4d2wdjam = 0;
 
-    public function start($attributes)
+    public function start($Voywws15cvz5)
     {
-        if (isset($attributes['x1'])) {
-            $this->x1 = $attributes['x1'];
+        if (isset($Voywws15cvz5['x1'])) {
+            $this->x1 = $Voywws15cvz5['x1'];
         }
-        if (isset($attributes['y1'])) {
-            $this->y1 = $attributes['y1'];
+        if (isset($Voywws15cvz5['y1'])) {
+            $this->y1 = $Voywws15cvz5['y1'];
         }
-        if (isset($attributes['x2'])) {
-            $this->x2 = $attributes['x2'];
+        if (isset($Voywws15cvz5['x2'])) {
+            $this->x2 = $Voywws15cvz5['x2'];
         }
-        if (isset($attributes['y2'])) {
-            $this->y2 = $attributes['y2'];
+        if (isset($Voywws15cvz5['y2'])) {
+            $this->y2 = $Voywws15cvz5['y2'];
         }
 
-        $surface = $this->document->getSurface();
-        $surface->moveTo($this->x1, $this->y1);
-        $surface->lineTo($this->x2, $this->y2);
+        $Vyjtkau4njyv = $this->document->getSurface();
+        $Vyjtkau4njyv->moveTo($this->x1, $this->y1);
+        $Vyjtkau4njyv->lineTo($this->x2, $this->y2);
     }
 }

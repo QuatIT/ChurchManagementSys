@@ -1,80 +1,71 @@
 <?php
-/**
- * @package php-font-lib
- * @link    https://github.com/PhenX/php-font-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace FontLib\Table\Type;
 use FontLib\Table\Table;
 
-/**
- * `loca` font table.
- *
- * @package php-font-lib
- */
+
 class loca extends Table {
   protected function _parse() {
-    $font   = $this->getFont();
-    $offset = $font->pos();
+    $V3h4z3hxorxj   = $this->getFont();
+    $Vq154qppcleo = $V3h4z3hxorxj->pos();
 
-    $indexToLocFormat = $font->getData("head", "indexToLocFormat");
-    $numGlyphs        = $font->getData("maxp", "numGlyphs");
+    $Vojpf41wfceg = $V3h4z3hxorxj->getData("head", "indexToLocFormat");
+    $Vtvgyzy3yyq2        = $V3h4z3hxorxj->getData("maxp", "numGlyphs");
 
-    $font->seek($offset);
+    $V3h4z3hxorxj->seek($Vq154qppcleo);
 
-    $data = array();
+    $Vb3z3shnu1vn = array();
 
-    // 2 bytes
-    if ($indexToLocFormat == 0) {
-      $d   = $font->read(($numGlyphs + 1) * 2);
-      $loc = unpack("n*", $d);
+    
+    if ($Vojpf41wfceg == 0) {
+      $Vcyg5xmwfpxo   = $V3h4z3hxorxj->read(($Vtvgyzy3yyq2 + 1) * 2);
+      $V2bnxagb2ztu = unpack("n*", $Vcyg5xmwfpxo);
 
-      for ($i = 0; $i <= $numGlyphs; $i++) {
-        $data[] = isset($loc[$i + 1]) ?  $loc[$i + 1] * 2 : 0;
+      for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 <= $Vtvgyzy3yyq2; $V3xsptcgzss2++) {
+        $Vb3z3shnu1vn[] = isset($V2bnxagb2ztu[$V3xsptcgzss2 + 1]) ?  $V2bnxagb2ztu[$V3xsptcgzss2 + 1] * 2 : 0;
       }
     }
 
-    // 4 bytes
+    
     else {
-      if ($indexToLocFormat == 1) {
-        $d   = $font->read(($numGlyphs + 1) * 4);
-        $loc = unpack("N*", $d);
+      if ($Vojpf41wfceg == 1) {
+        $Vcyg5xmwfpxo   = $V3h4z3hxorxj->read(($Vtvgyzy3yyq2 + 1) * 4);
+        $V2bnxagb2ztu = unpack("N*", $Vcyg5xmwfpxo);
 
-        for ($i = 0; $i <= $numGlyphs; $i++) {
-          $data[] = isset($loc[$i + 1]) ? $loc[$i + 1] : 0;
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 <= $Vtvgyzy3yyq2; $V3xsptcgzss2++) {
+          $Vb3z3shnu1vn[] = isset($V2bnxagb2ztu[$V3xsptcgzss2 + 1]) ? $V2bnxagb2ztu[$V3xsptcgzss2 + 1] : 0;
         }
       }
     }
 
-    $this->data = $data;
+    $this->data = $Vb3z3shnu1vn;
   }
 
   function _encode() {
-    $font = $this->getFont();
-    $data = $this->data;
+    $V3h4z3hxorxj = $this->getFont();
+    $Vb3z3shnu1vn = $this->data;
 
-    $indexToLocFormat = $font->getData("head", "indexToLocFormat");
-    $numGlyphs        = $font->getData("maxp", "numGlyphs");
-    $length           = 0;
+    $Vojpf41wfceg = $V3h4z3hxorxj->getData("head", "indexToLocFormat");
+    $Vtvgyzy3yyq2        = $V3h4z3hxorxj->getData("maxp", "numGlyphs");
+    $Vjxpogd0afis           = 0;
 
-    // 2 bytes
-    if ($indexToLocFormat == 0) {
-      for ($i = 0; $i <= $numGlyphs; $i++) {
-        $length += $font->writeUInt16($data[$i] / 2);
+    
+    if ($Vojpf41wfceg == 0) {
+      for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 <= $Vtvgyzy3yyq2; $V3xsptcgzss2++) {
+        $Vjxpogd0afis += $V3h4z3hxorxj->writeUInt16($Vb3z3shnu1vn[$V3xsptcgzss2] / 2);
       }
     }
 
-    // 4 bytes
+    
     else {
-      if ($indexToLocFormat == 1) {
-        for ($i = 0; $i <= $numGlyphs; $i++) {
-          $length += $font->writeUInt32($data[$i]);
+      if ($Vojpf41wfceg == 1) {
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 <= $Vtvgyzy3yyq2; $V3xsptcgzss2++) {
+          $Vjxpogd0afis += $V3h4z3hxorxj->writeUInt32($Vb3z3shnu1vn[$V3xsptcgzss2]);
         }
       }
     }
 
-    return $length;
+    return $Vjxpogd0afis;
   }
 }

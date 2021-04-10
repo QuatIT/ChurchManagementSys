@@ -1,29 +1,24 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Tag;
 
 class Circle extends Shape
 {
-    protected $cx = 0;
-    protected $cy = 0;
-    protected $r;
+    protected $Vbzfqpwulojv = 0;
+    protected $Vmjodvckrtr1 = 0;
+    protected $Vkabkv5ip0kg;
 
-    public function start($attributes)
+    public function start($Voywws15cvz5)
     {
-        if (isset($attributes['cx'])) {
-            $this->cx = $attributes['cx'];
+        if (isset($Voywws15cvz5['cx'])) {
+            $this->cx = $Voywws15cvz5['cx'];
         }
-        if (isset($attributes['cy'])) {
-            $this->cy = $attributes['cy'];
+        if (isset($Voywws15cvz5['cy'])) {
+            $this->cy = $Voywws15cvz5['cy'];
         }
-        if (isset($attributes['r'])) {
-            $this->r = $attributes['r'];
+        if (isset($Voywws15cvz5['r'])) {
+            $this->r = $Voywws15cvz5['r'];
         }
 
         $this->document->getSurface()->circle($this->cx, $this->cy, $this->r);

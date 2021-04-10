@@ -1,10 +1,5 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\FrameDecorator;
 
 use Dompdf\Cellmap;
@@ -13,14 +8,10 @@ use Dompdf\Dompdf;
 use Dompdf\Frame;
 use Dompdf\Frame\Factory;
 
-/**
- * Decorates Frames for table layout
- *
- * @package dompdf
- */
+
 class Table extends AbstractFrameDecorator
 {
-    public static $VALID_CHILDREN = array(
+    public static $Vrqtm3j4sbc4 = array(
         "table-row-group",
         "table-row",
         "table-header-group",
@@ -31,62 +22,34 @@ class Table extends AbstractFrameDecorator
         "table-cell"
     );
 
-    public static $ROW_GROUPS = array(
+    public static $Vl0lmlwo3v4l = array(
         'table-row-group',
         'table-header-group',
         'table-footer-group'
     );
 
-    /**
-     * The Cellmap object for this table.  The cellmap maps table cells
-     * to rows and columns, and aids in calculating column widths.
-     *
-     * @var \Dompdf\Cellmap
-     */
-    protected $_cellmap;
+    
+    protected $Vvy4o2p0tqsm;
 
-    /**
-     * The minimum width of the table, in pt
-     *
-     * @var float
-     */
-    protected $_min_width;
+    
+    protected $Vn2stbqyadwq;
 
-    /**
-     * The maximum width of the table, in pt
-     *
-     * @var float
-     */
-    protected $_max_width;
+    
+    protected $Vskgi2yusb1r;
 
-    /**
-     * Table header rows.  Each table header is duplicated when a table
-     * spans pages.
-     *
-     * @var array
-     */
-    protected $_headers;
+    
+    protected $Vahvws3vh2bx;
 
-    /**
-     * Table footer rows.  Each table footer is duplicated when a table
-     * spans pages.
-     *
-     * @var array
-     */
-    protected $_footers;
+    
+    protected $Vhyl4qqb1q2l;
 
-    /**
-     * Class constructor
-     *
-     * @param Frame $frame the frame to decorate
-     * @param Dompdf $dompdf
-     */
-    public function __construct(Frame $frame, Dompdf $dompdf)
+    
+    public function __construct(Frame $Vnk2ly5jcvjf, Dompdf $Vhvghaoacagz)
     {
-        parent::__construct($frame, $dompdf);
+        parent::__construct($Vnk2ly5jcvjf, $Vhvghaoacagz);
         $this->_cellmap = new Cellmap($this);
 
-        if ($frame->get_style()->table_layout === "fixed") {
+        if ($Vnk2ly5jcvjf->get_style()->table_layout === "fixed") {
             $this->_cellmap->set_layout_fixed(true);
         }
 
@@ -107,292 +70,239 @@ class Table extends AbstractFrameDecorator
         $this->_reflower->reset();
     }
 
-    //........................................................................
+    
 
-    /**
-     * split the table at $row.  $row and all subsequent rows will be
-     * added to the clone.  This method is overidden in order to remove
-     * frames from the cellmap properly.
-     *
-     * @param Frame $child
-     * @param bool $force_pagebreak
-     *
-     * @return void
-     */
-    public function split(Frame $child = null, $force_pagebreak = false)
+    
+    public function split(Frame $Vtcc233inn5m = null, $Vxx1fnm322ds = false)
     {
-        if (is_null($child)) {
+        if (is_null($Vtcc233inn5m)) {
             parent::split();
 
             return;
         }
 
-        // If $child is a header or if it is the first non-header row, do
-        // not duplicate headers, simply move the table to the next page.
-        if (count($this->_headers) && !in_array($child, $this->_headers, true) &&
-            !in_array($child->get_prev_sibling(), $this->_headers, true)
+        
+        
+        if (count($this->_headers) && !in_array($Vtcc233inn5m, $this->_headers, true) &&
+            !in_array($Vtcc233inn5m->get_prev_sibling(), $this->_headers, true)
         ) {
-            $first_header = null;
+            $V0ur2t5u0cga = null;
 
-            // Insert copies of the table headers before $child
-            foreach ($this->_headers as $header) {
+            
+            foreach ($this->_headers as $Vbcafeycvjtp) {
 
-                $new_header = $header->deep_copy();
+                $Viuvai50mmrz = $Vbcafeycvjtp->deep_copy();
 
-                if (is_null($first_header)) {
-                    $first_header = $new_header;
+                if (is_null($V0ur2t5u0cga)) {
+                    $V0ur2t5u0cga = $Viuvai50mmrz;
                 }
 
-                $this->insert_child_before($new_header, $child);
+                $this->insert_child_before($Viuvai50mmrz, $Vtcc233inn5m);
             }
 
-            parent::split($first_header);
+            parent::split($V0ur2t5u0cga);
 
-        } elseif (in_array($child->get_style()->display, self::$ROW_GROUPS)) {
+        } elseif (in_array($Vtcc233inn5m->get_style()->display, self::$Vl0lmlwo3v4l)) {
 
-            // Individual rows should have already been handled
-            parent::split($child);
+            
+            parent::split($Vtcc233inn5m);
 
         } else {
 
-            $iter = $child;
+            $Vqz1antku1y3 = $Vtcc233inn5m;
 
-            while ($iter) {
-                $this->_cellmap->remove_row($iter);
-                $iter = $iter->get_next_sibling();
+            while ($Vqz1antku1y3) {
+                $this->_cellmap->remove_row($Vqz1antku1y3);
+                $Vqz1antku1y3 = $Vqz1antku1y3->get_next_sibling();
             }
 
-            parent::split($child);
+            parent::split($Vtcc233inn5m);
         }
     }
 
-    /**
-     * Return a copy of this frame with $node as its node
-     *
-     * @param DOMNode $node
-     *
-     * @return Frame
-     */
-    public function copy(DOMNode $node)
+    
+    public function copy(DOMNode $Vbr2bywdrplx)
     {
-        $deco = parent::copy($node);
+        $V134ns25tz1t = parent::copy($Vbr2bywdrplx);
 
-        // In order to keep columns' widths through pages
-        $deco->_cellmap->set_columns($this->_cellmap->get_columns());
-        $deco->_cellmap->lock_columns();
+        
+        $V134ns25tz1t->_cellmap->set_columns($this->_cellmap->get_columns());
+        $V134ns25tz1t->_cellmap->lock_columns();
 
-        return $deco;
+        return $V134ns25tz1t;
     }
 
-    /**
-     * Static function to locate the parent table of a frame
-     *
-     * @param Frame $frame
-     *
-     * @return Table the table that is an ancestor of $frame
-     */
-    public static function find_parent_table(Frame $frame)
+    
+    public static function find_parent_table(Frame $Vnk2ly5jcvjf)
     {
-        while ($frame = $frame->get_parent()) {
-            if ($frame->is_table()) {
+        while ($Vnk2ly5jcvjf = $Vnk2ly5jcvjf->get_parent()) {
+            if ($Vnk2ly5jcvjf->is_table()) {
                 break;
             }
         }
 
-        return $frame;
+        return $Vnk2ly5jcvjf;
     }
 
-    /**
-     * Return this table's Cellmap
-     *
-     * @return \Dompdf\Cellmap
-     */
+    
     public function get_cellmap()
     {
         return $this->_cellmap;
     }
 
-    /**
-     * Return the minimum width of this table
-     *
-     * @return float
-     */
+    
     public function get_min_width()
     {
         return $this->_min_width;
     }
 
-    /**
-     * Return the maximum width of this table
-     *
-     * @return float
-     */
+    
     public function get_max_width()
     {
         return $this->_max_width;
     }
 
-    /**
-     * Set the minimum width of the table
-     *
-     * @param float $width the new minimum width
-     */
-    public function set_min_width($width)
+    
+    public function set_min_width($Vztt3qdrrikx)
     {
-        $this->_min_width = $width;
+        $this->_min_width = $Vztt3qdrrikx;
     }
 
-    /**
-     * Set the maximum width of the table
-     *
-     * @param float $width the new maximum width
-     */
-    public function set_max_width($width)
+    
+    public function set_max_width($Vztt3qdrrikx)
     {
-        $this->_max_width = $width;
+        $this->_max_width = $Vztt3qdrrikx;
     }
 
-    /**
-     * Restructure tree so that the table has the correct structure.
-     * Invalid children (i.e. all non-table-rows) are moved below the
-     * table.
-     *
-     * @fixme #1363 Method has some bugs. $table_row has not been initialized and lookup most likely could return an
-     * array of Style instead a Style Object
-     */
+    
     public function normalise()
     {
-        // Store frames generated by invalid tags and move them outside the table
-        $erroneous_frames = array();
-        $anon_row = false;
-        $iter = $this->get_first_child();
-        while ($iter) {
-            $child = $iter;
-            $iter = $iter->get_next_sibling();
+        
+        $Vwpzyzjex4bg = array();
+        $Vuynehe3xiws = false;
+        $Vqz1antku1y3 = $this->get_first_child();
+        while ($Vqz1antku1y3) {
+            $Vtcc233inn5m = $Vqz1antku1y3;
+            $Vqz1antku1y3 = $Vqz1antku1y3->get_next_sibling();
 
-            $display = $child->get_style()->display;
+            $Vsagginauquc = $Vtcc233inn5m->get_style()->display;
 
-            if ($anon_row) {
+            if ($Vuynehe3xiws) {
 
-                if ($display === "table-row") {
-                    // Add the previous anonymous row
-                    $this->insert_child_before($table_row, $child);
+                if ($Vsagginauquc === "table-row") {
+                    
+                    $this->insert_child_before($Vce3ewwqypvf, $Vtcc233inn5m);
 
-                    $table_row->normalise();
-                    $child->normalise();
+                    $Vce3ewwqypvf->normalise();
+                    $Vtcc233inn5m->normalise();
                     $this->_cellmap->add_row();
-                    $anon_row = false;
+                    $Vuynehe3xiws = false;
                     continue;
                 }
 
-                // add the child to the anonymous row
-                $table_row->append_child($child);
+                
+                $Vce3ewwqypvf->append_child($Vtcc233inn5m);
                 continue;
 
             } else {
 
-                if ($display === "table-row") {
-                    $child->normalise();
+                if ($Vsagginauquc === "table-row") {
+                    $Vtcc233inn5m->normalise();
                     continue;
                 }
 
-                if ($display === "table-cell") {
-                    $css = $this->get_style()->get_stylesheet();
+                if ($Vsagginauquc === "table-cell") {
+                    $Vwbqaqisytil = $this->get_style()->get_stylesheet();
 
-                    // Create an anonymous table row group
-                    $tbody = $this->get_node()->ownerDocument->createElement("tbody");
+                    
+                    $Vim4wws51jia = $this->get_node()->ownerDocument->createElement("tbody");
 
-                    $frame = new Frame($tbody);
+                    $Vnk2ly5jcvjf = new Frame($Vim4wws51jia);
 
-                    $style = $css->create_style();
-                    $style->inherit($this->get_style());
+                    $Vdidzwb0w3vc = $Vwbqaqisytil->create_style();
+                    $Vdidzwb0w3vc->inherit($this->get_style());
 
-                    // Lookup styles for tbody tags.  If the user wants styles to work
-                    // better, they should make the tbody explicit... I'm not going to
-                    // try to guess what they intended.
-                    if ($tbody_style = $css->lookup("tbody")) {
-                        $style->merge($tbody_style);
+                    
+                    
+                    
+                    if ($Vim4wws51jia_style = $Vwbqaqisytil->lookup("tbody")) {
+                        $Vdidzwb0w3vc->merge($Vim4wws51jia_style);
                     }
-                    $style->display = 'table-row-group';
+                    $Vdidzwb0w3vc->display = 'table-row-group';
 
-                    // Okay, I have absolutely no idea why I need this clone here, but
-                    // if it's omitted, php (as of 2004-07-28) segfaults.
-                    $frame->set_style($style);
-                    $table_row_group = Factory::decorate_frame($frame, $this->_dompdf, $this->_root);
+                    
+                    
+                    $Vnk2ly5jcvjf->set_style($Vdidzwb0w3vc);
+                    $Vce3ewwqypvf_group = Factory::decorate_frame($Vnk2ly5jcvjf, $this->_dompdf, $this->_root);
 
-                    // Create an anonymous table row
-                    $tr = $this->get_node()->ownerDocument->createElement("tr");
+                    
+                    $Vzmfvefqwysh = $this->get_node()->ownerDocument->createElement("tr");
 
-                    $frame = new Frame($tr);
+                    $Vnk2ly5jcvjf = new Frame($Vzmfvefqwysh);
 
-                    $style = $css->create_style();
-                    $style->inherit($this->get_style());
+                    $Vdidzwb0w3vc = $Vwbqaqisytil->create_style();
+                    $Vdidzwb0w3vc->inherit($this->get_style());
 
-                    // Lookup styles for tr tags.  If the user wants styles to work
-                    // better, they should make the tr explicit... I'm not going to
-                    // try to guess what they intended.
-                    if ($tr_style = $css->lookup("tr")) {
-                        $style->merge($tr_style);
+                    
+                    
+                    
+                    if ($Vzmfvefqwysh_style = $Vwbqaqisytil->lookup("tr")) {
+                        $Vdidzwb0w3vc->merge($Vzmfvefqwysh_style);
                     }
-                    $style->display = 'table-row';
+                    $Vdidzwb0w3vc->display = 'table-row';
 
-                    // Okay, I have absolutely no idea why I need this clone here, but
-                    // if it's omitted, php (as of 2004-07-28) segfaults.
-                    $frame->set_style(clone $style);
-                    $table_row = Factory::decorate_frame($frame, $this->_dompdf, $this->_root);
+                    
+                    
+                    $Vnk2ly5jcvjf->set_style(clone $Vdidzwb0w3vc);
+                    $Vce3ewwqypvf = Factory::decorate_frame($Vnk2ly5jcvjf, $this->_dompdf, $this->_root);
 
-                    // Add the cell to the row
-                    $table_row->append_child($child, true);
+                    
+                    $Vce3ewwqypvf->append_child($Vtcc233inn5m, true);
 
-                    // Add the tr to the tbody
-                    $table_row_group->append_child($table_row, true);
+                    
+                    $Vce3ewwqypvf_group->append_child($Vce3ewwqypvf, true);
 
-                    $anon_row = true;
+                    $Vuynehe3xiws = true;
                     continue;
                 }
 
-                if (!in_array($display, self::$VALID_CHILDREN)) {
-                    $erroneous_frames[] = $child;
+                if (!in_array($Vsagginauquc, self::$Vrqtm3j4sbc4)) {
+                    $Vwpzyzjex4bg[] = $Vtcc233inn5m;
                     continue;
                 }
 
-                // Normalise other table parts (i.e. row groups)
-                foreach ($child->get_children() as $grandchild) {
-                    if ($grandchild->get_style()->display === "table-row") {
-                        $grandchild->normalise();
+                
+                foreach ($Vtcc233inn5m->get_children() as $Vtts2zp3hvqq) {
+                    if ($Vtts2zp3hvqq->get_style()->display === "table-row") {
+                        $Vtts2zp3hvqq->normalise();
                     }
                 }
 
-                // Add headers and footers
-                if ($display === "table-header-group") {
-                    $this->_headers[] = $child;
-                } elseif ($display === "table-footer-group") {
-                    $this->_footers[] = $child;
+                
+                if ($Vsagginauquc === "table-header-group") {
+                    $this->_headers[] = $Vtcc233inn5m;
+                } elseif ($Vsagginauquc === "table-footer-group") {
+                    $this->_footers[] = $Vtcc233inn5m;
                 }
             }
         }
 
-        if ($anon_row && $table_row_group instanceof AbstractFrameDecorator) {
-            // Add the row to the table
-            $this->_frame->append_child($table_row_group->_frame);
-            $table_row->normalise();
+        if ($Vuynehe3xiws && $Vce3ewwqypvf_group instanceof AbstractFrameDecorator) {
+            
+            $this->_frame->append_child($Vce3ewwqypvf_group->_frame);
+            $Vce3ewwqypvf->normalise();
         }
 
-        foreach ($erroneous_frames as $frame) {
-            $this->move_after($frame);
+        foreach ($Vwpzyzjex4bg as $Vnk2ly5jcvjf) {
+            $this->move_after($Vnk2ly5jcvjf);
         }
     }
 
-    //........................................................................
+    
 
-    /**
-     * Moves the specified frame and it's corresponding node outside of
-     * the table.
-     *
-     * @param Frame $frame the frame to move
-     */
-    public function move_after(Frame $frame)
+    
+    public function move_after(Frame $Vnk2ly5jcvjf)
     {
-        $this->get_parent()->insert_child_after($frame, $this);
+        $this->get_parent()->insert_child_after($Vnk2ly5jcvjf, $this);
     }
 }

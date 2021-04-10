@@ -4,30 +4,19 @@ namespace Dompdf\Frame;
 use Dompdf\Frame;
 use IteratorAggregate;
 
-/**
- * Linked-list IteratorAggregate
- *
- * @access private
- * @package dompdf
- */
+
 class FrameList implements IteratorAggregate
 {
-    /**
-     * @var Frame
-     */
-    protected $_frame;
+    
+    protected $Vtabfexfghu0;
 
-    /**
-     * @param Frame $frame
-     */
-    function __construct($frame)
+    
+    function __construct($Vnk2ly5jcvjf)
     {
-        $this->_frame = $frame;
+        $this->_frame = $Vnk2ly5jcvjf;
     }
 
-    /**
-     * @return FrameListIterator
-     */
+    
     function getIterator()
     {
         return new FrameListIterator($this->_frame);

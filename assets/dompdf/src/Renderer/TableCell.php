@@ -1,179 +1,168 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\Renderer;
 
 use Dompdf\Frame;
 use Dompdf\FrameDecorator\Table;
 
-/**
- * Renders table cells
- *
- * @package dompdf
- */
+
 class TableCell extends Block
 {
 
-    /**
-     * @param Frame $frame
-     */
-    function render(Frame $frame)
+    
+    function render(Frame $Vnk2ly5jcvjf)
     {
-        $style = $frame->get_style();
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
 
-        if (trim($frame->get_node()->nodeValue) === "" && $style->empty_cells === "hide") {
+        if (trim($Vnk2ly5jcvjf->get_node()->nodeValue) === "" && $Vdidzwb0w3vc->empty_cells === "hide") {
             return;
         }
 
-        $this->_set_opacity($frame->get_opacity($style->opacity));
-        list($x, $y, $w, $h) = $frame->get_border_box();
+        $this->_set_opacity($Vnk2ly5jcvjf->get_opacity($Vdidzwb0w3vc->opacity));
+        list($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa) = $Vnk2ly5jcvjf->get_border_box();
 
-        // Draw our background, border and content
-        if (($bg = $style->background_color) !== "transparent") {
-            $this->_canvas->filled_rectangle($x, $y, (float)$w, (float)$h, $bg);
+        
+        if (($Vbk1alfdu2xe = $Vdidzwb0w3vc->background_color) !== "transparent") {
+            $this->_canvas->filled_rectangle($Vs4gloy23a1d, $Vopgub02o3q2, (float)$Vhoifq2kocyt, (float)$Vjlmjalejjxa, $Vbk1alfdu2xe);
         }
 
-        if (($url = $style->background_image) && $url !== "none") {
-            $this->_background_image($url, $x, $y, $w, $h, $style);
+        if (($Vsp0omgzz2yw = $Vdidzwb0w3vc->background_image) && $Vsp0omgzz2yw !== "none") {
+            $this->_background_image($Vsp0omgzz2yw, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vdidzwb0w3vc);
         }
 
-        $table = Table::find_parent_table($frame);
+        $Vahqmfi4rdgw = Table::find_parent_table($Vnk2ly5jcvjf);
 
-        if ($table->get_style()->border_collapse !== "collapse") {
-            $this->_render_border($frame);
-            $this->_render_outline($frame);
+        if ($Vahqmfi4rdgw->get_style()->border_collapse !== "collapse") {
+            $this->_render_border($Vnk2ly5jcvjf);
+            $this->_render_outline($Vnk2ly5jcvjf);
             return;
         }
 
-        // The collapsed case is slightly complicated...
-        // @todo Add support for outlines here
+        
+        
 
-        $cellmap = $table->get_cellmap();
-        $cells = $cellmap->get_spanned_cells($frame);
+        $Vdgy2mwoncbb = $Vahqmfi4rdgw->get_cellmap();
+        $Vneuyusyb51k = $Vdgy2mwoncbb->get_spanned_cells($Vnk2ly5jcvjf);
 
-        if (is_null($cells)) {
+        if (is_null($Vneuyusyb51k)) {
             return;
         }
 
-        $num_rows = $cellmap->get_num_rows();
-        $num_cols = $cellmap->get_num_cols();
+        $V0eivvdconcj = $Vdgy2mwoncbb->get_num_rows();
+        $Vwe4j1xo44cn = $Vdgy2mwoncbb->get_num_cols();
 
-        // Determine the top row spanned by this cell
-        $i = $cells["rows"][0];
-        $top_row = $cellmap->get_row($i);
+        
+        $V3xsptcgzss2 = $Vneuyusyb51k["rows"][0];
+        $V2my3d13vy4b = $Vdgy2mwoncbb->get_row($V3xsptcgzss2);
 
-        // Determine if this cell borders on the bottom of the table.  If so,
-        // then we draw its bottom border.  Otherwise the next row down will
-        // draw its top border instead.
-        if (in_array($num_rows - 1, $cells["rows"])) {
-            $draw_bottom = true;
-            $bottom_row = $cellmap->get_row($num_rows - 1);
+        
+        
+        
+        if (in_array($V0eivvdconcj - 1, $Vneuyusyb51k["rows"])) {
+            $Vybgnq3bvihz = true;
+            $Vbu23w3b4i1y = $Vdgy2mwoncbb->get_row($V0eivvdconcj - 1);
         } else {
-            $draw_bottom = false;
+            $Vybgnq3bvihz = false;
         }
 
-        // Draw the horizontal borders
-        foreach ($cells["columns"] as $j) {
-            $bp = $cellmap->get_border_properties($i, $j);
+        
+        foreach ($Vneuyusyb51k["columns"] as $V0hg12l10vfx) {
+            $Vhkhr2kulnam = $Vdgy2mwoncbb->get_border_properties($V3xsptcgzss2, $V0hg12l10vfx);
 
-            $y = $top_row["y"] - $bp["top"]["width"] / 2;
+            $Vopgub02o3q2 = $V2my3d13vy4b["y"] - $Vhkhr2kulnam["top"]["width"] / 2;
 
-            $col = $cellmap->get_column($j);
-            $x = $col["x"] - $bp["left"]["width"] / 2;
-            $w = $col["used-width"] + ($bp["left"]["width"] + $bp["right"]["width"]) / 2;
+            $Vhxdswanopzr = $Vdgy2mwoncbb->get_column($V0hg12l10vfx);
+            $Vs4gloy23a1d = $Vhxdswanopzr["x"] - $Vhkhr2kulnam["left"]["width"] / 2;
+            $Vhoifq2kocyt = $Vhxdswanopzr["used-width"] + ($Vhkhr2kulnam["left"]["width"] + $Vhkhr2kulnam["right"]["width"]) / 2;
 
-            if ($bp["top"]["style"] !== "none" && $bp["top"]["width"] > 0) {
-                $widths = array(
-                    (float)$bp["top"]["width"],
-                    (float)$bp["right"]["width"],
-                    (float)$bp["bottom"]["width"],
-                    (float)$bp["left"]["width"]
+            if ($Vhkhr2kulnam["top"]["style"] !== "none" && $Vhkhr2kulnam["top"]["width"] > 0) {
+                $Vhoifq2kocytidths = array(
+                    (float)$Vhkhr2kulnam["top"]["width"],
+                    (float)$Vhkhr2kulnam["right"]["width"],
+                    (float)$Vhkhr2kulnam["bottom"]["width"],
+                    (float)$Vhkhr2kulnam["left"]["width"]
                 );
-                $method = "_border_" . $bp["top"]["style"];
-                $this->$method($x, $y, $w, $bp["top"]["color"], $widths, "top", "square");
+                $V1svcpcbr4nm = "_border_" . $Vhkhr2kulnam["top"]["style"];
+                $this->$V1svcpcbr4nm($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vhkhr2kulnam["top"]["color"], $Vhoifq2kocytidths, "top", "square");
             }
 
-            if ($draw_bottom) {
-                $bp = $cellmap->get_border_properties($num_rows - 1, $j);
-                if ($bp["bottom"]["style"] === "none" || $bp["bottom"]["width"] <= 0) {
+            if ($Vybgnq3bvihz) {
+                $Vhkhr2kulnam = $Vdgy2mwoncbb->get_border_properties($V0eivvdconcj - 1, $V0hg12l10vfx);
+                if ($Vhkhr2kulnam["bottom"]["style"] === "none" || $Vhkhr2kulnam["bottom"]["width"] <= 0) {
                     continue;
                 }
 
-                $y = $bottom_row["y"] + $bottom_row["height"] + $bp["bottom"]["width"] / 2;
+                $Vopgub02o3q2 = $Vbu23w3b4i1y["y"] + $Vbu23w3b4i1y["height"] + $Vhkhr2kulnam["bottom"]["width"] / 2;
 
-                $widths = array(
-                    (float)$bp["top"]["width"],
-                    (float)$bp["right"]["width"],
-                    (float)$bp["bottom"]["width"],
-                    (float)$bp["left"]["width"]
+                $Vhoifq2kocytidths = array(
+                    (float)$Vhkhr2kulnam["top"]["width"],
+                    (float)$Vhkhr2kulnam["right"]["width"],
+                    (float)$Vhkhr2kulnam["bottom"]["width"],
+                    (float)$Vhkhr2kulnam["left"]["width"]
                 );
-                $method = "_border_" . $bp["bottom"]["style"];
-                $this->$method($x, $y, $w, $bp["bottom"]["color"], $widths, "bottom", "square");
+                $V1svcpcbr4nm = "_border_" . $Vhkhr2kulnam["bottom"]["style"];
+                $this->$V1svcpcbr4nm($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vhkhr2kulnam["bottom"]["color"], $Vhoifq2kocytidths, "bottom", "square");
 
             }
         }
 
-        $j = $cells["columns"][0];
+        $V0hg12l10vfx = $Vneuyusyb51k["columns"][0];
 
-        $left_col = $cellmap->get_column($j);
+        $V4bxgq3zvdro = $Vdgy2mwoncbb->get_column($V0hg12l10vfx);
 
-        if (in_array($num_cols - 1, $cells["columns"])) {
-            $draw_right = true;
-            $right_col = $cellmap->get_column($num_cols - 1);
+        if (in_array($Vwe4j1xo44cn - 1, $Vneuyusyb51k["columns"])) {
+            $V4facgk0c4uc = true;
+            $Vl51al3cn4kp = $Vdgy2mwoncbb->get_column($Vwe4j1xo44cn - 1);
         } else {
-            $draw_right = false;
+            $V4facgk0c4uc = false;
         }
 
-        // Draw the vertical borders
-        foreach ($cells["rows"] as $i) {
-            $bp = $cellmap->get_border_properties($i, $j);
+        
+        foreach ($Vneuyusyb51k["rows"] as $V3xsptcgzss2) {
+            $Vhkhr2kulnam = $Vdgy2mwoncbb->get_border_properties($V3xsptcgzss2, $V0hg12l10vfx);
 
-            $x = $left_col["x"] - $bp["left"]["width"] / 2;
+            $Vs4gloy23a1d = $V4bxgq3zvdro["x"] - $Vhkhr2kulnam["left"]["width"] / 2;
 
-            $row = $cellmap->get_row($i);
+            $Vnwijnctkkq3 = $Vdgy2mwoncbb->get_row($V3xsptcgzss2);
 
-            $y = $row["y"] - $bp["top"]["width"] / 2;
-            $h = $row["height"] + ($bp["top"]["width"] + $bp["bottom"]["width"]) / 2;
+            $Vopgub02o3q2 = $Vnwijnctkkq3["y"] - $Vhkhr2kulnam["top"]["width"] / 2;
+            $Vjlmjalejjxa = $Vnwijnctkkq3["height"] + ($Vhkhr2kulnam["top"]["width"] + $Vhkhr2kulnam["bottom"]["width"]) / 2;
 
-            if ($bp["left"]["style"] !== "none" && $bp["left"]["width"] > 0) {
-                $widths = array(
-                    (float)$bp["top"]["width"],
-                    (float)$bp["right"]["width"],
-                    (float)$bp["bottom"]["width"],
-                    (float)$bp["left"]["width"]
+            if ($Vhkhr2kulnam["left"]["style"] !== "none" && $Vhkhr2kulnam["left"]["width"] > 0) {
+                $Vhoifq2kocytidths = array(
+                    (float)$Vhkhr2kulnam["top"]["width"],
+                    (float)$Vhkhr2kulnam["right"]["width"],
+                    (float)$Vhkhr2kulnam["bottom"]["width"],
+                    (float)$Vhkhr2kulnam["left"]["width"]
                 );
 
-                $method = "_border_" . $bp["left"]["style"];
-                $this->$method($x, $y, $h, $bp["left"]["color"], $widths, "left", "square");
+                $V1svcpcbr4nm = "_border_" . $Vhkhr2kulnam["left"]["style"];
+                $this->$V1svcpcbr4nm($Vs4gloy23a1d, $Vopgub02o3q2, $Vjlmjalejjxa, $Vhkhr2kulnam["left"]["color"], $Vhoifq2kocytidths, "left", "square");
             }
 
-            if ($draw_right) {
-                $bp = $cellmap->get_border_properties($i, $num_cols - 1);
-                if ($bp["right"]["style"] === "none" || $bp["right"]["width"] <= 0) {
+            if ($V4facgk0c4uc) {
+                $Vhkhr2kulnam = $Vdgy2mwoncbb->get_border_properties($V3xsptcgzss2, $Vwe4j1xo44cn - 1);
+                if ($Vhkhr2kulnam["right"]["style"] === "none" || $Vhkhr2kulnam["right"]["width"] <= 0) {
                     continue;
                 }
 
-                $x = $right_col["x"] + $right_col["used-width"] + $bp["right"]["width"] / 2;
+                $Vs4gloy23a1d = $Vl51al3cn4kp["x"] + $Vl51al3cn4kp["used-width"] + $Vhkhr2kulnam["right"]["width"] / 2;
 
-                $widths = array(
-                    (float)$bp["top"]["width"],
-                    (float)$bp["right"]["width"],
-                    (float)$bp["bottom"]["width"],
-                    (float)$bp["left"]["width"]
+                $Vhoifq2kocytidths = array(
+                    (float)$Vhkhr2kulnam["top"]["width"],
+                    (float)$Vhkhr2kulnam["right"]["width"],
+                    (float)$Vhkhr2kulnam["bottom"]["width"],
+                    (float)$Vhkhr2kulnam["left"]["width"]
                 );
 
-                $method = "_border_" . $bp["right"]["style"];
-                $this->$method($x, $y, $h, $bp["right"]["color"], $widths, "right", "square");
+                $V1svcpcbr4nm = "_border_" . $Vhkhr2kulnam["right"]["style"];
+                $this->$V1svcpcbr4nm($Vs4gloy23a1d, $Vopgub02o3q2, $Vjlmjalejjxa, $Vhkhr2kulnam["right"]["color"], $Vhoifq2kocytidths, "right", "square");
             }
         }
 
-        $id = $frame->get_node()->getAttribute("id");
-        if (strlen($id) > 0)  {
-            $this->_canvas->add_named_dest($id);
+        $V3xsptcgzss2d = $Vnk2ly5jcvjf->get_node()->getAttribute("id");
+        if (strlen($V3xsptcgzss2d) > 0)  {
+            $this->_canvas->add_named_dest($V3xsptcgzss2d);
         }
     }
 }

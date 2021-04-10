@@ -1,102 +1,84 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\FrameReflower;
 
 use Dompdf\Frame;
 use Dompdf\FrameDecorator\Block as BlockFrameDecorator;
 use Dompdf\FrameDecorator\Text as TextFrameDecorator;
 
-/**
- * Reflows inline frames
- *
- * @package dompdf
- */
+
 class Inline extends AbstractFrameReflower
 {
 
-    /**
-     * Inline constructor.
-     * @param Frame $frame
-     */
-    function __construct(Frame $frame)
+    
+    function __construct(Frame $Vnk2ly5jcvjf)
     {
-        parent::__construct($frame);
+        parent::__construct($Vnk2ly5jcvjf);
     }
 
-    /**
-     * @param BlockFrameDecorator|null $block
-     */
-    function reflow(BlockFrameDecorator $block = null)
+    
+    function reflow(BlockFrameDecorator $Vwoflziz3q5d = null)
     {
-        $frame = $this->_frame;
+        $Vnk2ly5jcvjf = $this->_frame;
 
-        // Check if a page break is forced
-        $page = $frame->get_root();
-        $page->check_forced_page_break($frame);
+        
+        $Vc0dirmmlvo4 = $Vnk2ly5jcvjf->get_root();
+        $Vc0dirmmlvo4->check_forced_page_break($Vnk2ly5jcvjf);
 
-        if ($page->is_full()) {
+        if ($Vc0dirmmlvo4->is_full()) {
             return;
         }
 
-        $style = $frame->get_style();
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
 
-        // Generated content
+        
         $this->_set_content();
 
-        $frame->position();
+        $Vnk2ly5jcvjf->position();
 
-        $cb = $frame->get_containing_block();
+        $Vavdpq045wub = $Vnk2ly5jcvjf->get_containing_block();
 
-        // Add our margin, padding & border to the first and last children
-        if (($f = $frame->get_first_child()) && $f instanceof TextFrameDecorator) {
-            $f_style = $f->get_style();
-            $f_style->margin_left = $style->margin_left;
-            $f_style->padding_left = $style->padding_left;
-            $f_style->border_left = $style->border_left;
+        
+        if (($V4ljftfdeqpl = $Vnk2ly5jcvjf->get_first_child()) && $V4ljftfdeqpl instanceof TextFrameDecorator) {
+            $V4ljftfdeqpl_style = $V4ljftfdeqpl->get_style();
+            $V4ljftfdeqpl_style->margin_left = $Vdidzwb0w3vc->margin_left;
+            $V4ljftfdeqpl_style->padding_left = $Vdidzwb0w3vc->padding_left;
+            $V4ljftfdeqpl_style->border_left = $Vdidzwb0w3vc->border_left;
         }
 
-        if (($l = $frame->get_last_child()) && $l instanceof TextFrameDecorator) {
-            $l_style = $l->get_style();
-            $l_style->margin_right = $style->margin_right;
-            $l_style->padding_right = $style->padding_right;
-            $l_style->border_right = $style->border_right;
+        if (($V3nb02w01gr5 = $Vnk2ly5jcvjf->get_last_child()) && $V3nb02w01gr5 instanceof TextFrameDecorator) {
+            $V3nb02w01gr5_style = $V3nb02w01gr5->get_style();
+            $V3nb02w01gr5_style->margin_right = $Vdidzwb0w3vc->margin_right;
+            $V3nb02w01gr5_style->padding_right = $Vdidzwb0w3vc->padding_right;
+            $V3nb02w01gr5_style->border_right = $Vdidzwb0w3vc->border_right;
         }
 
-        if ($block) {
-            $block->add_frame_to_line($this->_frame);
+        if ($Vwoflziz3q5d) {
+            $Vwoflziz3q5d->add_frame_to_line($this->_frame);
         }
 
-        // Set the containing blocks and reflow each child.  The containing
-        // block is not changed by line boxes.
-        foreach ($frame->get_children() as $child) {
-            $child->set_containing_block($cb);
-            $child->reflow($block);
+        
+        
+        foreach ($Vnk2ly5jcvjf->get_children() as $Vtcc233inn5m) {
+            $Vtcc233inn5m->set_containing_block($Vavdpq045wub);
+            $Vtcc233inn5m->reflow($Vwoflziz3q5d);
         }
     }
 
-    /**
-     * Determine current frame width based on contents
-     *
-     * @return float
-     */
+    
     public function calculate_auto_width()
     {
-        $width = 0;
+        $Vztt3qdrrikx = 0;
 
-        foreach ($this->_frame->get_children() as $child) {
-            if ($child->get_original_style()->width == 'auto') {
-                $width += $child->calculate_auto_width();
+        foreach ($this->_frame->get_children() as $Vtcc233inn5m) {
+            if ($Vtcc233inn5m->get_original_style()->width == 'auto') {
+                $Vztt3qdrrikx += $Vtcc233inn5m->calculate_auto_width();
             } else {
-                $width += $child->get_margin_width();
+                $Vztt3qdrrikx += $Vtcc233inn5m->get_margin_width();
             }
         }
 
-        $this->_frame->get_style()->width = $width;
+        $this->_frame->get_style()->width = $Vztt3qdrrikx;
 
         return $this->_frame->get_margin_width();
     }

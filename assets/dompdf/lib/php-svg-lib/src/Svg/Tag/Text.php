@@ -1,56 +1,51 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Tag;
 
 class Text extends Shape
 {
-    protected $x = 0;
-    protected $y = 0;
-    protected $text = "";
+    protected $Vs4gloy23a1d = 0;
+    protected $Vopgub02o3q2 = 0;
+    protected $Vnlbbd31sxbf = "";
 
-    public function start($attributes)
+    public function start($Voywws15cvz5)
     {
-        $document = $this->document;
-        $height = $this->document->getHeight();
-        $this->y = $height;
+        $V0trxkwhezv5 = $this->document;
+        $Vku40chc0ddp = $this->document->getHeight();
+        $this->y = $Vku40chc0ddp;
 
-        if (isset($attributes['x'])) {
-            $this->x = $attributes['x'];
+        if (isset($Voywws15cvz5['x'])) {
+            $this->x = $Voywws15cvz5['x'];
         }
-        if (isset($attributes['y'])) {
-            $this->y = $height - $attributes['y'];
+        if (isset($Voywws15cvz5['y'])) {
+            $this->y = $Vku40chc0ddp - $Voywws15cvz5['y'];
         }
 
-        $document->getSurface()->transform(1, 0, 0, -1, 0, $height);
+        $V0trxkwhezv5->getSurface()->transform(1, 0, 0, -1, 0, $Vku40chc0ddp);
     }
 
     public function end()
     {
-        $surface = $this->document->getSurface();
-        $x = $this->x;
-        $y = $this->y;
-        $style = $surface->getStyle();
-        $surface->setFont($style->fontFamily, $style->fontStyle, $style->fontWeight);
+        $Vyjtkau4njyv = $this->document->getSurface();
+        $Vs4gloy23a1d = $this->x;
+        $Vopgub02o3q2 = $this->y;
+        $Vdidzwb0w3vc = $Vyjtkau4njyv->getStyle();
+        $Vyjtkau4njyv->setFont($Vdidzwb0w3vc->fontFamily, $Vdidzwb0w3vc->fontStyle, $Vdidzwb0w3vc->fontWeight);
 
-        switch ($style->textAnchor) {
+        switch ($Vdidzwb0w3vc->textAnchor) {
             case "middle":
-                $width = $surface->measureText($this->text);
-                $x -= $width / 2;
+                $Vztt3qdrrikx = $Vyjtkau4njyv->measureText($this->text);
+                $Vs4gloy23a1d -= $Vztt3qdrrikx / 2;
                 break;
 
             case "end":
-                $width = $surface->measureText($this->text);
-                $x -= $width;
+                $Vztt3qdrrikx = $Vyjtkau4njyv->measureText($this->text);
+                $Vs4gloy23a1d -= $Vztt3qdrrikx;
                 break;
         }
 
-        $surface->fillText($this->getText(), $x, $y);
+        $Vyjtkau4njyv->fillText($this->getText(), $Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
     protected function after()
@@ -58,9 +53,9 @@ class Text extends Shape
         $this->document->getSurface()->restore();
     }
 
-    public function appendText($text)
+    public function appendText($Vnlbbd31sxbf)
     {
-        $this->text .= $text;
+        $this->text .= $Vnlbbd31sxbf;
     }
 
     public function getText()

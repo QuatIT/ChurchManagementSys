@@ -1,25 +1,22 @@
 <?php
-/**
-* PHPMailer language file: refer to English translation for definitive list
-* Czech Version
-*/
 
-$PHPMAILER_LANG['authenticate']         = 'SMTP Error: Chyba autentikace.';
-$PHPMAILER_LANG['connect_host']         = 'SMTP Error: Nelze navázat spojení se SMTP serverem.';
-$PHPMAILER_LANG['data_not_accepted']    = 'SMTP Error: Data nebyla pøijata';
-//$PHPMAILER_LANG['empty_message']        = 'Message body empty';
-$PHPMAILER_LANG['encoding']             = 'Neznámé kódování: ';
-$PHPMAILER_LANG['execute']              = 'Nelze provést: ';
-$PHPMAILER_LANG['file_access']          = 'Soubor nenalezen: ';
-$PHPMAILER_LANG['file_open']            = 'File Error: Nelze otevøít soubor pro ètení: ';
-$PHPMAILER_LANG['from_failed']          = 'Následující adresa From je nesprávná: ';
-$PHPMAILER_LANG['instantiate']          = 'Nelze vytvoøit instanci emailové funkce.';
-//$PHPMAILER_LANG['invalid_email']        = 'Not sending, email address is invalid: ';
-$PHPMAILER_LANG['mailer_not_supported'] = ' mailový klient není podporován.';
-$PHPMAILER_LANG['provide_address']      = 'Musíte zadat alespoò jednu emailovou adresu pøíjemce.';
-$PHPMAILER_LANG['recipients_failed']    = 'SMTP Error: Adresy pøíjemcù nejsou správné ';
-//$PHPMAILER_LANG['signing']              = 'Signing Error: ';
-//$PHPMAILER_LANG['smtp_connect_failed']  = 'SMTP Connect() failed.';
-//$PHPMAILER_LANG['smtp_error']           = 'SMTP server error: ';
-//$PHPMAILER_LANG['variable_set']         = 'Cannot set or reset variable: ';
+
+$Vsqe4yol2m0w['authenticate']         = 'SMTP Error: Chyba autentikace.';
+$Vsqe4yol2m0w['connect_host']         = 'SMTP Error: Nelze navázat spojení se SMTP serverem.';
+$Vsqe4yol2m0w['data_not_accepted']    = 'SMTP Error: Data nebyla pøijata';
+
+$Vsqe4yol2m0w['encoding']             = 'Neznámé kódování: ';
+$Vsqe4yol2m0w['execute']              = 'Nelze provést: ';
+$Vsqe4yol2m0w['file_access']          = 'Soubor nenalezen: ';
+$Vsqe4yol2m0w['file_open']            = 'File Error: Nelze otevøít soubor pro ètení: ';
+$Vsqe4yol2m0w['from_failed']          = 'Následující adresa From je nesprávná: ';
+$Vsqe4yol2m0w['instantiate']          = 'Nelze vytvoøit instanci emailové funkce.';
+
+$Vsqe4yol2m0w['mailer_not_supported'] = ' mailový klient není podporován.';
+$Vsqe4yol2m0w['provide_address']      = 'Musíte zadat alespoò jednu emailovou adresu pøíjemce.';
+$Vsqe4yol2m0w['recipients_failed']    = 'SMTP Error: Adresy pøíjemcù nejsou správné ';
+
+
+
+
 ?>

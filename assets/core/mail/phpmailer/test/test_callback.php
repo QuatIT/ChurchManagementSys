@@ -5,78 +5,65 @@
 <body>
 
 <?php
-/* This is a sample callback function for PHPMailer Lite.
- * This callback function will echo the results of PHPMailer processing.
- */
 
-/* Callback (action) function
- *   bool    $result        result of the send action
- *   string  $to            email address of the recipient
- *   string  $cc            cc email addresses
- *   string  $bcc           bcc email addresses
- *   string  $subject       the subject
- *   string  $body          the email body
- * @return boolean
- */
-function callbackAction ($result, $to, $cc, $bcc, $subject, $body) {
-  /*
-  this callback example echos the results to the screen - implement to
-  post to databases, build CSV log files, etc., with minor changes
-  */
-  $to  = cleanEmails($to,'to');
-  $cc  = cleanEmails($cc[0],'cc');
-  $bcc = cleanEmails($bcc[0],'cc');
-  echo $result . "\tTo: "  . $to['Name'] . "\tTo: "  . $to['Email'] . "\tCc: "  . $cc['Name'] . "\tCc: "  . $cc['Email'] . "\tBcc: "  . $bcc['Name'] . "\tBcc: "  . $bcc['Email'] . "\t"  . $subject . "<br />\n";
+
+
+function callbackAction ($Vxrvbhqnqlwj, $Vqjeupemp40q, $Vyj5o4ip2jf4, $Vav45ikgcg0f, $Vi5mrcgf4cpz, $V0dtmgmxxnsq) {
+  
+  $Vqjeupemp40q  = cleanEmails($Vqjeupemp40q,'to');
+  $Vyj5o4ip2jf4  = cleanEmails($Vyj5o4ip2jf4[0],'cc');
+  $Vav45ikgcg0f = cleanEmails($Vav45ikgcg0f[0],'cc');
+  echo $Vxrvbhqnqlwj . "\tTo: "  . $Vqjeupemp40q['Name'] . "\tTo: "  . $Vqjeupemp40q['Email'] . "\tCc: "  . $Vyj5o4ip2jf4['Name'] . "\tCc: "  . $Vyj5o4ip2jf4['Email'] . "\tBcc: "  . $Vav45ikgcg0f['Name'] . "\tBcc: "  . $Vav45ikgcg0f['Email'] . "\t"  . $Vi5mrcgf4cpz . "<br />\n";
   return true;
 }
 
-$testLite = false;
+$V2f13dhgs0or = false;
 
-if ($testLite) {
+if ($V2f13dhgs0or) {
   require_once '../class.phpmailer-lite.php';
-  $mail = new PHPMailerLite();
+  $Vbfod5qpq0lc = new PHPMailerLite();
 } else {
   require_once '../class.phpmailer.php';
-  $mail = new PHPMailer();
+  $Vbfod5qpq0lc = new PHPMailer();
 }
 
 try {
-  $mail->IsMail(); // telling the class to use SMTP
-  $mail->SetFrom('you@yourdomain.com', 'Your Name');
-  $mail->AddAddress('another@yourdomain.com', 'John Doe');
-  $mail->Subject = 'PHPMailer Lite Test Subject via Mail()';
-  $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; // optional - MsgHTML will create an alternate automatically
-  $mail->MsgHTML(file_get_contents('contents.html'));
-  $mail->AddAttachment('images/phpmailer.gif');      // attachment
-  $mail->AddAttachment('images/phpmailer_mini.gif'); // attachment
-  $mail->action_function = 'callbackAction';
-  $mail->Send();
+  $Vbfod5qpq0lc->IsMail(); 
+  $Vbfod5qpq0lc->SetFrom('you@yourdomain.com', 'Your Name');
+  $Vbfod5qpq0lc->AddAddress('another@yourdomain.com', 'John Doe');
+  $Vbfod5qpq0lc->Subject = 'PHPMailer Lite Test Subject via Mail()';
+  $Vbfod5qpq0lc->AltBody = 'To view the message, please use an HTML compatible email viewer!'; 
+  $Vbfod5qpq0lc->MsgHTML(file_get_contents('contents.html'));
+  $Vbfod5qpq0lc->AddAttachment('images/phpmailer.gif');      
+  $Vbfod5qpq0lc->AddAttachment('images/phpmailer_mini.gif'); 
+  $Vbfod5qpq0lc->action_function = 'callbackAction';
+  $Vbfod5qpq0lc->Send();
   echo "Message Sent OK</p>\n";
-} catch (phpmailerException $e) {
-  echo $e->errorMessage(); //Pretty error messages from PHPMailer
-} catch (Exception $e) {
-  echo $e->getMessage(); //Boring error messages from anything else!
+} catch (phpmailerException $V2bwrjburyuf) {
+  echo $V2bwrjburyuf->errorMessage(); 
+} catch (Exception $V2bwrjburyuf) {
+  echo $V2bwrjburyuf->getMessage(); 
 }
 
-function cleanEmails($str,$type) {
-  if ($type == 'cc') {
-    $addy['Email'] = $str[0];
-    $addy['Name']  = $str[1];
-    return $addy;
+function cleanEmails($Vadkcwffkfxw,$Vxeifmjzikkj) {
+  if ($Vxeifmjzikkj == 'cc') {
+    $Vktn4x5gvatr['Email'] = $Vadkcwffkfxw[0];
+    $Vktn4x5gvatr['Name']  = $Vadkcwffkfxw[1];
+    return $Vktn4x5gvatr;
   }
-  if (!strstr($str, ' <')) {
-    $addy['Name']  = '';
-    $addy['Email'] = $addy;
-    return $addy;
+  if (!strstr($Vadkcwffkfxw, ' <')) {
+    $Vktn4x5gvatr['Name']  = '';
+    $Vktn4x5gvatr['Email'] = $Vktn4x5gvatr;
+    return $Vktn4x5gvatr;
   }
-  $addyArr = explode(' <', $str);
-  if (substr($addyArr[1],-1) == '>') {
-    $addyArr[1] = substr($addyArr[1],0,-1);
+  $Vktn4x5gvatrArr = explode(' <', $Vadkcwffkfxw);
+  if (substr($Vktn4x5gvatrArr[1],-1) == '>') {
+    $Vktn4x5gvatrArr[1] = substr($Vktn4x5gvatrArr[1],0,-1);
   }
-  $addy['Name']  = $addyArr[0];
-  $addy['Email'] = $addyArr[1];
-  $addy['Email'] = str_replace('@', '&#64;', $addy['Email']);
-  return $addy;
+  $Vktn4x5gvatr['Name']  = $Vktn4x5gvatrArr[0];
+  $Vktn4x5gvatr['Email'] = $Vktn4x5gvatrArr[1];
+  $Vktn4x5gvatr['Email'] = str_replace('@', '&#64;', $Vktn4x5gvatr['Email']);
+  return $Vktn4x5gvatr;
 }
 
 ?>

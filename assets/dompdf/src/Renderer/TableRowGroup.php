@@ -1,50 +1,39 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\Renderer;
 
 use Dompdf\Frame;
 
-/**
- * Renders block frames
- *
- * @package dompdf
- */
+
 class TableRowGroup extends Block
 {
 
-    /**
-     * @param Frame $frame
-     */
-    function render(Frame $frame)
+    
+    function render(Frame $Vnk2ly5jcvjf)
     {
-        $style = $frame->get_style();
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
 
-        $this->_set_opacity($frame->get_opacity($style->opacity));
+        $this->_set_opacity($Vnk2ly5jcvjf->get_opacity($Vdidzwb0w3vc->opacity));
 
-        $this->_render_border($frame);
-        $this->_render_outline($frame);
+        $this->_render_border($Vnk2ly5jcvjf);
+        $this->_render_outline($Vnk2ly5jcvjf);
 
         if ($this->_dompdf->getOptions()->getDebugLayout() && $this->_dompdf->getOptions()->getDebugLayoutBlocks()) {
-            $this->_debug_layout($frame->get_border_box(), "red");
+            $this->_debug_layout($Vnk2ly5jcvjf->get_border_box(), "red");
             if ($this->_dompdf->getOptions()->getDebugLayoutPaddingBox()) {
-                $this->_debug_layout($frame->get_padding_box(), "red", array(0.5, 0.5));
+                $this->_debug_layout($Vnk2ly5jcvjf->get_padding_box(), "red", array(0.5, 0.5));
             }
         }
 
-        if ($this->_dompdf->getOptions()->getDebugLayout() && $this->_dompdf->getOptions()->getDebugLayoutLines() && $frame->get_decorator()) {
-            foreach ($frame->get_decorator()->get_line_boxes() as $line) {
-                $frame->_debug_layout(array($line->x, $line->y, $line->w, $line->h), "orange");
+        if ($this->_dompdf->getOptions()->getDebugLayout() && $this->_dompdf->getOptions()->getDebugLayoutLines() && $Vnk2ly5jcvjf->get_decorator()) {
+            foreach ($Vnk2ly5jcvjf->get_decorator()->get_line_boxes() as $V4m4rbmlpgn2) {
+                $Vnk2ly5jcvjf->_debug_layout(array($V4m4rbmlpgn2->x, $V4m4rbmlpgn2->y, $V4m4rbmlpgn2->w, $V4m4rbmlpgn2->h), "orange");
             }
         }
 
-        $id = $frame->get_node()->getAttribute("id");
-        if (strlen($id) > 0)  {
-            $this->_canvas->add_named_dest($id);
+        $Vkriocz2qep2 = $Vnk2ly5jcvjf->get_node()->getAttribute("id");
+        if (strlen($Vkriocz2qep2) > 0)  {
+            $this->_canvas->add_named_dest($Vkriocz2qep2);
         }
     }
 }

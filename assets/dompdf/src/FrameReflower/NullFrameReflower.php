@@ -1,37 +1,23 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Dompdf\FrameReflower;
 
 use Dompdf\Frame;
 use Dompdf\FrameDecorator\Block as BlockFrameDecorator;
 
-/**
- * Dummy reflower
- *
- * @package dompdf
- */
+
 class NullFrameReflower extends AbstractFrameReflower
 {
 
-    /**
-     * NullFrameReflower constructor.
-     * @param Frame $frame
-     */
-    function __construct(Frame $frame)
+    
+    function __construct(Frame $Vnk2ly5jcvjf)
     {
-        parent::__construct($frame);
+        parent::__construct($Vnk2ly5jcvjf);
     }
 
-    /**
-     * @param BlockFrameDecorator|null $block
-     */
-    function reflow(BlockFrameDecorator $block = null)
+    
+    function reflow(BlockFrameDecorator $Vwoflziz3q5d = null)
     {
         return;
     }

@@ -1,10 +1,5 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien M�nager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Surface;
 
@@ -15,41 +10,41 @@ class SurfaceCpdf implements SurfaceInterface
 {
     const DEBUG = false;
 
-    /** @var \CPdf\CPdf */
-    private $canvas;
+    
+    private $Vvzurwoc24em;
 
-    private $width;
-    private $height;
+    private $Vztt3qdrrikx;
+    private $Vku40chc0ddp;
 
-    /** @var Style */
-    private $style;
+    
+    private $Vdidzwb0w3vc;
 
-    public function __construct(Document $doc, $canvas = null)
+    public function __construct(Document $V4qtyvi2vak4, $Vvzurwoc24em = null)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
 
-        $dimensions = $doc->getDimensions();
-        $w = $dimensions["width"];
-        $h = $dimensions["height"];
+        $Vzfvldvlrsd3 = $V4qtyvi2vak4->getDimensions();
+        $Vhoifq2kocyt = $Vzfvldvlrsd3["width"];
+        $Vjlmjalejjxa = $Vzfvldvlrsd3["height"];
 
-        if (!$canvas) {
-            $canvas = new \CPdf\CPdf(array(0, 0, $w, $h));
-            $refl = new \ReflectionClass($canvas);
-            $canvas->fontcache = realpath(dirname($refl->getFileName()) . "/../../fonts/")."/";
+        if (!$Vvzurwoc24em) {
+            $Vvzurwoc24em = new \CPdf\CPdf(array(0, 0, $Vhoifq2kocyt, $Vjlmjalejjxa));
+            $Vhf4pkycqk10 = new \ReflectionClass($Vvzurwoc24em);
+            $Vvzurwoc24em->fontcache = realpath(dirname($Vhf4pkycqk10->getFileName()) . "/../../fonts/")."/";
         }
 
-        // Flip PDF coordinate system so that the origin is in
-        // the top left rather than the bottom left
-        $canvas->transform(array(
+        
+        
+        $Vvzurwoc24em->transform(array(
             1,  0,
             0, -1,
-            0, $h
+            0, $Vjlmjalejjxa
         ));
 
-        $this->width  = $w;
-        $this->height = $h;
+        $this->width  = $Vhoifq2kocyt;
+        $this->height = $Vjlmjalejjxa;
 
-        $this->canvas = $canvas;
+        $this->canvas = $Vvzurwoc24em;
     }
 
     function out()
@@ -70,50 +65,50 @@ class SurfaceCpdf implements SurfaceInterface
         $this->canvas->restore();
     }
 
-    public function scale($x, $y)
+    public function scale($Vs4gloy23a1d, $Vopgub02o3q2)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
 
-        $this->transform($x, 0, 0, $y, 0, 0);
+        $this->transform($Vs4gloy23a1d, 0, 0, $Vopgub02o3q2, 0, 0);
     }
 
-    public function rotate($angle)
+    public function rotate($Vtmcaiuo2hqy)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
 
-        $a = deg2rad($angle);
-        $cos_a = cos($a);
-        $sin_a = sin($a);
+        $Vrr3orqjztc2 = deg2rad($Vtmcaiuo2hqy);
+        $Vuighf4vnrhj = cos($Vrr3orqjztc2);
+        $Vgdmmikhhqfi = sin($Vrr3orqjztc2);
 
         $this->transform(
-            $cos_a,                         $sin_a,
-            -$sin_a,                         $cos_a,
+            $Vuighf4vnrhj,                         $Vgdmmikhhqfi,
+            -$Vgdmmikhhqfi,                         $Vuighf4vnrhj,
             0, 0
         );
     }
 
-    public function translate($x, $y)
+    public function translate($Vs4gloy23a1d, $Vopgub02o3q2)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
 
         $this->transform(
             1,  0,
             0,  1,
-            $x, $y
+            $Vs4gloy23a1d, $Vopgub02o3q2
         );
     }
 
-    public function transform($a, $b, $c, $d, $e, $f)
+    public function transform($Vrr3orqjztc2, $Vbz3vmbr1h2v, $Vv03lfntnmcz, $Vcyg5xmwfpxo, $V2bwrjburyuf, $V4ljftfdeqpl)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
 
-        $this->canvas->transform(array($a, $b, $c, $d, $e, $f));
+        $this->canvas->transform(array($Vrr3orqjztc2, $Vbz3vmbr1h2v, $Vv03lfntnmcz, $Vcyg5xmwfpxo, $V2bwrjburyuf, $V4ljftfdeqpl));
     }
 
     public function beginPath()
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        // TODO: Implement beginPath() method.
+        
     }
 
     public function closePath()
@@ -134,199 +129,197 @@ class SurfaceCpdf implements SurfaceInterface
         $this->canvas->clip();
     }
 
-    public function fillText($text, $x, $y, $maxWidth = null)
+    public function fillText($Vnlbbd31sxbf, $Vs4gloy23a1d, $Vopgub02o3q2, $Vv44wp1i5zfs = null)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->addText($x, $y, $this->style->fontSize, $text);
+        $this->canvas->addText($Vs4gloy23a1d, $Vopgub02o3q2, $this->style->fontSize, $Vnlbbd31sxbf);
     }
 
-    public function strokeText($text, $x, $y, $maxWidth = null)
+    public function strokeText($Vnlbbd31sxbf, $Vs4gloy23a1d, $Vopgub02o3q2, $Vv44wp1i5zfs = null)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->addText($x, $y, $this->style->fontSize, $text);
+        $this->canvas->addText($Vs4gloy23a1d, $Vopgub02o3q2, $this->style->fontSize, $Vnlbbd31sxbf);
     }
 
-    public function drawImage($image, $sx, $sy, $sw = null, $sh = null, $dx = null, $dy = null, $dw = null, $dh = null)
+    public function drawImage($Vnxkvrc5q2ng, $Vjz2piyfb2ut, $Vskekw1ijrky, $Vwuismxitwwp = null, $Vdsvjjxxrru4 = null, $Vcyg5xmwfpxox = null, $Vcyg5xmwfpxoy = null, $Vcyg5xmwfpxow = null, $Vcyg5xmwfpxoh = null)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
 
-        if (strpos($image, "data:") === 0) {
-            $parts = explode(',', $image, 2);
+        if (strpos($Vnxkvrc5q2ng, "data:") === 0) {
+            $V2crka1tlwcy = explode(',', $Vnxkvrc5q2ng, 2);
 
-            $data = $parts[1];
-            $base64 = false;
+            $Vcyg5xmwfpxoata = $V2crka1tlwcy[1];
+            $Vbz3vmbr1h2vase64 = false;
 
-            $token = strtok($parts[0], ';');
-            while ($token !== false) {
-                if ($token == 'base64') {
-                    $base64 = true;
+            $Vtjy01iaorqx = strtok($V2crka1tlwcy[0], ';');
+            while ($Vtjy01iaorqx !== false) {
+                if ($Vtjy01iaorqx == 'base64') {
+                    $Vbz3vmbr1h2vase64 = true;
                 }
 
-                $token = strtok(';');
+                $Vtjy01iaorqx = strtok(';');
             }
 
-            if ($base64) {
-                $data = base64_decode($data);
+            if ($Vbz3vmbr1h2vase64) {
+                $Vcyg5xmwfpxoata = base64_decode($Vcyg5xmwfpxoata);
             }
         }
         else {
-            $data = file_get_contents($image);
+            $Vcyg5xmwfpxoata = file_get_contents($Vnxkvrc5q2ng);
         }
 
-        $image = tempnam("", "svg");
-        file_put_contents($image, $data);
+        $Vnxkvrc5q2ng = tempnam("", "svg");
+        file_put_contents($Vnxkvrc5q2ng, $Vcyg5xmwfpxoata);
 
-        $img = $this->image($image, $sx, $sy, $sw, $sh, "normal");
+        $V1bb0p4see5o = $this->image($Vnxkvrc5q2ng, $Vjz2piyfb2ut, $Vskekw1ijrky, $Vwuismxitwwp, $Vdsvjjxxrru4, "normal");
 
 
-        unlink($image);
+        unlink($Vnxkvrc5q2ng);
     }
 
-    public static function getimagesize($filename)
+    public static function getimagesize($V4ljftfdeqplilename)
     {
-        static $cache = array();
+        static $Vv03lfntnmczache = array();
 
-        if (isset($cache[$filename])) {
-            return $cache[$filename];
+        if (isset($Vv03lfntnmczache[$V4ljftfdeqplilename])) {
+            return $Vv03lfntnmczache[$V4ljftfdeqplilename];
         }
 
-        list($width, $height, $type) = getimagesize($filename);
+        list($Vztt3qdrrikx, $Vku40chc0ddp, $Vxeifmjzikkj) = getimagesize($V4ljftfdeqplilename);
 
-        if ($width == null || $height == null) {
-            $data = file_get_contents($filename, null, null, 0, 26);
+        if ($Vztt3qdrrikx == null || $Vku40chc0ddp == null) {
+            $Vcyg5xmwfpxoata = file_get_contents($V4ljftfdeqplilename, null, null, 0, 26);
 
-            if (substr($data, 0, 2) === "BM") {
-                $meta = unpack('vtype/Vfilesize/Vreserved/Voffset/Vheadersize/Vwidth/Vheight', $data);
-                $width = (int)$meta['width'];
-                $height = (int)$meta['height'];
-                $type = IMAGETYPE_BMP;
+            if (substr($Vcyg5xmwfpxoata, 0, 2) === "BM") {
+                $V1phfyh5exyy = unpack('vtype/Vfilesize/Vreserved/Voffset/Vheadersize/Vwidth/Vheight', $Vcyg5xmwfpxoata);
+                $Vztt3qdrrikx = (int)$V1phfyh5exyy['width'];
+                $Vku40chc0ddp = (int)$V1phfyh5exyy['height'];
+                $Vxeifmjzikkj = IMAGETYPE_BMP;
             }
         }
 
-        return $cache[$filename] = array($width, $height, $type);
+        return $Vv03lfntnmczache[$V4ljftfdeqplilename] = array($Vztt3qdrrikx, $Vku40chc0ddp, $Vxeifmjzikkj);
     }
 
-    function image($img, $x, $y, $w, $h, $resolution = "normal")
+    function image($V1bb0p4see5o, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vcp3240dq5y1 = "normal")
     {
-        list($width, $height, $type) = $this->getimagesize($img);
+        list($Vztt3qdrrikx, $Vku40chc0ddp, $Vxeifmjzikkj) = $this->getimagesize($V1bb0p4see5o);
 
-        switch ($type) {
+        switch ($Vxeifmjzikkj) {
             case IMAGETYPE_JPEG:
-                $this->canvas->addJpegFromFile($img, $x, $y - $h, $w, $h);
+                $this->canvas->addJpegFromFile($V1bb0p4see5o, $Vs4gloy23a1d, $Vopgub02o3q2 - $Vjlmjalejjxa, $Vhoifq2kocyt, $Vjlmjalejjxa);
                 break;
 
             case IMAGETYPE_GIF:
             case IMAGETYPE_BMP:
-                // @todo use cache for BMP and GIF
-                $img = $this->_convert_gif_bmp_to_png($img, $type);
+                
+                $V1bb0p4see5o = $this->_convert_gif_bmp_to_png($V1bb0p4see5o, $Vxeifmjzikkj);
 
             case IMAGETYPE_PNG:
-                $this->canvas->addPngFromFile($img, $x, $y - $h, $w, $h);
+                $this->canvas->addPngFromFile($V1bb0p4see5o, $Vs4gloy23a1d, $Vopgub02o3q2 - $Vjlmjalejjxa, $Vhoifq2kocyt, $Vjlmjalejjxa);
                 break;
 
             default:
         }
     }
 
-    public function lineTo($x, $y)
+    public function lineTo($Vs4gloy23a1d, $Vopgub02o3q2)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->lineTo($x, $y);
+        $this->canvas->lineTo($Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    public function moveTo($x, $y)
+    public function moveTo($Vs4gloy23a1d, $Vopgub02o3q2)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->moveTo($x, $y);
+        $this->canvas->moveTo($Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    public function quadraticCurveTo($cpx, $cpy, $x, $y)
+    public function quadraticCurveTo($Vv03lfntnmczpx, $Vv03lfntnmczpy, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
 
-        // FIXME not accurate
-        $this->canvas->quadTo($cpx, $cpy, $x, $y);
+        
+        $this->canvas->quadTo($Vv03lfntnmczpx, $Vv03lfntnmczpy, $Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    public function bezierCurveTo($cp1x, $cp1y, $cp2x, $cp2y, $x, $y)
+    public function bezierCurveTo($Vv03lfntnmczp1x, $Vv03lfntnmczp1y, $Vv03lfntnmczp2x, $Vv03lfntnmczp2y, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->curveTo($cp1x, $cp1y, $cp2x, $cp2y, $x, $y);
+        $this->canvas->curveTo($Vv03lfntnmczp1x, $Vv03lfntnmczp1y, $Vv03lfntnmczp2x, $Vv03lfntnmczp2y, $Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    public function arcTo($x1, $y1, $x2, $y2, $radius)
+    public function arcTo($Vs4gloy23a1d1, $Vopgub02o3q21, $Vs4gloy23a1d2, $Vopgub02o3q22, $V4tsg1pc0dnr)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
     }
 
-    public function arc($x, $y, $radius, $startAngle, $endAngle, $anticlockwise = false)
+    public function arc($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnr, $Vk21laijil03, $V2bwrjburyufndAngle, $Vrr3orqjztc2nticlockwise = false)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->ellipse($x, $y, $radius, $radius, 0, 8, $startAngle, $endAngle, false, false, false, true);
+        $this->canvas->ellipse($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnr, $V4tsg1pc0dnr, 0, 8, $Vk21laijil03, $V2bwrjburyufndAngle, false, false, false, true);
     }
 
-    public function circle($x, $y, $radius)
+    public function circle($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnr)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->ellipse($x, $y, $radius, $radius, 0, 8, 0, 360, true, false, false, false);
+        $this->canvas->ellipse($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnr, $V4tsg1pc0dnr, 0, 8, 0, 360, true, false, false, false);
     }
 
-    public function ellipse($x, $y, $radiusX, $radiusY, $rotation, $startAngle, $endAngle, $anticlockwise)
+    public function ellipse($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnrX, $V4tsg1pc0dnrY, $Vodyfhojz44d, $Vk21laijil03, $V2bwrjburyufndAngle, $Vrr3orqjztc2nticlockwise)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->ellipse($x, $y, $radiusX, $radiusY, 0, 8, 0, 360, false, false, false, false);
+        $this->canvas->ellipse($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnrX, $V4tsg1pc0dnrY, 0, 8, 0, 360, false, false, false, false);
     }
 
-    public function fillRect($x, $y, $w, $h)
+    public function fillRect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->rect($x, $y, $w, $h);
+        $this->rect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa);
         $this->fill();
     }
 
-    public function rect($x, $y, $w, $h, $rx = 0, $ry = 0)
+    public function rect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vvyapc0zfcyf = 0, $Vzvzlsqbnl5g = 0)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
 
-        $canvas = $this->canvas;
+        $Vvzurwoc24em = $this->canvas;
 
-        if ($rx <= 0.000001/* && $ry <= 0.000001*/) {
-            $canvas->rect($x, $y, $w, $h);
+        if ($Vvyapc0zfcyf <= 0.000001) {
+            $Vvzurwoc24em->rect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa);
 
             return;
         }
 
-        $rx = min($rx, $w / 2);
-        $rx = min($rx, $h / 2);
+        $Vvyapc0zfcyf = min($Vvyapc0zfcyf, $Vhoifq2kocyt / 2);
+        $Vvyapc0zfcyf = min($Vvyapc0zfcyf, $Vjlmjalejjxa / 2);
 
-        /* Define a path for a rectangle with corners rounded by a given radius.
-         * Start from the lower left corner and proceed counterclockwise.
-         */
-        $this->moveTo($x + $rx, $y);
+        
+        $this->moveTo($Vs4gloy23a1d + $Vvyapc0zfcyf, $Vopgub02o3q2);
 
-        /* Start of the arc segment in the lower right corner */
-        $this->lineTo($x + $w - $rx, $y);
+        
+        $this->lineTo($Vs4gloy23a1d + $Vhoifq2kocyt - $Vvyapc0zfcyf, $Vopgub02o3q2);
 
-        /* Arc segment in the lower right corner */
-        $this->arc($x + $w - $rx, $y + $rx, $rx, 270, 360);
+        
+        $this->arc($Vs4gloy23a1d + $Vhoifq2kocyt - $Vvyapc0zfcyf, $Vopgub02o3q2 + $Vvyapc0zfcyf, $Vvyapc0zfcyf, 270, 360);
 
-        /* Start of the arc segment in the upper right corner */
-        $this->lineTo($x + $w, $y + $h - $rx );
+        
+        $this->lineTo($Vs4gloy23a1d + $Vhoifq2kocyt, $Vopgub02o3q2 + $Vjlmjalejjxa - $Vvyapc0zfcyf );
 
-        /* Arc segment in the upper right corner */
-        $this->arc($x + $w - $rx, $y + $h - $rx, $rx, 0, 90);
+        
+        $this->arc($Vs4gloy23a1d + $Vhoifq2kocyt - $Vvyapc0zfcyf, $Vopgub02o3q2 + $Vjlmjalejjxa - $Vvyapc0zfcyf, $Vvyapc0zfcyf, 0, 90);
 
-        /* Start of the arc segment in the upper left corner */
-        $this->lineTo($x + $rx, $y + $h);
+        
+        $this->lineTo($Vs4gloy23a1d + $Vvyapc0zfcyf, $Vopgub02o3q2 + $Vjlmjalejjxa);
 
-        /* Arc segment in the upper left corner */
-        $this->arc($x + $rx, $y + $h - $rx, $rx, 90, 180);
+        
+        $this->arc($Vs4gloy23a1d + $Vvyapc0zfcyf, $Vopgub02o3q2 + $Vjlmjalejjxa - $Vvyapc0zfcyf, $Vvyapc0zfcyf, 90, 180);
 
-        /* Start of the arc segment in the lower left corner */
-        $this->lineTo($x , $y + $rx);
+        
+        $this->lineTo($Vs4gloy23a1d , $Vopgub02o3q2 + $Vvyapc0zfcyf);
 
-        /* Arc segment in the lower left corner */
-        $this->arc($x + $rx, $y + $rx, $rx, 180, 270);
+        
+        $this->arc($Vs4gloy23a1d + $Vvyapc0zfcyf, $Vopgub02o3q2 + $Vvyapc0zfcyf, $Vvyapc0zfcyf, 180, 270);
     }
 
     public function fill()
@@ -335,10 +328,10 @@ class SurfaceCpdf implements SurfaceInterface
         $this->canvas->fill();
     }
 
-    public function strokeRect($x, $y, $w, $h)
+    public function strokeRect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->rect($x, $y, $w, $h);
+        $this->rect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa);
         $this->stroke();
     }
 
@@ -354,13 +347,13 @@ class SurfaceCpdf implements SurfaceInterface
         $this->canvas->endPath();
     }
 
-    public function measureText($text)
+    public function measureText($Vnlbbd31sxbf)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $style = $this->getStyle();
-        $this->setFont($style->fontFamily, $style->fontStyle, $style->fontWeight);
+        $Vdidzwb0w3vc = $this->getStyle();
+        $this->setFont($Vdidzwb0w3vc->fontFamily, $Vdidzwb0w3vc->fontStyle, $Vdidzwb0w3vc->fontWeight);
 
-        return $this->canvas->getTextWidth($this->getStyle()->fontSize, $text);
+        return $this->canvas->getTextWidth($this->getStyle()->fontSize, $Vnlbbd31sxbf);
     }
 
     public function getStyle()
@@ -369,65 +362,65 @@ class SurfaceCpdf implements SurfaceInterface
         return $this->style;
     }
 
-    public function setStyle(Style $style)
+    public function setStyle(Style $Vdidzwb0w3vc)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
 
-        $this->style = $style;
-        $canvas = $this->canvas;
+        $this->style = $Vdidzwb0w3vc;
+        $Vvzurwoc24em = $this->canvas;
 
-        if (is_array($style->stroke) && $stroke = $style->stroke) {
-            $canvas->setStrokeColor(array((float)$stroke[0]/255, (float)$stroke[1]/255, (float)$stroke[2]/255), true);
+        if (is_array($Vdidzwb0w3vc->stroke) && $Vihuafvzvxcv = $Vdidzwb0w3vc->stroke) {
+            $Vvzurwoc24em->setStrokeColor(array((float)$Vihuafvzvxcv[0]/255, (float)$Vihuafvzvxcv[1]/255, (float)$Vihuafvzvxcv[2]/255), true);
         }
 
-        if (is_array($style->fill) && $fill = $style->fill) {
-            $canvas->setColor(array((float)$fill[0]/255, (float)$fill[1]/255, (float)$fill[2]/255), true);
+        if (is_array($Vdidzwb0w3vc->fill) && $V4ljftfdeqplill = $Vdidzwb0w3vc->fill) {
+            $Vvzurwoc24em->setColor(array((float)$V4ljftfdeqplill[0]/255, (float)$V4ljftfdeqplill[1]/255, (float)$V4ljftfdeqplill[2]/255), true);
         }
 
-        if ($fillRule = strtolower($style->fillRule)) {
-            $canvas->setFillRule($fillRule);
+        if ($V4ljftfdeqplillRule = strtolower($Vdidzwb0w3vc->fillRule)) {
+            $Vvzurwoc24em->setFillRule($V4ljftfdeqplillRule);
         }
 
-        $opacity = $style->opacity;
-        if ($opacity !== null && $opacity < 1.0) {
-            $canvas->setLineTransparency("Normal", $opacity);
-            $canvas->currentLineTransparency = null;
+        $Vdrvff4n2sqc = $Vdidzwb0w3vc->opacity;
+        if ($Vdrvff4n2sqc !== null && $Vdrvff4n2sqc < 1.0) {
+            $Vvzurwoc24em->setLineTransparency("Normal", $Vdrvff4n2sqc);
+            $Vvzurwoc24em->currentLineTransparency = null;
 
-            $canvas->setFillTransparency("Normal", $opacity);
-            $canvas->currentFillTransparency = null;
+            $Vvzurwoc24em->setFillTransparency("Normal", $Vdrvff4n2sqc);
+            $Vvzurwoc24em->currentFillTransparency = null;
         }
         else {
-            $fillOpacity = $style->fillOpacity;
-            if ($fillOpacity !== null && $fillOpacity < 1.0) {
-                $canvas->setFillTransparency("Normal", $fillOpacity);
-                $canvas->currentFillTransparency = null;
+            $V4ljftfdeqplillOpacity = $Vdidzwb0w3vc->fillOpacity;
+            if ($V4ljftfdeqplillOpacity !== null && $V4ljftfdeqplillOpacity < 1.0) {
+                $Vvzurwoc24em->setFillTransparency("Normal", $V4ljftfdeqplillOpacity);
+                $Vvzurwoc24em->currentFillTransparency = null;
             }
 
-            $strokeOpacity = $style->strokeOpacity;
-            if ($strokeOpacity !== null && $strokeOpacity < 1.0) {
-                $canvas->setLineTransparency("Normal", $strokeOpacity);
-                $canvas->currentLineTransparency = null;
+            $VihuafvzvxcvOpacity = $Vdidzwb0w3vc->strokeOpacity;
+            if ($VihuafvzvxcvOpacity !== null && $VihuafvzvxcvOpacity < 1.0) {
+                $Vvzurwoc24em->setLineTransparency("Normal", $VihuafvzvxcvOpacity);
+                $Vvzurwoc24em->currentLineTransparency = null;
             }
         }
 
-        $dashArray = null;
-        if ($style->strokeDasharray) {
-            $dashArray = preg_split('/\s*,\s*/', $style->strokeDasharray);
+        $Vcyg5xmwfpxoashArray = null;
+        if ($Vdidzwb0w3vc->strokeDasharray) {
+            $Vcyg5xmwfpxoashArray = preg_split('/\s*,\s*/', $Vdidzwb0w3vc->strokeDasharray);
         }
 
-        $canvas->setLineStyle(
-            $style->strokeWidth,
-            $style->strokeLinecap,
-            $style->strokeLinejoin,
-            $dashArray
+        $Vvzurwoc24em->setLineStyle(
+            $Vdidzwb0w3vc->strokeWidth,
+            $Vdidzwb0w3vc->strokeLinecap,
+            $Vdidzwb0w3vc->strokeLinejoin,
+            $Vcyg5xmwfpxoashArray
         );
 
-        $this->setFont($style->fontFamily, $style->fontStyle, $style->fontWeight);
+        $this->setFont($Vdidzwb0w3vc->fontFamily, $Vdidzwb0w3vc->fontStyle, $Vdidzwb0w3vc->fontWeight);
     }
 
-    public function setFont($family, $style, $weight)
+    public function setFont($V4ljftfdeqplamily, $Vdidzwb0w3vc, $Vhoifq2kocyteight)
     {
-        $map = array(
+        $V02cy3ehfkm0 = array(
             "serif"      => "Times",
             "sans-serif" => "Helvetica",
             "fantasy"    => "Symbol",
@@ -438,7 +431,7 @@ class SurfaceCpdf implements SurfaceInterface
             "verdana"    => "Helvetica",
         );
 
-        $styleMap = array(
+        $Vdidzwb0w3vcMap = array(
             'Helvetica' => array(
                 'b'  => 'Helvetica-Bold',
                 'i'  => 'Helvetica-Oblique',
@@ -457,30 +450,30 @@ class SurfaceCpdf implements SurfaceInterface
             ),
         );
 
-        $family = strtolower($family);
-        $style  = strtolower($style);
-        $weight = strtolower($weight);
+        $V4ljftfdeqplamily = strtolower($V4ljftfdeqplamily);
+        $Vdidzwb0w3vc  = strtolower($Vdidzwb0w3vc);
+        $Vhoifq2kocyteight = strtolower($Vhoifq2kocyteight);
 
-        if (isset($map[$family])) {
-            $family = $map[$family];
+        if (isset($V02cy3ehfkm0[$V4ljftfdeqplamily])) {
+            $V4ljftfdeqplamily = $V02cy3ehfkm0[$V4ljftfdeqplamily];
         }
 
-        if (isset($styleMap[$family])) {
-            $key = "";
+        if (isset($Vdidzwb0w3vcMap[$V4ljftfdeqplamily])) {
+            $Vqwhzgethmgj = "";
 
-            if ($weight === "bold" || $weight === "bolder" || (is_numeric($weight) && $weight >= 600)) {
-                $key .= "b";
+            if ($Vhoifq2kocyteight === "bold" || $Vhoifq2kocyteight === "bolder" || (is_numeric($Vhoifq2kocyteight) && $Vhoifq2kocyteight >= 600)) {
+                $Vqwhzgethmgj .= "b";
             }
 
-            if ($style === "italic" || $style === "oblique") {
-                $key .= "i";
+            if ($Vdidzwb0w3vc === "italic" || $Vdidzwb0w3vc === "oblique") {
+                $Vqwhzgethmgj .= "i";
             }
 
-            if (isset($styleMap[$family][$key])) {
-                $family = $styleMap[$family][$key];
+            if (isset($Vdidzwb0w3vcMap[$V4ljftfdeqplamily][$Vqwhzgethmgj])) {
+                $V4ljftfdeqplamily = $Vdidzwb0w3vcMap[$V4ljftfdeqplamily][$Vqwhzgethmgj];
             }
         }
 
-        $this->canvas->selectFont("$family.afm");
+        $this->canvas->selectFont("$V4ljftfdeqplamily.afm");
     }
 }

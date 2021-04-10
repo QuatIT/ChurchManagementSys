@@ -1,31 +1,26 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Tag;
 
 class Polyline extends Shape
 {
-    public function start($attributes)
+    public function start($Voywws15cvz5)
     {
-        $tmp = array();
-        preg_match_all('/([\-]*[0-9\.]+)/', $attributes['points'], $tmp);
+        $Vynpm04a4fx0 = array();
+        preg_match_all('/([\-]*[0-9\.]+)/', $Voywws15cvz5['points'], $Vynpm04a4fx0);
 
-        $points = $tmp[0];
-        $count = count($points);
+        $V4jz4nyvrd2d = $Vynpm04a4fx0[0];
+        $Vj4h4hyymhja = count($V4jz4nyvrd2d);
 
-        $surface = $this->document->getSurface();
-        list($x, $y) = $points;
-        $surface->moveTo($x, $y);
+        $Vyjtkau4njyv = $this->document->getSurface();
+        list($Vs4gloy23a1d, $Vopgub02o3q2) = $V4jz4nyvrd2d;
+        $Vyjtkau4njyv->moveTo($Vs4gloy23a1d, $Vopgub02o3q2);
 
-        for ($i = 2; $i < $count; $i += 2) {
-            $x = $points[$i];
-            $y = $points[$i + 1];
-            $surface->lineTo($x, $y);
+        for ($V3xsptcgzss2 = 2; $V3xsptcgzss2 < $Vj4h4hyymhja; $V3xsptcgzss2 += 2) {
+            $Vs4gloy23a1d = $V4jz4nyvrd2d[$V3xsptcgzss2];
+            $Vopgub02o3q2 = $V4jz4nyvrd2d[$V3xsptcgzss2 + 1];
+            $Vyjtkau4njyv->lineTo($Vs4gloy23a1d, $Vopgub02o3q2);
         }
     }
 }

@@ -1,48 +1,28 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Dompdf\Positioner;
 
 use Dompdf\FrameDecorator\AbstractFrameDecorator;
 
-/**
- * Base AbstractPositioner class
- *
- * Defines postioner interface
- *
- * @access  private
- * @package dompdf
- */
+
 abstract class AbstractPositioner
 {
 
-    /**
-     * @param AbstractFrameDecorator $frame
-     * @return mixed
-     */
-    abstract function position(AbstractFrameDecorator $frame);
+    
+    abstract function position(AbstractFrameDecorator $Vnk2ly5jcvjf);
 
-    /**
-     * @param AbstractFrameDecorator $frame
-     * @param $offset_x
-     * @param $offset_y
-     * @param bool $ignore_self
-     */
-    function move(AbstractFrameDecorator $frame, $offset_x, $offset_y, $ignore_self = false)
+    
+    function move(AbstractFrameDecorator $Vnk2ly5jcvjf, $Valgvhs5my1x, $Vezx3f4fziht, $Vpr4krd2i0yv = false)
     {
-        list($x, $y) = $frame->get_position();
+        list($Vs4gloy23a1d, $Vopgub02o3q2) = $Vnk2ly5jcvjf->get_position();
 
-        if (!$ignore_self) {
-            $frame->set_position($x + $offset_x, $y + $offset_y);
+        if (!$Vpr4krd2i0yv) {
+            $Vnk2ly5jcvjf->set_position($Vs4gloy23a1d + $Valgvhs5my1x, $Vopgub02o3q2 + $Vezx3f4fziht);
         }
 
-        foreach ($frame->get_children() as $child) {
-            $child->move($offset_x, $offset_y);
+        foreach ($Vnk2ly5jcvjf->get_children() as $Vtcc233inn5m) {
+            $Vtcc233inn5m->move($Valgvhs5my1x, $Vezx3f4fziht);
         }
     }
 }

@@ -1,31 +1,15 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf;
 
 use Dompdf\FrameDecorator\Table as TableFrameDecorator;
 use Dompdf\FrameDecorator\TableCell as TableCellFrameDecorator;
 
-/**
- * Maps table cells to the table grid.
- *
- * This class resolves borders in tables with collapsed borders and helps
- * place row & column spanned table cells.
- *
- * @package dompdf
- */
+
 class Cellmap
 {
-    /**
-     * Border style weight lookup for collapsed border resolution.
-     *
-     * @var array
-     */
-    protected static $_BORDER_STYLE_SCORE = array(
+    
+    protected static $Vql1vwhdbcsd = array(
         "inset"  => 1,
         "groove" => 2,
         "outset" => 3,
@@ -38,102 +22,50 @@ class Cellmap
         "none"   => 0,
     );
 
-    /**
-     * The table object this cellmap is attached to.
-     *
-     * @var TableFrameDecorator
-     */
-    protected $_table;
+    
+    protected $Vwrnvghrrtwh;
 
-    /**
-     * The total number of rows in the table
-     *
-     * @var int
-     */
-    protected $_num_rows;
+    
+    protected $Vetfz3plczdi;
 
-    /**
-     * The total number of columns in the table
-     *
-     * @var int
-     */
-    protected $_num_cols;
+    
+    protected $V1yonf2ufslh;
 
-    /**
-     * 2D array mapping <row,column> to frames
-     *
-     * @var Frame[][]
-     */
-    protected $_cells;
+    
+    protected $Vo3jheqx5ui0;
 
-    /**
-     * 1D array of column dimensions
-     *
-     * @var array
-     */
-    protected $_columns;
+    
+    protected $Vfhwrot52buh;
 
-    /**
-     * 1D array of row dimensions
-     *
-     * @var array
-     */
-    protected $_rows;
+    
+    protected $Vkcuynxtasiq;
 
-    /**
-     * 2D array of border specs
-     *
-     * @var array
-     */
-    protected $_borders;
+    
+    protected $Vqp55q0su4ew;
 
-    /**
-     * 1D Array mapping frames to (multiple) <row, col> pairs, keyed on frame_id.
-     *
-     * @var Frame[]
-     */
-    protected $_frames;
+    
+    protected $Vassba4tcdne;
 
-    /**
-     * Current column when adding cells, 0-based
-     *
-     * @var int
-     */
-    private $__col;
+    
+    private $Vwpylnqznjbf;
 
-    /**
-     * Current row when adding cells, 0-based
-     *
-     * @var int
-     */
-    private $__row;
+    
+    private $Vn2ruyosnq5b;
 
-    /**
-     * Tells wether the columns' width can be modified
-     *
-     * @var bool
-     */
-    private $_columns_locked = false;
+    
+    private $Vfhwrot52buh_locked = false;
 
-    /**
-     * Tells wether the table has table-layout:fixed
-     *
-     * @var bool
-     */
-    private $_fixed_layout = false;
+    
+    private $Vj3qyjrwa4ck = false;
 
-    /**
-     * @param TableFrameDecorator $table
-     */
-    public function __construct(TableFrameDecorator $table)
+    
+    public function __construct(TableFrameDecorator $Vahqmfi4rdgw)
     {
-        $this->_table = $table;
+        $this->_table = $Vahqmfi4rdgw;
         $this->reset();
     }
 
-    /**
-     *
-     */
+    
     public function reset()
     {
         $this->_num_rows = 0;
@@ -153,79 +85,59 @@ class Cellmap
         $this->__col = $this->__row = 0;
     }
 
-    /**
-     *
-     */
+    
     public function lock_columns()
     {
         $this->_columns_locked = true;
     }
 
-    /**
-     * @return bool
-     */
+    
     public function is_columns_locked()
     {
         return $this->_columns_locked;
     }
 
-    /**
-     * @param $fixed
-     */
-    public function set_layout_fixed($fixed)
+    
+    public function set_layout_fixed($Vn2vno5qlvmg)
     {
-        $this->_fixed_layout = $fixed;
+        $this->_fixed_layout = $Vn2vno5qlvmg;
     }
 
-    /**
-     * @return bool
-     */
+    
     public function is_layout_fixed()
     {
         return $this->_fixed_layout;
     }
 
-    /**
-     * @return int
-     */
+    
     public function get_num_rows()
     {
         return $this->_num_rows;
     }
 
-    /**
-     * @return int
-     */
+    
     public function get_num_cols()
     {
         return $this->_num_cols;
     }
 
-    /**
-     * @return array
-     */
+    
     public function &get_columns()
     {
         return $this->_columns;
     }
 
-    /**
-     * @param $columns
-     */
-    public function set_columns($columns)
+    
+    public function set_columns($Vxw4j5wpetex)
     {
-        $this->_columns = $columns;
+        $this->_columns = $Vxw4j5wpetex;
     }
 
-    /**
-     * @param int $i
-     *
-     * @return mixed
-     */
-    public function &get_column($i)
+    
+    public function &get_column($V3xsptcgzss2)
     {
-        if (!isset($this->_columns[$i])) {
-            $this->_columns[$i] = array(
+        if (!isset($this->_columns[$V3xsptcgzss2])) {
+            $this->_columns[$V3xsptcgzss2] = array(
                 "x"          => 0,
                 "min-width"  => 0,
                 "max-width"  => 0,
@@ -236,679 +148,597 @@ class Cellmap
             );
         }
 
-        return $this->_columns[$i];
+        return $this->_columns[$V3xsptcgzss2];
     }
 
-    /**
-     * @return array
-     */
+    
     public function &get_rows()
     {
         return $this->_rows;
     }
 
-    /**
-     * @param int $j
-     *
-     * @return mixed
-     */
-    public function &get_row($j)
+    
+    public function &get_row($V0hg12l10vfx)
     {
-        if (!isset($this->_rows[$j])) {
-            $this->_rows[$j] = array(
+        if (!isset($this->_rows[$V0hg12l10vfx])) {
+            $this->_rows[$V0hg12l10vfx] = array(
                 "y"            => 0,
                 "first-column" => 0,
                 "height"       => null,
             );
         }
 
-        return $this->_rows[$j];
+        return $this->_rows[$V0hg12l10vfx];
     }
 
-    /**
-     * @param int $i
-     * @param int $j
-     * @param mixed $h_v
-     * @param null|mixed $prop
-     *
-     * @return mixed
-     */
-    public function get_border($i, $j, $h_v, $prop = null)
+    
+    public function get_border($V3xsptcgzss2, $V0hg12l10vfx, $Vzvbv01wop1w, $V3ztho1nxwdy = null)
     {
-        if (!isset($this->_borders[$i][$j][$h_v])) {
-            $this->_borders[$i][$j][$h_v] = array(
+        if (!isset($this->_borders[$V3xsptcgzss2][$V0hg12l10vfx][$Vzvbv01wop1w])) {
+            $this->_borders[$V3xsptcgzss2][$V0hg12l10vfx][$Vzvbv01wop1w] = array(
                 "width" => 0,
                 "style" => "solid",
                 "color" => "black",
             );
         }
 
-        if (isset($prop)) {
-            return $this->_borders[$i][$j][$h_v][$prop];
+        if (isset($V3ztho1nxwdy)) {
+            return $this->_borders[$V3xsptcgzss2][$V0hg12l10vfx][$Vzvbv01wop1w][$V3ztho1nxwdy];
         }
 
-        return $this->_borders[$i][$j][$h_v];
+        return $this->_borders[$V3xsptcgzss2][$V0hg12l10vfx][$Vzvbv01wop1w];
     }
 
-    /**
-     * @param int $i
-     * @param int $j
-     *
-     * @return array
-     */
-    public function get_border_properties($i, $j)
+    
+    public function get_border_properties($V3xsptcgzss2, $V0hg12l10vfx)
     {
         return array(
-            "top"    => $this->get_border($i, $j, "horizontal"),
-            "right"  => $this->get_border($i, $j + 1, "vertical"),
-            "bottom" => $this->get_border($i + 1, $j, "horizontal"),
-            "left"   => $this->get_border($i, $j, "vertical"),
+            "top"    => $this->get_border($V3xsptcgzss2, $V0hg12l10vfx, "horizontal"),
+            "right"  => $this->get_border($V3xsptcgzss2, $V0hg12l10vfx + 1, "vertical"),
+            "bottom" => $this->get_border($V3xsptcgzss2 + 1, $V0hg12l10vfx, "horizontal"),
+            "left"   => $this->get_border($V3xsptcgzss2, $V0hg12l10vfx, "vertical"),
         );
     }
 
-    /**
-     * @param Frame $frame
-     *
-     * @return null|Frame
-     */
-    public function get_spanned_cells(Frame $frame)
+    
+    public function get_spanned_cells(Frame $Vnk2ly5jcvjf)
     {
-        $key = $frame->get_id();
+        $Vqwhzgethmgj = $Vnk2ly5jcvjf->get_id();
 
-        if (isset($this->_frames[$key])) {
-            return $this->_frames[$key];
+        if (isset($this->_frames[$Vqwhzgethmgj])) {
+            return $this->_frames[$Vqwhzgethmgj];
         }
 
         return null;
     }
 
-    /**
-     * @param Frame $frame
-     *
-     * @return bool
-     */
-    public function frame_exists_in_cellmap(Frame $frame)
+    
+    public function frame_exists_in_cellmap(Frame $Vnk2ly5jcvjf)
     {
-        $key = $frame->get_id();
+        $Vqwhzgethmgj = $Vnk2ly5jcvjf->get_id();
 
-        return isset($this->_frames[$key]);
+        return isset($this->_frames[$Vqwhzgethmgj]);
     }
 
-    /**
-     * @param Frame $frame
-     *
-     * @return array
-     * @throws Exception
-     */
-    public function get_frame_position(Frame $frame)
+    
+    public function get_frame_position(Frame $Vnk2ly5jcvjf)
     {
-        global $_dompdf_warnings;
+        global $Vzm5jqiedkr4;
 
-        $key = $frame->get_id();
+        $Vqwhzgethmgj = $Vnk2ly5jcvjf->get_id();
 
-        if (!isset($this->_frames[$key])) {
+        if (!isset($this->_frames[$Vqwhzgethmgj])) {
             throw new Exception("Frame not found in cellmap");
         }
 
-        $col = $this->_frames[$key]["columns"][0];
-        $row = $this->_frames[$key]["rows"][0];
+        $Vhxdswanopzr = $this->_frames[$Vqwhzgethmgj]["columns"][0];
+        $Vnwijnctkkq3 = $this->_frames[$Vqwhzgethmgj]["rows"][0];
 
-        if (!isset($this->_columns[$col])) {
-            $_dompdf_warnings[] = "Frame not found in columns array.  Check your table layout for missing or extra TDs.";
-            $x = 0;
+        if (!isset($this->_columns[$Vhxdswanopzr])) {
+            $Vzm5jqiedkr4[] = "Frame not found in columns array.  Check your table layout for missing or extra TDs.";
+            $Vs4gloy23a1d = 0;
         } else {
-            $x = $this->_columns[$col]["x"];
+            $Vs4gloy23a1d = $this->_columns[$Vhxdswanopzr]["x"];
         }
 
-        if (!isset($this->_rows[$row])) {
-            $_dompdf_warnings[] = "Frame not found in row array.  Check your table layout for missing or extra TDs.";
-            $y = 0;
+        if (!isset($this->_rows[$Vnwijnctkkq3])) {
+            $Vzm5jqiedkr4[] = "Frame not found in row array.  Check your table layout for missing or extra TDs.";
+            $Vopgub02o3q2 = 0;
         } else {
-            $y = $this->_rows[$row]["y"];
+            $Vopgub02o3q2 = $this->_rows[$Vnwijnctkkq3]["y"];
         }
 
-        return array($x, $y, "x" => $x, "y" => $y);
+        return array($Vs4gloy23a1d, $Vopgub02o3q2, "x" => $Vs4gloy23a1d, "y" => $Vopgub02o3q2);
     }
 
-    /**
-     * @param Frame $frame
-     *
-     * @return int
-     * @throws Exception
-     */
-    public function get_frame_width(Frame $frame)
+    
+    public function get_frame_width(Frame $Vnk2ly5jcvjf)
     {
-        $key = $frame->get_id();
+        $Vqwhzgethmgj = $Vnk2ly5jcvjf->get_id();
 
-        if (!isset($this->_frames[$key])) {
+        if (!isset($this->_frames[$Vqwhzgethmgj])) {
             throw new Exception("Frame not found in cellmap");
         }
 
-        $cols = $this->_frames[$key]["columns"];
-        $w = 0;
-        foreach ($cols as $i) {
-            $w += $this->_columns[$i]["used-width"];
+        $Vhxdswanopzrs = $this->_frames[$Vqwhzgethmgj]["columns"];
+        $Vhoifq2kocyt = 0;
+        foreach ($Vhxdswanopzrs as $V3xsptcgzss2) {
+            $Vhoifq2kocyt += $this->_columns[$V3xsptcgzss2]["used-width"];
         }
 
-        return $w;
+        return $Vhoifq2kocyt;
     }
 
-    /**
-     * @param Frame $frame
-     *
-     * @return int
-     * @throws Exception
-     * @throws Exception
-     */
-    public function get_frame_height(Frame $frame)
+    
+    public function get_frame_height(Frame $Vnk2ly5jcvjf)
     {
-        $key = $frame->get_id();
+        $Vqwhzgethmgj = $Vnk2ly5jcvjf->get_id();
 
-        if (!isset($this->_frames[$key])) {
+        if (!isset($this->_frames[$Vqwhzgethmgj])) {
             throw new Exception("Frame not found in cellmap");
         }
 
-        $rows = $this->_frames[$key]["rows"];
-        $h = 0;
-        foreach ($rows as $i) {
-            if (!isset($this->_rows[$i])) {
-                throw new Exception("The row #$i could not be found, please file an issue in the tracker with the HTML code");
+        $Vnwijnctkkq3s = $this->_frames[$Vqwhzgethmgj]["rows"];
+        $Vjlmjalejjxa = 0;
+        foreach ($Vnwijnctkkq3s as $V3xsptcgzss2) {
+            if (!isset($this->_rows[$V3xsptcgzss2])) {
+                throw new Exception("The row #$V3xsptcgzss2 could not be found, please file an issue in the tracker with the HTML code");
             }
 
-            $h += $this->_rows[$i]["height"];
+            $Vjlmjalejjxa += $this->_rows[$V3xsptcgzss2]["height"];
         }
 
-        return $h;
+        return $Vjlmjalejjxa;
     }
 
-    /**
-     * @param int $j
-     * @param mixed $width
-     */
-    public function set_column_width($j, $width)
+    
+    public function set_column_width($V0hg12l10vfx, $Vhoifq2kocytidth)
     {
         if ($this->_columns_locked) {
             return;
         }
 
-        $col =& $this->get_column($j);
-        $col["used-width"] = $width;
-        $next_col =& $this->get_column($j + 1);
-        $next_col["x"] = $next_col["x"] + $width;
+        $Vhxdswanopzr =& $this->get_column($V0hg12l10vfx);
+        $Vhxdswanopzr["used-width"] = $Vhoifq2kocytidth;
+        $Vmfw31gob2bf =& $this->get_column($V0hg12l10vfx + 1);
+        $Vmfw31gob2bf["x"] = $Vmfw31gob2bf["x"] + $Vhoifq2kocytidth;
     }
 
-    /**
-     * @param int $i
-     * @param mixed $height
-     */
-    public function set_row_height($i, $height)
+    
+    public function set_row_height($V3xsptcgzss2, $Vjlmjalejjxaeight)
     {
-        $row =& $this->get_row($i);
+        $Vnwijnctkkq3 =& $this->get_row($V3xsptcgzss2);
 
-        if ($row["height"] !== null && $height <= $row["height"]) {
+        if ($Vnwijnctkkq3["height"] !== null && $Vjlmjalejjxaeight <= $Vnwijnctkkq3["height"]) {
             return;
         }
 
-        $row["height"] = $height;
-        $next_row =& $this->get_row($i + 1);
-        $next_row["y"] = $row["y"] + $height;
+        $Vnwijnctkkq3["height"] = $Vjlmjalejjxaeight;
+        $Vuskvdkpxecc =& $this->get_row($V3xsptcgzss2 + 1);
+        $Vuskvdkpxecc["y"] = $Vnwijnctkkq3["y"] + $Vjlmjalejjxaeight;
 
     }
 
-    /**
-     * @param int $i
-     * @param int $j
-     * @param mixed $h_v
-     * @param mixed $border_spec
-     *
-     * @return mixed
-     */
-    protected function _resolve_border($i, $j, $h_v, $border_spec)
+    
+    protected function _resolve_border($V3xsptcgzss2, $V0hg12l10vfx, $Vzvbv01wop1w, $Vokwve3d1nkg)
     {
-        $n_width = $border_spec["width"];
-        $n_style = $border_spec["style"];
+        $V3ni3atidkrj = $Vokwve3d1nkg["width"];
+        $V5rsbhfyc4zl = $Vokwve3d1nkg["style"];
 
-        if (!isset($this->_borders[$i][$j][$h_v])) {
-            $this->_borders[$i][$j][$h_v] = $border_spec;
+        if (!isset($this->_borders[$V3xsptcgzss2][$V0hg12l10vfx][$Vzvbv01wop1w])) {
+            $this->_borders[$V3xsptcgzss2][$V0hg12l10vfx][$Vzvbv01wop1w] = $Vokwve3d1nkg;
 
-            return $this->_borders[$i][$j][$h_v]["width"];
+            return $this->_borders[$V3xsptcgzss2][$V0hg12l10vfx][$Vzvbv01wop1w]["width"];
         }
 
-        $border = & $this->_borders[$i][$j][$h_v];
+        $Vbwksq2eviuk = & $this->_borders[$V3xsptcgzss2][$V0hg12l10vfx][$Vzvbv01wop1w];
 
-        $o_width = $border["width"];
-        $o_style = $border["style"];
+        $Va2dftiqrcgz = $Vbwksq2eviuk["width"];
+        $Vpm3jz4k3y2i = $Vbwksq2eviuk["style"];
 
-        if (($n_style === "hidden" ||
-                $n_width > $o_width ||
-                $o_style === "none")
+        if (($V5rsbhfyc4zl === "hidden" ||
+                $V3ni3atidkrj > $Va2dftiqrcgz ||
+                $Vpm3jz4k3y2i === "none")
 
             or
 
-            ($o_width == $n_width &&
-                in_array($n_style, self::$_BORDER_STYLE_SCORE) &&
-                self::$_BORDER_STYLE_SCORE[$n_style] > self::$_BORDER_STYLE_SCORE[$o_style])
+            ($Va2dftiqrcgz == $V3ni3atidkrj &&
+                in_array($V5rsbhfyc4zl, self::$Vql1vwhdbcsd) &&
+                self::$Vql1vwhdbcsd[$V5rsbhfyc4zl] > self::$Vql1vwhdbcsd[$Vpm3jz4k3y2i])
         ) {
-            $border = $border_spec;
+            $Vbwksq2eviuk = $Vokwve3d1nkg;
         }
 
-        return $border["width"];
+        return $Vbwksq2eviuk["width"];
     }
 
-    /**
-     * @param Frame $frame
-     */
-    public function add_frame(Frame $frame)
+    
+    public function add_frame(Frame $Vnk2ly5jcvjf)
     {
-        $style = $frame->get_style();
-        $display = $style->display;
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
+        $Vsagginauquc = $Vdidzwb0w3vc->display;
 
-        $collapse = $this->_table->get_style()->border_collapse == "collapse";
+        $Vhxdswanopzrlapse = $this->_table->get_style()->border_collapse == "collapse";
 
-        // Recursively add the frames within tables, table-row-groups and table-rows
-        if ($display === "table-row" ||
-            $display === "table" ||
-            $display === "inline-table" ||
-            in_array($display, TableFrameDecorator::$ROW_GROUPS)
+        
+        if ($Vsagginauquc === "table-row" ||
+            $Vsagginauquc === "table" ||
+            $Vsagginauquc === "inline-table" ||
+            in_array($Vsagginauquc, TableFrameDecorator::$Vl0lmlwo3v4l)
         ) {
-            $start_row = $this->__row;
-            foreach ($frame->get_children() as $child) {
-                // Ignore all Text frames and :before/:after pseudo-selector elements.
-                if (!($child instanceof FrameDecorator\Text) && $child->get_node()->nodeName !== 'dompdf_generated') {
-                    $this->add_frame($child);
+            $V4eae04j0k2w = $this->__row;
+            foreach ($Vnk2ly5jcvjf->get_children() as $Vtcc233inn5m) {
+                
+                if (!($Vtcc233inn5m instanceof FrameDecorator\Text) && $Vtcc233inn5m->get_node()->nodeName !== 'dompdf_generated') {
+                    $this->add_frame($Vtcc233inn5m);
                 }
             }
 
-            if ($display === "table-row") {
+            if ($Vsagginauquc === "table-row") {
                 $this->add_row();
             }
 
-            $num_rows = $this->__row - $start_row - 1;
-            $key = $frame->get_id();
+            $V0eivvdconcj = $this->__row - $V4eae04j0k2w - 1;
+            $Vqwhzgethmgj = $Vnk2ly5jcvjf->get_id();
 
-            // Row groups always span across the entire table
-            $this->_frames[$key]["columns"] = range(0, max(0, $this->_num_cols - 1));
-            $this->_frames[$key]["rows"] = range($start_row, max(0, $this->__row - 1));
-            $this->_frames[$key]["frame"] = $frame;
+            
+            $this->_frames[$Vqwhzgethmgj]["columns"] = range(0, max(0, $this->_num_cols - 1));
+            $this->_frames[$Vqwhzgethmgj]["rows"] = range($V4eae04j0k2w, max(0, $this->__row - 1));
+            $this->_frames[$Vqwhzgethmgj]["frame"] = $Vnk2ly5jcvjf;
 
-            if ($display !== "table-row" && $collapse) {
-                $bp = $style->get_border_properties();
+            if ($Vsagginauquc !== "table-row" && $Vhxdswanopzrlapse) {
+                $Vhkhr2kulnam = $Vdidzwb0w3vc->get_border_properties();
 
-                // Resolve the borders
-                for ($i = 0; $i < $num_rows + 1; $i++) {
-                    $this->_resolve_border($start_row + $i, 0, "vertical", $bp["left"]);
-                    $this->_resolve_border($start_row + $i, $this->_num_cols, "vertical", $bp["right"]);
+                
+                for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $V0eivvdconcj + 1; $V3xsptcgzss2++) {
+                    $this->_resolve_border($V4eae04j0k2w + $V3xsptcgzss2, 0, "vertical", $Vhkhr2kulnam["left"]);
+                    $this->_resolve_border($V4eae04j0k2w + $V3xsptcgzss2, $this->_num_cols, "vertical", $Vhkhr2kulnam["right"]);
                 }
 
-                for ($j = 0; $j < $this->_num_cols; $j++) {
-                    $this->_resolve_border($start_row, $j, "horizontal", $bp["top"]);
-                    $this->_resolve_border($this->__row, $j, "horizontal", $bp["bottom"]);
+                for ($V0hg12l10vfx = 0; $V0hg12l10vfx < $this->_num_cols; $V0hg12l10vfx++) {
+                    $this->_resolve_border($V4eae04j0k2w, $V0hg12l10vfx, "horizontal", $Vhkhr2kulnam["top"]);
+                    $this->_resolve_border($this->__row, $V0hg12l10vfx, "horizontal", $Vhkhr2kulnam["bottom"]);
                 }
             }
             return;
         }
 
-        $node = $frame->get_node();
+        $Vbr2bywdrplx = $Vnk2ly5jcvjf->get_node();
 
-        // Determine where this cell is going
-        $colspan = $node->getAttribute("colspan");
-        $rowspan = $node->getAttribute("rowspan");
+        
+        $Vhxdswanopzrspan = $Vbr2bywdrplx->getAttribute("colspan");
+        $Vnwijnctkkq3span = $Vbr2bywdrplx->getAttribute("rowspan");
 
-        if (!$colspan) {
-            $colspan = 1;
-            $node->setAttribute("colspan", 1);
+        if (!$Vhxdswanopzrspan) {
+            $Vhxdswanopzrspan = 1;
+            $Vbr2bywdrplx->setAttribute("colspan", 1);
         }
 
-        if (!$rowspan) {
-            $rowspan = 1;
-            $node->setAttribute("rowspan", 1);
+        if (!$Vnwijnctkkq3span) {
+            $Vnwijnctkkq3span = 1;
+            $Vbr2bywdrplx->setAttribute("rowspan", 1);
         }
-        $key = $frame->get_id();
+        $Vqwhzgethmgj = $Vnk2ly5jcvjf->get_id();
 
-        $bp = $style->get_border_properties();
+        $Vhkhr2kulnam = $Vdidzwb0w3vc->get_border_properties();
 
 
-        // Add the frame to the cellmap
-        $max_left = $max_right = 0;
+        
+        $Vqhbvftcjufm = $V4pmq3fcnue0 = 0;
 
-        // Find the next available column (fix by Ciro Mondueri)
-        $ac = $this->__col;
-        while (isset($this->_cells[$this->__row][$ac])) {
-            $ac++;
+        
+        $Vyc1j32tfqfh = $this->__col;
+        while (isset($this->_cells[$this->__row][$Vyc1j32tfqfh])) {
+            $Vyc1j32tfqfh++;
         }
 
-        $this->__col = $ac;
+        $this->__col = $Vyc1j32tfqfh;
 
-        // Rows:
-        for ($i = 0; $i < $rowspan; $i++) {
-            $row = $this->__row + $i;
+        
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vnwijnctkkq3span; $V3xsptcgzss2++) {
+            $Vnwijnctkkq3 = $this->__row + $V3xsptcgzss2;
 
-            $this->_frames[$key]["rows"][] = $row;
+            $this->_frames[$Vqwhzgethmgj]["rows"][] = $Vnwijnctkkq3;
 
-            for ($j = 0; $j < $colspan; $j++) {
-                $this->_cells[$row][$this->__col + $j] = $frame;
+            for ($V0hg12l10vfx = 0; $V0hg12l10vfx < $Vhxdswanopzrspan; $V0hg12l10vfx++) {
+                $this->_cells[$Vnwijnctkkq3][$this->__col + $V0hg12l10vfx] = $Vnk2ly5jcvjf;
             }
 
-            if ($collapse) {
-                // Resolve vertical borders
-                $max_left = max($max_left, $this->_resolve_border($row, $this->__col, "vertical", $bp["left"]));
-                $max_right = max($max_right, $this->_resolve_border($row, $this->__col + $colspan, "vertical", $bp["right"]));
-            }
-        }
-
-        $max_top = $max_bottom = 0;
-
-        // Columns:
-        for ($j = 0; $j < $colspan; $j++) {
-            $col = $this->__col + $j;
-            $this->_frames[$key]["columns"][] = $col;
-
-            if ($collapse) {
-                // Resolve horizontal borders
-                $max_top = max($max_top, $this->_resolve_border($this->__row, $col, "horizontal", $bp["top"]));
-                $max_bottom = max($max_bottom, $this->_resolve_border($this->__row + $rowspan, $col, "horizontal", $bp["bottom"]));
+            if ($Vhxdswanopzrlapse) {
+                
+                $Vqhbvftcjufm = max($Vqhbvftcjufm, $this->_resolve_border($Vnwijnctkkq3, $this->__col, "vertical", $Vhkhr2kulnam["left"]));
+                $V4pmq3fcnue0 = max($V4pmq3fcnue0, $this->_resolve_border($Vnwijnctkkq3, $this->__col + $Vhxdswanopzrspan, "vertical", $Vhkhr2kulnam["right"]));
             }
         }
 
-        $this->_frames[$key]["frame"] = $frame;
+        $Vknsfvvfeb3p = $Vbvnn53owgqm = 0;
 
-        // Handle seperated border model
-        if (!$collapse) {
-            list($h, $v) = $this->_table->get_style()->border_spacing;
+        
+        for ($V0hg12l10vfx = 0; $V0hg12l10vfx < $Vhxdswanopzrspan; $V0hg12l10vfx++) {
+            $Vhxdswanopzr = $this->__col + $V0hg12l10vfx;
+            $this->_frames[$Vqwhzgethmgj]["columns"][] = $Vhxdswanopzr;
 
-            // Border spacing is effectively a margin between cells
-            $v = $style->length_in_pt($v);
-            if (is_numeric($v)) {
-                $v = $v / 2;
+            if ($Vhxdswanopzrlapse) {
+                
+                $Vknsfvvfeb3p = max($Vknsfvvfeb3p, $this->_resolve_border($this->__row, $Vhxdswanopzr, "horizontal", $Vhkhr2kulnam["top"]));
+                $Vbvnn53owgqm = max($Vbvnn53owgqm, $this->_resolve_border($this->__row + $Vnwijnctkkq3span, $Vhxdswanopzr, "horizontal", $Vhkhr2kulnam["bottom"]));
             }
-            $h = $style->length_in_pt($h);
-            if (is_numeric($h)) {
-                $h = $h / 2;
-            }
-            $style->margin = "$v $h";
+        }
 
-            // The additional 1/2 width gets added to the table proper
+        $this->_frames[$Vqwhzgethmgj]["frame"] = $Vnk2ly5jcvjf;
+
+        
+        if (!$Vhxdswanopzrlapse) {
+            list($Vjlmjalejjxa, $Vpszt12nvbau) = $this->_table->get_style()->border_spacing;
+
+            
+            $Vpszt12nvbau = $Vdidzwb0w3vc->length_in_pt($Vpszt12nvbau);
+            if (is_numeric($Vpszt12nvbau)) {
+                $Vpszt12nvbau = $Vpszt12nvbau / 2;
+            }
+            $Vjlmjalejjxa = $Vdidzwb0w3vc->length_in_pt($Vjlmjalejjxa);
+            if (is_numeric($Vjlmjalejjxa)) {
+                $Vjlmjalejjxa = $Vjlmjalejjxa / 2;
+            }
+            $Vdidzwb0w3vc->margin = "$Vpszt12nvbau $Vjlmjalejjxa";
+
+            
         } else {
-            // Drop the frame's actual border
-            $style->border_left_width = $max_left / 2;
-            $style->border_right_width = $max_right / 2;
-            $style->border_top_width = $max_top / 2;
-            $style->border_bottom_width = $max_bottom / 2;
-            $style->margin = "none";
+            
+            $Vdidzwb0w3vc->border_left_width = $Vqhbvftcjufm / 2;
+            $Vdidzwb0w3vc->border_right_width = $V4pmq3fcnue0 / 2;
+            $Vdidzwb0w3vc->border_top_width = $Vknsfvvfeb3p / 2;
+            $Vdidzwb0w3vc->border_bottom_width = $Vbvnn53owgqm / 2;
+            $Vdidzwb0w3vc->margin = "none";
         }
 
         if (!$this->_columns_locked) {
-            // Resolve the frame's width
+            
             if ($this->_fixed_layout) {
-                list($frame_min, $frame_max) = array(0, 10e-10);
+                list($Vnk2ly5jcvjf_min, $Vnk2ly5jcvjf_max) = array(0, 10e-10);
             } else {
-                list($frame_min, $frame_max) = $frame->get_min_max_width();
+                list($Vnk2ly5jcvjf_min, $Vnk2ly5jcvjf_max) = $Vnk2ly5jcvjf->get_min_max_width();
             }
 
-            $width = $style->width;
+            $Vhoifq2kocytidth = $Vdidzwb0w3vc->width;
 
-            $val = null;
-            if (Helpers::is_percent($width)) {
-                $var = "percent";
-                $val = (float)rtrim($width, "% ") / $colspan;
-            } else if ($width !== "auto") {
-                $var = "absolute";
-                $val = $style->length_in_pt($frame_min) / $colspan;
+            $Vpszt12nvbaual = null;
+            if (Helpers::is_percent($Vhoifq2kocytidth)) {
+                $Vpszt12nvbauar = "percent";
+                $Vpszt12nvbaual = (float)rtrim($Vhoifq2kocytidth, "% ") / $Vhxdswanopzrspan;
+            } else if ($Vhoifq2kocytidth !== "auto") {
+                $Vpszt12nvbauar = "absolute";
+                $Vpszt12nvbaual = $Vdidzwb0w3vc->length_in_pt($Vnk2ly5jcvjf_min) / $Vhxdswanopzrspan;
             }
 
-            $min = 0;
-            $max = 0;
-            for ($cs = 0; $cs < $colspan; $cs++) {
+            $V2nh50bvjhl4 = 0;
+            $Vc1ytxzqpa5h = 0;
+            for ($Vivvnqss0oro = 0; $Vivvnqss0oro < $Vhxdswanopzrspan; $Vivvnqss0oro++) {
 
-                // Resolve the frame's width(s) with other cells
-                $col =& $this->get_column($this->__col + $cs);
+                
+                $Vhxdswanopzr =& $this->get_column($this->__col + $Vivvnqss0oro);
 
-                // Note: $var is either 'percent' or 'absolute'.  We compare the
-                // requested percentage or absolute values with the existing widths
-                // and adjust accordingly.
-                if (isset($var) && $val > $col[$var]) {
-                    $col[$var] = $val;
-                    $col["auto"] = false;
+                
+                
+                
+                if (isset($Vpszt12nvbauar) && $Vpszt12nvbaual > $Vhxdswanopzr[$Vpszt12nvbauar]) {
+                    $Vhxdswanopzr[$Vpszt12nvbauar] = $Vpszt12nvbaual;
+                    $Vhxdswanopzr["auto"] = false;
                 }
 
-                $min += $col["min-width"];
-                $max += $col["max-width"];
+                $V2nh50bvjhl4 += $Vhxdswanopzr["min-width"];
+                $Vc1ytxzqpa5h += $Vhxdswanopzr["max-width"];
             }
 
-            if ($frame_min > $min) {
-                // The frame needs more space.  Expand each sub-column
-                // FIXME try to avoid putting this dummy value when table-layout:fixed
-                $inc = ($this->is_layout_fixed() ? 10e-10 : ($frame_min - $min) / $colspan);
-                for ($c = 0; $c < $colspan; $c++) {
-                    $col =& $this->get_column($this->__col + $c);
-                    $col["min-width"] += $inc;
+            if ($Vnk2ly5jcvjf_min > $V2nh50bvjhl4) {
+                
+                
+                $V3xsptcgzss2nc = ($this->is_layout_fixed() ? 10e-10 : ($Vnk2ly5jcvjf_min - $V2nh50bvjhl4) / $Vhxdswanopzrspan);
+                for ($Vv03lfntnmcz = 0; $Vv03lfntnmcz < $Vhxdswanopzrspan; $Vv03lfntnmcz++) {
+                    $Vhxdswanopzr =& $this->get_column($this->__col + $Vv03lfntnmcz);
+                    $Vhxdswanopzr["min-width"] += $V3xsptcgzss2nc;
                 }
             }
 
-            if ($frame_max > $max) {
-                // FIXME try to avoid putting this dummy value when table-layout:fixed
-                $inc = ($this->is_layout_fixed() ? 10e-10 : ($frame_max - $max) / $colspan);
-                for ($c = 0; $c < $colspan; $c++) {
-                    $col =& $this->get_column($this->__col + $c);
-                    $col["max-width"] += $inc;
+            if ($Vnk2ly5jcvjf_max > $Vc1ytxzqpa5h) {
+                
+                $V3xsptcgzss2nc = ($this->is_layout_fixed() ? 10e-10 : ($Vnk2ly5jcvjf_max - $Vc1ytxzqpa5h) / $Vhxdswanopzrspan);
+                for ($Vv03lfntnmcz = 0; $Vv03lfntnmcz < $Vhxdswanopzrspan; $Vv03lfntnmcz++) {
+                    $Vhxdswanopzr =& $this->get_column($this->__col + $Vv03lfntnmcz);
+                    $Vhxdswanopzr["max-width"] += $V3xsptcgzss2nc;
                 }
             }
         }
 
-        $this->__col += $colspan;
+        $this->__col += $Vhxdswanopzrspan;
         if ($this->__col > $this->_num_cols) {
             $this->_num_cols = $this->__col;
         }
     }
 
-    /**
-     *
-     */
+    
     public function add_row()
     {
         $this->__row++;
         $this->_num_rows++;
 
-        // Find the next available column
-        $i = 0;
-        while (isset($this->_cells[$this->__row][$i])) {
-            $i++;
+        
+        $V3xsptcgzss2 = 0;
+        while (isset($this->_cells[$this->__row][$V3xsptcgzss2])) {
+            $V3xsptcgzss2++;
         }
 
-        $this->__col = $i;
+        $this->__col = $V3xsptcgzss2;
     }
 
-    /**
-     * Remove a row from the cellmap.
-     *
-     * @param Frame
-     */
-    public function remove_row(Frame $row)
+    
+    public function remove_row(Frame $Vnwijnctkkq3)
     {
-        $key = $row->get_id();
-        if (!isset($this->_frames[$key])) {
-            return; // Presumably this row has alredy been removed
+        $Vqwhzgethmgj = $Vnwijnctkkq3->get_id();
+        if (!isset($this->_frames[$Vqwhzgethmgj])) {
+            return; 
         }
 
         $this->__row = $this->_num_rows--;
 
-        $rows = $this->_frames[$key]["rows"];
-        $columns = $this->_frames[$key]["columns"];
+        $Vnwijnctkkq3s = $this->_frames[$Vqwhzgethmgj]["rows"];
+        $Vxw4j5wpetex = $this->_frames[$Vqwhzgethmgj]["columns"];
 
-        // Remove all frames from this row
-        foreach ($rows as $r) {
-            foreach ($columns as $c) {
-                if (isset($this->_cells[$r][$c])) {
-                    $id = $this->_cells[$r][$c]->get_id();
+        
+        foreach ($Vnwijnctkkq3s as $Vkabkv5ip0kg) {
+            foreach ($Vxw4j5wpetex as $Vv03lfntnmcz) {
+                if (isset($this->_cells[$Vkabkv5ip0kg][$Vv03lfntnmcz])) {
+                    $V3xsptcgzss2d = $this->_cells[$Vkabkv5ip0kg][$Vv03lfntnmcz]->get_id();
 
-                    $this->_cells[$r][$c] = null;
-                    unset($this->_cells[$r][$c]);
+                    $this->_cells[$Vkabkv5ip0kg][$Vv03lfntnmcz] = null;
+                    unset($this->_cells[$Vkabkv5ip0kg][$Vv03lfntnmcz]);
 
-                    // has multiple rows?
-                    if (isset($this->_frames[$id]) && count($this->_frames[$id]["rows"]) > 1) {
-                        // remove just the desired row, but leave the frame
-                        if (($row_key = array_search($r, $this->_frames[$id]["rows"])) !== false) {
-                            unset($this->_frames[$id]["rows"][$row_key]);
+                    
+                    if (isset($this->_frames[$V3xsptcgzss2d]) && count($this->_frames[$V3xsptcgzss2d]["rows"]) > 1) {
+                        
+                        if (($Vnwijnctkkq3_key = array_search($Vkabkv5ip0kg, $this->_frames[$V3xsptcgzss2d]["rows"])) !== false) {
+                            unset($this->_frames[$V3xsptcgzss2d]["rows"][$Vnwijnctkkq3_key]);
                         }
                         continue;
                     }
 
-                    $this->_frames[$id] = null;
-                    unset($this->_frames[$id]);
+                    $this->_frames[$V3xsptcgzss2d] = null;
+                    unset($this->_frames[$V3xsptcgzss2d]);
                 }
             }
 
-            $this->_rows[$r] = null;
-            unset($this->_rows[$r]);
+            $this->_rows[$Vkabkv5ip0kg] = null;
+            unset($this->_rows[$Vkabkv5ip0kg]);
         }
 
-        $this->_frames[$key] = null;
-        unset($this->_frames[$key]);
+        $this->_frames[$Vqwhzgethmgj] = null;
+        unset($this->_frames[$Vqwhzgethmgj]);
     }
 
-    /**
-     * Remove a row group from the cellmap.
-     *
-     * @param Frame $group The group to remove
-     */
-    public function remove_row_group(Frame $group)
+    
+    public function remove_row_group(Frame $V0o4wg1ye23g)
     {
-        $key = $group->get_id();
-        if (!isset($this->_frames[$key])) {
-            return; // Presumably this row has alredy been removed
+        $Vqwhzgethmgj = $V0o4wg1ye23g->get_id();
+        if (!isset($this->_frames[$Vqwhzgethmgj])) {
+            return; 
         }
 
-        $iter = $group->get_first_child();
-        while ($iter) {
-            $this->remove_row($iter);
-            $iter = $iter->get_next_sibling();
+        $V3xsptcgzss2ter = $V0o4wg1ye23g->get_first_child();
+        while ($V3xsptcgzss2ter) {
+            $this->remove_row($V3xsptcgzss2ter);
+            $V3xsptcgzss2ter = $V3xsptcgzss2ter->get_next_sibling();
         }
 
-        $this->_frames[$key] = null;
-        unset($this->_frames[$key]);
+        $this->_frames[$Vqwhzgethmgj] = null;
+        unset($this->_frames[$Vqwhzgethmgj]);
     }
 
-    /**
-     * Update a row group after rows have been removed
-     *
-     * @param Frame $group    The group to update
-     * @param Frame $last_row The last row in the row group
-     */
-    public function update_row_group(Frame $group, Frame $last_row)
+    
+    public function update_row_group(Frame $V0o4wg1ye23g, Frame $Vwof0wlsq2w0)
     {
-        $g_key = $group->get_id();
-        $r_key = $last_row->get_id();
+        $Vu13zjxsh0ye = $V0o4wg1ye23g->get_id();
+        $Vkabkv5ip0kg_key = $Vwof0wlsq2w0->get_id();
 
-        $r_rows = $this->_frames[$g_key]["rows"];
-        $this->_frames[$g_key]["rows"] = range($this->_frames[$g_key]["rows"][0], end($r_rows));
+        $Vkabkv5ip0kg_rows = $this->_frames[$Vu13zjxsh0ye]["rows"];
+        $this->_frames[$Vu13zjxsh0ye]["rows"] = range($this->_frames[$Vu13zjxsh0ye]["rows"][0], end($Vkabkv5ip0kg_rows));
     }
 
-    /**
-     *
-     */
+    
     public function assign_x_positions()
     {
-        // Pre-condition: widths must be resolved and assigned to columns and
-        // column[0]["x"] must be set.
+        
+        
 
         if ($this->_columns_locked) {
             return;
         }
 
-        $x = $this->_columns[0]["x"];
-        foreach (array_keys($this->_columns) as $j) {
-            $this->_columns[$j]["x"] = $x;
-            $x += $this->_columns[$j]["used-width"];
+        $Vs4gloy23a1d = $this->_columns[0]["x"];
+        foreach (array_keys($this->_columns) as $V0hg12l10vfx) {
+            $this->_columns[$V0hg12l10vfx]["x"] = $Vs4gloy23a1d;
+            $Vs4gloy23a1d += $this->_columns[$V0hg12l10vfx]["used-width"];
         }
     }
 
-    /**
-     *
-     */
+    
     public function assign_frame_heights()
     {
-        // Pre-condition: widths and heights of each column & row must be
-        // calcluated
-        foreach ($this->_frames as $arr) {
-            $frame = $arr["frame"];
+        
+        
+        foreach ($this->_frames as $Vnr1h2vcbxvj) {
+            $Vnk2ly5jcvjf = $Vnr1h2vcbxvj["frame"];
 
-            $h = 0;
-            foreach ($arr["rows"] as $row) {
-                if (!isset($this->_rows[$row])) {
-                    // The row has been removed because of a page split, so skip it.
+            $Vjlmjalejjxa = 0;
+            foreach ($Vnr1h2vcbxvj["rows"] as $Vnwijnctkkq3) {
+                if (!isset($this->_rows[$Vnwijnctkkq3])) {
+                    
                     continue;
                 }
 
-                $h += $this->_rows[$row]["height"];
+                $Vjlmjalejjxa += $this->_rows[$Vnwijnctkkq3]["height"];
             }
 
-            if ($frame instanceof TableCellFrameDecorator) {
-                $frame->set_cell_height($h);
+            if ($Vnk2ly5jcvjf instanceof TableCellFrameDecorator) {
+                $Vnk2ly5jcvjf->set_cell_height($Vjlmjalejjxa);
             } else {
-                $frame->get_style()->height = $h;
+                $Vnk2ly5jcvjf->get_style()->height = $Vjlmjalejjxa;
             }
         }
     }
 
-    /**
-     * Re-adjust frame height if the table height is larger than its content
-     */
-    public function set_frame_heights($table_height, $content_height)
+    
+    public function set_frame_heights($Vahqmfi4rdgw_height, $Vv03lfntnmczontent_height)
     {
-        // Distribute the increased height proportionally amongst each row
-        foreach ($this->_frames as $arr) {
-            $frame = $arr["frame"];
+        
+        foreach ($this->_frames as $Vnr1h2vcbxvj) {
+            $Vnk2ly5jcvjf = $Vnr1h2vcbxvj["frame"];
 
-            $h = 0;
-            foreach ($arr["rows"] as $row) {
-                if (!isset($this->_rows[$row])) {
+            $Vjlmjalejjxa = 0;
+            foreach ($Vnr1h2vcbxvj["rows"] as $Vnwijnctkkq3) {
+                if (!isset($this->_rows[$Vnwijnctkkq3])) {
                     continue;
                 }
 
-                $h += $this->_rows[$row]["height"];
+                $Vjlmjalejjxa += $this->_rows[$Vnwijnctkkq3]["height"];
             }
 
-            if ($content_height > 0) {
-                $new_height = ($h / $content_height) * $table_height;
+            if ($Vv03lfntnmczontent_height > 0) {
+                $V0rbmnonn1iu = ($Vjlmjalejjxa / $Vv03lfntnmczontent_height) * $Vahqmfi4rdgw_height;
             } else {
-                $new_height = 0;
+                $V0rbmnonn1iu = 0;
             }
 
-            if ($frame instanceof TableCellFrameDecorator) {
-                $frame->set_cell_height($new_height);
+            if ($Vnk2ly5jcvjf instanceof TableCellFrameDecorator) {
+                $Vnk2ly5jcvjf->set_cell_height($V0rbmnonn1iu);
             } else {
-                $frame->get_style()->height = $new_height;
+                $Vnk2ly5jcvjf->get_style()->height = $V0rbmnonn1iu;
             }
         }
     }
 
-    /**
-     * Used for debugging:
-     *
-     * @return string
-     */
+    
     public function __toString()
     {
-        $str = "";
-        $str .= "Columns:<br/>";
-        $str .= Helpers::pre_r($this->_columns, true);
-        $str .= "Rows:<br/>";
-        $str .= Helpers::pre_r($this->_rows, true);
+        $Vadkcwffkfxw = "";
+        $Vadkcwffkfxw .= "Columns:<br/>";
+        $Vadkcwffkfxw .= Helpers::pre_r($this->_columns, true);
+        $Vadkcwffkfxw .= "Rows:<br/>";
+        $Vadkcwffkfxw .= Helpers::pre_r($this->_rows, true);
 
-        $str .= "Frames:<br/>";
-        $arr = array();
-        foreach ($this->_frames as $key => $val) {
-            $arr[$key] = array("columns" => $val["columns"], "rows" => $val["rows"]);
+        $Vadkcwffkfxw .= "Frames:<br/>";
+        $Vnr1h2vcbxvj = array();
+        foreach ($this->_frames as $Vqwhzgethmgj => $Vpszt12nvbaual) {
+            $Vnr1h2vcbxvj[$Vqwhzgethmgj] = array("columns" => $Vpszt12nvbaual["columns"], "rows" => $Vpszt12nvbaual["rows"]);
         }
 
-        $str .= Helpers::pre_r($arr, true);
+        $Vadkcwffkfxw .= Helpers::pre_r($Vnr1h2vcbxvj, true);
 
         if (php_sapi_name() == "cli") {
-            $str = strip_tags(str_replace(array("<br/>", "<b>", "</b>"),
+            $Vadkcwffkfxw = strip_tags(str_replace(array("<br/>", "<b>", "</b>"),
                 array("\n", chr(27) . "[01;33m", chr(27) . "[0m"),
-                $str));
+                $Vadkcwffkfxw));
         }
 
-        return $str;
+        return $Vadkcwffkfxw;
     }
 }

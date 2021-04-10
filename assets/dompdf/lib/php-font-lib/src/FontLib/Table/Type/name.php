@@ -1,23 +1,14 @@
 <?php
-/**
- * @package php-font-lib
- * @link    https://github.com/PhenX/php-font-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace FontLib\Table\Type;
 
 use FontLib\Table\Table;
 use FontLib\Font;
 
-/**
- * `name` font table.
- *
- * @package php-font-lib
- */
+
 class name extends Table {
-  private static $header_format = array(
+  private static $Vealq5l1kacr = array(
     "format"       => self::uint16,
     "count"        => self::uint16,
     "stringOffset" => self::uint16,
@@ -43,7 +34,7 @@ class name extends Table {
   const NAME_COMPAT_FULL_NAME   = 18;
   const NAME_SAMPLE_TEXT        = 19;
 
-  static $nameIdCodes = array(
+  static $Vozxotfbbbyv = array(
     0  => "Copyright",
     1  => "FontName",
     2  => "FontSubfamily",
@@ -59,22 +50,22 @@ class name extends Table {
     12 => "FontDesignerURL",
     13 => "LicenseDescription",
     14 => "LicenseURL",
-    // 15
+    
     16 => "PreferredFamily",
     17 => "PreferredSubfamily",
     18 => "CompatibleFullName",
     19 => "SampleText",
   );
 
-  static $platforms = array(
+  static $Vjklpl0oehsi = array(
     0 => "Unicode",
     1 => "Macintosh",
-    // 2 =>  Reserved
+    
     3 => "Microsoft",
   );
 
-  static $platformSpecific = array(
-    // Unicode
+  static $Vkl5fhmqb4ku = array(
+    
     0 => array(
       0 => "Default semantics",
       1 => "Version 1.1 semantics",
@@ -82,7 +73,7 @@ class name extends Table {
       3 => "Unicode 2.0 or later semantics",
     ),
 
-    // Macintosh
+    
     1 => array(
       0  => "Roman",
       1  => "Japanese",
@@ -118,7 +109,7 @@ class name extends Table {
       31 => "Sindhi",
     ),
 
-    // Microsoft
+    
     3 => array(
       0  => "Symbol",
       1  => "Unicode BMP (UCS-2)",
@@ -127,67 +118,67 @@ class name extends Table {
       4  => "Big5",
       5  => "Wansung",
       6  => "Johab",
-      //  7 => Reserved
-      //  8 => Reserved
-      //  9 => Reserved
+      
+      
+      
       10 => "Unicode UCS-4",
     ),
   );
 
   protected function _parse() {
-    $font = $this->getFont();
+    $V3h4z3hxorxj = $this->getFont();
 
-    $tableOffset = $font->pos();
+    $V0i4v30hinuk = $V3h4z3hxorxj->pos();
 
-    $data = $font->unpack(self::$header_format);
+    $Vb3z3shnu1vn = $V3h4z3hxorxj->unpack(self::$Vealq5l1kacr);
 
-    $records = array();
-    for ($i = 0; $i < $data["count"]; $i++) {
-      $record      = new nameRecord();
-      $record_data = $font->unpack(nameRecord::$format);
-      $record->map($record_data);
+    $Vmmlhdr3tkee = array();
+    for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vb3z3shnu1vn["count"]; $V3xsptcgzss2++) {
+      $V44pmqzlwgvb      = new nameRecord();
+      $V44pmqzlwgvb_data = $V3h4z3hxorxj->unpack(nameRecord::$Vmo4m3qpgbol);
+      $V44pmqzlwgvb->map($V44pmqzlwgvb_data);
 
-      $records[] = $record;
+      $Vmmlhdr3tkee[] = $V44pmqzlwgvb;
     }
 
-    $names = array();
-    foreach ($records as $record) {
-      $font->seek($tableOffset + $data["stringOffset"] + $record->offset);
-      $s                      = $font->read($record->length);
-      $record->string         = Font::UTF16ToUTF8($s);
-      $names[$record->nameID] = $record;
+    $Vxqsydi5pak0 = array();
+    foreach ($Vmmlhdr3tkee as $V44pmqzlwgvb) {
+      $V3h4z3hxorxj->seek($V0i4v30hinuk + $Vb3z3shnu1vn["stringOffset"] + $V44pmqzlwgvb->offset);
+      $Vujweq34gtl3                      = $V3h4z3hxorxj->read($V44pmqzlwgvb->length);
+      $V44pmqzlwgvb->string         = Font::UTF16ToUTF8($Vujweq34gtl3);
+      $Vxqsydi5pak0[$V44pmqzlwgvb->nameID] = $V44pmqzlwgvb;
     }
 
-    $data["records"] = $names;
+    $Vb3z3shnu1vn["records"] = $Vxqsydi5pak0;
 
-    $this->data = $data;
+    $this->data = $Vb3z3shnu1vn;
   }
 
   protected function _encode() {
-    $font = $this->getFont();
+    $V3h4z3hxorxj = $this->getFont();
 
-    /** @var nameRecord[] $records */
-    $records       = $this->data["records"];
-    $count_records = count($records);
+    
+    $Vmmlhdr3tkee       = $this->data["records"];
+    $Vjgi2mm5c1dw = count($Vmmlhdr3tkee);
 
-    $this->data["count"]        = $count_records;
-    $this->data["stringOffset"] = 6 + $count_records * 12; // 6 => uint16 * 3, 12 => sizeof self::$record_format
+    $this->data["count"]        = $Vjgi2mm5c1dw;
+    $this->data["stringOffset"] = 6 + $Vjgi2mm5c1dw * 12; 
 
-    $length = $font->pack(self::$header_format, $this->data);
+    $Vjxpogd0afis = $V3h4z3hxorxj->pack(self::$Vealq5l1kacr, $this->data);
 
-    $offset = 0;
-    foreach ($records as $record) {
-      $record->length = mb_strlen($record->getUTF16(), "8bit");
-      $record->offset = $offset;
-      $offset += $record->length;
-      $length += $font->pack(nameRecord::$format, (array)$record);
+    $Vq154qppcleo = 0;
+    foreach ($Vmmlhdr3tkee as $V44pmqzlwgvb) {
+      $V44pmqzlwgvb->length = mb_strlen($V44pmqzlwgvb->getUTF16(), "8bit");
+      $V44pmqzlwgvb->offset = $Vq154qppcleo;
+      $Vq154qppcleo += $V44pmqzlwgvb->length;
+      $Vjxpogd0afis += $V3h4z3hxorxj->pack(nameRecord::$Vmo4m3qpgbol, (array)$V44pmqzlwgvb);
     }
 
-    foreach ($records as $record) {
-      $str = $record->getUTF16();
-      $length += $font->write($str, mb_strlen($str, "8bit"));
+    foreach ($Vmmlhdr3tkee as $V44pmqzlwgvb) {
+      $Vujweq34gtl3tr = $V44pmqzlwgvb->getUTF16();
+      $Vjxpogd0afis += $V3h4z3hxorxj->write($Vujweq34gtl3tr, mb_strlen($Vujweq34gtl3tr, "8bit"));
     }
 
-    return $length;
+    return $Vjxpogd0afis;
   }
 }

@@ -4,88 +4,62 @@ namespace Dompdf\Frame;
 use Iterator;
 use Dompdf\Frame;
 
-/**
- * Linked-list Iterator
- *
- * Returns children in order and allows for list to change during iteration,
- * provided the changes occur to or after the current element
- *
- * @access private
- * @package dompdf
- */
+
 class FrameListIterator implements Iterator
 {
 
-    /**
-     * @var Frame
-     */
-    protected $_parent;
+    
+    protected $Veb0klnlntfo;
 
-    /**
-     * @var Frame
-     */
-    protected $_cur;
+    
+    protected $V3vuihl0scep;
 
-    /**
-     * @var int
-     */
-    protected $_num;
+    
+    protected $V5fbz1ntsxwy;
 
-    /**
-     * @param Frame $frame
-     */
-    public function __construct(Frame $frame)
+    
+    public function __construct(Frame $Vnk2ly5jcvjf)
     {
-        $this->_parent = $frame;
-        $this->_cur = $frame->get_first_child();
+        $this->_parent = $Vnk2ly5jcvjf;
+        $this->_cur = $Vnk2ly5jcvjf->get_first_child();
         $this->_num = 0;
     }
 
-    /**
-     *
-     */
+    
     public function rewind()
     {
         $this->_cur = $this->_parent->get_first_child();
         $this->_num = 0;
     }
 
-    /**
-     * @return bool
-     */
+    
     public function valid()
     {
-        return isset($this->_cur); // && ($this->_cur->get_prev_sibling() === $this->_prev);
+        return isset($this->_cur); 
     }
 
-    /**
-     * @return int
-     */
+    
     public function key()
     {
         return $this->_num;
     }
 
-    /**
-     * @return Frame
-     */
+    
     public function current()
     {
         return $this->_cur;
     }
 
-    /**
-     * @return Frame
-     */
+    
     public function next()
     {
-        $ret = $this->_cur;
-        if (!$ret) {
+        $Vc00k54nbbvf = $this->_cur;
+        if (!$Vc00k54nbbvf) {
             return null;
         }
 
         $this->_cur = $this->_cur->get_next_sibling();
         $this->_num++;
-        return $ret;
+        return $Vc00k54nbbvf;
     }
 }

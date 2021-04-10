@@ -1,52 +1,33 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf;
 
-/**
- * Embeds Javascript into the PDF document
- *
- * @package dompdf
- */
+
 class JavascriptEmbedder
 {
 
-    /**
-     * @var Dompdf
-     */
-    protected $_dompdf;
+    
+    protected $V3mbiykvshg0;
 
-    /**
-     * JavascriptEmbedder constructor.
-     *
-     * @param Dompdf $dompdf
-     */
-    public function __construct(Dompdf $dompdf)
+    
+    public function __construct(Dompdf $Vhvghaoacagz)
     {
-        $this->_dompdf = $dompdf;
+        $this->_dompdf = $Vhvghaoacagz;
     }
 
-    /**
-     * @param $script
-     */
-    public function insert($script)
+    
+    public function insert($Vxwmfnegxapy)
     {
-        $this->_dompdf->getCanvas()->javascript($script);
+        $this->_dompdf->getCanvas()->javascript($Vxwmfnegxapy);
     }
 
-    /**
-     * @param Frame $frame
-     */
-    public function render(Frame $frame)
+    
+    public function render(Frame $Vnk2ly5jcvjf)
     {
         if (!$this->_dompdf->getOptions()->getIsJavascriptEnabled()) {
             return;
         }
 
-        $this->insert($frame->get_node()->nodeValue);
+        $this->insert($Vnk2ly5jcvjf->get_node()->nodeValue);
     }
 }

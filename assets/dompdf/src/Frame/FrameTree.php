@@ -10,31 +10,13 @@ use DOMXPath;
 use Dompdf\Exception;
 use Dompdf\Frame;
 
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
 
-/**
- * Represents an entire document as a tree of frames
- *
- * The FrameTree consists of {@link Frame} objects each tied to specific
- * DOMNode objects in a specific DomDocument.  The FrameTree has the same
- * structure as the DomDocument, but adds additional capabalities for
- * styling and layout.
- *
- * @package dompdf
- */
+
+
 class FrameTree
 {
-    /**
-     * Tags to ignore while parsing the tree
-     *
-     * @var array
-     */
-    protected static $HIDDEN_TAGS = array(
+    
+    protected static $Va11o3b1dt3e = array(
         "area",
         "base",
         "basefont",
@@ -48,268 +30,199 @@ class FrameTree
         "#comment"
     );
 
-    /**
-     * The main DomDocument
-     *
-     * @see http://ca2.php.net/manual/en/ref.dom.php
-     * @var DOMDocument
-     */
-    protected $_dom;
+    
+    protected $V20nypjv3a3w;
 
-    /**
-     * The root node of the FrameTree.
-     *
-     * @var Frame
-     */
-    protected $_root;
+    
+    protected $Vnjwlrkwnjsn;
 
-    /**
-     * Subtrees of absolutely positioned elements
-     *
-     * @var array of Frames
-     */
-    protected $_absolute_frames;
+    
+    protected $Ve1gesqflrm2;
 
-    /**
-     * A mapping of {@link Frame} objects to DOMNode objects
-     *
-     * @var array
-     */
-    protected $_registry;
+    
+    protected $Vjfzlpuggdoz;
 
-    /**
-     * Class constructor
-     *
-     * @param DOMDocument $dom the main DomDocument object representing the current html document
-     */
-    public function __construct(DomDocument $dom)
+    
+    public function __construct(DomDocument $Vzag2nuss5ir)
     {
-        $this->_dom = $dom;
+        $this->_dom = $Vzag2nuss5ir;
         $this->_root = null;
         $this->_registry = array();
     }
 
-    /**
-     * Returns the DOMDocument object representing the curent html document
-     *
-     * @return DOMDocument
-     */
+    
     public function get_dom()
     {
         return $this->_dom;
     }
 
-    /**
-     * Returns the root frame of the tree
-     *
-     * @return Frame
-     */
+    
     public function get_root()
     {
         return $this->_root;
     }
 
-    /**
-     * Returns a specific frame given its id
-     *
-     * @param string $id
-     *
-     * @return Frame|null
-     */
-    public function get_frame($id)
+    
+    public function get_frame($Vkriocz2qep2)
     {
-        return isset($this->_registry[$id]) ? $this->_registry[$id] : null;
+        return isset($this->_registry[$Vkriocz2qep2]) ? $this->_registry[$Vkriocz2qep2] : null;
     }
 
-    /**
-     * Returns a post-order iterator for all frames in the tree
-     *
-     * @return FrameTreeList|Frame[]
-     */
+    
     public function get_frames()
     {
         return new FrameTreeList($this->_root);
     }
 
-    /**
-     * Builds the tree
-     */
+    
     public function build_tree()
     {
-        $html = $this->_dom->getElementsByTagName("html")->item(0);
-        if (is_null($html)) {
-            $html = $this->_dom->firstChild;
+        $Vqopg2nwweax = $this->_dom->getElementsByTagName("html")->item(0);
+        if (is_null($Vqopg2nwweax)) {
+            $Vqopg2nwweax = $this->_dom->firstChild;
         }
 
-        if (is_null($html)) {
+        if (is_null($Vqopg2nwweax)) {
             throw new Exception("Requested HTML document contains no data.");
         }
 
         $this->fix_tables();
 
-        $this->_root = $this->_build_tree_r($html);
+        $this->_root = $this->_build_tree_r($Vqopg2nwweax);
     }
 
-    /**
-     * Adds missing TBODYs around TR
-     */
+    
     protected function fix_tables()
     {
-        $xp = new DOMXPath($this->_dom);
+        $Vzez0xu0p4f3 = new DOMXPath($this->_dom);
 
-        // Move table caption before the table
-        // FIXME find a better way to deal with it...
-        $captions = $xp->query('//table/caption');
-        foreach ($captions as $caption) {
-            $table = $caption->parentNode;
-            $table->parentNode->insertBefore($caption, $table);
+        
+        
+        $Vxkqponkxrdg = $Vzez0xu0p4f3->query('//table/caption');
+        foreach ($Vxkqponkxrdg as $Vh0yybddztvk) {
+            $Vahqmfi4rdgw = $Vh0yybddztvk->parentNode;
+            $Vahqmfi4rdgw->parentNode->insertBefore($Vh0yybddztvk, $Vahqmfi4rdgw);
         }
 
-        $firstRows = $xp->query('//table/tr[1]');
-        /** @var DOMElement $tableChild */
-        foreach ($firstRows as $tableChild) {
-            $tbody = $this->_dom->createElement('tbody');
-            $tableNode = $tableChild->parentNode;
+        $Vfe2yxq4g5uh = $Vzez0xu0p4f3->query('//table/tr[1]');
+        
+        foreach ($Vfe2yxq4g5uh as $Vahqmfi4rdgwChild) {
+            $Vim4wws51jia = $this->_dom->createElement('tbody');
+            $Vahqmfi4rdgwNode = $Vahqmfi4rdgwChild->parentNode;
             do {
-                if ($tableChild->nodeName === 'tr') {
-                    $tmpNode = $tableChild;
-                    $tableChild = $tableChild->nextSibling;
-                    $tableNode->removeChild($tmpNode);
-                    $tbody->appendChild($tmpNode);
+                if ($Vahqmfi4rdgwChild->nodeName === 'tr') {
+                    $Vezl2m1eoulq = $Vahqmfi4rdgwChild;
+                    $Vahqmfi4rdgwChild = $Vahqmfi4rdgwChild->nextSibling;
+                    $Vahqmfi4rdgwNode->removeChild($Vezl2m1eoulq);
+                    $Vim4wws51jia->appendChild($Vezl2m1eoulq);
                 } else {
-                    if ($tbody->hasChildNodes() === true) {
-                        $tableNode->insertBefore($tbody, $tableChild);
-                        $tbody = $this->_dom->createElement('tbody');
+                    if ($Vim4wws51jia->hasChildNodes() === true) {
+                        $Vahqmfi4rdgwNode->insertBefore($Vim4wws51jia, $Vahqmfi4rdgwChild);
+                        $Vim4wws51jia = $this->_dom->createElement('tbody');
                     }
-                    $tableChild = $tableChild->nextSibling;
+                    $Vahqmfi4rdgwChild = $Vahqmfi4rdgwChild->nextSibling;
                 }
-            } while ($tableChild);
-            if ($tbody->hasChildNodes() === true) {
-                $tableNode->appendChild($tbody);
+            } while ($Vahqmfi4rdgwChild);
+            if ($Vim4wws51jia->hasChildNodes() === true) {
+                $Vahqmfi4rdgwNode->appendChild($Vim4wws51jia);
             }
         }
     }
 
-    // FIXME: temporary hack, preferably we will improve rendering of sequential #text nodes
-    /**
-     * Remove a child from a node
-     *
-     * Remove a child from a node. If the removed node results in two
-     * adjacent #text nodes then combine them.
-     *
-     * @param DOMNode $node the current DOMNode being considered
-     * @param array $children an array of nodes that are the children of $node
-     * @param int $index index from the $children array of the node to remove
-     */
-    protected function _remove_node(DOMNode $node, array &$children, $index)
+    
+    
+    protected function _remove_node(DOMNode $Vbr2bywdrplx, array &$Vrzhplmxukeb, $V04titjghjb2)
     {
-        $child = $children[$index];
-        $previousChild = $child->previousSibling;
-        $nextChild = $child->nextSibling;
-        $node->removeChild($child);
-        if (isset($previousChild, $nextChild)) {
-            if ($previousChild->nodeName === "#text" && $nextChild->nodeName === "#text") {
-                $previousChild->nodeValue .= $nextChild->nodeValue;
-                $this->_remove_node($node, $children, $index+1);
+        $Vtcc233inn5m = $Vrzhplmxukeb[$V04titjghjb2];
+        $Vx3a1ntb33kt = $Vtcc233inn5m->previousSibling;
+        $Vgirylhw0fuv = $Vtcc233inn5m->nextSibling;
+        $Vbr2bywdrplx->removeChild($Vtcc233inn5m);
+        if (isset($Vx3a1ntb33kt, $Vgirylhw0fuv)) {
+            if ($Vx3a1ntb33kt->nodeName === "#text" && $Vgirylhw0fuv->nodeName === "#text") {
+                $Vx3a1ntb33kt->nodeValue .= $Vgirylhw0fuv->nodeValue;
+                $this->_remove_node($Vbr2bywdrplx, $Vrzhplmxukeb, $V04titjghjb2+1);
             }
         }
-        array_splice($children, $index, 1);
+        array_splice($Vrzhplmxukeb, $V04titjghjb2, 1);
     }
 
-    /**
-     * Recursively adds {@link Frame} objects to the tree
-     *
-     * Recursively build a tree of Frame objects based on a dom tree.
-     * No layout information is calculated at this time, although the
-     * tree may be adjusted (i.e. nodes and frames for generated content
-     * and images may be created).
-     *
-     * @param DOMNode $node the current DOMNode being considered
-     *
-     * @return Frame
-     */
-    protected function _build_tree_r(DOMNode $node)
+    
+    protected function _build_tree_r(DOMNode $Vbr2bywdrplx)
     {
-        $frame = new Frame($node);
-        $id = $frame->get_id();
-        $this->_registry[$id] = $frame;
+        $Vnk2ly5jcvjf = new Frame($Vbr2bywdrplx);
+        $Vkriocz2qep2 = $Vnk2ly5jcvjf->get_id();
+        $this->_registry[$Vkriocz2qep2] = $Vnk2ly5jcvjf;
 
-        if (!$node->hasChildNodes()) {
-            return $frame;
+        if (!$Vbr2bywdrplx->hasChildNodes()) {
+            return $Vnk2ly5jcvjf;
         }
 
-        // Store the children in an array so that the tree can be modified
-        $children = array();
-        $length = $node->childNodes->length;
-        for ($i = 0; $i < $length; $i++) {
-            $children[] = $node->childNodes->item($i);
+        
+        $Vrzhplmxukeb = array();
+        $Vjxpogd0afis = $Vbr2bywdrplx->childNodes->length;
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vjxpogd0afis; $V3xsptcgzss2++) {
+            $Vrzhplmxukeb[] = $Vbr2bywdrplx->childNodes->item($V3xsptcgzss2);
         }
-        $index = 0;
-        // INFO: We don't advance $index if a node is removed to avoid skipping nodes
-        while ($index < count($children)) {
-            $child = $children[$index];
-            $nodeName = strtolower($child->nodeName);
+        $V04titjghjb2 = 0;
+        
+        while ($V04titjghjb2 < count($Vrzhplmxukeb)) {
+            $Vtcc233inn5m = $Vrzhplmxukeb[$V04titjghjb2];
+            $Vbr2bywdrplxName = strtolower($Vtcc233inn5m->nodeName);
 
-            // Skip non-displaying nodes
-            if (in_array($nodeName, self::$HIDDEN_TAGS)) {
-                if ($nodeName !== "head" && $nodeName !== "style") {
-                    $this->_remove_node($node, $children, $index);
+            
+            if (in_array($Vbr2bywdrplxName, self::$Va11o3b1dt3e)) {
+                if ($Vbr2bywdrplxName !== "head" && $Vbr2bywdrplxName !== "style") {
+                    $this->_remove_node($Vbr2bywdrplx, $Vrzhplmxukeb, $V04titjghjb2);
                 } else {
-                    $index++;
+                    $V04titjghjb2++;
                 }
                 continue;
             }
-            // Skip empty text nodes
-            if ($nodeName === "#text" && $child->nodeValue === "") {
-                $this->_remove_node($node, $children, $index);
+            
+            if ($Vbr2bywdrplxName === "#text" && $Vtcc233inn5m->nodeValue === "") {
+                $this->_remove_node($Vbr2bywdrplx, $Vrzhplmxukeb, $V04titjghjb2);
                 continue;
             }
-            // Skip empty image nodes
-            if ($nodeName === "img" && $child->getAttribute("src") === "") {
-                $this->_remove_node($node, $children, $index);
+            
+            if ($Vbr2bywdrplxName === "img" && $Vtcc233inn5m->getAttribute("src") === "") {
+                $this->_remove_node($Vbr2bywdrplx, $Vrzhplmxukeb, $V04titjghjb2);
                 continue;
             }
 
-            if (is_object($child)) {
-                $frame->append_child($this->_build_tree_r($child), false);
+            if (is_object($Vtcc233inn5m)) {
+                $Vnk2ly5jcvjf->append_child($this->_build_tree_r($Vtcc233inn5m), false);
             }
-            $index++;
+            $V04titjghjb2++;
         }
 
-        return $frame;
+        return $Vnk2ly5jcvjf;
     }
 
-    /**
-     * @param DOMElement $node
-     * @param DOMElement $new_node
-     * @param string $pos
-     *
-     * @return mixed
-     */
-    public function insert_node(DOMElement $node, DOMElement $new_node, $pos)
+    
+    public function insert_node(DOMElement $Vbr2bywdrplx, DOMElement $V5hcgki43s1g, $Vepim3znzh4w)
     {
-        if ($pos === "after" || !$node->firstChild) {
-            $node->appendChild($new_node);
+        if ($Vepim3znzh4w === "after" || !$Vbr2bywdrplx->firstChild) {
+            $Vbr2bywdrplx->appendChild($V5hcgki43s1g);
         } else {
-            $node->insertBefore($new_node, $node->firstChild);
+            $Vbr2bywdrplx->insertBefore($V5hcgki43s1g, $Vbr2bywdrplx->firstChild);
         }
 
-        $this->_build_tree_r($new_node);
+        $this->_build_tree_r($V5hcgki43s1g);
 
-        $frame_id = $new_node->getAttribute("frame_id");
-        $frame = $this->get_frame($frame_id);
+        $Vnk2ly5jcvjf_id = $V5hcgki43s1g->getAttribute("frame_id");
+        $Vnk2ly5jcvjf = $this->get_frame($Vnk2ly5jcvjf_id);
 
-        $parent_id = $node->getAttribute("frame_id");
-        $parent = $this->get_frame($parent_id);
+        $Vmzrhnnzd1rd = $Vbr2bywdrplx->getAttribute("frame_id");
+        $Vycghhqowrim = $this->get_frame($Vmzrhnnzd1rd);
 
-        if ($parent) {
-            if ($pos === "before") {
-                $parent->prepend_child($frame, false);
+        if ($Vycghhqowrim) {
+            if ($Vepim3znzh4w === "before") {
+                $Vycghhqowrim->prepend_child($Vnk2ly5jcvjf, false);
             } else {
-                $parent->append_child($frame, false);
+                $Vycghhqowrim->append_child($Vnk2ly5jcvjf, false);
             }
         }
 
-        return $frame_id;
+        return $Vnk2ly5jcvjf_id;
     }
 }

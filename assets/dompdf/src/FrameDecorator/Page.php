@@ -1,10 +1,5 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\FrameDecorator;
 
 use Dompdf\Css\Style;
@@ -13,116 +8,65 @@ use Dompdf\Helpers;
 use Dompdf\Frame;
 use Dompdf\Renderer;
 
-/**
- * Decorates frames for page layout
- *
- * @access  private
- * @package dompdf
- */
+
 class Page extends AbstractFrameDecorator
 {
 
-    /**
-     * y value of bottom page margin
-     *
-     * @var float
-     */
-    protected $_bottom_page_margin;
+    
+    protected $Vfxk1bjcr1ag;
 
-    /**
-     * Flag indicating page is full.
-     *
-     * @var bool
-     */
-    protected $_page_full;
+    
+    protected $Vggahm521wtz;
 
-    /**
-     * Number of tables currently being reflowed
-     *
-     * @var int
-     */
-    protected $_in_table;
+    
+    protected $V13cqv2xwwyd;
 
-    /**
-     * The pdf renderer
-     *
-     * @var Renderer
-     */
-    protected $_renderer;
+    
+    protected $V1u52rporjfc;
 
-    /**
-     * This page's floating frames
-     *
-     * @var array
-     */
-    protected $_floating_frames = array();
+    
+    protected $Vhvptifa3ybx = array();
 
-    //........................................................................
+    
 
-    /**
-     * Class constructor
-     *
-     * @param Frame $frame the frame to decorate
-     * @param Dompdf $dompdf
-     */
-    function __construct(Frame $frame, Dompdf $dompdf)
+    
+    function __construct(Frame $Vnk2ly5jcvjf, Dompdf $Vhvghaoacagz)
     {
-        parent::__construct($frame, $dompdf);
+        parent::__construct($Vnk2ly5jcvjf, $Vhvghaoacagz);
         $this->_page_full = false;
         $this->_in_table = 0;
         $this->_bottom_page_margin = null;
     }
 
-    /**
-     * Set the renderer used for this pdf
-     *
-     * @param Renderer $renderer the renderer to use
-     */
-    function set_renderer($renderer)
+    
+    function set_renderer($Vn2mrtbf4ecy)
     {
-        $this->_renderer = $renderer;
+        $this->_renderer = $Vn2mrtbf4ecy;
     }
 
-    /**
-     * Return the renderer used for this pdf
-     *
-     * @return Renderer
-     */
+    
     function get_renderer()
     {
         return $this->_renderer;
     }
 
-    /**
-     * Set the frame's containing block.  Overridden to set $this->_bottom_page_margin.
-     *
-     * @param float $x
-     * @param float $y
-     * @param float $w
-     * @param float $h
-     */
-    function set_containing_block($x = null, $y = null, $w = null, $h = null)
+    
+    function set_containing_block($Vs4gloy23a1d = null, $Vopgub02o3q2 = null, $Vhoifq2kocyt = null, $Vjlmjalejjxa = null)
     {
-        parent::set_containing_block($x, $y, $w, $h);
-        //$w = $this->get_containing_block("w");
-        if (isset($h)) {
-            $this->_bottom_page_margin = $h;
-        } // - $this->_frame->get_style()->length_in_pt($this->_frame->get_style()->margin_bottom, $w);
+        parent::set_containing_block($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa);
+        
+        if (isset($Vjlmjalejjxa)) {
+            $this->_bottom_page_margin = $Vjlmjalejjxa;
+        } 
     }
 
-    /**
-     * Returns true if the page is full and is no longer accepting frames.
-     *
-     * @return bool
-     */
+    
     function is_full()
     {
         return $this->_page_full;
     }
 
-    /**
-     * Start a new page by resetting the full flag.
-     */
+    
     function next_page()
     {
         $this->_floating_frames = array();
@@ -130,92 +74,74 @@ class Page extends AbstractFrameDecorator
         $this->_page_full = false;
     }
 
-    /**
-     * Indicate to the page that a table is currently being reflowed.
-     */
+    
     function table_reflow_start()
     {
         $this->_in_table++;
     }
 
-    /**
-     * Indicate to the page that table reflow is finished.
-     */
+    
     function table_reflow_end()
     {
         $this->_in_table--;
     }
 
-    /**
-     * Return whether we are currently in a nested table or not
-     *
-     * @return bool
-     */
+    
     function in_nested_table()
     {
         return $this->_in_table > 1;
     }
 
-    /**
-     * Check if a forced page break is required before $frame.  This uses the
-     * frame's page_break_before property as well as the preceeding frame's
-     * page_break_after property.
-     *
-     * @link http://www.w3.org/TR/CSS21/page.html#forced
-     *
-     * @param Frame $frame the frame to check
-     *
-     * @return bool true if a page break occured
-     */
-    function check_forced_page_break(Frame $frame)
+    
+    function check_forced_page_break(Frame $Vnk2ly5jcvjf)
     {
 
-        // Skip check if page is already split
+        
         if ($this->_page_full) {
             return null;
         }
 
-        $block_types = array("block", "list-item", "table", "inline");
-        $page_breaks = array("always", "left", "right");
+        $V2ytmfynfnxj = array("block", "list-item", "table", "inline");
+        $Va3lowltrssp = array("always", "left", "right");
 
-        $style = $frame->get_style();
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
 
-        if (!in_array($style->display, $block_types)) {
+        if (!in_array($Vdidzwb0w3vc->display, $V2ytmfynfnxj)) {
             return false;
         }
 
-        // Find the previous block-level sibling
-        $prev = $frame->get_prev_sibling();
+        
+        $V3ymialkbj3v = $Vnk2ly5jcvjf->get_prev_sibling();
 
-        while ($prev && !in_array($prev->get_style()->display, $block_types)) {
-            $prev = $prev->get_prev_sibling();
+        while ($V3ymialkbj3v && !in_array($V3ymialkbj3v->get_style()->display, $V2ytmfynfnxj)) {
+            $V3ymialkbj3v = $V3ymialkbj3v->get_prev_sibling();
         }
 
-        if (in_array($style->page_break_before, $page_breaks)) {
-            // Prevent cascading splits
-            $frame->split(null, true);
-            // We have to grab the style again here because split() resets
-            // $frame->style to the frame's orignal style.
-            $frame->get_style()->page_break_before = "auto";
+        if (in_array($Vdidzwb0w3vc->page_break_before, $Va3lowltrssp)) {
+            
+            $Vnk2ly5jcvjf->split(null, true);
+            
+            
+            $Vnk2ly5jcvjf->get_style()->page_break_before = "auto";
             $this->_page_full = true;
 
             return true;
         }
 
-        if ($prev && in_array($prev->get_style()->page_break_after, $page_breaks)) {
-            // Prevent cascading splits
-            $frame->split(null, true);
-            $prev->get_style()->page_break_after = "auto";
+        if ($V3ymialkbj3v && in_array($V3ymialkbj3v->get_style()->page_break_after, $Va3lowltrssp)) {
+            
+            $Vnk2ly5jcvjf->split(null, true);
+            $V3ymialkbj3v->get_style()->page_break_after = "auto";
             $this->_page_full = true;
 
             return true;
         }
 
-        if ($prev && $prev->get_last_child() && $frame->get_node()->nodeName != "body") {
-            $prev_last_child = $prev->get_last_child();
-            if (in_array($prev_last_child->get_style()->page_break_after, $page_breaks)) {
-                $frame->split(null, true);
-                $prev_last_child->get_style()->page_break_after = "auto";
+        if ($V3ymialkbj3v && $V3ymialkbj3v->get_last_child() && $Vnk2ly5jcvjf->get_node()->nodeName != "body") {
+            $V3ymialkbj3v_last_child = $V3ymialkbj3v->get_last_child();
+            if (in_array($V3ymialkbj3v_last_child->get_style()->page_break_after, $Va3lowltrssp)) {
+                $Vnk2ly5jcvjf->split(null, true);
+                $V3ymialkbj3v_last_child->get_style()->page_break_after = "auto";
                 $this->_page_full = true;
 
                 return true;
@@ -225,171 +151,123 @@ class Page extends AbstractFrameDecorator
         return false;
     }
 
-    /**
-     * Determine if a page break is allowed before $frame
-     * http://www.w3.org/TR/CSS21/page.html#allowed-page-breaks
-     *
-     * In the normal flow, page breaks can occur at the following places:
-     *
-     *    1. In the vertical margin between block boxes. When a page
-     *    break occurs here, the used values of the relevant
-     *    'margin-top' and 'margin-bottom' properties are set to '0'.
-     *    2. Between line boxes inside a block box.
-     *
-     * These breaks are subject to the following rules:
-     *
-     *   * Rule A: Breaking at (1) is allowed only if the
-     *     'page-break-after' and 'page-break-before' properties of
-     *     all the elements generating boxes that meet at this margin
-     *     allow it, which is when at least one of them has the value
-     *     'always', 'left', or 'right', or when all of them are
-     *     'auto'.
-     *
-     *   * Rule B: However, if all of them are 'auto' and the
-     *     nearest common ancestor of all the elements has a
-     *     'page-break-inside' value of 'avoid', then breaking here is
-     *     not allowed.
-     *
-     *   * Rule C: Breaking at (2) is allowed only if the number of
-     *     line boxes between the break and the start of the enclosing
-     *     block box is the value of 'orphans' or more, and the number
-     *     of line boxes between the break and the end of the box is
-     *     the value of 'widows' or more.
-     *
-     *   * Rule D: In addition, breaking at (2) is allowed only if
-     *     the 'page-break-inside' property is 'auto'.
-     *
-     * If the above doesn't provide enough break points to keep
-     * content from overflowing the page boxes, then rules B and D are
-     * dropped in order to find additional breakpoints.
-     *
-     * If that still does not lead to sufficient break points, rules A
-     * and C are dropped as well, to find still more break points.
-     *
-     * We will also allow breaks between table rows.  However, when
-     * splitting a table, the table headers should carry over to the
-     * next page (but they don't yet).
-     *
-     * @param Frame $frame the frame to check
-     *
-     * @return bool true if a break is allowed, false otherwise
-     */
-    protected function _page_break_allowed(Frame $frame)
+    
+    protected function _page_break_allowed(Frame $Vnk2ly5jcvjf)
     {
-        $block_types = array("block", "list-item", "table", "-dompdf-image");
-        Helpers::dompdf_debug("page-break", "_page_break_allowed(" . $frame->get_node()->nodeName . ")");
-        $display = $frame->get_style()->display;
+        $V2ytmfynfnxj = array("block", "list-item", "table", "-dompdf-image");
+        Helpers::dompdf_debug("page-break", "_page_break_allowed(" . $Vnk2ly5jcvjf->get_node()->nodeName . ")");
+        $Vsagginauquc = $Vnk2ly5jcvjf->get_style()->display;
 
-        // Block Frames (1):
-        if (in_array($display, $block_types)) {
+        
+        if (in_array($Vsagginauquc, $V2ytmfynfnxj)) {
 
-            // Avoid breaks within table-cells
+            
             if ($this->_in_table) {
                 Helpers::dompdf_debug("page-break", "In table: " . $this->_in_table);
 
                 return false;
             }
 
-            // Rules A & B
+            
 
-            if ($frame->get_style()->page_break_before === "avoid") {
+            if ($Vnk2ly5jcvjf->get_style()->page_break_before === "avoid") {
                 Helpers::dompdf_debug("page-break", "before: avoid");
 
                 return false;
             }
 
-            // Find the preceeding block-level sibling
-            $prev = $frame->get_prev_sibling();
-            while ($prev && !in_array($prev->get_style()->display, $block_types)) {
-                $prev = $prev->get_prev_sibling();
+            
+            $V3ymialkbj3v = $Vnk2ly5jcvjf->get_prev_sibling();
+            while ($V3ymialkbj3v && !in_array($V3ymialkbj3v->get_style()->display, $V2ytmfynfnxj)) {
+                $V3ymialkbj3v = $V3ymialkbj3v->get_prev_sibling();
             }
 
-            // Does the previous element allow a page break after?
-            if ($prev && $prev->get_style()->page_break_after === "avoid") {
+            
+            if ($V3ymialkbj3v && $V3ymialkbj3v->get_style()->page_break_after === "avoid") {
                 Helpers::dompdf_debug("page-break", "after: avoid");
 
                 return false;
             }
 
-            // If both $prev & $frame have the same parent, check the parent's
-            // page_break_inside property.
-            $parent = $frame->get_parent();
-            if ($prev && $parent && $parent->get_style()->page_break_inside === "avoid") {
+            
+            
+            $Vycghhqowrim = $Vnk2ly5jcvjf->get_parent();
+            if ($V3ymialkbj3v && $Vycghhqowrim && $Vycghhqowrim->get_style()->page_break_inside === "avoid") {
                 Helpers::dompdf_debug("page-break", "parent inside: avoid");
 
                 return false;
             }
 
-            // To prevent cascading page breaks when a top-level element has
-            // page-break-inside: avoid, ensure that at least one frame is
-            // on the page before splitting.
-            if ($parent->get_node()->nodeName === "body" && !$prev) {
-                // We are the body's first child
+            
+            
+            
+            if ($Vycghhqowrim->get_node()->nodeName === "body" && !$V3ymialkbj3v) {
+                
                 Helpers::dompdf_debug("page-break", "Body's first child.");
 
                 return false;
             }
 
-            // If the frame is the first block-level frame, use the value from
-            // $frame's parent instead.
-            if (!$prev && $parent) {
-                return $this->_page_break_allowed($parent);
+            
+            
+            if (!$V3ymialkbj3v && $Vycghhqowrim) {
+                return $this->_page_break_allowed($Vycghhqowrim);
             }
 
             Helpers::dompdf_debug("page-break", "block: break allowed");
 
             return true;
 
-        } // Inline frames (2):
+        } 
         else {
-            if (in_array($display, Style::$INLINE_TYPES)) {
+            if (in_array($Vsagginauquc, Style::$V3irmujeshqx)) {
 
-                // Avoid breaks within table-cells
+                
                 if ($this->_in_table) {
                     Helpers::dompdf_debug("page-break", "In table: " . $this->_in_table);
 
                     return false;
                 }
 
-                // Rule C
-                $block_parent = $frame->find_block_parent();
-                if (count($block_parent->get_line_boxes()) < $frame->get_style()->orphans) {
+                
+                $Vs1ayz3rw5zi = $Vnk2ly5jcvjf->find_block_parent();
+                if (count($Vs1ayz3rw5zi->get_line_boxes()) < $Vnk2ly5jcvjf->get_style()->orphans) {
                     Helpers::dompdf_debug("page-break", "orphans");
 
                     return false;
                 }
 
-                // FIXME: Checking widows is tricky without having laid out the
-                // remaining line boxes.  Just ignore it for now...
+                
+                
 
-                // Rule D
-                $p = $block_parent;
-                while ($p) {
-                    if ($p->get_style()->page_break_inside === "avoid") {
+                
+                $Vksopkgqixky = $Vs1ayz3rw5zi;
+                while ($Vksopkgqixky) {
+                    if ($Vksopkgqixky->get_style()->page_break_inside === "avoid") {
                         Helpers::dompdf_debug("page-break", "parent->inside: avoid");
 
                         return false;
                     }
-                    $p = $p->find_block_parent();
+                    $Vksopkgqixky = $Vksopkgqixky->find_block_parent();
                 }
 
-                // To prevent cascading page breaks when a top-level element has
-                // page-break-inside: avoid, ensure that at least one frame with
-                // some content is on the page before splitting.
-                $prev = $frame->get_prev_sibling();
-                while ($prev && ($prev->is_text_node() && trim($prev->get_node()->nodeValue) == "")) {
-                    $prev = $prev->get_prev_sibling();
+                
+                
+                
+                $V3ymialkbj3v = $Vnk2ly5jcvjf->get_prev_sibling();
+                while ($V3ymialkbj3v && ($V3ymialkbj3v->is_text_node() && trim($V3ymialkbj3v->get_node()->nodeValue) == "")) {
+                    $V3ymialkbj3v = $V3ymialkbj3v->get_prev_sibling();
                 }
 
-                if ($block_parent->get_node()->nodeName === "body" && !$prev) {
-                    // We are the body's first child
+                if ($Vs1ayz3rw5zi->get_node()->nodeName === "body" && !$V3ymialkbj3v) {
+                    
                     Helpers::dompdf_debug("page-break", "Body's first child.");
 
                     return false;
                 }
 
-                // Skip breaks on empty text nodes
-                if ($frame->is_text_node() && $frame->get_node()->nodeValue == "") {
+                
+                if ($Vnk2ly5jcvjf->is_text_node() && $Vnk2ly5jcvjf->get_node()->nodeValue == "") {
                     return false;
                 }
 
@@ -397,31 +275,31 @@ class Page extends AbstractFrameDecorator
 
                 return true;
 
-            // Table-rows
+            
             } else {
-                if ($display === "table-row") {
-                    // Simply check if the parent table's page_break_inside property is
-                    // not 'avoid'
-                    $table = Table::find_parent_table($frame);
+                if ($Vsagginauquc === "table-row") {
+                    
+                    
+                    $Vahqmfi4rdgw = Table::find_parent_table($Vnk2ly5jcvjf);
 
-                    $p = $table;
-                    while ($p) {
-                        if ($p->get_style()->page_break_inside === "avoid") {
+                    $Vksopkgqixky = $Vahqmfi4rdgw;
+                    while ($Vksopkgqixky) {
+                        if ($Vksopkgqixky->get_style()->page_break_inside === "avoid") {
                             Helpers::dompdf_debug("page-break", "parent->inside: avoid");
 
                             return false;
                         }
-                        $p = $p->find_block_parent();
+                        $Vksopkgqixky = $Vksopkgqixky->find_block_parent();
                     }
 
-                    // Avoid breaking after the first row of a table
-                    if ($table && $table->get_first_child() === $frame || $table->get_first_child()->get_first_child() === $frame) {
+                    
+                    if ($Vahqmfi4rdgw && $Vahqmfi4rdgw->get_first_child() === $Vnk2ly5jcvjf || $Vahqmfi4rdgw->get_first_child()->get_first_child() === $Vnk2ly5jcvjf) {
                         Helpers::dompdf_debug("page-break", "table: first-row");
 
                         return false;
                     }
 
-                    // If this is a nested table, prevent the page from breaking
+                    
                     if ($this->_in_table > 1) {
                         Helpers::dompdf_debug("page-break", "table: nested table");
 
@@ -432,13 +310,13 @@ class Page extends AbstractFrameDecorator
 
                     return true;
                 } else {
-                    if (in_array($display, Table::$ROW_GROUPS)) {
+                    if (in_array($Vsagginauquc, Table::$Vl0lmlwo3v4l)) {
 
-                        // Disallow breaks at row-groups: only split at row boundaries
+                        
                         return false;
 
                     } else {
-                        Helpers::dompdf_debug("page-break", "? " . $frame->get_style()->display . "");
+                        Helpers::dompdf_debug("page-break", "? " . $Vnk2ly5jcvjf->get_style()->display . "");
 
                         return false;
                     }
@@ -448,243 +326,219 @@ class Page extends AbstractFrameDecorator
 
     }
 
-    /**
-     * Check if $frame will fit on the page.  If the frame does not fit,
-     * the frame tree is modified so that a page break occurs in the
-     * correct location.
-     *
-     * @param Frame $frame the frame to check
-     *
-     * @return bool
-     */
-    function check_page_break(Frame $frame)
+    
+    function check_page_break(Frame $Vnk2ly5jcvjf)
     {
-        //FIXME: should not need to do this since we're tracking table status in `$this->_in_table`
-        $p = $frame;
-        $in_table = false;
-        while ($p) {
-            if ($p->is_table()) { $in_table = true; break; }
-            $p = $p->get_parent();
+        
+        $Vksopkgqixky = $Vnk2ly5jcvjf;
+        $Vwxs1mp0bsdo = false;
+        while ($Vksopkgqixky) {
+            if ($Vksopkgqixky->is_table()) { $Vwxs1mp0bsdo = true; break; }
+            $Vksopkgqixky = $Vksopkgqixky->get_parent();
         }
-        // Do not split if we have already or if the frame was already
-        // pushed to the next page (prevents infinite loops)
-        if ($in_table) {
-            if ($this->_page_full && $frame->_already_pushed) {
+        
+        
+        if ($Vwxs1mp0bsdo) {
+            if ($this->_page_full && $Vnk2ly5jcvjf->_already_pushed) {
                 return false;
             }
-        } elseif ($this->_page_full || $frame->_already_pushed) {
+        } elseif ($this->_page_full || $Vnk2ly5jcvjf->_already_pushed) {
             return false;
         }
 
-        //FIXME: work-around for infinite loop due to tables
-        if ($in_table && $frame->_already_pushed) {
+        
+        if ($Vwxs1mp0bsdo && $Vnk2ly5jcvjf->_already_pushed) {
             return false;
         }
-        $p = $frame;
+        $Vksopkgqixky = $Vnk2ly5jcvjf;
         do {
-            $display = $p->get_style()->display;
-            if ($display == "table-row") {
-                if ($p->_already_pushed) { return false; }
+            $Vsagginauquc = $Vksopkgqixky->get_style()->display;
+            if ($Vsagginauquc == "table-row") {
+                if ($Vksopkgqixky->_already_pushed) { return false; }
             }
-        } while ($p = $p->get_parent());
+        } while ($Vksopkgqixky = $Vksopkgqixky->get_parent());
 
-        // If the frame is absolute of fixed it shouldn't break
-        $p = $frame;
+        
+        $Vksopkgqixky = $Vnk2ly5jcvjf;
         do {
-            if ($p->is_absolute()) {
+            if ($Vksopkgqixky->is_absolute()) {
                 return false;
             }
 
-            // FIXME If the row is taller than the page and
-            // if it the first of the page, we don't break
-            $display = $p->get_style()->display;
-            if ($display === "table-row"
-                && !$p->get_prev_sibling()
-                && $p->get_margin_height() > $this->get_margin_height()
+            
+            
+            $Vsagginauquc = $Vksopkgqixky->get_style()->display;
+            if ($Vsagginauquc === "table-row"
+                && !$Vksopkgqixky->get_prev_sibling()
+                && $Vksopkgqixky->get_margin_height() > $this->get_margin_height()
             ) {
                 return false;
             }
-        } while ($p = $p->get_parent());
+        } while ($Vksopkgqixky = $Vksopkgqixky->get_parent());
 
-        $margin_height = $frame->get_margin_height();
+        $Vvbmhkets3pd = $Vnk2ly5jcvjf->get_margin_height();
 
-        // Determine the frame's maximum y value
-        $max_y = (float)$frame->get_position("y") + $margin_height;
+        
+        $Vlfsdo1xoorw = (float)$Vnk2ly5jcvjf->get_position("y") + $Vvbmhkets3pd;
 
-        // If a split is to occur here, then the bottom margins & paddings of all
-        // parents of $frame must fit on the page as well:
-        $p = $frame->get_parent();
-        while ($p) {
-            $max_y += $p->get_style()->computed_bottom_spacing();
-            $p = $p->get_parent();
+        
+        
+        $Vksopkgqixky = $Vnk2ly5jcvjf->get_parent();
+        while ($Vksopkgqixky) {
+            $Vlfsdo1xoorw += $Vksopkgqixky->get_style()->computed_bottom_spacing();
+            $Vksopkgqixky = $Vksopkgqixky->get_parent();
         }
 
 
-        // Check if $frame flows off the page
-        if ($max_y <= $this->_bottom_page_margin) {
-            // no: do nothing
+        
+        if ($Vlfsdo1xoorw <= $this->_bottom_page_margin) {
+            
             return false;
         }
 
         Helpers::dompdf_debug("page-break", "check_page_break");
         Helpers::dompdf_debug("page-break", "in_table: " . $this->_in_table);
 
-        // yes: determine page break location
-        $iter = $frame;
-        $flg = false;
+        
+        $Vqz1antku1y3 = $Vnk2ly5jcvjf;
+        $Vebhhfd5c4h0 = false;
 
-        $in_table = $this->_in_table;
+        $Vwxs1mp0bsdo = $this->_in_table;
 
         Helpers::dompdf_debug("page-break", "Starting search");
-        while ($iter) {
-            // echo "\nbacktrack: " .$iter->get_node()->nodeName ." ".spl_object_hash($iter->get_node()). "";
-            if ($iter === $this) {
+        while ($Vqz1antku1y3) {
+            
+            if ($Vqz1antku1y3 === $this) {
                 Helpers::dompdf_debug("page-break", "reached root.");
-                // We've reached the root in our search.  Just split at $frame.
+                
                 break;
             }
 
-            if ($this->_page_break_allowed($iter)) {
+            if ($this->_page_break_allowed($Vqz1antku1y3)) {
                 Helpers::dompdf_debug("page-break", "break allowed, splitting.");
-                $iter->split(null, true);
+                $Vqz1antku1y3->split(null, true);
                 $this->_page_full = true;
-                $this->_in_table = $in_table;
-                $frame->_already_pushed = true;
+                $this->_in_table = $Vwxs1mp0bsdo;
+                $Vnk2ly5jcvjf->_already_pushed = true;
 
                 return true;
             }
 
-            if (!$flg && $next = $iter->get_last_child()) {
+            if (!$Vebhhfd5c4h0 && $V3v4ujy1pb5h = $Vqz1antku1y3->get_last_child()) {
                 Helpers::dompdf_debug("page-break", "following last child.");
 
-                if ($next->is_table()) {
+                if ($V3v4ujy1pb5h->is_table()) {
                     $this->_in_table++;
                 }
 
-                $iter = $next;
+                $Vqz1antku1y3 = $V3v4ujy1pb5h;
                 continue;
             }
 
-            if ($next = $iter->get_prev_sibling()) {
+            if ($V3v4ujy1pb5h = $Vqz1antku1y3->get_prev_sibling()) {
                 Helpers::dompdf_debug("page-break", "following prev sibling.");
 
-                if ($next->is_table() && !$iter->is_table()) {
+                if ($V3v4ujy1pb5h->is_table() && !$Vqz1antku1y3->is_table()) {
                     $this->_in_table++;
-                } else if (!$next->is_table() && $iter->is_table()) {
+                } else if (!$V3v4ujy1pb5h->is_table() && $Vqz1antku1y3->is_table()) {
                     $this->_in_table--;
                 }
 
-                $iter = $next;
-                $flg = false;
+                $Vqz1antku1y3 = $V3v4ujy1pb5h;
+                $Vebhhfd5c4h0 = false;
                 continue;
             }
 
-            if ($next = $iter->get_parent()) {
+            if ($V3v4ujy1pb5h = $Vqz1antku1y3->get_parent()) {
                 Helpers::dompdf_debug("page-break", "following parent.");
 
-                if ($iter->is_table()) {
+                if ($Vqz1antku1y3->is_table()) {
                     $this->_in_table--;
                 }
 
-                $iter = $next;
-                $flg = true;
+                $Vqz1antku1y3 = $V3v4ujy1pb5h;
+                $Vebhhfd5c4h0 = true;
                 continue;
             }
 
             break;
         }
 
-        $this->_in_table = $in_table;
+        $this->_in_table = $Vwxs1mp0bsdo;
 
-        // No valid page break found.  Just break at $frame.
+        
         Helpers::dompdf_debug("page-break", "no valid break found, just splitting.");
 
-        // If we are in a table, backtrack to the nearest top-level table row
+        
         if ($this->_in_table) {
-            $iter = $frame;
-            while ($iter && $iter->get_style()->display !== "table-row" && $iter->get_style()->display !== 'table-row-group' && $iter->_already_pushed === false) {
-                $iter = $iter->get_parent();
+            $Vqz1antku1y3 = $Vnk2ly5jcvjf;
+            while ($Vqz1antku1y3 && $Vqz1antku1y3->get_style()->display !== "table-row" && $Vqz1antku1y3->get_style()->display !== 'table-row-group' && $Vqz1antku1y3->_already_pushed === false) {
+                $Vqz1antku1y3 = $Vqz1antku1y3->get_parent();
             }
 
-            if ($iter) {
-                $iter->split(null, true);
+            if ($Vqz1antku1y3) {
+                $Vqz1antku1y3->split(null, true);
             } else {
                 return false;
             }
         } else {
-            $frame->split(null, true);
+            $Vnk2ly5jcvjf->split(null, true);
         }
 
         $this->_page_full = true;
-        $frame->_already_pushed = true;
+        $Vnk2ly5jcvjf->_already_pushed = true;
 
         return true;
     }
 
-    //........................................................................
+    
 
-    /**
-     * @param Frame|null $frame
-     * @param bool $force_pagebreak
-     */
-    function split(Frame $frame = null, $force_pagebreak = false)
+    
+    function split(Frame $Vnk2ly5jcvjf = null, $Vxx1fnm322ds = false)
     {
-        // Do nothing
+        
     }
 
-    /**
-     * Add a floating frame
-     *
-     * @param Frame $frame
-     *
-     * @return void
-     */
-    function add_floating_frame(Frame $frame)
+    
+    function add_floating_frame(Frame $Vnk2ly5jcvjf)
     {
-        array_unshift($this->_floating_frames, $frame);
+        array_unshift($this->_floating_frames, $Vnk2ly5jcvjf);
     }
 
-    /**
-     * @return Frame[]
-     */
+    
     function get_floating_frames()
     {
         return $this->_floating_frames;
     }
 
-    /**
-     * @param $key
-     */
-    public function remove_floating_frame($key)
+    
+    public function remove_floating_frame($Vqwhzgethmgj)
     {
-        unset($this->_floating_frames[$key]);
+        unset($this->_floating_frames[$Vqwhzgethmgj]);
     }
 
-    /**
-     * @param Frame $child
-     * @return int|mixed
-     */
-    public function get_lowest_float_offset(Frame $child)
+    
+    public function get_lowest_float_offset(Frame $Vtcc233inn5m)
     {
-        $style = $child->get_style();
-        $side = $style->clear;
-        $float = $style->float;
+        $Vdidzwb0w3vc = $Vtcc233inn5m->get_style();
+        $Voj5js1i2adw = $Vdidzwb0w3vc->clear;
+        $Vzte0430tk0z = $Vdidzwb0w3vc->float;
 
-        $y = 0;
+        $Vopgub02o3q2 = 0;
 
-        if ($float === "none") {
-            foreach ($this->_floating_frames as $key => $frame) {
-                if ($side === "both" || $frame->get_style()->float === $side) {
-                    $y = max($y, $frame->get_position("y") + $frame->get_margin_height());
+        if ($Vzte0430tk0z === "none") {
+            foreach ($this->_floating_frames as $Vqwhzgethmgj => $Vnk2ly5jcvjf) {
+                if ($Voj5js1i2adw === "both" || $Vnk2ly5jcvjf->get_style()->float === $Voj5js1i2adw) {
+                    $Vopgub02o3q2 = max($Vopgub02o3q2, $Vnk2ly5jcvjf->get_position("y") + $Vnk2ly5jcvjf->get_margin_height());
                 }
-                $this->remove_floating_frame($key);
+                $this->remove_floating_frame($Vqwhzgethmgj);
             }
         }
 
-        if ($y > 0) {
-            $y++; // add 1px buffer from float
+        if ($Vopgub02o3q2 > 0) {
+            $Vopgub02o3q2++; 
         }
 
-        return $y;
+        return $Vopgub02o3q2;
     }
 }

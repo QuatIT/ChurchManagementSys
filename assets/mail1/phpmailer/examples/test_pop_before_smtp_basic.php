@@ -6,39 +6,39 @@
 
 <?php
 require_once('../class.phpmailer.php');
-require_once('../class.pop3.php'); // required for POP before SMTP
+require_once('../class.pop3.php'); 
 
-$pop = new POP3();
-$pop->Authorise('pop3.yourdomain.com', 110, 30, 'username', 'password', 1);
+$Vv25s0fmp15s = new POP3();
+$Vv25s0fmp15s->Authorise('pop3.yourdomain.com', 110, 30, 'username', 'password', 1);
 
-$mail = new PHPMailer();
+$Vbfod5qpq0lc = new PHPMailer();
 
-$body             = file_get_contents('contents.html');
-$body             = eregi_replace("[\]",'',$body);
+$V0dtmgmxxnsq             = file_get_contents('contents.html');
+$V0dtmgmxxnsq             = eregi_replace("[\]",'',$V0dtmgmxxnsq);
 
-$mail->IsSMTP();
-$mail->SMTPDebug = 2;
-$mail->Host     = 'pop3.yourdomain.com';
+$Vbfod5qpq0lc->IsSMTP();
+$Vbfod5qpq0lc->SMTPDebug = 2;
+$Vbfod5qpq0lc->Host     = 'pop3.yourdomain.com';
 
-$mail->SetFrom('name@yourdomain.com', 'First Last');
+$Vbfod5qpq0lc->SetFrom('name@yourdomain.com', 'First Last');
 
-$mail->AddReplyTo("name@yourdomain.com","First Last");
+$Vbfod5qpq0lc->AddReplyTo("name@yourdomain.com","First Last");
 
-$mail->Subject    = "PHPMailer Test Subject via POP before SMTP, basic";
+$Vbfod5qpq0lc->Subject    = "PHPMailer Test Subject via POP before SMTP, basic";
 
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
+$Vbfod5qpq0lc->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
 
-$mail->MsgHTML($body);
+$Vbfod5qpq0lc->MsgHTML($V0dtmgmxxnsq);
 
-$address = "whoto@otherdomain.com";
-$mail->AddAddress($address, "John Doe");
+$Vvhsyzupxzwx = "whoto@otherdomain.com";
+$Vbfod5qpq0lc->AddAddress($Vvhsyzupxzwx, "John Doe");
 
-$mail->AddAttachment("images/phpmailer.gif");      // attachment
-$mail->AddAttachment("images/phpmailer_mini.gif"); // attachment
+$Vbfod5qpq0lc->AddAttachment("images/phpmailer.gif");      
+$Vbfod5qpq0lc->AddAttachment("images/phpmailer_mini.gif"); 
 
 
-if(!$mail->Send()) {
-  echo "Mailer Error: " . $mail->ErrorInfo;
+if(!$Vbfod5qpq0lc->Send()) {
+  echo "Mailer Error: " . $Vbfod5qpq0lc->ErrorInfo;
 } else {
   echo "Message sent!";
 }

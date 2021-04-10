@@ -1,10 +1,5 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Tag;
 
@@ -12,7 +7,7 @@ use Svg\Surface\SurfaceInterface;
 
 class Path extends Shape
 {
-    static $commandLengths = array(
+    static $V3hm23p5mqem = array(
         'm' => 2,
         'l' => 2,
         'h' => 1,
@@ -24,505 +19,505 @@ class Path extends Shape
         'a' => 7,
     );
 
-    static $repeatedCommands = array(
+    static $Vlwqhei1brhq = array(
         'm' => 'l',
         'M' => 'L',
     );
 
-    public function start($attributes)
+    public function start($Voywws15cvz5)
     {
-        if (!isset($attributes['d'])) {
-            $this->hasShape = false;
+        if (!isset($Voywws15cvz5['d'])) {
+            $Vcki4t4qmybshis->hasShape = false;
 
             return;
         }
 
-        $commands = array();
-        preg_match_all('/([MZLHVCSQTAmzlhvcsqta])([eE ,\-.\d]+)*/', $attributes['d'], $commands, PREG_SET_ORDER);
+        $V0tiu4czys2m = array();
+        preg_match_all('/([MZLHVCSQTAmzlhvcsqta])([eE ,\-.\d]+)*/', $Voywws15cvz5['d'], $V0tiu4czys2m, PREG_SET_ORDER);
 
-        $path = array();
-        foreach ($commands as $c) {
-            if (count($c) == 3) {
-                $arguments = array();
-                preg_match_all('/([-+]?((\d+\.\d+)|((\d+)|(\.\d+)))(?:e[-+]?\d+)?)/i', $c[2], $arguments, PREG_PATTERN_ORDER);
-                $item = $arguments[0];
-                $commandLower = strtolower($c[1]);
+        $Vio2vixcckdr = array();
+        foreach ($V0tiu4czys2m as $Vv03lfntnmcz) {
+            if (count($Vv03lfntnmcz) == 3) {
+                $Vtuyql0vigxq = array();
+                preg_match_all('/([-+]?((\d+\.\d+)|((\d+)|(\.\d+)))(?:e[-+]?\d+)?)/i', $Vv03lfntnmcz[2], $Vtuyql0vigxq, PREG_PATTERN_ORDER);
+                $Vfxeymomkggo = $Vtuyql0vigxq[0];
+                $Vv03lfntnmczommandLower = strtolower($Vv03lfntnmcz[1]);
 
                 if (
-                    isset(self::$commandLengths[$commandLower]) &&
-                    ($commandLength = self::$commandLengths[$commandLower]) &&
-                    count($item) > $commandLength
+                    isset(self::$V3hm23p5mqem[$Vv03lfntnmczommandLower]) &&
+                    ($Vv03lfntnmczommandLength = self::$V3hm23p5mqem[$Vv03lfntnmczommandLower]) &&
+                    count($Vfxeymomkggo) > $Vv03lfntnmczommandLength
                 ) {
-                    $repeatedCommand = isset(self::$repeatedCommands[$c[1]]) ? self::$repeatedCommands[$c[1]] : $c[1];
-                    $command = $c[1];
+                    $Vh2wugvumpym = isset(self::$Vlwqhei1brhq[$Vv03lfntnmcz[1]]) ? self::$Vlwqhei1brhq[$Vv03lfntnmcz[1]] : $Vv03lfntnmcz[1];
+                    $Vv03lfntnmczommand = $Vv03lfntnmcz[1];
 
-                    for ($k = 0, $klen = count($item); $k < $klen; $k += $commandLength) {
-                        $_item = array_slice($item, $k, $k + $commandLength);
-                        array_unshift($_item, $command);
-                        $path[] = $_item;
+                    for ($Vgu5dsd35kdp = 0, $Vgu5dsd35kdplen = count($Vfxeymomkggo); $Vgu5dsd35kdp < $Vgu5dsd35kdplen; $Vgu5dsd35kdp += $Vv03lfntnmczommandLength) {
+                        $V5qxe50qy1ec = array_slice($Vfxeymomkggo, $Vgu5dsd35kdp, $Vgu5dsd35kdp + $Vv03lfntnmczommandLength);
+                        array_unshift($V5qxe50qy1ec, $Vv03lfntnmczommand);
+                        $Vio2vixcckdr[] = $V5qxe50qy1ec;
 
-                        $command = $repeatedCommand;
+                        $Vv03lfntnmczommand = $Vh2wugvumpym;
                     }
                 } else {
-                    array_unshift($item, $c[1]);
-                    $path[] = $item;
+                    array_unshift($Vfxeymomkggo, $Vv03lfntnmcz[1]);
+                    $Vio2vixcckdr[] = $Vfxeymomkggo;
                 }
 
             } else {
-                $item = array($c[1]);
+                $Vfxeymomkggo = array($Vv03lfntnmcz[1]);
 
-                $path[] = $item;
+                $Vio2vixcckdr[] = $Vfxeymomkggo;
             }
         }
 
-        $surface = $this->document->getSurface();
+        $Vyjtkau4njyv = $Vcki4t4qmybshis->document->getSurface();
 
-        // From https://github.com/kangax/fabric.js/blob/master/src/shapes/path.class.js
-        $current = null; // current instruction
-        $previous = null;
-        $subpathStartX = 0;
-        $subpathStartY = 0;
-        $x = 0; // current x
-        $y = 0; // current y
-        $controlX = 0; // current control point x
-        $controlY = 0; // current control point y
-        $tempX = null;
-        $tempY = null;
-        $tempControlX = null;
-        $tempControlY = null;
-        $l = 0; //-((this.width / 2) + $this.pathOffset.x),
-        $t = 0; //-((this.height / 2) + $this.pathOffset.y),
-        $methodName = null;
+        
+        $Vv03lfntnmczurrent = null; 
+        $Vvmpaxraydqz = null;
+        $V2my1bfaoywc = 0;
+        $Vzekhkyiobnc = 0;
+        $Vs4gloy23a1d = 0; 
+        $Vopgub02o3q2 = 0; 
+        $Vv03lfntnmczontrolX = 0; 
+        $Vv03lfntnmczontrolY = 0; 
+        $Vjcx0zcsckcb = null;
+        $Vswimifpecds = null;
+        $Vgbfrc2v1aui = null;
+        $Vv0n5vob4umq = null;
+        $V3nb02w01gr5 = 0; 
+        $Vcki4t4qmybs = 0; 
+        $Vln1fgaz3yy3 = null;
 
-        foreach ($path as $current) {
-            switch ($current[0]) { // first letter
-                case 'l': // lineto, relative
-                    $x += $current[1];
-                    $y += $current[2];
-                    $surface->lineTo($x + $l, $y + $t);
+        foreach ($Vio2vixcckdr as $Vv03lfntnmczurrent) {
+            switch ($Vv03lfntnmczurrent[0]) { 
+                case 'l': 
+                    $Vs4gloy23a1d += $Vv03lfntnmczurrent[1];
+                    $Vopgub02o3q2 += $Vv03lfntnmczurrent[2];
+                    $Vyjtkau4njyv->lineTo($Vs4gloy23a1d + $V3nb02w01gr5, $Vopgub02o3q2 + $Vcki4t4qmybs);
                     break;
 
-                case 'L': // lineto, absolute
-                    $x = $current[1];
-                    $y = $current[2];
-                    $surface->lineTo($x + $l, $y + $t);
+                case 'L': 
+                    $Vs4gloy23a1d = $Vv03lfntnmczurrent[1];
+                    $Vopgub02o3q2 = $Vv03lfntnmczurrent[2];
+                    $Vyjtkau4njyv->lineTo($Vs4gloy23a1d + $V3nb02w01gr5, $Vopgub02o3q2 + $Vcki4t4qmybs);
                     break;
 
-                case 'h': // horizontal lineto, relative
-                    $x += $current[1];
-                    $surface->lineTo($x + $l, $y + $t);
+                case 'h': 
+                    $Vs4gloy23a1d += $Vv03lfntnmczurrent[1];
+                    $Vyjtkau4njyv->lineTo($Vs4gloy23a1d + $V3nb02w01gr5, $Vopgub02o3q2 + $Vcki4t4qmybs);
                     break;
 
-                case 'H': // horizontal lineto, absolute
-                    $x = $current[1];
-                    $surface->lineTo($x + $l, $y + $t);
+                case 'H': 
+                    $Vs4gloy23a1d = $Vv03lfntnmczurrent[1];
+                    $Vyjtkau4njyv->lineTo($Vs4gloy23a1d + $V3nb02w01gr5, $Vopgub02o3q2 + $Vcki4t4qmybs);
                     break;
 
-                case 'v': // vertical lineto, relative
-                    $y += $current[1];
-                    $surface->lineTo($x + $l, $y + $t);
+                case 'v': 
+                    $Vopgub02o3q2 += $Vv03lfntnmczurrent[1];
+                    $Vyjtkau4njyv->lineTo($Vs4gloy23a1d + $V3nb02w01gr5, $Vopgub02o3q2 + $Vcki4t4qmybs);
                     break;
 
-                case 'V': // verical lineto, absolute
-                    $y = $current[1];
-                    $surface->lineTo($x + $l, $y + $t);
+                case 'V': 
+                    $Vopgub02o3q2 = $Vv03lfntnmczurrent[1];
+                    $Vyjtkau4njyv->lineTo($Vs4gloy23a1d + $V3nb02w01gr5, $Vopgub02o3q2 + $Vcki4t4qmybs);
                     break;
 
-                case 'm': // moveTo, relative
-                    $x += $current[1];
-                    $y += $current[2];
-                    $subpathStartX = $x;
-                    $subpathStartY = $y;
-                    $surface->moveTo($x + $l, $y + $t);
+                case 'm': 
+                    $Vs4gloy23a1d += $Vv03lfntnmczurrent[1];
+                    $Vopgub02o3q2 += $Vv03lfntnmczurrent[2];
+                    $V2my1bfaoywc = $Vs4gloy23a1d;
+                    $Vzekhkyiobnc = $Vopgub02o3q2;
+                    $Vyjtkau4njyv->moveTo($Vs4gloy23a1d + $V3nb02w01gr5, $Vopgub02o3q2 + $Vcki4t4qmybs);
                     break;
 
-                case 'M': // moveTo, absolute
-                    $x = $current[1];
-                    $y = $current[2];
-                    $subpathStartX = $x;
-                    $subpathStartY = $y;
-                    $surface->moveTo($x + $l, $y + $t);
+                case 'M': 
+                    $Vs4gloy23a1d = $Vv03lfntnmczurrent[1];
+                    $Vopgub02o3q2 = $Vv03lfntnmczurrent[2];
+                    $V2my1bfaoywc = $Vs4gloy23a1d;
+                    $Vzekhkyiobnc = $Vopgub02o3q2;
+                    $Vyjtkau4njyv->moveTo($Vs4gloy23a1d + $V3nb02w01gr5, $Vopgub02o3q2 + $Vcki4t4qmybs);
                     break;
 
-                case 'c': // bezierCurveTo, relative
-                    $tempX = $x + $current[5];
-                    $tempY = $y + $current[6];
-                    $controlX = $x + $current[3];
-                    $controlY = $y + $current[4];
-                    $surface->bezierCurveTo(
-                        $x + $current[1] + $l, // x1
-                        $y + $current[2] + $t, // y1
-                        $controlX + $l, // x2
-                        $controlY + $t, // y2
-                        $tempX + $l,
-                        $tempY + $t
+                case 'c': 
+                    $Vjcx0zcsckcb = $Vs4gloy23a1d + $Vv03lfntnmczurrent[5];
+                    $Vswimifpecds = $Vopgub02o3q2 + $Vv03lfntnmczurrent[6];
+                    $Vv03lfntnmczontrolX = $Vs4gloy23a1d + $Vv03lfntnmczurrent[3];
+                    $Vv03lfntnmczontrolY = $Vopgub02o3q2 + $Vv03lfntnmczurrent[4];
+                    $Vyjtkau4njyv->bezierCurveTo(
+                        $Vs4gloy23a1d + $Vv03lfntnmczurrent[1] + $V3nb02w01gr5, 
+                        $Vopgub02o3q2 + $Vv03lfntnmczurrent[2] + $Vcki4t4qmybs, 
+                        $Vv03lfntnmczontrolX + $V3nb02w01gr5, 
+                        $Vv03lfntnmczontrolY + $Vcki4t4qmybs, 
+                        $Vjcx0zcsckcb + $V3nb02w01gr5,
+                        $Vswimifpecds + $Vcki4t4qmybs
                     );
-                    $x = $tempX;
-                    $y = $tempY;
+                    $Vs4gloy23a1d = $Vjcx0zcsckcb;
+                    $Vopgub02o3q2 = $Vswimifpecds;
                     break;
 
-                case 'C': // bezierCurveTo, absolute
-                    $x = $current[5];
-                    $y = $current[6];
-                    $controlX = $current[3];
-                    $controlY = $current[4];
-                    $surface->bezierCurveTo(
-                        $current[1] + $l,
-                        $current[2] + $t,
-                        $controlX + $l,
-                        $controlY + $t,
-                        $x + $l,
-                        $y + $t
+                case 'C': 
+                    $Vs4gloy23a1d = $Vv03lfntnmczurrent[5];
+                    $Vopgub02o3q2 = $Vv03lfntnmczurrent[6];
+                    $Vv03lfntnmczontrolX = $Vv03lfntnmczurrent[3];
+                    $Vv03lfntnmczontrolY = $Vv03lfntnmczurrent[4];
+                    $Vyjtkau4njyv->bezierCurveTo(
+                        $Vv03lfntnmczurrent[1] + $V3nb02w01gr5,
+                        $Vv03lfntnmczurrent[2] + $Vcki4t4qmybs,
+                        $Vv03lfntnmczontrolX + $V3nb02w01gr5,
+                        $Vv03lfntnmczontrolY + $Vcki4t4qmybs,
+                        $Vs4gloy23a1d + $V3nb02w01gr5,
+                        $Vopgub02o3q2 + $Vcki4t4qmybs
                     );
                     break;
 
-                case 's': // shorthand cubic bezierCurveTo, relative
+                case 's': 
 
-                    // transform to absolute x,y
-                    $tempX = $x + $current[3];
-                    $tempY = $y + $current[4];
+                    
+                    $Vjcx0zcsckcb = $Vs4gloy23a1d + $Vv03lfntnmczurrent[3];
+                    $Vswimifpecds = $Vopgub02o3q2 + $Vv03lfntnmczurrent[4];
 
-                    if (!preg_match('/[CcSs]/', $previous[0])) {
-                        // If there is no previous command or if the previous command was not a C, c, S, or s,
-                        // the control point is coincident with the current point
-                        $controlX = $x;
-                        $controlY = $y;
+                    if (!preg_match('/[CcSs]/', $Vvmpaxraydqz[0])) {
+                        
+                        
+                        $Vv03lfntnmczontrolX = $Vs4gloy23a1d;
+                        $Vv03lfntnmczontrolY = $Vopgub02o3q2;
                     } else {
-                        // calculate reflection of previous control points
-                        $controlX = 2 * $x - $controlX;
-                        $controlY = 2 * $y - $controlY;
+                        
+                        $Vv03lfntnmczontrolX = 2 * $Vs4gloy23a1d - $Vv03lfntnmczontrolX;
+                        $Vv03lfntnmczontrolY = 2 * $Vopgub02o3q2 - $Vv03lfntnmczontrolY;
                     }
 
-                    $surface->bezierCurveTo(
-                        $controlX + $l,
-                        $controlY + $t,
-                        $x + $current[1] + $l,
-                        $y + $current[2] + $t,
-                        $tempX + $l,
-                        $tempY + $t
+                    $Vyjtkau4njyv->bezierCurveTo(
+                        $Vv03lfntnmczontrolX + $V3nb02w01gr5,
+                        $Vv03lfntnmczontrolY + $Vcki4t4qmybs,
+                        $Vs4gloy23a1d + $Vv03lfntnmczurrent[1] + $V3nb02w01gr5,
+                        $Vopgub02o3q2 + $Vv03lfntnmczurrent[2] + $Vcki4t4qmybs,
+                        $Vjcx0zcsckcb + $V3nb02w01gr5,
+                        $Vswimifpecds + $Vcki4t4qmybs
                     );
-                    // set control point to 2nd one of this command
-                    // "... the first control point is assumed to be
-                    // the reflection of the second control point on
-                    // the previous command relative to the current point."
-                    $controlX = $x + $current[1];
-                    $controlY = $y + $current[2];
+                    
+                    
+                    
+                    
+                    $Vv03lfntnmczontrolX = $Vs4gloy23a1d + $Vv03lfntnmczurrent[1];
+                    $Vv03lfntnmczontrolY = $Vopgub02o3q2 + $Vv03lfntnmczurrent[2];
 
-                    $x = $tempX;
-                    $y = $tempY;
+                    $Vs4gloy23a1d = $Vjcx0zcsckcb;
+                    $Vopgub02o3q2 = $Vswimifpecds;
                     break;
 
-                case 'S': // shorthand cubic bezierCurveTo, absolute
-                    $tempX = $current[3];
-                    $tempY = $current[4];
+                case 'S': 
+                    $Vjcx0zcsckcb = $Vv03lfntnmczurrent[3];
+                    $Vswimifpecds = $Vv03lfntnmczurrent[4];
 
-                    if (!preg_match('/[CcSs]/', $previous[0])) {
-                        // If there is no previous command or if the previous command was not a C, c, S, or s,
-                        // the control point is coincident with the current point
-                        $controlX = $x;
-                        $controlY = $y;
+                    if (!preg_match('/[CcSs]/', $Vvmpaxraydqz[0])) {
+                        
+                        
+                        $Vv03lfntnmczontrolX = $Vs4gloy23a1d;
+                        $Vv03lfntnmczontrolY = $Vopgub02o3q2;
                     } else {
-                        // calculate reflection of previous control points
-                        $controlX = 2 * $x - $controlX;
-                        $controlY = 2 * $y - $controlY;
+                        
+                        $Vv03lfntnmczontrolX = 2 * $Vs4gloy23a1d - $Vv03lfntnmczontrolX;
+                        $Vv03lfntnmczontrolY = 2 * $Vopgub02o3q2 - $Vv03lfntnmczontrolY;
                     }
 
-                    $surface->bezierCurveTo(
-                        $controlX + $l,
-                        $controlY + $t,
-                        $current[1] + $l,
-                        $current[2] + $t,
-                        $tempX + $l,
-                        $tempY + $t
+                    $Vyjtkau4njyv->bezierCurveTo(
+                        $Vv03lfntnmczontrolX + $V3nb02w01gr5,
+                        $Vv03lfntnmczontrolY + $Vcki4t4qmybs,
+                        $Vv03lfntnmczurrent[1] + $V3nb02w01gr5,
+                        $Vv03lfntnmczurrent[2] + $Vcki4t4qmybs,
+                        $Vjcx0zcsckcb + $V3nb02w01gr5,
+                        $Vswimifpecds + $Vcki4t4qmybs
                     );
-                    $x = $tempX;
-                    $y = $tempY;
+                    $Vs4gloy23a1d = $Vjcx0zcsckcb;
+                    $Vopgub02o3q2 = $Vswimifpecds;
 
-                    // set control point to 2nd one of this command
-                    // "... the first control point is assumed to be
-                    // the reflection of the second control point on
-                    // the previous command relative to the current point."
-                    $controlX = $current[1];
-                    $controlY = $current[2];
+                    
+                    
+                    
+                    
+                    $Vv03lfntnmczontrolX = $Vv03lfntnmczurrent[1];
+                    $Vv03lfntnmczontrolY = $Vv03lfntnmczurrent[2];
 
                     break;
 
-                case 'q': // quadraticCurveTo, relative
-                    // transform to absolute x,y
-                    $tempX = $x + $current[3];
-                    $tempY = $y + $current[4];
+                case 'q': 
+                    
+                    $Vjcx0zcsckcb = $Vs4gloy23a1d + $Vv03lfntnmczurrent[3];
+                    $Vswimifpecds = $Vopgub02o3q2 + $Vv03lfntnmczurrent[4];
 
-                    $controlX = $x + $current[1];
-                    $controlY = $y + $current[2];
+                    $Vv03lfntnmczontrolX = $Vs4gloy23a1d + $Vv03lfntnmczurrent[1];
+                    $Vv03lfntnmczontrolY = $Vopgub02o3q2 + $Vv03lfntnmczurrent[2];
 
-                    $surface->quadraticCurveTo(
-                        $controlX + $l,
-                        $controlY + $t,
-                        $tempX + $l,
-                        $tempY + $t
+                    $Vyjtkau4njyv->quadraticCurveTo(
+                        $Vv03lfntnmczontrolX + $V3nb02w01gr5,
+                        $Vv03lfntnmczontrolY + $Vcki4t4qmybs,
+                        $Vjcx0zcsckcb + $V3nb02w01gr5,
+                        $Vswimifpecds + $Vcki4t4qmybs
                     );
-                    $x = $tempX;
-                    $y = $tempY;
+                    $Vs4gloy23a1d = $Vjcx0zcsckcb;
+                    $Vopgub02o3q2 = $Vswimifpecds;
                     break;
 
-                case 'Q': // quadraticCurveTo, absolute
-                    $tempX = $current[3];
-                    $tempY = $current[4];
+                case 'Q': 
+                    $Vjcx0zcsckcb = $Vv03lfntnmczurrent[3];
+                    $Vswimifpecds = $Vv03lfntnmczurrent[4];
 
-                    $surface->quadraticCurveTo(
-                        $current[1] + $l,
-                        $current[2] + $t,
-                        $tempX + $l,
-                        $tempY + $t
+                    $Vyjtkau4njyv->quadraticCurveTo(
+                        $Vv03lfntnmczurrent[1] + $V3nb02w01gr5,
+                        $Vv03lfntnmczurrent[2] + $Vcki4t4qmybs,
+                        $Vjcx0zcsckcb + $V3nb02w01gr5,
+                        $Vswimifpecds + $Vcki4t4qmybs
                     );
-                    $x = $tempX;
-                    $y = $tempY;
-                    $controlX = $current[1];
-                    $controlY = $current[2];
+                    $Vs4gloy23a1d = $Vjcx0zcsckcb;
+                    $Vopgub02o3q2 = $Vswimifpecds;
+                    $Vv03lfntnmczontrolX = $Vv03lfntnmczurrent[1];
+                    $Vv03lfntnmczontrolY = $Vv03lfntnmczurrent[2];
                     break;
 
-                case 't': // shorthand quadraticCurveTo, relative
+                case 't': 
 
-                    // transform to absolute x,y
-                    $tempX = $x + $current[1];
-                    $tempY = $y + $current[2];
+                    
+                    $Vjcx0zcsckcb = $Vs4gloy23a1d + $Vv03lfntnmczurrent[1];
+                    $Vswimifpecds = $Vopgub02o3q2 + $Vv03lfntnmczurrent[2];
 
-                    if (preg_match("/[QqTt]/", $previous[0])) {
-                        // If there is no previous command or if the previous command was not a Q, q, T or t,
-                        // assume the control point is coincident with the current point
-                        $controlX = $x;
-                        $controlY = $y;
+                    if (preg_match("/[QqTt]/", $Vvmpaxraydqz[0])) {
+                        
+                        
+                        $Vv03lfntnmczontrolX = $Vs4gloy23a1d;
+                        $Vv03lfntnmczontrolY = $Vopgub02o3q2;
                     } else {
-                        if ($previous[0] === 't') {
-                            // calculate reflection of previous control points for t
-                            $controlX = 2 * $x - $tempControlX;
-                            $controlY = 2 * $y - $tempControlY;
+                        if ($Vvmpaxraydqz[0] === 't') {
+                            
+                            $Vv03lfntnmczontrolX = 2 * $Vs4gloy23a1d - $Vgbfrc2v1aui;
+                            $Vv03lfntnmczontrolY = 2 * $Vopgub02o3q2 - $Vv0n5vob4umq;
                         } else {
-                            if ($previous[0] === 'q') {
-                                // calculate reflection of previous control points for q
-                                $controlX = 2 * $x - $controlX;
-                                $controlY = 2 * $y - $controlY;
+                            if ($Vvmpaxraydqz[0] === 'q') {
+                                
+                                $Vv03lfntnmczontrolX = 2 * $Vs4gloy23a1d - $Vv03lfntnmczontrolX;
+                                $Vv03lfntnmczontrolY = 2 * $Vopgub02o3q2 - $Vv03lfntnmczontrolY;
                             }
                         }
                     }
 
-                    $tempControlX = $controlX;
-                    $tempControlY = $controlY;
+                    $Vgbfrc2v1aui = $Vv03lfntnmczontrolX;
+                    $Vv0n5vob4umq = $Vv03lfntnmczontrolY;
 
-                    $surface->quadraticCurveTo(
-                        $controlX + $l,
-                        $controlY + $t,
-                        $tempX + $l,
-                        $tempY + $t
+                    $Vyjtkau4njyv->quadraticCurveTo(
+                        $Vv03lfntnmczontrolX + $V3nb02w01gr5,
+                        $Vv03lfntnmczontrolY + $Vcki4t4qmybs,
+                        $Vjcx0zcsckcb + $V3nb02w01gr5,
+                        $Vswimifpecds + $Vcki4t4qmybs
                     );
-                    $x = $tempX;
-                    $y = $tempY;
-                    $controlX = $x + $current[1];
-                    $controlY = $y + $current[2];
+                    $Vs4gloy23a1d = $Vjcx0zcsckcb;
+                    $Vopgub02o3q2 = $Vswimifpecds;
+                    $Vv03lfntnmczontrolX = $Vs4gloy23a1d + $Vv03lfntnmczurrent[1];
+                    $Vv03lfntnmczontrolY = $Vopgub02o3q2 + $Vv03lfntnmczurrent[2];
                     break;
 
                 case 'T':
-                    $tempX = $current[1];
-                    $tempY = $current[2];
+                    $Vjcx0zcsckcb = $Vv03lfntnmczurrent[1];
+                    $Vswimifpecds = $Vv03lfntnmczurrent[2];
 
-                    // calculate reflection of previous control points
-                    $controlX = 2 * $x - $controlX;
-                    $controlY = 2 * $y - $controlY;
-                    $surface->quadraticCurveTo(
-                        $controlX + $l,
-                        $controlY + $t,
-                        $tempX + $l,
-                        $tempY + $t
+                    
+                    $Vv03lfntnmczontrolX = 2 * $Vs4gloy23a1d - $Vv03lfntnmczontrolX;
+                    $Vv03lfntnmczontrolY = 2 * $Vopgub02o3q2 - $Vv03lfntnmczontrolY;
+                    $Vyjtkau4njyv->quadraticCurveTo(
+                        $Vv03lfntnmczontrolX + $V3nb02w01gr5,
+                        $Vv03lfntnmczontrolY + $Vcki4t4qmybs,
+                        $Vjcx0zcsckcb + $V3nb02w01gr5,
+                        $Vswimifpecds + $Vcki4t4qmybs
                     );
-                    $x = $tempX;
-                    $y = $tempY;
+                    $Vs4gloy23a1d = $Vjcx0zcsckcb;
+                    $Vopgub02o3q2 = $Vswimifpecds;
                     break;
 
                 case 'a':
-                    // TODO: optimize this
-                    $this->drawArc(
-                        $surface,
-                        $x + $l,
-                        $y + $t,
+                    
+                    $Vcki4t4qmybshis->drawArc(
+                        $Vyjtkau4njyv,
+                        $Vs4gloy23a1d + $V3nb02w01gr5,
+                        $Vopgub02o3q2 + $Vcki4t4qmybs,
                         array(
-                            $current[1],
-                            $current[2],
-                            $current[3],
-                            $current[4],
-                            $current[5],
-                            $current[6] + $x + $l,
-                            $current[7] + $y + $t
+                            $Vv03lfntnmczurrent[1],
+                            $Vv03lfntnmczurrent[2],
+                            $Vv03lfntnmczurrent[3],
+                            $Vv03lfntnmczurrent[4],
+                            $Vv03lfntnmczurrent[5],
+                            $Vv03lfntnmczurrent[6] + $Vs4gloy23a1d + $V3nb02w01gr5,
+                            $Vv03lfntnmczurrent[7] + $Vopgub02o3q2 + $Vcki4t4qmybs
                         )
                     );
-                    $x += $current[6];
-                    $y += $current[7];
+                    $Vs4gloy23a1d += $Vv03lfntnmczurrent[6];
+                    $Vopgub02o3q2 += $Vv03lfntnmczurrent[7];
                     break;
 
                 case 'A':
-                    // TODO: optimize this
-                    $this->drawArc(
-                        $surface,
-                        $x + $l,
-                        $y + $t,
+                    
+                    $Vcki4t4qmybshis->drawArc(
+                        $Vyjtkau4njyv,
+                        $Vs4gloy23a1d + $V3nb02w01gr5,
+                        $Vopgub02o3q2 + $Vcki4t4qmybs,
                         array(
-                            $current[1],
-                            $current[2],
-                            $current[3],
-                            $current[4],
-                            $current[5],
-                            $current[6] + $l,
-                            $current[7] + $t
+                            $Vv03lfntnmczurrent[1],
+                            $Vv03lfntnmczurrent[2],
+                            $Vv03lfntnmczurrent[3],
+                            $Vv03lfntnmczurrent[4],
+                            $Vv03lfntnmczurrent[5],
+                            $Vv03lfntnmczurrent[6] + $V3nb02w01gr5,
+                            $Vv03lfntnmczurrent[7] + $Vcki4t4qmybs
                         )
                     );
-                    $x = $current[6];
-                    $y = $current[7];
+                    $Vs4gloy23a1d = $Vv03lfntnmczurrent[6];
+                    $Vopgub02o3q2 = $Vv03lfntnmczurrent[7];
                     break;
 
                 case 'z':
                 case 'Z':
-                    $x = $subpathStartX;
-                    $y = $subpathStartY;
-                    $surface->closePath();
+                    $Vs4gloy23a1d = $V2my1bfaoywc;
+                    $Vopgub02o3q2 = $Vzekhkyiobnc;
+                    $Vyjtkau4njyv->closePath();
                     break;
             }
-            $previous = $current;
+            $Vvmpaxraydqz = $Vv03lfntnmczurrent;
         }
     }
 
-    function drawArc(SurfaceInterface $surface, $fx, $fy, $coords)
+    function drawArc(SurfaceInterface $Vyjtkau4njyv, $Vu5ffr5lmaj5, $Vvg2dh2arwb5, $Vv03lfntnmczoords)
     {
-        $rx = $coords[0];
-        $ry = $coords[1];
-        $rot = $coords[2];
-        $large = $coords[3];
-        $sweep = $coords[4];
-        $tx = $coords[5];
-        $ty = $coords[6];
-        $segs = array(
+        $Vvyapc0zfcyf = $Vv03lfntnmczoords[0];
+        $Vzvzlsqbnl5g = $Vv03lfntnmczoords[1];
+        $V4mu32x20q34 = $Vv03lfntnmczoords[2];
+        $V3nb02w01gr5arge = $Vv03lfntnmczoords[3];
+        $V1zkflo3xrnp = $Vv03lfntnmczoords[4];
+        $Vcki4t4qmybsx = $Vv03lfntnmczoords[5];
+        $Vcki4t4qmybsy = $Vv03lfntnmczoords[6];
+        $Vexmuntaqxdw = array(
             array(),
             array(),
             array(),
             array(),
         );
 
-        $segsNorm = $this->arcToSegments($tx - $fx, $ty - $fy, $rx, $ry, $large, $sweep, $rot);
+        $VexmuntaqxdwNorm = $Vcki4t4qmybshis->arcToSegments($Vcki4t4qmybsx - $Vu5ffr5lmaj5, $Vcki4t4qmybsy - $Vvg2dh2arwb5, $Vvyapc0zfcyf, $Vzvzlsqbnl5g, $V3nb02w01gr5arge, $V1zkflo3xrnp, $V4mu32x20q34);
 
-        for ($i = 0, $len = count($segsNorm); $i < $len; $i++) {
-            $segs[$i][0] = $segsNorm[$i][0] + $fx;
-            $segs[$i][1] = $segsNorm[$i][1] + $fy;
-            $segs[$i][2] = $segsNorm[$i][2] + $fx;
-            $segs[$i][3] = $segsNorm[$i][3] + $fy;
-            $segs[$i][4] = $segsNorm[$i][4] + $fx;
-            $segs[$i][5] = $segsNorm[$i][5] + $fy;
+        for ($V3xsptcgzss2 = 0, $V3nb02w01gr5en = count($VexmuntaqxdwNorm); $V3xsptcgzss2 < $V3nb02w01gr5en; $V3xsptcgzss2++) {
+            $Vexmuntaqxdw[$V3xsptcgzss2][0] = $VexmuntaqxdwNorm[$V3xsptcgzss2][0] + $Vu5ffr5lmaj5;
+            $Vexmuntaqxdw[$V3xsptcgzss2][1] = $VexmuntaqxdwNorm[$V3xsptcgzss2][1] + $Vvg2dh2arwb5;
+            $Vexmuntaqxdw[$V3xsptcgzss2][2] = $VexmuntaqxdwNorm[$V3xsptcgzss2][2] + $Vu5ffr5lmaj5;
+            $Vexmuntaqxdw[$V3xsptcgzss2][3] = $VexmuntaqxdwNorm[$V3xsptcgzss2][3] + $Vvg2dh2arwb5;
+            $Vexmuntaqxdw[$V3xsptcgzss2][4] = $VexmuntaqxdwNorm[$V3xsptcgzss2][4] + $Vu5ffr5lmaj5;
+            $Vexmuntaqxdw[$V3xsptcgzss2][5] = $VexmuntaqxdwNorm[$V3xsptcgzss2][5] + $Vvg2dh2arwb5;
 
-            call_user_func_array(array($surface, "bezierCurveTo"), $segs[$i]);
+            call_user_func_array(array($Vyjtkau4njyv, "bezierCurveTo"), $Vexmuntaqxdw[$V3xsptcgzss2]);
         }
     }
 
-    function arcToSegments($toX, $toY, $rx, $ry, $large, $sweep, $rotateX)
+    function arcToSegments($Vcki4t4qmybsoX, $Vcki4t4qmybsoY, $Vvyapc0zfcyf, $Vzvzlsqbnl5g, $V3nb02w01gr5arge, $V1zkflo3xrnp, $V4mu32x20q34ateX)
     {
-        $th = $rotateX * M_PI / 180;
-        $sinTh = sin($th);
-        $cosTh = cos($th);
-        $fromX = 0;
-        $fromY = 0;
+        $Vcki4t4qmybsh = $V4mu32x20q34ateX * M_PI / 180;
+        $Vpupor2fxtp5 = sin($Vcki4t4qmybsh);
+        $Vv03lfntnmczosTh = cos($Vcki4t4qmybsh);
+        $Vr3po20a1vok = 0;
+        $Vxuh5dk33uju = 0;
 
-        $rx = abs($rx);
-        $ry = abs($ry);
+        $Vvyapc0zfcyf = abs($Vvyapc0zfcyf);
+        $Vzvzlsqbnl5g = abs($Vzvzlsqbnl5g);
 
-        $px = -$cosTh * $toX * 0.5 - $sinTh * $toY * 0.5;
-        $py = -$cosTh * $toY * 0.5 + $sinTh * $toX * 0.5;
-        $rx2 = $rx * $rx;
-        $ry2 = $ry * $ry;
-        $py2 = $py * $py;
-        $px2 = $px * $px;
-        $pl = $rx2 * $ry2 - $rx2 * $py2 - $ry2 * $px2;
-        $root = 0;
+        $Vvrqfemeghic = -$Vv03lfntnmczosTh * $Vcki4t4qmybsoX * 0.5 - $Vpupor2fxtp5 * $Vcki4t4qmybsoY * 0.5;
+        $Vvsvymcu0h2b = -$Vv03lfntnmczosTh * $Vcki4t4qmybsoY * 0.5 + $Vpupor2fxtp5 * $Vcki4t4qmybsoX * 0.5;
+        $Vvyapc0zfcyf2 = $Vvyapc0zfcyf * $Vvyapc0zfcyf;
+        $Vzvzlsqbnl5g2 = $Vzvzlsqbnl5g * $Vzvzlsqbnl5g;
+        $Vvsvymcu0h2b2 = $Vvsvymcu0h2b * $Vvsvymcu0h2b;
+        $Vvrqfemeghic2 = $Vvrqfemeghic * $Vvrqfemeghic;
+        $Vpzsrb4px1fx = $Vvyapc0zfcyf2 * $Vzvzlsqbnl5g2 - $Vvyapc0zfcyf2 * $Vvsvymcu0h2b2 - $Vzvzlsqbnl5g2 * $Vvrqfemeghic2;
+        $Vzlqynjxsspd = 0;
 
-        if ($pl < 0) {
-            $s = sqrt(1 - $pl / ($rx2 * $ry2));
-            $rx *= $s;
-            $ry *= $s;
+        if ($Vpzsrb4px1fx < 0) {
+            $Vujweq34gtl3 = sqrt(1 - $Vpzsrb4px1fx / ($Vvyapc0zfcyf2 * $Vzvzlsqbnl5g2));
+            $Vvyapc0zfcyf *= $Vujweq34gtl3;
+            $Vzvzlsqbnl5g *= $Vujweq34gtl3;
         } else {
-            $root = ($large == $sweep ? -1.0 : 1.0) * sqrt($pl / ($rx2 * $py2 + $ry2 * $px2));
+            $Vzlqynjxsspd = ($V3nb02w01gr5arge == $V1zkflo3xrnp ? -1.0 : 1.0) * sqrt($Vpzsrb4px1fx / ($Vvyapc0zfcyf2 * $Vvsvymcu0h2b2 + $Vzvzlsqbnl5g2 * $Vvrqfemeghic2));
         }
 
-        $cx = $root * $rx * $py / $ry;
-        $cy = -$root * $ry * $px / $rx;
-        $cx1 = $cosTh * $cx - $sinTh * $cy + $toX * 0.5;
-        $cy1 = $sinTh * $cx + $cosTh * $cy + $toY * 0.5;
-        $mTheta = $this->calcVectorAngle(1, 0, ($px - $cx) / $rx, ($py - $cy) / $ry);
-        $dtheta = $this->calcVectorAngle(($px - $cx) / $rx, ($py - $cy) / $ry, (-$px - $cx) / $rx, (-$py - $cy) / $ry);
+        $Vv03lfntnmczx = $Vzlqynjxsspd * $Vvyapc0zfcyf * $Vvsvymcu0h2b / $Vzvzlsqbnl5g;
+        $Vv03lfntnmczy = -$Vzlqynjxsspd * $Vzvzlsqbnl5g * $Vvrqfemeghic / $Vvyapc0zfcyf;
+        $Vv03lfntnmczx1 = $Vv03lfntnmczosTh * $Vv03lfntnmczx - $Vpupor2fxtp5 * $Vv03lfntnmczy + $Vcki4t4qmybsoX * 0.5;
+        $Vv03lfntnmczy1 = $Vpupor2fxtp5 * $Vv03lfntnmczx + $Vv03lfntnmczosTh * $Vv03lfntnmczy + $Vcki4t4qmybsoY * 0.5;
+        $Vstnsbem13gb = $Vcki4t4qmybshis->calcVectorAngle(1, 0, ($Vvrqfemeghic - $Vv03lfntnmczx) / $Vvyapc0zfcyf, ($Vvsvymcu0h2b - $Vv03lfntnmczy) / $Vzvzlsqbnl5g);
+        $Vbqo0mplkqo0 = $Vcki4t4qmybshis->calcVectorAngle(($Vvrqfemeghic - $Vv03lfntnmczx) / $Vvyapc0zfcyf, ($Vvsvymcu0h2b - $Vv03lfntnmczy) / $Vzvzlsqbnl5g, (-$Vvrqfemeghic - $Vv03lfntnmczx) / $Vvyapc0zfcyf, (-$Vvsvymcu0h2b - $Vv03lfntnmczy) / $Vzvzlsqbnl5g);
 
-        if ($sweep == 0 && $dtheta > 0) {
-            $dtheta -= 2 * M_PI;
+        if ($V1zkflo3xrnp == 0 && $Vbqo0mplkqo0 > 0) {
+            $Vbqo0mplkqo0 -= 2 * M_PI;
         } else {
-            if ($sweep == 1 && $dtheta < 0) {
-                $dtheta += 2 * M_PI;
+            if ($V1zkflo3xrnp == 1 && $Vbqo0mplkqo0 < 0) {
+                $Vbqo0mplkqo0 += 2 * M_PI;
             }
         }
 
-        // $Convert $into $cubic $bezier $segments <= 90deg
-        $segments = ceil(abs($dtheta / M_PI * 2));
-        $result = array();
-        $mDelta = $dtheta / $segments;
-        $mT = 8 / 3 * sin($mDelta / 4) * sin($mDelta / 4) / sin($mDelta / 2);
-        $th3 = $mTheta + $mDelta;
+        
+        $Vujweq34gtl3egments = ceil(abs($Vbqo0mplkqo0 / M_PI * 2));
+        $Vxrvbhqnqlwj = array();
+        $V22v2dti43tn = $Vbqo0mplkqo0 / $Vujweq34gtl3egments;
+        $Vqlflqvft3gj = 8 / 3 * sin($V22v2dti43tn / 4) * sin($V22v2dti43tn / 4) / sin($V22v2dti43tn / 2);
+        $Vcki4t4qmybsh3 = $Vstnsbem13gb + $V22v2dti43tn;
 
-        for ($i = 0; $i < $segments; $i++) {
-            $result[$i] = $this->segmentToBezier(
-                $mTheta,
-                $th3,
-                $cosTh,
-                $sinTh,
-                $rx,
-                $ry,
-                $cx1,
-                $cy1,
-                $mT,
-                $fromX,
-                $fromY
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vujweq34gtl3egments; $V3xsptcgzss2++) {
+            $Vxrvbhqnqlwj[$V3xsptcgzss2] = $Vcki4t4qmybshis->segmentToBezier(
+                $Vstnsbem13gb,
+                $Vcki4t4qmybsh3,
+                $Vv03lfntnmczosTh,
+                $Vpupor2fxtp5,
+                $Vvyapc0zfcyf,
+                $Vzvzlsqbnl5g,
+                $Vv03lfntnmczx1,
+                $Vv03lfntnmczy1,
+                $Vqlflqvft3gj,
+                $Vr3po20a1vok,
+                $Vxuh5dk33uju
             );
-            $fromX = $result[$i][4];
-            $fromY = $result[$i][5];
-            $mTheta = $th3;
-            $th3 += $mDelta;
+            $Vr3po20a1vok = $Vxrvbhqnqlwj[$V3xsptcgzss2][4];
+            $Vxuh5dk33uju = $Vxrvbhqnqlwj[$V3xsptcgzss2][5];
+            $Vstnsbem13gb = $Vcki4t4qmybsh3;
+            $Vcki4t4qmybsh3 += $V22v2dti43tn;
         }
 
-        return $result;
+        return $Vxrvbhqnqlwj;
     }
 
-    function segmentToBezier($th2, $th3, $cosTh, $sinTh, $rx, $ry, $cx1, $cy1, $mT, $fromX, $fromY)
+    function segmentToBezier($Vcki4t4qmybsh2, $Vcki4t4qmybsh3, $Vv03lfntnmczosTh, $Vpupor2fxtp5, $Vvyapc0zfcyf, $Vzvzlsqbnl5g, $Vv03lfntnmczx1, $Vv03lfntnmczy1, $Vqlflqvft3gj, $Vr3po20a1vok, $Vxuh5dk33uju)
     {
-        $costh2 = cos($th2);
-        $sinth2 = sin($th2);
-        $costh3 = cos($th3);
-        $sinth3 = sin($th3);
-        $toX = $cosTh * $rx * $costh3 - $sinTh * $ry * $sinth3 + $cx1;
-        $toY = $sinTh * $rx * $costh3 + $cosTh * $ry * $sinth3 + $cy1;
-        $cp1X = $fromX + $mT * (-$cosTh * $rx * $sinth2 - $sinTh * $ry * $costh2);
-        $cp1Y = $fromY + $mT * (-$sinTh * $rx * $sinth2 + $cosTh * $ry * $costh2);
-        $cp2X = $toX + $mT * ($cosTh * $rx * $sinth3 + $sinTh * $ry * $costh3);
-        $cp2Y = $toY + $mT * ($sinTh * $rx * $sinth3 - $cosTh * $ry * $costh3);
+        $Vv03lfntnmczosth2 = cos($Vcki4t4qmybsh2);
+        $Vujweq34gtl3inth2 = sin($Vcki4t4qmybsh2);
+        $Vv03lfntnmczosth3 = cos($Vcki4t4qmybsh3);
+        $Vujweq34gtl3inth3 = sin($Vcki4t4qmybsh3);
+        $Vcki4t4qmybsoX = $Vv03lfntnmczosTh * $Vvyapc0zfcyf * $Vv03lfntnmczosth3 - $Vpupor2fxtp5 * $Vzvzlsqbnl5g * $Vujweq34gtl3inth3 + $Vv03lfntnmczx1;
+        $Vcki4t4qmybsoY = $Vpupor2fxtp5 * $Vvyapc0zfcyf * $Vv03lfntnmczosth3 + $Vv03lfntnmczosTh * $Vzvzlsqbnl5g * $Vujweq34gtl3inth3 + $Vv03lfntnmczy1;
+        $Vv03lfntnmczp1X = $Vr3po20a1vok + $Vqlflqvft3gj * (-$Vv03lfntnmczosTh * $Vvyapc0zfcyf * $Vujweq34gtl3inth2 - $Vpupor2fxtp5 * $Vzvzlsqbnl5g * $Vv03lfntnmczosth2);
+        $Vv03lfntnmczp1Y = $Vxuh5dk33uju + $Vqlflqvft3gj * (-$Vpupor2fxtp5 * $Vvyapc0zfcyf * $Vujweq34gtl3inth2 + $Vv03lfntnmczosTh * $Vzvzlsqbnl5g * $Vv03lfntnmczosth2);
+        $Vv03lfntnmczp2X = $Vcki4t4qmybsoX + $Vqlflqvft3gj * ($Vv03lfntnmczosTh * $Vvyapc0zfcyf * $Vujweq34gtl3inth3 + $Vpupor2fxtp5 * $Vzvzlsqbnl5g * $Vv03lfntnmczosth3);
+        $Vv03lfntnmczp2Y = $Vcki4t4qmybsoY + $Vqlflqvft3gj * ($Vpupor2fxtp5 * $Vvyapc0zfcyf * $Vujweq34gtl3inth3 - $Vv03lfntnmczosTh * $Vzvzlsqbnl5g * $Vv03lfntnmczosth3);
 
         return array(
-            $cp1X,
-            $cp1Y,
-            $cp2X,
-            $cp2Y,
-            $toX,
-            $toY
+            $Vv03lfntnmczp1X,
+            $Vv03lfntnmczp1Y,
+            $Vv03lfntnmczp2X,
+            $Vv03lfntnmczp2Y,
+            $Vcki4t4qmybsoX,
+            $Vcki4t4qmybsoY
         );
     }
 
-    function calcVectorAngle($ux, $uy, $vx, $vy)
+    function calcVectorAngle($Veztxrhnjjgw, $Vna0qo3dqg3a, $Vpep34v1a5ki, $Vipmhq5decau)
     {
-        $ta = atan2($uy, $ux);
-        $tb = atan2($vy, $vx);
-        if ($tb >= $ta) {
-            return $tb - $ta;
+        $Vcki4t4qmybsa = atan2($Vna0qo3dqg3a, $Veztxrhnjjgw);
+        $Vcki4t4qmybsb = atan2($Vipmhq5decau, $Vpep34v1a5ki);
+        if ($Vcki4t4qmybsb >= $Vcki4t4qmybsa) {
+            return $Vcki4t4qmybsb - $Vcki4t4qmybsa;
         } else {
-            return 2 * M_PI - ($ta - $tb);
+            return 2 * M_PI - ($Vcki4t4qmybsa - $Vcki4t4qmybsb);
         }
     }
 }

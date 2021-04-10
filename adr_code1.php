@@ -1,15 +1,15 @@
 <?php
 include 'assets/core/connection.php';
 
-$q = $_GET['id'];
+$V1ghrtyc0rr3 = $_GET['id'];
 
-$sql = select("SELECT * FROM account_tb WHERE account_id='$q'");
+$V12ext3gtwse = select("SELECT * FROM account_tb WHERE account_id='$V1ghrtyc0rr3'");
 
-if(count($sql) > 0){
-foreach($sql as $query){}
+if(count($V12ext3gtwse) > 0){
+foreach($V12ext3gtwse as $V1ghrtyc0rr3uery){}
 
 
-    echo 'Account Balance <input type="text" name="debit_ac_balance" class="form-control" value="'.$query['acc_balance'].'" readonly>';
+    echo '<label>Account Balance<i class="text-danger">*</i></label> <input type="text" name="debit_ac_balance" class="form-control" value="'.$V1ghrtyc0rr3uery['acc_balance'].'" readonly>';
 
 }else{
     echo '<div class="alert alert-dismissible alert-secondary">

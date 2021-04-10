@@ -1,43 +1,38 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Tag;
 
 class Rect extends Shape
 {
-    protected $x = 0;
-    protected $y = 0;
-    protected $width = 0;
-    protected $height = 0;
-    protected $rx = 0;
-    protected $ry = 0;
+    protected $Vs4gloy23a1d = 0;
+    protected $Vopgub02o3q2 = 0;
+    protected $Vztt3qdrrikx = 0;
+    protected $Vku40chc0ddp = 0;
+    protected $Vvyapc0zfcyf = 0;
+    protected $Vzvzlsqbnl5g = 0;
 
-    public function start($attributes)
+    public function start($Voywws15cvz5)
     {
-        if (isset($attributes['x'])) {
-            $this->x = $attributes['x'];
+        if (isset($Voywws15cvz5['x'])) {
+            $this->x = $Voywws15cvz5['x'];
         }
-        if (isset($attributes['y'])) {
-            $this->y = $attributes['y'];
-        }
-
-        if (isset($attributes['width'])) {
-            $this->width = $attributes['width'];
-        }
-        if (isset($attributes['height'])) {
-            $this->height = $attributes['height'];
+        if (isset($Voywws15cvz5['y'])) {
+            $this->y = $Voywws15cvz5['y'];
         }
 
-        if (isset($attributes['rx'])) {
-            $this->rx = $attributes['rx'];
+        if (isset($Voywws15cvz5['width'])) {
+            $this->width = $Voywws15cvz5['width'];
         }
-        if (isset($attributes['ry'])) {
-            $this->ry = $attributes['ry'];
+        if (isset($Voywws15cvz5['height'])) {
+            $this->height = $Voywws15cvz5['height'];
+        }
+
+        if (isset($Voywws15cvz5['rx'])) {
+            $this->rx = $Voywws15cvz5['rx'];
+        }
+        if (isset($Voywws15cvz5['ry'])) {
+            $this->ry = $Voywws15cvz5['ry'];
         }
 
         $this->document->getSurface()->rect($this->x, $this->y, $this->width, $this->height, $this->rx, $this->ry);

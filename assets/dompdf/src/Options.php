@@ -3,293 +3,95 @@ namespace Dompdf;
 
 class Options
 {
-    /**
-     * The root of your DOMPDF installation
-     *
-     * @var string
-     */
-    private $rootDir;
+    
+    private $Vk2wykqydwqb;
 
-    /**
-     * The location of a temporary directory.
-     *
-     * The directory specified must be writeable by the webserver process.
-     * The temporary directory is required to download remote images and when
-     * using the PFDLib back end.
-     *
-     * @var string
-     */
-    private $tempDir;
+    
+    private $V03sbdcxs32f;
 
-    /**
-     * The location of the DOMPDF font directory
-     *
-     * The location of the directory where DOMPDF will store fonts and font metrics
-     * Note: This directory must exist and be writable by the webserver process.
-     *
-     * @var string
-     */
-    private $fontDir;
+    
+    private $Vuztfk54rrx1;
 
-    /**
-     * The location of the DOMPDF font cache directory
-     *
-     * This directory contains the cached font metrics for the fonts used by DOMPDF.
-     * This directory can be the same as $fontDir
-     *
-     * Note: This directory must exist and be writable by the webserver process.
-     *
-     * @var string
-     */
-    private $fontCache;
+    
+    private $V2wl0npgxb4a;
 
-    /**
-     * dompdf's "chroot"
-     *
-     * Prevents dompdf from accessing system files or other files on the webserver.
-     * All local files opened by dompdf must be in a subdirectory of this directory.
-     * DO NOT set it to '/' since this could allow an attacker to use dompdf to
-     * read any files on the server.  This should be an absolute path.
-     *
-     * ==== IMPORTANT ====
-     * This setting may increase the risk of system exploit. Do not change
-     * this settings without understanding the consequences. Additional
-     * documentation is available on the dompdf wiki at:
-     * https://github.com/dompdf/dompdf/wiki
-     *
-     * @var string
-     */
-    private $chroot;
+    
+    private $Vn2a2n5vx0fi;
 
-    /**
-     * @var string
-     */
-    private $logOutputFile;
+    
+    private $Vebh5d4zwcnt;
 
-    /**
-     * html target media view which should be rendered into pdf.
-     * List of types and parsing rules for future extensions:
-     * http://www.w3.org/TR/REC-html40/types.html
-     *   screen, tty, tv, projection, handheld, print, braille, aural, all
-     * Note: aural is deprecated in CSS 2.1 because it is replaced by speech in CSS 3.
-     * Note, even though the generated pdf file is intended for print output,
-     * the desired content might be different (e.g. screen or projection view of html file).
-     * Therefore allow specification of content here.
-     *
-     * @var string
-     */
-    private $defaultMediaType = "screen";
+    
+    private $Vj0dz4eqji25 = "screen";
 
-    /**
-     * The default paper size.
-     *
-     * North America standard is "letter"; other countries generally "a4"
-     * @see \Dompdf\Adapter\CPDF::PAPER_SIZES for valid sizes
-     *
-     * @var string
-     */
-    private $defaultPaperSize = "letter";
+    
+    private $Vubtaful3j1c = "letter";
 
-    /**
-     * The default paper orientation.
-     *
-     * The orientation of the page (portrait or landscape).
-     *
-     * @var string
-     */
-    private $defaultPaperOrientation = "portrait";
+    
+    private $Vpatmpv5e0px = "portrait";
 
-    /**
-     * The default font family
-     *
-     * Used if no suitable fonts can be found. This must exist in the font folder.
-     *
-     * @var string
-     */
-    private $defaultFont = "serif";
+    
+    private $Vmjq53cepgau = "serif";
 
-    /**
-     * Image DPI setting
-     *
-     * This setting determines the default DPI setting for images and fonts.  The
-     * DPI may be overridden for inline images by explictly setting the
-     * image's width & height style attributes (i.e. if the image's native
-     * width is 600 pixels and you specify the image's width as 72 points,
-     * the image will have a DPI of 600 in the rendered PDF.  The DPI of
-     * background images can not be overridden and is controlled entirely
-     * via this parameter.
-     *
-     * For the purposes of DOMPDF, pixels per inch (PPI) = dots per inch (DPI).
-     * If a size in html is given as px (or without unit as image size),
-     * this tells the corresponding size in pt at 72 DPI.
-     * This adjusts the relative sizes to be similar to the rendering of the
-     * html page in a reference browser.
-     *
-     * In pdf, always 1 pt = 1/72 inch
-     *
-     * @var int
-     */
-    private $dpi = 96;
+    
+    private $Vs5sugw0qedn = 96;
 
-    /**
-     * A ratio applied to the fonts height to be more like browsers' line height
-     *
-     * @var float
-     */
-    private $fontHeightRatio = 1.1;
+    
+    private $Vapigj4sxx3i = 1.1;
 
-    /**
-     * Enable embedded PHP
-     *
-     * If this setting is set to true then DOMPDF will automatically evaluate
-     * embedded PHP contained within <script type="text/php"> ... </script> tags.
-     *
-     * ==== IMPORTANT ====
-     * Enabling this for documents you do not trust (e.g. arbitrary remote html
-     * pages) is a security risk. Embedded scripts are run with the same level of
-     * system access available to dompdf. Set this option to false (recommended)
-     * if you wish to process untrusted documents.
-     *
-     * This setting may increase the risk of system exploit. Do not change
-     * this settings without understanding the consequences. Additional
-     * documentation is available on the dompdf wiki at:
-     * https://github.com/dompdf/dompdf/wiki
-     *
-     * @var bool
-     */
-    private $isPhpEnabled = false;
+    
+    private $Vtnyhp0dp3wf = false;
 
-    /**
-     * Enable remote file access
-     *
-     * If this setting is set to true, DOMPDF will access remote sites for
-     * images and CSS files as required.
-     *
-     * ==== IMPORTANT ====
-     * This can be a security risk, in particular in combination with isPhpEnabled and
-     * allowing remote html code to be passed to $dompdf = new DOMPDF(); $dompdf->load_html(...);
-     * This allows anonymous users to download legally doubtful internet content which on
-     * tracing back appears to being downloaded by your server, or allows malicious php code
-     * in remote html pages to be executed by your server with your account privileges.
-     *
-     * This setting may increase the risk of system exploit. Do not change
-     * this settings without understanding the consequences. Additional
-     * documentation is available on the dompdf wiki at:
-     * https://github.com/dompdf/dompdf/wiki
-     *
-     * @var bool
-     */
-    private $isRemoteEnabled = false;
+    
+    private $V5xgmzfprwgu = false;
 
-    /**
-     * Enable inline Javascript
-     *
-     * If this setting is set to true then DOMPDF will automatically insert
-     * JavaScript code contained within <script type="text/javascript"> ... </script> tags.
-     *
-     * @var bool
-     */
-    private $isJavascriptEnabled = true;
+    
+    private $Vjj3djofnyde = true;
 
-    /**
-     * Use the more-than-experimental HTML5 Lib parser
-     *
-     * @var bool
-     */
-    private $isHtml5ParserEnabled = false;
+    
+    private $Vz3estm52ux5 = false;
 
-    /**
-     * Whether to enable font subsetting or not.
-     *
-     * @var bool
-     */
-    private $isFontSubsettingEnabled = false;
+    
+    private $Vn3sishy2rsm = false;
 
-    /**
-     * @var bool
-     */
-    private $debugPng = false;
+    
+    private $Vejmnpdqd2w1 = false;
 
-    /**
-     * @var bool
-     */
-    private $debugKeepTemp = false;
+    
+    private $Vvgkr2dk4tn4 = false;
 
-    /**
-     * @var bool
-     */
-    private $debugCss = false;
+    
+    private $Vaz3hyvfpq11 = false;
 
-    /**
-     * @var bool
-     */
-    private $debugLayout = false;
+    
+    private $Vai5bx3gus5c = false;
 
-    /**
-     * @var bool
-     */
-    private $debugLayoutLines = true;
+    
+    private $Vai5bx3gus5cLines = true;
 
-    /**
-     * @var bool
-     */
-    private $debugLayoutBlocks = true;
+    
+    private $Vai5bx3gus5cBlocks = true;
 
-    /**
-     * @var bool
-     */
-    private $debugLayoutInline = true;
+    
+    private $Vai5bx3gus5cInline = true;
 
-    /**
-     * @var bool
-     */
-    private $debugLayoutPaddingBox = true;
+    
+    private $Vai5bx3gus5cPaddingBox = true;
 
-    /**
-     * The PDF rendering backend to use
-     *
-     * Valid settings are 'PDFLib', 'CPDF', 'GD', and 'auto'. 'auto' will
-     * look for PDFLib and use it if found, or if not it will fall back on
-     * CPDF. 'GD' renders PDFs to graphic files. {@link Dompdf\CanvasFactory}
-     * ultimately determines which rendering class to instantiate
-     * based on this setting.
-     *
-     * @var string
-     */
-    private $pdfBackend = "CPDF";
+    
+    private $Vsubjsvg2zg5 = "CPDF";
 
-    /**
-     * PDFlib license key
-     *
-     * If you are using a licensed, commercial version of PDFlib, specify
-     * your license key here.  If you are using PDFlib-Lite or are evaluating
-     * the commercial version of PDFlib, comment out this setting.
-     *
-     * @link http://www.pdflib.com
-     *
-     * If pdflib present in web server and auto or selected explicitely above,
-     * a real license code must exist!
-     *
-     * @var string
-     */
-    private $pdflibLicense = "";
+    
+    private $V3y0kq2hd2tl = "";
 
-    /**
-     * @var string
-     * @deprecated
-     */
-    private $adminUsername = "user";
+    
+    private $Vocuslkahnr4 = "user";
 
-    /**
-     * @var string
-     * @deprecated
-     */
-    private $adminPassword = "password";
+    
+    private $Vqexdnnrdv43 = "password";
 
-    /**
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = null)
+    
+    public function __construct(array $Voywws15cvz5 = null)
     {
         $this->setChroot(realpath(__DIR__ . "/../"));
         $this->setRootDir($this->getChroot());
@@ -298,706 +100,544 @@ class Options
         $this->setFontCache($this->getFontDir());
         $this->setLogOutputFile($this->getTempDir() . DIRECTORY_SEPARATOR . "log.htm");
 
-        if (null !== $attributes) {
-            $this->set($attributes);
+        if (null !== $Voywws15cvz5) {
+            $this->set($Voywws15cvz5);
         }
     }
 
-    /**
-     * @param array|string $attributes
-     * @param null|mixed $value
-     * @return $this
-     */
-    public function set($attributes, $value = null)
+    
+    public function set($Voywws15cvz5, $Vqfra35f14fv = null)
     {
-        if (!is_array($attributes)) {
-            $attributes = array($attributes => $value);
+        if (!is_array($Voywws15cvz5)) {
+            $Voywws15cvz5 = array($Voywws15cvz5 => $Vqfra35f14fv);
         }
-        foreach ($attributes as $key => $value) {
-            if ($key === 'tempDir' || $key === 'temp_dir') {
-                $this->setTempDir($value);
-            } elseif ($key === 'fontDir' || $key === 'font_dir') {
-                $this->setFontDir($value);
-            } elseif ($key === 'fontCache' || $key === 'font_cache') {
-                $this->setFontCache($value);
-            } elseif ($key === 'chroot') {
-                $this->setChroot($value);
-            } elseif ($key === 'logOutputFile' || $key === 'log_output_file') {
-                $this->setLogOutputFile($value);
-            } elseif ($key === 'defaultMediaType' || $key === 'default_media_type') {
-                $this->setDefaultMediaType($value);
-            } elseif ($key === 'defaultPaperSize' || $key === 'default_paper_size') {
-                $this->setDefaultPaperSize($value);
-            } elseif ($key === 'defaultPaperOrientation' || $key === 'default_paper_orientation') {
-                $this->setDefaultPaperOrientation($value);
-            } elseif ($key === 'defaultFont' || $key === 'default_font') {
-                $this->setDefaultFont($value);
-            } elseif ($key === 'dpi') {
-                $this->setDpi($value);
-            } elseif ($key === 'fontHeightRatio' || $key === 'font_height_ratio') {
-                $this->setFontHeightRatio($value);
-            } elseif ($key === 'isPhpEnabled' || $key === 'is_php_enabled' || $key === 'enable_php') {
-                $this->setIsPhpEnabled($value);
-            } elseif ($key === 'isRemoteEnabled' || $key === 'is_remote_enabled' || $key === 'enable_remote') {
-                $this->setIsRemoteEnabled($value);
-            } elseif ($key === 'isJavascriptEnabled' || $key === 'is_javascript_enabled' || $key === 'enable_javascript') {
-                $this->setIsJavascriptEnabled($value);
-            } elseif ($key === 'isHtml5ParserEnabled' || $key === 'is_html5_parser_enabled' || $key === 'enable_html5_parser') {
-                $this->setIsHtml5ParserEnabled($value);
-            } elseif ($key === 'isFontSubsettingEnabled' || $key === 'is_font_subsetting_enabled' || $key === 'enable_font_subsetting') {
-                $this->setIsFontSubsettingEnabled($value);
-            } elseif ($key === 'debugPng' || $key === 'debug_png') {
-                $this->setDebugPng($value);
-            } elseif ($key === 'debugKeepTemp' || $key === 'debug_keep_temp') {
-                $this->setDebugKeepTemp($value);
-            } elseif ($key === 'debugCss' || $key === 'debug_css') {
-                $this->setDebugCss($value);
-            } elseif ($key === 'debugLayout' || $key === 'debug_layout') {
-                $this->setDebugLayout($value);
-            } elseif ($key === 'debugLayoutLines' || $key === 'debug_layout_lines') {
-                $this->setDebugLayoutLines($value);
-            } elseif ($key === 'debugLayoutBlocks' || $key === 'debug_layout_blocks') {
-                $this->setDebugLayoutBlocks($value);
-            } elseif ($key === 'debugLayoutInline' || $key === 'debug_layout_inline') {
-                $this->setDebugLayoutInline($value);
-            } elseif ($key === 'debugLayoutPaddingBox' || $key === 'debug_layout_padding_box') {
-                $this->setDebugLayoutPaddingBox($value);
-            } elseif ($key === 'pdfBackend' || $key === 'pdf_backend') {
-                $this->setPdfBackend($value);
-            } elseif ($key === 'pdflibLicense' || $key === 'pdflib_license') {
-                $this->setPdflibLicense($value);
-            } elseif ($key === 'adminUsername' || $key === 'admin_username') {
-                $this->setAdminUsername($value);
-            } elseif ($key === 'adminPassword' || $key === 'admin_password') {
-                $this->setAdminPassword($value);
+        foreach ($Voywws15cvz5 as $Vqwhzgethmgj => $Vqfra35f14fv) {
+            if ($Vqwhzgethmgj === 'tempDir' || $Vqwhzgethmgj === 'temp_dir') {
+                $this->setTempDir($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'fontDir' || $Vqwhzgethmgj === 'font_dir') {
+                $this->setFontDir($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'fontCache' || $Vqwhzgethmgj === 'font_cache') {
+                $this->setFontCache($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'chroot') {
+                $this->setChroot($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'logOutputFile' || $Vqwhzgethmgj === 'log_output_file') {
+                $this->setLogOutputFile($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'defaultMediaType' || $Vqwhzgethmgj === 'default_media_type') {
+                $this->setDefaultMediaType($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'defaultPaperSize' || $Vqwhzgethmgj === 'default_paper_size') {
+                $this->setDefaultPaperSize($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'defaultPaperOrientation' || $Vqwhzgethmgj === 'default_paper_orientation') {
+                $this->setDefaultPaperOrientation($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'defaultFont' || $Vqwhzgethmgj === 'default_font') {
+                $this->setDefaultFont($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'dpi') {
+                $this->setDpi($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'fontHeightRatio' || $Vqwhzgethmgj === 'font_height_ratio') {
+                $this->setFontHeightRatio($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'isPhpEnabled' || $Vqwhzgethmgj === 'is_php_enabled' || $Vqwhzgethmgj === 'enable_php') {
+                $this->setIsPhpEnabled($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'isRemoteEnabled' || $Vqwhzgethmgj === 'is_remote_enabled' || $Vqwhzgethmgj === 'enable_remote') {
+                $this->setIsRemoteEnabled($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'isJavascriptEnabled' || $Vqwhzgethmgj === 'is_javascript_enabled' || $Vqwhzgethmgj === 'enable_javascript') {
+                $this->setIsJavascriptEnabled($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'isHtml5ParserEnabled' || $Vqwhzgethmgj === 'is_html5_parser_enabled' || $Vqwhzgethmgj === 'enable_html5_parser') {
+                $this->setIsHtml5ParserEnabled($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'isFontSubsettingEnabled' || $Vqwhzgethmgj === 'is_font_subsetting_enabled' || $Vqwhzgethmgj === 'enable_font_subsetting') {
+                $this->setIsFontSubsettingEnabled($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'debugPng' || $Vqwhzgethmgj === 'debug_png') {
+                $this->setDebugPng($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'debugKeepTemp' || $Vqwhzgethmgj === 'debug_keep_temp') {
+                $this->setDebugKeepTemp($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'debugCss' || $Vqwhzgethmgj === 'debug_css') {
+                $this->setDebugCss($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'debugLayout' || $Vqwhzgethmgj === 'debug_layout') {
+                $this->setDebugLayout($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'debugLayoutLines' || $Vqwhzgethmgj === 'debug_layout_lines') {
+                $this->setDebugLayoutLines($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'debugLayoutBlocks' || $Vqwhzgethmgj === 'debug_layout_blocks') {
+                $this->setDebugLayoutBlocks($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'debugLayoutInline' || $Vqwhzgethmgj === 'debug_layout_inline') {
+                $this->setDebugLayoutInline($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'debugLayoutPaddingBox' || $Vqwhzgethmgj === 'debug_layout_padding_box') {
+                $this->setDebugLayoutPaddingBox($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'pdfBackend' || $Vqwhzgethmgj === 'pdf_backend') {
+                $this->setPdfBackend($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'pdflibLicense' || $Vqwhzgethmgj === 'pdflib_license') {
+                $this->setPdflibLicense($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'adminUsername' || $Vqwhzgethmgj === 'admin_username') {
+                $this->setAdminUsername($Vqfra35f14fv);
+            } elseif ($Vqwhzgethmgj === 'adminPassword' || $Vqwhzgethmgj === 'admin_password') {
+                $this->setAdminPassword($Vqfra35f14fv);
             }
         }
         return $this;
     }
 
-    /**
-     * @param string $key
-     * @return mixed
-     */
-    public function get($key)
+    
+    public function get($Vqwhzgethmgj)
     {
-        if ($key === 'tempDir' || $key === 'temp_dir') {
+        if ($Vqwhzgethmgj === 'tempDir' || $Vqwhzgethmgj === 'temp_dir') {
             return $this->getTempDir();
-        } elseif ($key === 'fontDir' || $key === 'font_dir') {
+        } elseif ($Vqwhzgethmgj === 'fontDir' || $Vqwhzgethmgj === 'font_dir') {
             return $this->getFontDir();
-        } elseif ($key === 'fontCache' || $key === 'font_cache') {
+        } elseif ($Vqwhzgethmgj === 'fontCache' || $Vqwhzgethmgj === 'font_cache') {
             return $this->getFontCache();
-        } elseif ($key === 'chroot') {
+        } elseif ($Vqwhzgethmgj === 'chroot') {
             return $this->getChroot();
-        } elseif ($key === 'logOutputFile' || $key === 'log_output_file') {
+        } elseif ($Vqwhzgethmgj === 'logOutputFile' || $Vqwhzgethmgj === 'log_output_file') {
             return $this->getLogOutputFile();
-        } elseif ($key === 'defaultMediaType' || $key === 'default_media_type') {
+        } elseif ($Vqwhzgethmgj === 'defaultMediaType' || $Vqwhzgethmgj === 'default_media_type') {
             return $this->getDefaultMediaType();
-        } elseif ($key === 'defaultPaperSize' || $key === 'default_paper_size') {
+        } elseif ($Vqwhzgethmgj === 'defaultPaperSize' || $Vqwhzgethmgj === 'default_paper_size') {
             return $this->getDefaultPaperSize();
-        } elseif ($key === 'defaultPaperOrientation' || $key === 'default_paper_orientation') {
+        } elseif ($Vqwhzgethmgj === 'defaultPaperOrientation' || $Vqwhzgethmgj === 'default_paper_orientation') {
             return $this->getDefaultPaperOrientation();
-        } elseif ($key === 'defaultFont' || $key === 'default_font') {
+        } elseif ($Vqwhzgethmgj === 'defaultFont' || $Vqwhzgethmgj === 'default_font') {
             return $this->getDefaultFont();
-        } elseif ($key === 'dpi') {
+        } elseif ($Vqwhzgethmgj === 'dpi') {
             return $this->getDpi();
-        } elseif ($key === 'fontHeightRatio' || $key === 'font_height_ratio') {
+        } elseif ($Vqwhzgethmgj === 'fontHeightRatio' || $Vqwhzgethmgj === 'font_height_ratio') {
             return $this->getFontHeightRatio();
-        } elseif ($key === 'isPhpEnabled' || $key === 'is_php_enabled' || $key === 'enable_php') {
+        } elseif ($Vqwhzgethmgj === 'isPhpEnabled' || $Vqwhzgethmgj === 'is_php_enabled' || $Vqwhzgethmgj === 'enable_php') {
             return $this->getIsPhpEnabled();
-        } elseif ($key === 'isRemoteEnabled' || $key === 'is_remote_enabled' || $key === 'enable_remote') {
+        } elseif ($Vqwhzgethmgj === 'isRemoteEnabled' || $Vqwhzgethmgj === 'is_remote_enabled' || $Vqwhzgethmgj === 'enable_remote') {
             return $this->getIsRemoteEnabled();
-        } elseif ($key === 'isJavascriptEnabled' || $key === 'is_javascript_enabled' || $key === 'enable_javascript') {
+        } elseif ($Vqwhzgethmgj === 'isJavascriptEnabled' || $Vqwhzgethmgj === 'is_javascript_enabled' || $Vqwhzgethmgj === 'enable_javascript') {
             return $this->getIsJavascriptEnabled();
-        } elseif ($key === 'isHtml5ParserEnabled' || $key === 'is_html5_parser_enabled' || $key === 'enable_html5_parser') {
+        } elseif ($Vqwhzgethmgj === 'isHtml5ParserEnabled' || $Vqwhzgethmgj === 'is_html5_parser_enabled' || $Vqwhzgethmgj === 'enable_html5_parser') {
             return $this->getIsHtml5ParserEnabled();
-        } elseif ($key === 'isFontSubsettingEnabled' || $key === 'is_font_subsetting_enabled' || $key === 'enable_font_subsetting') {
+        } elseif ($Vqwhzgethmgj === 'isFontSubsettingEnabled' || $Vqwhzgethmgj === 'is_font_subsetting_enabled' || $Vqwhzgethmgj === 'enable_font_subsetting') {
             return $this->getIsFontSubsettingEnabled();
-        } elseif ($key === 'debugPng' || $key === 'debug_png') {
+        } elseif ($Vqwhzgethmgj === 'debugPng' || $Vqwhzgethmgj === 'debug_png') {
             return $this->getDebugPng();
-        } elseif ($key === 'debugKeepTemp' || $key === 'debug_keep_temp') {
+        } elseif ($Vqwhzgethmgj === 'debugKeepTemp' || $Vqwhzgethmgj === 'debug_keep_temp') {
             return $this->getDebugKeepTemp();
-        } elseif ($key === 'debugCss' || $key === 'debug_css') {
+        } elseif ($Vqwhzgethmgj === 'debugCss' || $Vqwhzgethmgj === 'debug_css') {
             return $this->getDebugCss();
-        } elseif ($key === 'debugLayout' || $key === 'debug_layout') {
+        } elseif ($Vqwhzgethmgj === 'debugLayout' || $Vqwhzgethmgj === 'debug_layout') {
             return $this->getDebugLayout();
-        } elseif ($key === 'debugLayoutLines' || $key === 'debug_layout_lines') {
+        } elseif ($Vqwhzgethmgj === 'debugLayoutLines' || $Vqwhzgethmgj === 'debug_layout_lines') {
             return $this->getDebugLayoutLines();
-        } elseif ($key === 'debugLayoutBlocks' || $key === 'debug_layout_blocks') {
+        } elseif ($Vqwhzgethmgj === 'debugLayoutBlocks' || $Vqwhzgethmgj === 'debug_layout_blocks') {
             return $this->getDebugLayoutBlocks();
-        } elseif ($key === 'debugLayoutInline' || $key === 'debug_layout_inline') {
+        } elseif ($Vqwhzgethmgj === 'debugLayoutInline' || $Vqwhzgethmgj === 'debug_layout_inline') {
             return $this->getDebugLayoutInline();
-        } elseif ($key === 'debugLayoutPaddingBox' || $key === 'debug_layout_padding_box') {
+        } elseif ($Vqwhzgethmgj === 'debugLayoutPaddingBox' || $Vqwhzgethmgj === 'debug_layout_padding_box') {
             return $this->getDebugLayoutPaddingBox();
-        } elseif ($key === 'pdfBackend' || $key === 'pdf_backend') {
+        } elseif ($Vqwhzgethmgj === 'pdfBackend' || $Vqwhzgethmgj === 'pdf_backend') {
             return $this->getPdfBackend();
-        } elseif ($key === 'pdflibLicense' || $key === 'pdflib_license') {
+        } elseif ($Vqwhzgethmgj === 'pdflibLicense' || $Vqwhzgethmgj === 'pdflib_license') {
             return $this->getPdflibLicense();
-        } elseif ($key === 'adminUsername' || $key === 'admin_username') {
+        } elseif ($Vqwhzgethmgj === 'adminUsername' || $Vqwhzgethmgj === 'admin_username') {
             return $this->getAdminUsername();
-        } elseif ($key === 'adminPassword' || $key === 'admin_password') {
+        } elseif ($Vqwhzgethmgj === 'adminPassword' || $Vqwhzgethmgj === 'admin_password') {
             return $this->getAdminPassword();
         }
         return null;
     }
 
-    /**
-     * @param string $adminPassword
-     * @return $this
-     */
-    public function setAdminPassword($adminPassword)
+    
+    public function setAdminPassword($Vqexdnnrdv43)
     {
-        $this->adminPassword = $adminPassword;
+        $this->adminPassword = $Vqexdnnrdv43;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getAdminPassword()
     {
         return $this->adminPassword;
     }
 
-    /**
-     * @param string $adminUsername
-     * @return $this
-     */
-    public function setAdminUsername($adminUsername)
+    
+    public function setAdminUsername($Vocuslkahnr4)
     {
-        $this->adminUsername = $adminUsername;
+        $this->adminUsername = $Vocuslkahnr4;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getAdminUsername()
     {
         return $this->adminUsername;
     }
 
-    /**
-     * @param string $pdfBackend
-     * @return $this
-     */
-    public function setPdfBackend($pdfBackend)
+    
+    public function setPdfBackend($Vsubjsvg2zg5)
     {
-        $this->pdfBackend = $pdfBackend;
+        $this->pdfBackend = $Vsubjsvg2zg5;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getPdfBackend()
     {
         return $this->pdfBackend;
     }
 
-    /**
-     * @param string $pdflibLicense
-     * @return $this
-     */
-    public function setPdflibLicense($pdflibLicense)
+    
+    public function setPdflibLicense($V3y0kq2hd2tl)
     {
-        $this->pdflibLicense = $pdflibLicense;
+        $this->pdflibLicense = $V3y0kq2hd2tl;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getPdflibLicense()
     {
         return $this->pdflibLicense;
     }
 
-    /**
-     * @param string $chroot
-     * @return $this
-     */
-    public function setChroot($chroot)
+    
+    public function setChroot($Vn2a2n5vx0fi)
     {
-        $this->chroot = $chroot;
+        $this->chroot = $Vn2a2n5vx0fi;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getChroot()
     {
         return $this->chroot;
     }
 
-    /**
-     * @param boolean $debugCss
-     * @return $this
-     */
-    public function setDebugCss($debugCss)
+    
+    public function setDebugCss($Vaz3hyvfpq11)
     {
-        $this->debugCss = $debugCss;
+        $this->debugCss = $Vaz3hyvfpq11;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getDebugCss()
     {
         return $this->debugCss;
     }
 
-    /**
-     * @param boolean $debugKeepTemp
-     * @return $this
-     */
-    public function setDebugKeepTemp($debugKeepTemp)
+    
+    public function setDebugKeepTemp($Vvgkr2dk4tn4)
     {
-        $this->debugKeepTemp = $debugKeepTemp;
+        $this->debugKeepTemp = $Vvgkr2dk4tn4;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getDebugKeepTemp()
     {
         return $this->debugKeepTemp;
     }
 
-    /**
-     * @param boolean $debugLayout
-     * @return $this
-     */
-    public function setDebugLayout($debugLayout)
+    
+    public function setDebugLayout($Vai5bx3gus5c)
     {
-        $this->debugLayout = $debugLayout;
+        $this->debugLayout = $Vai5bx3gus5c;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getDebugLayout()
     {
         return $this->debugLayout;
     }
 
-    /**
-     * @param boolean $debugLayoutBlocks
-     * @return $this
-     */
-    public function setDebugLayoutBlocks($debugLayoutBlocks)
+    
+    public function setDebugLayoutBlocks($Vai5bx3gus5cBlocks)
     {
-        $this->debugLayoutBlocks = $debugLayoutBlocks;
+        $this->debugLayoutBlocks = $Vai5bx3gus5cBlocks;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getDebugLayoutBlocks()
     {
         return $this->debugLayoutBlocks;
     }
 
-    /**
-     * @param boolean $debugLayoutInline
-     * @return $this
-     */
-    public function setDebugLayoutInline($debugLayoutInline)
+    
+    public function setDebugLayoutInline($Vai5bx3gus5cInline)
     {
-        $this->debugLayoutInline = $debugLayoutInline;
+        $this->debugLayoutInline = $Vai5bx3gus5cInline;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getDebugLayoutInline()
     {
         return $this->debugLayoutInline;
     }
 
-    /**
-     * @param boolean $debugLayoutLines
-     * @return $this
-     */
-    public function setDebugLayoutLines($debugLayoutLines)
+    
+    public function setDebugLayoutLines($Vai5bx3gus5cLines)
     {
-        $this->debugLayoutLines = $debugLayoutLines;
+        $this->debugLayoutLines = $Vai5bx3gus5cLines;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getDebugLayoutLines()
     {
         return $this->debugLayoutLines;
     }
 
-    /**
-     * @param boolean $debugLayoutPaddingBox
-     * @return $this
-     */
-    public function setDebugLayoutPaddingBox($debugLayoutPaddingBox)
+    
+    public function setDebugLayoutPaddingBox($Vai5bx3gus5cPaddingBox)
     {
-        $this->debugLayoutPaddingBox = $debugLayoutPaddingBox;
+        $this->debugLayoutPaddingBox = $Vai5bx3gus5cPaddingBox;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getDebugLayoutPaddingBox()
     {
         return $this->debugLayoutPaddingBox;
     }
 
-    /**
-     * @param boolean $debugPng
-     * @return $this
-     */
-    public function setDebugPng($debugPng)
+    
+    public function setDebugPng($Vejmnpdqd2w1)
     {
-        $this->debugPng = $debugPng;
+        $this->debugPng = $Vejmnpdqd2w1;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getDebugPng()
     {
         return $this->debugPng;
     }
 
-    /**
-     * @param string $defaultFont
-     * @return $this
-     */
-    public function setDefaultFont($defaultFont)
+    
+    public function setDefaultFont($Vmjq53cepgau)
     {
-        $this->defaultFont = $defaultFont;
+        $this->defaultFont = $Vmjq53cepgau;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getDefaultFont()
     {
         return $this->defaultFont;
     }
 
-    /**
-     * @param string $defaultMediaType
-     * @return $this
-     */
-    public function setDefaultMediaType($defaultMediaType)
+    
+    public function setDefaultMediaType($Vj0dz4eqji25)
     {
-        $this->defaultMediaType = $defaultMediaType;
+        $this->defaultMediaType = $Vj0dz4eqji25;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getDefaultMediaType()
     {
         return $this->defaultMediaType;
     }
 
-    /**
-     * @param string $defaultPaperSize
-     * @return $this
-     */
-    public function setDefaultPaperSize($defaultPaperSize)
+    
+    public function setDefaultPaperSize($Vubtaful3j1c)
     {
-        $this->defaultPaperSize = $defaultPaperSize;
+        $this->defaultPaperSize = $Vubtaful3j1c;
         return $this;
     }
 
-    /**
-     * @param string $defaultPaperOrientation
-     * @return $this
-     */
-    public function setDefaultPaperOrientation($defaultPaperOrientation)
+    
+    public function setDefaultPaperOrientation($Vpatmpv5e0px)
     {
-        $this->defaultPaperOrientation = $defaultPaperOrientation;
+        $this->defaultPaperOrientation = $Vpatmpv5e0px;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getDefaultPaperSize()
     {
         return $this->defaultPaperSize;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getDefaultPaperOrientation()
     {
         return $this->defaultPaperOrientation;
     }
 
-    /**
-     * @param int $dpi
-     * @return $this
-     */
-    public function setDpi($dpi)
+    
+    public function setDpi($Vs5sugw0qedn)
     {
-        $this->dpi = $dpi;
+        $this->dpi = $Vs5sugw0qedn;
         return $this;
     }
 
-    /**
-     * @return int
-     */
+    
     public function getDpi()
     {
         return $this->dpi;
     }
 
-    /**
-     * @param string $fontCache
-     * @return $this
-     */
-    public function setFontCache($fontCache)
+    
+    public function setFontCache($V2wl0npgxb4a)
     {
-        $this->fontCache = $fontCache;
+        $this->fontCache = $V2wl0npgxb4a;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getFontCache()
     {
         return $this->fontCache;
     }
 
-    /**
-     * @param string $fontDir
-     * @return $this
-     */
-    public function setFontDir($fontDir)
+    
+    public function setFontDir($Vuztfk54rrx1)
     {
-        $this->fontDir = $fontDir;
+        $this->fontDir = $Vuztfk54rrx1;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getFontDir()
     {
         return $this->fontDir;
     }
 
-    /**
-     * @param float $fontHeightRatio
-     * @return $this
-     */
-    public function setFontHeightRatio($fontHeightRatio)
+    
+    public function setFontHeightRatio($Vapigj4sxx3i)
     {
-        $this->fontHeightRatio = $fontHeightRatio;
+        $this->fontHeightRatio = $Vapigj4sxx3i;
         return $this;
     }
 
-    /**
-     * @return float
-     */
+    
     public function getFontHeightRatio()
     {
         return $this->fontHeightRatio;
     }
 
-    /**
-     * @param boolean $isFontSubsettingEnabled
-     * @return $this
-     */
-    public function setIsFontSubsettingEnabled($isFontSubsettingEnabled)
+    
+    public function setIsFontSubsettingEnabled($Vn3sishy2rsm)
     {
-        $this->isFontSubsettingEnabled = $isFontSubsettingEnabled;
+        $this->isFontSubsettingEnabled = $Vn3sishy2rsm;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getIsFontSubsettingEnabled()
     {
         return $this->isFontSubsettingEnabled;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function isFontSubsettingEnabled()
     {
         return $this->getIsFontSubsettingEnabled();
     }
 
-    /**
-     * @param boolean $isHtml5ParserEnabled
-     * @return $this
-     */
-    public function setIsHtml5ParserEnabled($isHtml5ParserEnabled)
+    
+    public function setIsHtml5ParserEnabled($Vz3estm52ux5)
     {
-        $this->isHtml5ParserEnabled = $isHtml5ParserEnabled;
+        $this->isHtml5ParserEnabled = $Vz3estm52ux5;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getIsHtml5ParserEnabled()
     {
         return $this->isHtml5ParserEnabled;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function isHtml5ParserEnabled()
     {
         return $this->getIsHtml5ParserEnabled();
     }
 
-    /**
-     * @param boolean $isJavascriptEnabled
-     * @return $this
-     */
-    public function setIsJavascriptEnabled($isJavascriptEnabled)
+    
+    public function setIsJavascriptEnabled($Vjj3djofnyde)
     {
-        $this->isJavascriptEnabled = $isJavascriptEnabled;
+        $this->isJavascriptEnabled = $Vjj3djofnyde;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getIsJavascriptEnabled()
     {
         return $this->isJavascriptEnabled;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function isJavascriptEnabled()
     {
         return $this->getIsJavascriptEnabled();
     }
 
-    /**
-     * @param boolean $isPhpEnabled
-     * @return $this
-     */
-    public function setIsPhpEnabled($isPhpEnabled)
+    
+    public function setIsPhpEnabled($Vtnyhp0dp3wf)
     {
-        $this->isPhpEnabled = $isPhpEnabled;
+        $this->isPhpEnabled = $Vtnyhp0dp3wf;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getIsPhpEnabled()
     {
         return $this->isPhpEnabled;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function isPhpEnabled()
     {
         return $this->getIsPhpEnabled();
     }
 
-    /**
-     * @param boolean $isRemoteEnabled
-     * @return $this
-     */
-    public function setIsRemoteEnabled($isRemoteEnabled)
+    
+    public function setIsRemoteEnabled($V5xgmzfprwgu)
     {
-        $this->isRemoteEnabled = $isRemoteEnabled;
+        $this->isRemoteEnabled = $V5xgmzfprwgu;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function getIsRemoteEnabled()
     {
         return $this->isRemoteEnabled;
     }
 
-    /**
-     * @return boolean
-     */
+    
     public function isRemoteEnabled()
     {
         return $this->getIsRemoteEnabled();
     }
 
-    /**
-     * @param string $logOutputFile
-     * @return $this
-     */
-    public function setLogOutputFile($logOutputFile)
+    
+    public function setLogOutputFile($Vebh5d4zwcnt)
     {
-        $this->logOutputFile = $logOutputFile;
+        $this->logOutputFile = $Vebh5d4zwcnt;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getLogOutputFile()
     {
         return $this->logOutputFile;
     }
 
-    /**
-     * @param string $tempDir
-     * @return $this
-     */
-    public function setTempDir($tempDir)
+    
+    public function setTempDir($V03sbdcxs32f)
     {
-        $this->tempDir = $tempDir;
+        $this->tempDir = $V03sbdcxs32f;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getTempDir()
     {
         return $this->tempDir;
     }
 
-    /**
-     * @param string $rootDir
-     * @return $this
-     */
-    public function setRootDir($rootDir)
+    
+    public function setRootDir($Vk2wykqydwqb)
     {
-        $this->rootDir = $rootDir;
+        $this->rootDir = $Vk2wykqydwqb;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getRootDir()
     {
         return $this->rootDir;

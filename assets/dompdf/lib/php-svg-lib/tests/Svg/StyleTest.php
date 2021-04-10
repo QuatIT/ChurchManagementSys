@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Fabien
- * Date: 13/04/14
- * Time: 17:42
- */
+
 
 namespace Svg\Tests;
 
@@ -33,25 +28,25 @@ class StyleTest extends \PHPUnit_Framework_TestCase
 
     public function test_fromAttributes()
     {
-        $style = new Style();
+        $Vdidzwb0w3vc = new Style();
 
-        $attributes = array(
+        $Voywws15cvz5 = array(
             "color" => "blue",
             "fill" => "#fff",
             "stroke" => "none",
         );
 
-        $style->fromAttributes($attributes);
+        $Vdidzwb0w3vc->fromAttributes($Voywws15cvz5);
 
-        $this->assertEquals(array(0, 0, 255), $style->color);
-        $this->assertEquals(array(255, 255, 255), $style->fill);
-        $this->assertEquals("none", $style->stroke);
+        $this->assertEquals(array(0, 0, 255), $Vdidzwb0w3vc->color);
+        $this->assertEquals(array(255, 255, 255), $Vdidzwb0w3vc->fill);
+        $this->assertEquals("none", $Vdidzwb0w3vc->stroke);
     }
 
     public function test_convertSize()
     {
         $this->assertEquals(1, Style::convertSize(1));
-        $this->assertEquals(10, Style::convertSize("10px")); // FIXME
+        $this->assertEquals(10, Style::convertSize("10px")); 
         $this->assertEquals(10, Style::convertSize("10pt"));
         $this->assertEquals(8, Style::convertSize("80%", 10, 72));
     }

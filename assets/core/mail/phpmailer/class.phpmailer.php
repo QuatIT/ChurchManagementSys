@@ -1,855 +1,575 @@
 <?php
-/*~ class.phpmailer.php
-.---------------------------------------------------------------------------.
-|  Software: PHPMailer - PHP email class                                    |
-|   Version: 5.1                                                            |
-|   Contact: via sourceforge.net support pages (also www.worxware.com)      |
-|      Info: http://phpmailer.sourceforge.net                               |
-|   Support: http://sourceforge.net/projects/phpmailer/                     |
-| ------------------------------------------------------------------------- |
-|     Admin: Andy Prevost (project admininistrator)                         |
-|   Authors: Andy Prevost (codeworxtech) codeworxtech@users.sourceforge.net |
-|          : Marcus Bointon (coolbru) coolbru@users.sourceforge.net         |
-|   Founder: Brent R. Matzelle (original founder)                           |
-| Copyright (c) 2004-2009, Andy Prevost. All Rights Reserved.               |
-| Copyright (c) 2001-2003, Brent R. Matzelle                                |
-| ------------------------------------------------------------------------- |
-|   License: Distributed under the Lesser General Public License (LGPL)     |
-|            http://www.gnu.org/copyleft/lesser.html                        |
-| This program is distributed in the hope that it will be useful - WITHOUT  |
-| ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or     |
-| FITNESS FOR A PARTICULAR PURPOSE.                                         |
-| ------------------------------------------------------------------------- |
-| We offer a number of paid services (www.worxware.com):                    |
-| - Web Hosting on highly optimized fast and secure servers                 |
-| - Technology Consulting                                                   |
-| - Oursourcing (highly qualified programmers and graphic designers)        |
-'---------------------------------------------------------------------------'
-*/
 
-/**
- * PHPMailer - PHP email transport class
- * NOTE: Requires PHP version 5 or later
- * @package PHPMailer
- * @author Andy Prevost
- * @author Marcus Bointon
- * @copyright 2004 - 2009 Andy Prevost
- * @version $Id: class.phpmailer.php 447 2009-05-25 01:36:38Z codeworxtech $
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
+
 
 if (version_compare(PHP_VERSION, '5.0.0', '<') ) exit("Sorry, this version of PHPMailer will only run on PHP version 5 or greater!\n");
 
 class PHPMailer {
 
-  /////////////////////////////////////////////////
-  // PROPERTIES, PUBLIC
-  /////////////////////////////////////////////////
+  
+  
+  
 
-  /**
-   * Email priority (1 = High, 3 = Normal, 5 = low).
-   * @var int
-   */
-  public $Priority          = 3;
+  
+  public $Vrzkovjgtlie          = 3;
 
-  /**
-   * Sets the CharSet of the message.
-   * @var string
-   */
-  public $CharSet           = 'iso-8859-1';
+  
+  public $Vdo0k0roz4or           = 'iso-8859-1';
 
-  /**
-   * Sets the Content-type of the message.
-   * @var string
-   */
-  public $ContentType       = 'text/plain';
+  
+  public $Vmjxi2kiu2hx       = 'text/plain';
 
-  /**
-   * Sets the Encoding of the message. Options for this are
-   *  "8bit", "7bit", "binary", "base64", and "quoted-printable".
-   * @var string
-   */
-  public $Encoding          = '8bit';
+  
+  public $V0ogtbftbbtn          = '8bit';
 
-  /**
-   * Holds the most recent mailer error message.
-   * @var string
-   */
-  public $ErrorInfo         = '';
+  
+  public $Vfkbdpx04zht         = '';
 
-  /**
-   * Sets the From email address for the message.
-   * @var string
-   */
-  public $From              = 'root@localhost';
+  
+  public $Vopc2tc5vt1b              = 'root@localhost';
 
-  /**
-   * Sets the From name of the message.
-   * @var string
-   */
-  public $FromName          = 'Root User';
+  
+  public $Vopc2tc5vt1bName          = 'Root User';
 
-  /**
-   * Sets the Sender email (Return-Path) of the message.  If not empty,
-   * will be sent via -f to sendmail or as 'MAIL FROM' in smtp mode.
-   * @var string
-   */
-  public $Sender            = '';
+  
+  public $Vttockalougq            = '';
 
-  /**
-   * Sets the Subject of the message.
-   * @var string
-   */
-  public $Subject           = '';
+  
+  public $Vnk5agnf2tvi           = '';
 
-  /**
-   * Sets the Body of the message.  This can be either an HTML or text body.
-   * If HTML then run IsHTML(true).
-   * @var string
-   */
-  public $Body              = '';
+  
+  public $Vxahyrv3nq3v              = '';
 
-  /**
-   * Sets the text-only body of the message.  This automatically sets the
-   * email to multipart/alternative.  This body can be read by mail
-   * clients that do not have HTML email capability such as mutt. Clients
-   * that can read HTML will view the normal Body.
-   * @var string
-   */
-  public $AltBody           = '';
+  
+  public $Vvjlpbuzo0n0           = '';
 
-  /**
-   * Sets word wrapping on the body of the message to a given number of
-   * characters.
-   * @var int
-   */
-  public $WordWrap          = 0;
+  
+  public $Vrfnnwdaaxur          = 0;
 
-  /**
-   * Method to send mail: ("mail", "sendmail", or "smtp").
-   * @var string
-   */
-  public $Mailer            = 'mail';
+  
+  public $Vu2pkow0ya0c            = 'mail';
 
-  /**
-   * Sets the path of the sendmail program.
-   * @var string
-   */
-  public $Sendmail          = '/usr/sbin/sendmail';
+  
+  public $Vo4k0pafzm5m          = '/usr/sbin/sendmail';
 
-  /**
-   * Path to PHPMailer plugins.  Useful if the SMTP class
-   * is in a different directory than the PHP include path.
-   * @var string
-   */
-  public $PluginDir         = '';
+  
+  public $V0ssdntwtcqu         = '';
 
-  /**
-   * Sets the email address that a reading confirmation will be sent.
-   * @var string
-   */
-  public $ConfirmReadingTo  = '';
+  
+  public $Vv0i5rdcrfww  = '';
 
-  /**
-   * Sets the hostname to use in Message-Id and Received headers
-   * and as default HELO string. If empty, the value returned
-   * by SERVER_NAME is used or 'localhost.localdomain'.
-   * @var string
-   */
-  public $Hostname          = '';
+  
+  public $Vpo5azizwdi2          = '';
 
-  /**
-   * Sets the message ID to be used in the Message-Id header.
-   * If empty, a unique id will be generated.
-   * @var string
-   */
-  public $MessageID         = '';
+  
+  public $Vh3naaa2gi2l         = '';
 
-  /////////////////////////////////////////////////
-  // PROPERTIES FOR SMTP
-  /////////////////////////////////////////////////
+  
+  
+  
 
-  /**
-   * Sets the SMTP hosts.  All hosts must be separated by a
-   * semicolon.  You can also specify a different port
-   * for each host by using this format: [hostname:port]
-   * (e.g. "smtp1.example.com:25;smtp2.example.com").
-   * Hosts will be tried in order.
-   * @var string
-   */
-  public $Host          = 'localhost';
+  
+  public $Vov53bwoaof2          = 'localhost';
 
-  /**
-   * Sets the default SMTP server port.
-   * @var int
-   */
-  public $Port          = 25;
+  
+  public $Vc3s3oicaohq          = 25;
 
-  /**
-   * Sets the SMTP HELO of the message (Default is $Hostname).
-   * @var string
-   */
-  public $Helo          = '';
+  
+  public $Vibn0yg1xvd1          = '';
 
-  /**
-   * Sets connection prefix.
-   * Options are "", "ssl" or "tls"
-   * @var string
-   */
-  public $SMTPSecure    = '';
+  
+  public $Vvvrlg5fhmwo    = '';
 
-  /**
-   * Sets SMTP authentication. Utilizes the Username and Password variables.
-   * @var bool
-   */
-  public $SMTPAuth      = false;
+  
+  public $V5quzlyq3x0w      = false;
 
-  /**
-   * Sets SMTP username.
-   * @var string
-   */
-  public $Username      = '';
+  
+  public $Vzadrztxvoil      = '';
 
-  /**
-   * Sets SMTP password.
-   * @var string
-   */
-  public $Password      = '';
+  
+  public $Vk4icf2ynmwm      = '';
 
-  /**
-   * Sets the SMTP server timeout in seconds.
-   * This function will not work with the win32 version.
-   * @var int
-   */
-  public $Timeout       = 10;
+  
+  public $Vmxkbrowb5xu       = 10;
 
-  /**
-   * Sets SMTP class debugging on or off.
-   * @var bool
-   */
-  public $SMTPDebug     = false;
+  
+  public $Vlqtv3kjgsks     = false;
 
-  /**
-   * Prevents the SMTP connection from being closed after each mail
-   * sending.  If this is set to true then to close the connection
-   * requires an explicit call to SmtpClose().
-   * @var bool
-   */
-  public $SMTPKeepAlive = false;
+  
+  public $V32nj12nq2ya = false;
 
-  /**
-   * Provides the ability to have the TO field process individual
-   * emails, instead of sending to entire TO addresses
-   * @var bool
-   */
-  public $SingleTo      = false;
+  
+  public $Vpl55zdpvnnr      = false;
 
-   /**
-   * If SingleTo is true, this provides the array to hold the email addresses
-   * @var bool
-   */
-  public $SingleToArray = array();
+   
+  public $Vpl55zdpvnnrArray = array();
 
- /**
-   * Provides the ability to change the line ending
-   * @var string
-   */
-  public $LE              = "\n";
+ 
+  public $Vqz1qiu0hf2f              = "\n";
 
-  /**
-   * Used with DKIM DNS Resource Record
-   * @var string
-   */
-  public $DKIM_selector   = 'phpmailer';
+  
+  public $Vsmazo4iaact   = 'phpmailer';
 
-  /**
-   * Used with DKIM DNS Resource Record
-   * optional, in format of email address 'you@yourdomain.com'
-   * @var string
-   */
-  public $DKIM_identity   = '';
+  
+  public $Vl5mkampffta   = '';
 
-  /**
-   * Used with DKIM DNS Resource Record
-   * optional, in format of email address 'you@yourdomain.com'
-   * @var string
-   */
-  public $DKIM_domain     = '';
+  
+  public $Vujwevd4bfke     = '';
 
-  /**
-   * Used with DKIM DNS Resource Record
-   * optional, in format of email address 'you@yourdomain.com'
-   * @var string
-   */
-  public $DKIM_private    = '';
+  
+  public $Vtuv1ggqhba4    = '';
 
-  /**
-   * Callback Action function name
-   * the function that handles the result of the send email action. Parameters:
-   *   bool    $result        result of the send action
-   *   string  $to            email address of the recipient
-   *   string  $cc            cc email addresses
-   *   string  $bcc           bcc email addresses
-   *   string  $subject       the subject
-   *   string  $body          the email body
-   * @var string
-   */
-  public $action_function = ''; //'callbackAction';
+  
+  public $Vg53xtsyv3rf = ''; 
 
-  /**
-   * Sets the PHPMailer Version number
-   * @var string
-   */
-  public $Version         = '5.1';
+  
+  public $Vvcgykzxaxhv         = '5.1';
 
-  /////////////////////////////////////////////////
-  // PROPERTIES, PRIVATE AND PROTECTED
-  /////////////////////////////////////////////////
+  
+  
+  
 
-  private   $smtp           = NULL;
-  private   $to             = array();
-  private   $cc             = array();
-  private   $bcc            = array();
-  private   $ReplyTo        = array();
-  private   $all_recipients = array();
-  private   $attachment     = array();
-  private   $CustomHeader   = array();
-  private   $message_type   = '';
-  private   $boundary       = array();
-  protected $language       = array();
-  private   $error_count    = 0;
-  private   $sign_cert_file = "";
-  private   $sign_key_file  = "";
-  private   $sign_key_pass  = "";
-  private   $exceptions     = false;
+  private   $Vm4vfhy1roli           = NULL;
+  private   $Vqjeupemp40q             = array();
+  private   $Vyj5o4ip2jf4             = array();
+  private   $Vav45ikgcg0f            = array();
+  private   $Vq0remoiiux3        = array();
+  private   $Vcympddy42tz = array();
+  private   $Vvoxfbo3d4da     = array();
+  private   $Vl5y23hcxwka   = array();
+  private   $Vnnkl2reshbu   = '';
+  private   $Vxtqdtqv1ats       = array();
+  protected $V5rubuknjyji       = array();
+  private   $Vmgarpq1h3ec    = 0;
+  private   $V0hexioguiym = "";
+  private   $Vhh4rr40zqpr  = "";
+  private   $Vst55ccozftk  = "";
+  private   $Vhpbk3rfhoef     = false;
 
-  /////////////////////////////////////////////////
-  // CONSTANTS
-  /////////////////////////////////////////////////
+  
+  
+  
 
-  const STOP_MESSAGE  = 0; // message only, continue processing
-  const STOP_CONTINUE = 1; // message?, likely ok to continue processing
-  const STOP_CRITICAL = 2; // message, plus full stop, critical error reached
+  const STOP_MESSAGE  = 0; 
+  const STOP_CONTINUE = 1; 
+  const STOP_CRITICAL = 2; 
 
-  /////////////////////////////////////////////////
-  // METHODS, VARIABLES
-  /////////////////////////////////////////////////
+  
+  
+  
 
-  /**
-   * Constructor
-   * @param boolean $exceptions Should we throw external exceptions?
-   */
-  public function __construct($exceptions = false) {
-    $this->exceptions = ($exceptions == true);
+  
+  public function __construct($Vhpbk3rfhoef = false) {
+    $Vcki4t4qmybshis->exceptions = ($Vhpbk3rfhoef == true);
   }
 
-  /**
-   * Sets message type to HTML.
-   * @param bool $ishtml
-   * @return void
-   */
-  public function IsHTML($ishtml = true) {
-    if ($ishtml) {
-      $this->ContentType = 'text/html';
+  
+  public function IsHTML($Vh4jkhifsk4a = true) {
+    if ($Vh4jkhifsk4a) {
+      $Vcki4t4qmybshis->ContentType = 'text/html';
     } else {
-      $this->ContentType = 'text/plain';
+      $Vcki4t4qmybshis->ContentType = 'text/plain';
     }
   }
 
-  /**
-   * Sets Mailer to send message using SMTP.
-   * @return void
-   */
+  
   public function IsSMTP() {
-    $this->Mailer = 'smtp';
+    $Vcki4t4qmybshis->Mailer = 'smtp';
   }
 
-  /**
-   * Sets Mailer to send message using PHP mail() function.
-   * @return void
-   */
+  
   public function IsMail() {
-    $this->Mailer = 'mail';
+    $Vcki4t4qmybshis->Mailer = 'mail';
   }
 
-  /**
-   * Sets Mailer to send message using the $Sendmail program.
-   * @return void
-   */
+  
   public function IsSendmail() {
     if (!stristr(ini_get('sendmail_path'), 'sendmail')) {
-      $this->Sendmail = '/var/qmail/bin/sendmail';
+      $Vcki4t4qmybshis->Sendmail = '/var/qmail/bin/sendmail';
     }
-    $this->Mailer = 'sendmail';
+    $Vcki4t4qmybshis->Mailer = 'sendmail';
   }
 
-  /**
-   * Sets Mailer to send message using the qmail MTA.
-   * @return void
-   */
+  
   public function IsQmail() {
     if (stristr(ini_get('sendmail_path'), 'qmail')) {
-      $this->Sendmail = '/var/qmail/bin/sendmail';
+      $Vcki4t4qmybshis->Sendmail = '/var/qmail/bin/sendmail';
     }
-    $this->Mailer = 'sendmail';
+    $Vcki4t4qmybshis->Mailer = 'sendmail';
   }
 
-  /////////////////////////////////////////////////
-  // METHODS, RECIPIENTS
-  /////////////////////////////////////////////////
+  
+  
+  
 
-  /**
-   * Adds a "To" address.
-   * @param string $address
-   * @param string $name
-   * @return boolean true on success, false if address already used
-   */
-  public function AddAddress($address, $name = '') {
-    return $this->AddAnAddress('to', $address, $name);
+  
+  public function AddAddress($Vvhsyzupxzwx, $Vpgf1maodsla = '') {
+    return $Vcki4t4qmybshis->AddAnAddress('to', $Vvhsyzupxzwx, $Vpgf1maodsla);
   }
 
-  /**
-   * Adds a "Cc" address.
-   * Note: this function works with the SMTP mailer on win32, not with the "mail" mailer.
-   * @param string $address
-   * @param string $name
-   * @return boolean true on success, false if address already used
-   */
-  public function AddCC($address, $name = '') {
-    return $this->AddAnAddress('cc', $address, $name);
+  
+  public function AddCC($Vvhsyzupxzwx, $Vpgf1maodsla = '') {
+    return $Vcki4t4qmybshis->AddAnAddress('cc', $Vvhsyzupxzwx, $Vpgf1maodsla);
   }
 
-  /**
-   * Adds a "Bcc" address.
-   * Note: this function works with the SMTP mailer on win32, not with the "mail" mailer.
-   * @param string $address
-   * @param string $name
-   * @return boolean true on success, false if address already used
-   */
-  public function AddBCC($address, $name = '') {
-    return $this->AddAnAddress('bcc', $address, $name);
+  
+  public function AddBCC($Vvhsyzupxzwx, $Vpgf1maodsla = '') {
+    return $Vcki4t4qmybshis->AddAnAddress('bcc', $Vvhsyzupxzwx, $Vpgf1maodsla);
   }
 
-  /**
-   * Adds a "Reply-to" address.
-   * @param string $address
-   * @param string $name
-   * @return boolean
-   */
-  public function AddReplyTo($address, $name = '') {
-    return $this->AddAnAddress('ReplyTo', $address, $name);
+  
+  public function AddReplyTo($Vvhsyzupxzwx, $Vpgf1maodsla = '') {
+    return $Vcki4t4qmybshis->AddAnAddress('ReplyTo', $Vvhsyzupxzwx, $Vpgf1maodsla);
   }
 
-  /**
-   * Adds an address to one of the recipient arrays
-   * Addresses that have been added already return false, but do not throw exceptions
-   * @param string $kind One of 'to', 'cc', 'bcc', 'ReplyTo'
-   * @param string $address The email address to send to
-   * @param string $name
-   * @return boolean true on success, false if address already used or invalid in some way
-   * @access private
-   */
-  private function AddAnAddress($kind, $address, $name = '') {
-    if (!preg_match('/^(to|cc|bcc|ReplyTo)$/', $kind)) {
+  
+  private function AddAnAddress($Vxcae1h42xq3, $Vvhsyzupxzwx, $Vpgf1maodsla = '') {
+    if (!preg_match('/^(to|cc|bcc|ReplyTo)$/', $Vxcae1h42xq3)) {
       echo 'Invalid recipient array: ' . kind;
       return false;
     }
-    $address = trim($address);
-    $name = trim(preg_replace('/[\r\n]+/', '', $name)); //Strip breaks and trim
-    if (!self::ValidateAddress($address)) {
-      $this->SetError($this->Lang('invalid_address').': '. $address);
-      if ($this->exceptions) {
-        throw new phpmailerException($this->Lang('invalid_address').': '.$address);
+    $Vvhsyzupxzwx = trim($Vvhsyzupxzwx);
+    $Vpgf1maodsla = trim(preg_replace('/[\r\n]+/', '', $Vpgf1maodsla)); 
+    if (!self::ValidateAddress($Vvhsyzupxzwx)) {
+      $Vcki4t4qmybshis->SetError($Vcki4t4qmybshis->Lang('invalid_address').': '. $Vvhsyzupxzwx);
+      if ($Vcki4t4qmybshis->exceptions) {
+        throw new phpmailerException($Vcki4t4qmybshis->Lang('invalid_address').': '.$Vvhsyzupxzwx);
       }
-      echo $this->Lang('invalid_address').': '.$address;
+      echo $Vcki4t4qmybshis->Lang('invalid_address').': '.$Vvhsyzupxzwx;
       return false;
     }
-    if ($kind != 'ReplyTo') {
-      if (!isset($this->all_recipients[strtolower($address)])) {
-        array_push($this->$kind, array($address, $name));
-        $this->all_recipients[strtolower($address)] = true;
+    if ($Vxcae1h42xq3 != 'ReplyTo') {
+      if (!isset($Vcki4t4qmybshis->all_recipients[strtolower($Vvhsyzupxzwx)])) {
+        array_push($Vcki4t4qmybshis->$Vxcae1h42xq3, array($Vvhsyzupxzwx, $Vpgf1maodsla));
+        $Vcki4t4qmybshis->all_recipients[strtolower($Vvhsyzupxzwx)] = true;
         return true;
       }
     } else {
-      if (!array_key_exists(strtolower($address), $this->ReplyTo)) {
-        $this->ReplyTo[strtolower($address)] = array($address, $name);
+      if (!array_key_exists(strtolower($Vvhsyzupxzwx), $Vcki4t4qmybshis->ReplyTo)) {
+        $Vcki4t4qmybshis->ReplyTo[strtolower($Vvhsyzupxzwx)] = array($Vvhsyzupxzwx, $Vpgf1maodsla);
       return true;
     }
   }
   return false;
 }
 
-/**
- * Set the From and FromName properties
- * @param string $address
- * @param string $name
- * @return boolean
- */
-  public function SetFrom($address, $name = '',$auto=1) {
-    $address = trim($address);
-    $name = trim(preg_replace('/[\r\n]+/', '', $name)); //Strip breaks and trim
-    if (!self::ValidateAddress($address)) {
-      $this->SetError($this->Lang('invalid_address').': '. $address);
-      if ($this->exceptions) {
-        throw new phpmailerException($this->Lang('invalid_address').': '.$address);
+
+  public function SetFrom($Vvhsyzupxzwx, $Vpgf1maodsla = '',$V1hilopgdvnr=1) {
+    $Vvhsyzupxzwx = trim($Vvhsyzupxzwx);
+    $Vpgf1maodsla = trim(preg_replace('/[\r\n]+/', '', $Vpgf1maodsla)); 
+    if (!self::ValidateAddress($Vvhsyzupxzwx)) {
+      $Vcki4t4qmybshis->SetError($Vcki4t4qmybshis->Lang('invalid_address').': '. $Vvhsyzupxzwx);
+      if ($Vcki4t4qmybshis->exceptions) {
+        throw new phpmailerException($Vcki4t4qmybshis->Lang('invalid_address').': '.$Vvhsyzupxzwx);
       }
-      echo $this->Lang('invalid_address').': '.$address;
+      echo $Vcki4t4qmybshis->Lang('invalid_address').': '.$Vvhsyzupxzwx;
       return false;
     }
-    $this->From = $address;
-    $this->FromName = $name;
-    if ($auto) {
-      if (empty($this->ReplyTo)) {
-        $this->AddAnAddress('ReplyTo', $address, $name);
+    $Vcki4t4qmybshis->From = $Vvhsyzupxzwx;
+    $Vcki4t4qmybshis->FromName = $Vpgf1maodsla;
+    if ($V1hilopgdvnr) {
+      if (empty($Vcki4t4qmybshis->ReplyTo)) {
+        $Vcki4t4qmybshis->AddAnAddress('ReplyTo', $Vvhsyzupxzwx, $Vpgf1maodsla);
       }
-      if (empty($this->Sender)) {
-        $this->Sender = $address;
+      if (empty($Vcki4t4qmybshis->Sender)) {
+        $Vcki4t4qmybshis->Sender = $Vvhsyzupxzwx;
       }
     }
     return true;
   }
 
-  /**
-   * Check that a string looks roughly like an email address should
-   * Static so it can be used without instantiation
-   * Tries to use PHP built-in validator in the filter extension (from PHP 5.2), falls back to a reasonably competent regex validator
-   * Conforms approximately to RFC2822
-   * @link http://www.hexillion.com/samples/#Regex Original pattern found here
-   * @param string $address The email address to check
-   * @return boolean
-   * @static
-   * @access public
-   */
-  public static function ValidateAddress($address) {
-    if (function_exists('filter_var')) { //Introduced in PHP 5.2
-      if(filter_var($address, FILTER_VALIDATE_EMAIL) === FALSE) {
+  
+  public static function ValidateAddress($Vvhsyzupxzwx) {
+    if (function_exists('filter_var')) { 
+      if(filter_var($Vvhsyzupxzwx, FILTER_VALIDATE_EMAIL) === FALSE) {
         return false;
       } else {
         return true;
       }
     } else {
-      return preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $address);
+      return preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $Vvhsyzupxzwx);
     }
   }
 
-  /////////////////////////////////////////////////
-  // METHODS, MAIL SENDING
-  /////////////////////////////////////////////////
+  
+  
+  
 
-  /**
-   * Creates message and assigns Mailer. If the message is
-   * not sent successfully then it returns false.  Use the ErrorInfo
-   * variable to view description of the error.
-   * @return bool
-   */
+  
   public function Send() {
     try {
-      if ((count($this->to) + count($this->cc) + count($this->bcc)) < 1) {
-        throw new phpmailerException($this->Lang('provide_address'), self::STOP_CRITICAL);
+      if ((count($Vcki4t4qmybshis->to) + count($Vcki4t4qmybshis->cc) + count($Vcki4t4qmybshis->bcc)) < 1) {
+        throw new phpmailerException($Vcki4t4qmybshis->Lang('provide_address'), self::STOP_CRITICAL);
       }
 
-      // Set whether the message is multipart/alternative
-      if(!empty($this->AltBody)) {
-        $this->ContentType = 'multipart/alternative';
+      
+      if(!empty($Vcki4t4qmybshis->AltBody)) {
+        $Vcki4t4qmybshis->ContentType = 'multipart/alternative';
       }
 
-      $this->error_count = 0; // reset errors
-      $this->SetMessageType();
-      $header = $this->CreateHeader();
-      $body = $this->CreateBody();
+      $Vcki4t4qmybshis->error_count = 0; 
+      $Vcki4t4qmybshis->SetMessageType();
+      $Vbcafeycvjtp = $Vcki4t4qmybshis->CreateHeader();
+      $V0dtmgmxxnsq = $Vcki4t4qmybshis->CreateBody();
 
-      if (empty($this->Body)) {
-        throw new phpmailerException($this->Lang('empty_message'), self::STOP_CRITICAL);
+      if (empty($Vcki4t4qmybshis->Body)) {
+        throw new phpmailerException($Vcki4t4qmybshis->Lang('empty_message'), self::STOP_CRITICAL);
       }
 
-      // digitally sign with DKIM if enabled
-      if ($this->DKIM_domain && $this->DKIM_private) {
-        $header_dkim = $this->DKIM_Add($header,$this->Subject,$body);
-        $header = str_replace("\r\n","\n",$header_dkim) . $header;
+      
+      if ($Vcki4t4qmybshis->DKIM_domain && $Vcki4t4qmybshis->DKIM_private) {
+        $Vbcafeycvjtp_dkim = $Vcki4t4qmybshis->DKIM_Add($Vbcafeycvjtp,$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
+        $Vbcafeycvjtp = str_replace("\r\n","\n",$Vbcafeycvjtp_dkim) . $Vbcafeycvjtp;
       }
 
-      // Choose the mailer and send through it
-      switch($this->Mailer) {
+      
+      switch($Vcki4t4qmybshis->Mailer) {
         case 'sendmail':
-          return $this->SendmailSend($header, $body);
+          return $Vcki4t4qmybshis->SendmailSend($Vbcafeycvjtp, $V0dtmgmxxnsq);
         case 'smtp':
-          return $this->SmtpSend($header, $body);
+          return $Vcki4t4qmybshis->SmtpSend($Vbcafeycvjtp, $V0dtmgmxxnsq);
         default:
-          return $this->MailSend($header, $body);
+          return $Vcki4t4qmybshis->MailSend($Vbcafeycvjtp, $V0dtmgmxxnsq);
       }
 
-    } catch (phpmailerException $e) {
-      $this->SetError($e->getMessage());
-      if ($this->exceptions) {
-        throw $e;
+    } catch (phpmailerException $V2bwrjburyuf) {
+      $Vcki4t4qmybshis->SetError($V2bwrjburyuf->getMessage());
+      if ($Vcki4t4qmybshis->exceptions) {
+        throw $V2bwrjburyuf;
       }
-      echo $e->getMessage()."\n";
+      echo $V2bwrjburyuf->getMessage()."\n";
       return false;
     }
   }
 
-  /**
-   * Sends mail using the $Sendmail program.
-   * @param string $header The message headers
-   * @param string $body The message body
-   * @access protected
-   * @return bool
-   */
-  protected function SendmailSend($header, $body) {
-    if ($this->Sender != '') {
-      $sendmail = sprintf("%s -oi -f %s -t", escapeshellcmd($this->Sendmail), escapeshellarg($this->Sender));
+  
+  protected function SendmailSend($Vbcafeycvjtp, $V0dtmgmxxnsq) {
+    if ($Vcki4t4qmybshis->Sender != '') {
+      $Vlkka4mnbglx = sprintf("%s -oi -f %s -t", escapeshellcmd($Vcki4t4qmybshis->Sendmail), escapeshellarg($Vcki4t4qmybshis->Sender));
     } else {
-      $sendmail = sprintf("%s -oi -t", escapeshellcmd($this->Sendmail));
+      $Vlkka4mnbglx = sprintf("%s -oi -t", escapeshellcmd($Vcki4t4qmybshis->Sendmail));
     }
-    if ($this->SingleTo === true) {
-      foreach ($this->SingleToArray as $key => $val) {
-        if(!@$mail = popen($sendmail, 'w')) {
-          throw new phpmailerException($this->Lang('execute') . $this->Sendmail, self::STOP_CRITICAL);
+    if ($Vcki4t4qmybshis->SingleTo === true) {
+      foreach ($Vcki4t4qmybshis->SingleToArray as $Vqwhzgethmgj => $Vzyqcsfbm3q4) {
+        if(!@$Vbfod5qpq0lc = popen($Vlkka4mnbglx, 'w')) {
+          throw new phpmailerException($Vcki4t4qmybshis->Lang('execute') . $Vcki4t4qmybshis->Sendmail, self::STOP_CRITICAL);
         }
-        fputs($mail, "To: " . $val . "\n");
-        fputs($mail, $header);
-        fputs($mail, $body);
-        $result = pclose($mail);
-        // implement call back function if it exists
-        $isSent = ($result == 0) ? 1 : 0;
-        $this->doCallback($isSent,$val,$this->cc,$this->bcc,$this->Subject,$body);
-        if($result != 0) {
-          throw new phpmailerException($this->Lang('execute') . $this->Sendmail, self::STOP_CRITICAL);
+        fputs($Vbfod5qpq0lc, "To: " . $Vzyqcsfbm3q4 . "\n");
+        fputs($Vbfod5qpq0lc, $Vbcafeycvjtp);
+        fputs($Vbfod5qpq0lc, $V0dtmgmxxnsq);
+        $Vxrvbhqnqlwj = pclose($Vbfod5qpq0lc);
+        
+        $Vzxlgwiafilh = ($Vxrvbhqnqlwj == 0) ? 1 : 0;
+        $Vcki4t4qmybshis->doCallback($Vzxlgwiafilh,$Vzyqcsfbm3q4,$Vcki4t4qmybshis->cc,$Vcki4t4qmybshis->bcc,$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
+        if($Vxrvbhqnqlwj != 0) {
+          throw new phpmailerException($Vcki4t4qmybshis->Lang('execute') . $Vcki4t4qmybshis->Sendmail, self::STOP_CRITICAL);
         }
       }
     } else {
-      if(!@$mail = popen($sendmail, 'w')) {
-        throw new phpmailerException($this->Lang('execute') . $this->Sendmail, self::STOP_CRITICAL);
+      if(!@$Vbfod5qpq0lc = popen($Vlkka4mnbglx, 'w')) {
+        throw new phpmailerException($Vcki4t4qmybshis->Lang('execute') . $Vcki4t4qmybshis->Sendmail, self::STOP_CRITICAL);
       }
-      fputs($mail, $header);
-      fputs($mail, $body);
-      $result = pclose($mail);
-      // implement call back function if it exists
-      $isSent = ($result == 0) ? 1 : 0;
-      $this->doCallback($isSent,$this->to,$this->cc,$this->bcc,$this->Subject,$body);
-      if($result != 0) {
-        throw new phpmailerException($this->Lang('execute') . $this->Sendmail, self::STOP_CRITICAL);
+      fputs($Vbfod5qpq0lc, $Vbcafeycvjtp);
+      fputs($Vbfod5qpq0lc, $V0dtmgmxxnsq);
+      $Vxrvbhqnqlwj = pclose($Vbfod5qpq0lc);
+      
+      $Vzxlgwiafilh = ($Vxrvbhqnqlwj == 0) ? 1 : 0;
+      $Vcki4t4qmybshis->doCallback($Vzxlgwiafilh,$Vcki4t4qmybshis->to,$Vcki4t4qmybshis->cc,$Vcki4t4qmybshis->bcc,$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
+      if($Vxrvbhqnqlwj != 0) {
+        throw new phpmailerException($Vcki4t4qmybshis->Lang('execute') . $Vcki4t4qmybshis->Sendmail, self::STOP_CRITICAL);
       }
     }
     return true;
   }
 
-  /**
-   * Sends mail using the PHP mail() function.
-   * @param string $header The message headers
-   * @param string $body The message body
-   * @access protected
-   * @return bool
-   */
-  protected function MailSend($header, $body) {
-    $toArr = array();
-    foreach($this->to as $t) {
-      $toArr[] = $this->AddrFormat($t);
+  
+  protected function MailSend($Vbcafeycvjtp, $V0dtmgmxxnsq) {
+    $Vqjeupemp40qArr = array();
+    foreach($Vcki4t4qmybshis->to as $Vcki4t4qmybs) {
+      $Vqjeupemp40qArr[] = $Vcki4t4qmybshis->AddrFormat($Vcki4t4qmybs);
     }
-    $to = implode(', ', $toArr);
+    $Vqjeupemp40q = implode(', ', $Vqjeupemp40qArr);
 
-    $params = sprintf("-oi -f %s", $this->Sender);
-    if ($this->Sender != '' && strlen(ini_get('safe_mode'))< 1) {
-      $old_from = ini_get('sendmail_from');
-      ini_set('sendmail_from', $this->Sender);
-      if ($this->SingleTo === true && count($toArr) > 1) {
-        foreach ($toArr as $key => $val) {
-          $rt = @mail($val, $this->EncodeHeader($this->SecureHeader($this->Subject)), $body, $header, $params);
-          // implement call back function if it exists
-          $isSent = ($rt == 1) ? 1 : 0;
-          $this->doCallback($isSent,$val,$this->cc,$this->bcc,$this->Subject,$body);
+    $V15czabgaos0 = sprintf("-oi -f %s", $Vcki4t4qmybshis->Sender);
+    if ($Vcki4t4qmybshis->Sender != '' && strlen(ini_get('safe_mode'))< 1) {
+      $V5fdym3ibpuy = ini_get('sendmail_from');
+      ini_set('sendmail_from', $Vcki4t4qmybshis->Sender);
+      if ($Vcki4t4qmybshis->SingleTo === true && count($Vqjeupemp40qArr) > 1) {
+        foreach ($Vqjeupemp40qArr as $Vqwhzgethmgj => $Vzyqcsfbm3q4) {
+          $Vh5pddxvtqhf = @mail($Vzyqcsfbm3q4, $Vcki4t4qmybshis->EncodeHeader($Vcki4t4qmybshis->SecureHeader($Vcki4t4qmybshis->Subject)), $V0dtmgmxxnsq, $Vbcafeycvjtp, $V15czabgaos0);
+          
+          $Vzxlgwiafilh = ($Vh5pddxvtqhf == 1) ? 1 : 0;
+          $Vcki4t4qmybshis->doCallback($Vzxlgwiafilh,$Vzyqcsfbm3q4,$Vcki4t4qmybshis->cc,$Vcki4t4qmybshis->bcc,$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
         }
       } else {
-        $rt = @mail($to, $this->EncodeHeader($this->SecureHeader($this->Subject)), $body, $header, $params);
-        // implement call back function if it exists
-        $isSent = ($rt == 1) ? 1 : 0;
-        $this->doCallback($isSent,$to,$this->cc,$this->bcc,$this->Subject,$body);
+        $Vh5pddxvtqhf = @mail($Vqjeupemp40q, $Vcki4t4qmybshis->EncodeHeader($Vcki4t4qmybshis->SecureHeader($Vcki4t4qmybshis->Subject)), $V0dtmgmxxnsq, $Vbcafeycvjtp, $V15czabgaos0);
+        
+        $Vzxlgwiafilh = ($Vh5pddxvtqhf == 1) ? 1 : 0;
+        $Vcki4t4qmybshis->doCallback($Vzxlgwiafilh,$Vqjeupemp40q,$Vcki4t4qmybshis->cc,$Vcki4t4qmybshis->bcc,$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
       }
     } else {
-      if ($this->SingleTo === true && count($toArr) > 1) {
-        foreach ($toArr as $key => $val) {
-          $rt = @mail($val, $this->EncodeHeader($this->SecureHeader($this->Subject)), $body, $header, $params);
-          // implement call back function if it exists
-          $isSent = ($rt == 1) ? 1 : 0;
-          $this->doCallback($isSent,$val,$this->cc,$this->bcc,$this->Subject,$body);
+      if ($Vcki4t4qmybshis->SingleTo === true && count($Vqjeupemp40qArr) > 1) {
+        foreach ($Vqjeupemp40qArr as $Vqwhzgethmgj => $Vzyqcsfbm3q4) {
+          $Vh5pddxvtqhf = @mail($Vzyqcsfbm3q4, $Vcki4t4qmybshis->EncodeHeader($Vcki4t4qmybshis->SecureHeader($Vcki4t4qmybshis->Subject)), $V0dtmgmxxnsq, $Vbcafeycvjtp, $V15czabgaos0);
+          
+          $Vzxlgwiafilh = ($Vh5pddxvtqhf == 1) ? 1 : 0;
+          $Vcki4t4qmybshis->doCallback($Vzxlgwiafilh,$Vzyqcsfbm3q4,$Vcki4t4qmybshis->cc,$Vcki4t4qmybshis->bcc,$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
         }
       } else {
-        $rt = @mail($to, $this->EncodeHeader($this->SecureHeader($this->Subject)), $body, $header);
-        // implement call back function if it exists
-        $isSent = ($rt == 1) ? 1 : 0;
-        $this->doCallback($isSent,$to,$this->cc,$this->bcc,$this->Subject,$body);
+        $Vh5pddxvtqhf = @mail($Vqjeupemp40q, $Vcki4t4qmybshis->EncodeHeader($Vcki4t4qmybshis->SecureHeader($Vcki4t4qmybshis->Subject)), $V0dtmgmxxnsq, $Vbcafeycvjtp);
+        
+        $Vzxlgwiafilh = ($Vh5pddxvtqhf == 1) ? 1 : 0;
+        $Vcki4t4qmybshis->doCallback($Vzxlgwiafilh,$Vqjeupemp40q,$Vcki4t4qmybshis->cc,$Vcki4t4qmybshis->bcc,$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
       }
     }
-    if (isset($old_from)) {
-      ini_set('sendmail_from', $old_from);
+    if (isset($V5fdym3ibpuy)) {
+      ini_set('sendmail_from', $V5fdym3ibpuy);
     }
-    if(!$rt) {
-      throw new phpmailerException($this->Lang('instantiate'), self::STOP_CRITICAL);
+    if(!$Vh5pddxvtqhf) {
+      throw new phpmailerException($Vcki4t4qmybshis->Lang('instantiate'), self::STOP_CRITICAL);
     }
     return true;
   }
 
-  /**
-   * Sends mail via SMTP using PhpSMTP
-   * Returns false if there is a bad MAIL FROM, RCPT, or DATA input.
-   * @param string $header The message headers
-   * @param string $body The message body
-   * @uses SMTP
-   * @access protected
-   * @return bool
-   */
-  protected function SmtpSend($header, $body) {
-    require_once $this->PluginDir . 'class.smtp.php';
-    $bad_rcpt = array();
+  
+  protected function SmtpSend($Vbcafeycvjtp, $V0dtmgmxxnsq) {
+    require_once $Vcki4t4qmybshis->PluginDir . 'class.smtp.php';
+    $Vium4rvaqnvd = array();
 
-    if(!$this->SmtpConnect()) {
-      throw new phpmailerException($this->Lang('smtp_connect_failed'), self::STOP_CRITICAL);
+    if(!$Vcki4t4qmybshis->SmtpConnect()) {
+      throw new phpmailerException($Vcki4t4qmybshis->Lang('smtp_connect_failed'), self::STOP_CRITICAL);
     }
-    $smtp_from = ($this->Sender == '') ? $this->From : $this->Sender;
-    if(!$this->smtp->Mail($smtp_from)) {
-      throw new phpmailerException($this->Lang('from_failed') . $smtp_from, self::STOP_CRITICAL);
+    $Vm4vfhy1roli_from = ($Vcki4t4qmybshis->Sender == '') ? $Vcki4t4qmybshis->From : $Vcki4t4qmybshis->Sender;
+    if(!$Vcki4t4qmybshis->smtp->Mail($Vm4vfhy1roli_from)) {
+      throw new phpmailerException($Vcki4t4qmybshis->Lang('from_failed') . $Vm4vfhy1roli_from, self::STOP_CRITICAL);
     }
 
-    // Attempt to send attach all recipients
-    foreach($this->to as $to) {
-      if (!$this->smtp->Recipient($to[0])) {
-        $bad_rcpt[] = $to[0];
-        // implement call back function if it exists
-        $isSent = 0;
-        $this->doCallback($isSent,$to[0],'','',$this->Subject,$body);
+    
+    foreach($Vcki4t4qmybshis->to as $Vqjeupemp40q) {
+      if (!$Vcki4t4qmybshis->smtp->Recipient($Vqjeupemp40q[0])) {
+        $Vium4rvaqnvd[] = $Vqjeupemp40q[0];
+        
+        $Vzxlgwiafilh = 0;
+        $Vcki4t4qmybshis->doCallback($Vzxlgwiafilh,$Vqjeupemp40q[0],'','',$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
       } else {
-        // implement call back function if it exists
-        $isSent = 1;
-        $this->doCallback($isSent,$to[0],'','',$this->Subject,$body);
+        
+        $Vzxlgwiafilh = 1;
+        $Vcki4t4qmybshis->doCallback($Vzxlgwiafilh,$Vqjeupemp40q[0],'','',$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
       }
     }
-    foreach($this->cc as $cc) {
-      if (!$this->smtp->Recipient($cc[0])) {
-        $bad_rcpt[] = $cc[0];
-        // implement call back function if it exists
-        $isSent = 0;
-        $this->doCallback($isSent,'',$cc[0],'',$this->Subject,$body);
+    foreach($Vcki4t4qmybshis->cc as $Vyj5o4ip2jf4) {
+      if (!$Vcki4t4qmybshis->smtp->Recipient($Vyj5o4ip2jf4[0])) {
+        $Vium4rvaqnvd[] = $Vyj5o4ip2jf4[0];
+        
+        $Vzxlgwiafilh = 0;
+        $Vcki4t4qmybshis->doCallback($Vzxlgwiafilh,'',$Vyj5o4ip2jf4[0],'',$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
       } else {
-        // implement call back function if it exists
-        $isSent = 1;
-        $this->doCallback($isSent,'',$cc[0],'',$this->Subject,$body);
+        
+        $Vzxlgwiafilh = 1;
+        $Vcki4t4qmybshis->doCallback($Vzxlgwiafilh,'',$Vyj5o4ip2jf4[0],'',$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
       }
     }
-    foreach($this->bcc as $bcc) {
-      if (!$this->smtp->Recipient($bcc[0])) {
-        $bad_rcpt[] = $bcc[0];
-        // implement call back function if it exists
-        $isSent = 0;
-        $this->doCallback($isSent,'','',$bcc[0],$this->Subject,$body);
+    foreach($Vcki4t4qmybshis->bcc as $Vav45ikgcg0f) {
+      if (!$Vcki4t4qmybshis->smtp->Recipient($Vav45ikgcg0f[0])) {
+        $Vium4rvaqnvd[] = $Vav45ikgcg0f[0];
+        
+        $Vzxlgwiafilh = 0;
+        $Vcki4t4qmybshis->doCallback($Vzxlgwiafilh,'','',$Vav45ikgcg0f[0],$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
       } else {
-        // implement call back function if it exists
-        $isSent = 1;
-        $this->doCallback($isSent,'','',$bcc[0],$this->Subject,$body);
+        
+        $Vzxlgwiafilh = 1;
+        $Vcki4t4qmybshis->doCallback($Vzxlgwiafilh,'','',$Vav45ikgcg0f[0],$Vcki4t4qmybshis->Subject,$V0dtmgmxxnsq);
       }
     }
 
 
-    if (count($bad_rcpt) > 0 ) { //Create error message for any bad addresses
-      $badaddresses = implode(', ', $bad_rcpt);
-      throw new phpmailerException($this->Lang('recipients_failed') . $badaddresses);
+    if (count($Vium4rvaqnvd) > 0 ) { 
+      $Vh4kneutlzda = implode(', ', $Vium4rvaqnvd);
+      throw new phpmailerException($Vcki4t4qmybshis->Lang('recipients_failed') . $Vh4kneutlzda);
     }
-    if(!$this->smtp->Data($header . $body)) {
-      throw new phpmailerException($this->Lang('data_not_accepted'), self::STOP_CRITICAL);
+    if(!$Vcki4t4qmybshis->smtp->Data($Vbcafeycvjtp . $V0dtmgmxxnsq)) {
+      throw new phpmailerException($Vcki4t4qmybshis->Lang('data_not_accepted'), self::STOP_CRITICAL);
     }
-    if($this->SMTPKeepAlive == true) {
-      $this->smtp->Reset();
+    if($Vcki4t4qmybshis->SMTPKeepAlive == true) {
+      $Vcki4t4qmybshis->smtp->Reset();
     }
     return true;
   }
 
-  /**
-   * Initiates a connection to an SMTP server.
-   * Returns false if the operation failed.
-   * @uses SMTP
-   * @access public
-   * @return bool
-   */
+  
   public function SmtpConnect() {
-    if(is_null($this->smtp)) {
-      $this->smtp = new SMTP();
+    if(is_null($Vcki4t4qmybshis->smtp)) {
+      $Vcki4t4qmybshis->smtp = new SMTP();
     }
 
-    $this->smtp->do_debug = $this->SMTPDebug;
-    $hosts = explode(';', $this->Host);
-    $index = 0;
-    $connection = $this->smtp->Connected();
+    $Vcki4t4qmybshis->smtp->do_debug = $Vcki4t4qmybshis->SMTPDebug;
+    $V0fg0ax30q33 = explode(';', $Vcki4t4qmybshis->Host);
+    $V04titjghjb2 = 0;
+    $Vjmthdtvbptf = $Vcki4t4qmybshis->smtp->Connected();
 
-    // Retry while there is no connection
+    
     try {
-      while($index < count($hosts) && !$connection) {
-        $hostinfo = array();
-        if (preg_match('/^(.+):([0-9]+)$/', $hosts[$index], $hostinfo)) {
-          $host = $hostinfo[1];
-          $port = $hostinfo[2];
+      while($V04titjghjb2 < count($V0fg0ax30q33) && !$Vjmthdtvbptf) {
+        $Vgfygfhmbggy = array();
+        if (preg_match('/^(.+):([0-9]+)$/', $V0fg0ax30q33[$V04titjghjb2], $Vgfygfhmbggy)) {
+          $Vg5lte3qjxow = $Vgfygfhmbggy[1];
+          $V4llkibm1kuq = $Vgfygfhmbggy[2];
         } else {
-          $host = $hosts[$index];
-          $port = $this->Port;
+          $Vg5lte3qjxow = $V0fg0ax30q33[$V04titjghjb2];
+          $V4llkibm1kuq = $Vcki4t4qmybshis->Port;
         }
 
-        $tls = ($this->SMTPSecure == 'tls');
-        $ssl = ($this->SMTPSecure == 'ssl');
+        $Vcki4t4qmybsls = ($Vcki4t4qmybshis->SMTPSecure == 'tls');
+        $Vftkkxbrr5kp = ($Vcki4t4qmybshis->SMTPSecure == 'ssl');
 
-        if ($this->smtp->Connect(($ssl ? 'ssl://':'').$host, $port, $this->Timeout)) {
+        if ($Vcki4t4qmybshis->smtp->Connect(($Vftkkxbrr5kp ? 'ssl://':'').$Vg5lte3qjxow, $V4llkibm1kuq, $Vcki4t4qmybshis->Timeout)) {
 
-          $hello = ($this->Helo != '' ? $this->Helo : $this->ServerHostname());
-          $this->smtp->Hello($hello);
+          $V1xvwznosuho = ($Vcki4t4qmybshis->Helo != '' ? $Vcki4t4qmybshis->Helo : $Vcki4t4qmybshis->ServerHostname());
+          $Vcki4t4qmybshis->smtp->Hello($V1xvwznosuho);
 
-          if ($tls) {
-            if (!$this->smtp->StartTLS()) {
-              throw new phpmailerException($this->Lang('tls'));
+          if ($Vcki4t4qmybsls) {
+            if (!$Vcki4t4qmybshis->smtp->StartTLS()) {
+              throw new phpmailerException($Vcki4t4qmybshis->Lang('tls'));
             }
 
-            //We must resend HELO after tls negotiation
-            $this->smtp->Hello($hello);
+            
+            $Vcki4t4qmybshis->smtp->Hello($V1xvwznosuho);
           }
 
-          $connection = true;
-          if ($this->SMTPAuth) {
-            if (!$this->smtp->Authenticate($this->Username, $this->Password)) {
-              throw new phpmailerException($this->Lang('authenticate'));
+          $Vjmthdtvbptf = true;
+          if ($Vcki4t4qmybshis->SMTPAuth) {
+            if (!$Vcki4t4qmybshis->smtp->Authenticate($Vcki4t4qmybshis->Username, $Vcki4t4qmybshis->Password)) {
+              throw new phpmailerException($Vcki4t4qmybshis->Lang('authenticate'));
             }
           }
         }
-        $index++;
-        if (!$connection) {
-          throw new phpmailerException($this->Lang('connect_host'));
+        $V04titjghjb2++;
+        if (!$Vjmthdtvbptf) {
+          throw new phpmailerException($Vcki4t4qmybshis->Lang('connect_host'));
         }
       }
-    } catch (phpmailerException $e) {
-      $this->smtp->Reset();
-      throw $e;
+    } catch (phpmailerException $V2bwrjburyuf) {
+      $Vcki4t4qmybshis->smtp->Reset();
+      throw $V2bwrjburyuf;
     }
     return true;
   }
 
-  /**
-   * Closes the active SMTP session if one exists.
-   * @return void
-   */
+  
   public function SmtpClose() {
-    if(!is_null($this->smtp)) {
-      if($this->smtp->Connected()) {
-        $this->smtp->Quit();
-        $this->smtp->Close();
+    if(!is_null($Vcki4t4qmybshis->smtp)) {
+      if($Vcki4t4qmybshis->smtp->Connected()) {
+        $Vcki4t4qmybshis->smtp->Quit();
+        $Vcki4t4qmybshis->smtp->Close();
       }
     }
   }
 
-  /**
-  * Sets the language for all class error messages.
-  * Returns false if it cannot load the language file.  The default language is English.
-  * @param string $langcode ISO 639-1 2-character language code (e.g. Portuguese: "br")
-  * @param string $lang_path Path to the language file directory
-  * @access public
-  */
-  function SetLanguage($langcode = 'en', $lang_path = 'language/') {
-    //Define full set of translatable strings
-    $PHPMAILER_LANG = array(
+  
+  function SetLanguage($Vx0zlxjypfrc = 'en', $V4lmbolrjunl = 'language/') {
+    
+    $Vsqe4yol2m0w = array(
       'provide_address' => 'You must provide at least one recipient email address.',
       'mailer_not_supported' => ' mailer is not supported.',
       'execute' => 'Could not execute: ',
@@ -868,598 +588,511 @@ class PHPMailer {
       'invalid_address' => 'Invalid address',
       'variable_set' => 'Cannot set or reset variable: '
     );
-    //Overwrite language-specific strings. This way we'll never have missing translations - no more "language string failed to load"!
-    $l = true;
-    if ($langcode != 'en') { //There is no English translation file
-      $l = @include $lang_path.'phpmailer.lang-'.$langcode.'.php';
+    
+    $V3nb02w01gr5 = true;
+    if ($Vx0zlxjypfrc != 'en') { 
+      $V3nb02w01gr5 = @include $V4lmbolrjunl.'phpmailer.lang-'.$Vx0zlxjypfrc.'.php';
     }
-    $this->language = $PHPMAILER_LANG;
-    return ($l == true); //Returns false if language not found
+    $Vcki4t4qmybshis->language = $Vsqe4yol2m0w;
+    return ($V3nb02w01gr5 == true); 
   }
 
-  /**
-  * Return the current array of language strings
-  * @return array
-  */
+  
   public function GetTranslations() {
-    return $this->language;
+    return $Vcki4t4qmybshis->language;
   }
 
-  /////////////////////////////////////////////////
-  // METHODS, MESSAGE CREATION
-  /////////////////////////////////////////////////
+  
+  
+  
 
-  /**
-   * Creates recipient headers.
-   * @access public
-   * @return string
-   */
-  public function AddrAppend($type, $addr) {
-    $addr_str = $type . ': ';
-    $addresses = array();
-    foreach ($addr as $a) {
-      $addresses[] = $this->AddrFormat($a);
+  
+  public function AddrAppend($Vcki4t4qmybsype, $Vcyawztivoux) {
+    $Vcyawztivoux_str = $Vcki4t4qmybsype . ': ';
+    $Vvhsyzupxzwxes = array();
+    foreach ($Vcyawztivoux as $Vrr3orqjztc2) {
+      $Vvhsyzupxzwxes[] = $Vcki4t4qmybshis->AddrFormat($Vrr3orqjztc2);
     }
-    $addr_str .= implode(', ', $addresses);
-    $addr_str .= $this->LE;
+    $Vcyawztivoux_str .= implode(', ', $Vvhsyzupxzwxes);
+    $Vcyawztivoux_str .= $Vcki4t4qmybshis->LE;
 
-    return $addr_str;
+    return $Vcyawztivoux_str;
   }
 
-  /**
-   * Formats an address correctly.
-   * @access public
-   * @return string
-   */
-  public function AddrFormat($addr) {
-    if (empty($addr[1])) {
-      return $this->SecureHeader($addr[0]);
+  
+  public function AddrFormat($Vcyawztivoux) {
+    if (empty($Vcyawztivoux[1])) {
+      return $Vcki4t4qmybshis->SecureHeader($Vcyawztivoux[0]);
     } else {
-      return $this->EncodeHeader($this->SecureHeader($addr[1]), 'phrase') . " <" . $this->SecureHeader($addr[0]) . ">";
+      return $Vcki4t4qmybshis->EncodeHeader($Vcki4t4qmybshis->SecureHeader($Vcyawztivoux[1]), 'phrase') . " <" . $Vcki4t4qmybshis->SecureHeader($Vcyawztivoux[0]) . ">";
     }
   }
 
-  /**
-   * Wraps message for use with mailers that do not
-   * automatically perform wrapping and for quoted-printable.
-   * Original written by philippe.
-   * @param string $message The message to wrap
-   * @param integer $length The line length to wrap to
-   * @param boolean $qp_mode Whether to run in Quoted-Printable mode
-   * @access public
-   * @return string
-   */
-  public function WrapText($message, $length, $qp_mode = false) {
-    $soft_break = ($qp_mode) ? sprintf(" =%s", $this->LE) : $this->LE;
-    // If utf-8 encoding is used, we will need to make sure we don't
-    // split multibyte characters when we wrap
-    $is_utf8 = (strtolower($this->CharSet) == "utf-8");
+  
+  public function WrapText($Vw4u5rrepkk1, $V3nb02w01gr5ength, $Vsevq4qzwwyf = false) {
+    $Vo2snzhajmmn = ($Vsevq4qzwwyf) ? sprintf(" =%s", $Vcki4t4qmybshis->LE) : $Vcki4t4qmybshis->LE;
+    
+    
+    $Vp5r1irzj130 = (strtolower($Vcki4t4qmybshis->CharSet) == "utf-8");
 
-    $message = $this->FixEOL($message);
-    if (substr($message, -1) == $this->LE) {
-      $message = substr($message, 0, -1);
+    $Vw4u5rrepkk1 = $Vcki4t4qmybshis->FixEOL($Vw4u5rrepkk1);
+    if (substr($Vw4u5rrepkk1, -1) == $Vcki4t4qmybshis->LE) {
+      $Vw4u5rrepkk1 = substr($Vw4u5rrepkk1, 0, -1);
     }
 
-    $line = explode($this->LE, $message);
-    $message = '';
-    for ($i=0 ;$i < count($line); $i++) {
-      $line_part = explode(' ', $line[$i]);
-      $buf = '';
-      for ($e = 0; $e<count($line_part); $e++) {
-        $word = $line_part[$e];
-        if ($qp_mode and (strlen($word) > $length)) {
-          $space_left = $length - strlen($buf) - 1;
-          if ($e != 0) {
-            if ($space_left > 20) {
-              $len = $space_left;
-              if ($is_utf8) {
-                $len = $this->UTF8CharBoundary($word, $len);
-              } elseif (substr($word, $len - 1, 1) == "=") {
-                $len--;
-              } elseif (substr($word, $len - 2, 1) == "=") {
-                $len -= 2;
+    $V3nb02w01gr5ine = explode($Vcki4t4qmybshis->LE, $Vw4u5rrepkk1);
+    $Vw4u5rrepkk1 = '';
+    for ($V3xsptcgzss2=0 ;$V3xsptcgzss2 < count($V3nb02w01gr5ine); $V3xsptcgzss2++) {
+      $V3nb02w01gr5ine_part = explode(' ', $V3nb02w01gr5ine[$V3xsptcgzss2]);
+      $Vogssqqa1hkt = '';
+      for ($V2bwrjburyuf = 0; $V2bwrjburyuf<count($V3nb02w01gr5ine_part); $V2bwrjburyuf++) {
+        $V2bjyo0c3vm5 = $V3nb02w01gr5ine_part[$V2bwrjburyuf];
+        if ($Vsevq4qzwwyf and (strlen($V2bjyo0c3vm5) > $V3nb02w01gr5ength)) {
+          $Vne0cjwoecgd = $V3nb02w01gr5ength - strlen($Vogssqqa1hkt) - 1;
+          if ($V2bwrjburyuf != 0) {
+            if ($Vne0cjwoecgd > 20) {
+              $V3nb02w01gr5en = $Vne0cjwoecgd;
+              if ($Vp5r1irzj130) {
+                $V3nb02w01gr5en = $Vcki4t4qmybshis->UTF8CharBoundary($V2bjyo0c3vm5, $V3nb02w01gr5en);
+              } elseif (substr($V2bjyo0c3vm5, $V3nb02w01gr5en - 1, 1) == "=") {
+                $V3nb02w01gr5en--;
+              } elseif (substr($V2bjyo0c3vm5, $V3nb02w01gr5en - 2, 1) == "=") {
+                $V3nb02w01gr5en -= 2;
               }
-              $part = substr($word, 0, $len);
-              $word = substr($word, $len);
-              $buf .= ' ' . $part;
-              $message .= $buf . sprintf("=%s", $this->LE);
+              $Vtug2ggkwwbt = substr($V2bjyo0c3vm5, 0, $V3nb02w01gr5en);
+              $V2bjyo0c3vm5 = substr($V2bjyo0c3vm5, $V3nb02w01gr5en);
+              $Vogssqqa1hkt .= ' ' . $Vtug2ggkwwbt;
+              $Vw4u5rrepkk1 .= $Vogssqqa1hkt . sprintf("=%s", $Vcki4t4qmybshis->LE);
             } else {
-              $message .= $buf . $soft_break;
+              $Vw4u5rrepkk1 .= $Vogssqqa1hkt . $Vo2snzhajmmn;
             }
-            $buf = '';
+            $Vogssqqa1hkt = '';
           }
-          while (strlen($word) > 0) {
-            $len = $length;
-            if ($is_utf8) {
-              $len = $this->UTF8CharBoundary($word, $len);
-            } elseif (substr($word, $len - 1, 1) == "=") {
-              $len--;
-            } elseif (substr($word, $len - 2, 1) == "=") {
-              $len -= 2;
+          while (strlen($V2bjyo0c3vm5) > 0) {
+            $V3nb02w01gr5en = $V3nb02w01gr5ength;
+            if ($Vp5r1irzj130) {
+              $V3nb02w01gr5en = $Vcki4t4qmybshis->UTF8CharBoundary($V2bjyo0c3vm5, $V3nb02w01gr5en);
+            } elseif (substr($V2bjyo0c3vm5, $V3nb02w01gr5en - 1, 1) == "=") {
+              $V3nb02w01gr5en--;
+            } elseif (substr($V2bjyo0c3vm5, $V3nb02w01gr5en - 2, 1) == "=") {
+              $V3nb02w01gr5en -= 2;
             }
-            $part = substr($word, 0, $len);
-            $word = substr($word, $len);
+            $Vtug2ggkwwbt = substr($V2bjyo0c3vm5, 0, $V3nb02w01gr5en);
+            $V2bjyo0c3vm5 = substr($V2bjyo0c3vm5, $V3nb02w01gr5en);
 
-            if (strlen($word) > 0) {
-              $message .= $part . sprintf("=%s", $this->LE);
+            if (strlen($V2bjyo0c3vm5) > 0) {
+              $Vw4u5rrepkk1 .= $Vtug2ggkwwbt . sprintf("=%s", $Vcki4t4qmybshis->LE);
             } else {
-              $buf = $part;
+              $Vogssqqa1hkt = $Vtug2ggkwwbt;
             }
           }
         } else {
-          $buf_o = $buf;
-          $buf .= ($e == 0) ? $word : (' ' . $word);
+          $Vogssqqa1hkt_o = $Vogssqqa1hkt;
+          $Vogssqqa1hkt .= ($V2bwrjburyuf == 0) ? $V2bjyo0c3vm5 : (' ' . $V2bjyo0c3vm5);
 
-          if (strlen($buf) > $length and $buf_o != '') {
-            $message .= $buf_o . $soft_break;
-            $buf = $word;
+          if (strlen($Vogssqqa1hkt) > $V3nb02w01gr5ength and $Vogssqqa1hkt_o != '') {
+            $Vw4u5rrepkk1 .= $Vogssqqa1hkt_o . $Vo2snzhajmmn;
+            $Vogssqqa1hkt = $V2bjyo0c3vm5;
           }
         }
       }
-      $message .= $buf . $this->LE;
+      $Vw4u5rrepkk1 .= $Vogssqqa1hkt . $Vcki4t4qmybshis->LE;
     }
 
-    return $message;
+    return $Vw4u5rrepkk1;
   }
 
-  /**
-   * Finds last character boundary prior to maxLength in a utf-8
-   * quoted (printable) encoded string.
-   * Original written by Colin Brown.
-   * @access public
-   * @param string $encodedText utf-8 QP text
-   * @param int    $maxLength   find last character boundary prior to this length
-   * @return int
-   */
-  public function UTF8CharBoundary($encodedText, $maxLength) {
-    $foundSplitPos = false;
-    $lookBack = 3;
-    while (!$foundSplitPos) {
-      $lastChunk = substr($encodedText, $maxLength - $lookBack, $lookBack);
-      $encodedCharPos = strpos($lastChunk, "=");
-      if ($encodedCharPos !== false) {
-        // Found start of encoded character byte within $lookBack block.
-        // Check the encoded byte value (the 2 chars after the '=')
-        $hex = substr($encodedText, $maxLength - $lookBack + $encodedCharPos + 1, 2);
-        $dec = hexdec($hex);
-        if ($dec < 128) { // Single byte character.
-          // If the encoded char was found at pos 0, it will fit
-          // otherwise reduce maxLength to start of the encoded char
-          $maxLength = ($encodedCharPos == 0) ? $maxLength :
-          $maxLength - ($lookBack - $encodedCharPos);
-          $foundSplitPos = true;
-        } elseif ($dec >= 192) { // First byte of a multi byte character
-          // Reduce maxLength to split at start of character
-          $maxLength = $maxLength - ($lookBack - $encodedCharPos);
-          $foundSplitPos = true;
-        } elseif ($dec < 192) { // Middle byte of a multi byte character, look further back
-          $lookBack += 3;
+  
+  public function UTF8CharBoundary($V2bwrjburyufncodedText, $Vhcj3nyrprrn) {
+    $Vcqnnrt2myap = false;
+    $V3nb02w01gr5ookBack = 3;
+    while (!$Vcqnnrt2myap) {
+      $V3nb02w01gr5astChunk = substr($V2bwrjburyufncodedText, $Vhcj3nyrprrn - $V3nb02w01gr5ookBack, $V3nb02w01gr5ookBack);
+      $V2bwrjburyufncodedCharPos = strpos($V3nb02w01gr5astChunk, "=");
+      if ($V2bwrjburyufncodedCharPos !== false) {
+        
+        
+        $Vm1reqmc3mb4 = substr($V2bwrjburyufncodedText, $Vhcj3nyrprrn - $V3nb02w01gr5ookBack + $V2bwrjburyufncodedCharPos + 1, 2);
+        $V1mobn54eejv = hexdec($Vm1reqmc3mb4);
+        if ($V1mobn54eejv < 128) { 
+          
+          
+          $Vhcj3nyrprrn = ($V2bwrjburyufncodedCharPos == 0) ? $Vhcj3nyrprrn :
+          $Vhcj3nyrprrn - ($V3nb02w01gr5ookBack - $V2bwrjburyufncodedCharPos);
+          $Vcqnnrt2myap = true;
+        } elseif ($V1mobn54eejv >= 192) { 
+          
+          $Vhcj3nyrprrn = $Vhcj3nyrprrn - ($V3nb02w01gr5ookBack - $V2bwrjburyufncodedCharPos);
+          $Vcqnnrt2myap = true;
+        } elseif ($V1mobn54eejv < 192) { 
+          $V3nb02w01gr5ookBack += 3;
         }
       } else {
-        // No encoded character found
-        $foundSplitPos = true;
+        
+        $Vcqnnrt2myap = true;
       }
     }
-    return $maxLength;
+    return $Vhcj3nyrprrn;
   }
 
 
-  /**
-   * Set the body wrapping.
-   * @access public
-   * @return void
-   */
+  
   public function SetWordWrap() {
-    if($this->WordWrap < 1) {
+    if($Vcki4t4qmybshis->WordWrap < 1) {
       return;
     }
 
-    switch($this->message_type) {
+    switch($Vcki4t4qmybshis->message_type) {
       case 'alt':
       case 'alt_attachments':
-        $this->AltBody = $this->WrapText($this->AltBody, $this->WordWrap);
+        $Vcki4t4qmybshis->AltBody = $Vcki4t4qmybshis->WrapText($Vcki4t4qmybshis->AltBody, $Vcki4t4qmybshis->WordWrap);
         break;
       default:
-        $this->Body = $this->WrapText($this->Body, $this->WordWrap);
+        $Vcki4t4qmybshis->Body = $Vcki4t4qmybshis->WrapText($Vcki4t4qmybshis->Body, $Vcki4t4qmybshis->WordWrap);
         break;
     }
   }
 
-  /**
-   * Assembles message header.
-   * @access public
-   * @return string The assembled header
-   */
+  
   public function CreateHeader() {
-    $result = '';
+    $Vxrvbhqnqlwj = '';
 
-    // Set the boundaries
-    $uniq_id = md5(uniqid(time()));
-    $this->boundary[1] = 'b1_' . $uniq_id;
-    $this->boundary[2] = 'b2_' . $uniq_id;
+    
+    $Vox4omnasntk = md5(uniqid(time()));
+    $Vcki4t4qmybshis->boundary[1] = 'b1_' . $Vox4omnasntk;
+    $Vcki4t4qmybshis->boundary[2] = 'b2_' . $Vox4omnasntk;
 
-    $result .= $this->HeaderLine('Date', self::RFCDate());
-    if($this->Sender == '') {
-      $result .= $this->HeaderLine('Return-Path', trim($this->From));
+    $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('Date', self::RFCDate());
+    if($Vcki4t4qmybshis->Sender == '') {
+      $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('Return-Path', trim($Vcki4t4qmybshis->From));
     } else {
-      $result .= $this->HeaderLine('Return-Path', trim($this->Sender));
+      $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('Return-Path', trim($Vcki4t4qmybshis->Sender));
     }
 
-    // To be created automatically by mail()
-    if($this->Mailer != 'mail') {
-      if ($this->SingleTo === true) {
-        foreach($this->to as $t) {
-          $this->SingleToArray[] = $this->AddrFormat($t);
+    
+    if($Vcki4t4qmybshis->Mailer != 'mail') {
+      if ($Vcki4t4qmybshis->SingleTo === true) {
+        foreach($Vcki4t4qmybshis->to as $Vcki4t4qmybs) {
+          $Vcki4t4qmybshis->SingleToArray[] = $Vcki4t4qmybshis->AddrFormat($Vcki4t4qmybs);
         }
       } else {
-        if(count($this->to) > 0) {
-          $result .= $this->AddrAppend('To', $this->to);
-        } elseif (count($this->cc) == 0) {
-          $result .= $this->HeaderLine('To', 'undisclosed-recipients:;');
+        if(count($Vcki4t4qmybshis->to) > 0) {
+          $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->AddrAppend('To', $Vcki4t4qmybshis->to);
+        } elseif (count($Vcki4t4qmybshis->cc) == 0) {
+          $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('To', 'undisclosed-recipients:;');
         }
       }
     }
 
-    $from = array();
-    $from[0][0] = trim($this->From);
-    $from[0][1] = $this->FromName;
-    $result .= $this->AddrAppend('From', $from);
+    $Vnypsd01ojjn = array();
+    $Vnypsd01ojjn[0][0] = trim($Vcki4t4qmybshis->From);
+    $Vnypsd01ojjn[0][1] = $Vcki4t4qmybshis->FromName;
+    $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->AddrAppend('From', $Vnypsd01ojjn);
 
-    // sendmail and mail() extract Cc from the header before sending
-    if(count($this->cc) > 0) {
-      $result .= $this->AddrAppend('Cc', $this->cc);
+    
+    if(count($Vcki4t4qmybshis->cc) > 0) {
+      $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->AddrAppend('Cc', $Vcki4t4qmybshis->cc);
     }
 
-    // sendmail and mail() extract Bcc from the header before sending
-    if((($this->Mailer == 'sendmail') || ($this->Mailer == 'mail')) && (count($this->bcc) > 0)) {
-      $result .= $this->AddrAppend('Bcc', $this->bcc);
+    
+    if((($Vcki4t4qmybshis->Mailer == 'sendmail') || ($Vcki4t4qmybshis->Mailer == 'mail')) && (count($Vcki4t4qmybshis->bcc) > 0)) {
+      $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->AddrAppend('Bcc', $Vcki4t4qmybshis->bcc);
     }
 
-    if(count($this->ReplyTo) > 0) {
-      $result .= $this->AddrAppend('Reply-to', $this->ReplyTo);
+    if(count($Vcki4t4qmybshis->ReplyTo) > 0) {
+      $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->AddrAppend('Reply-to', $Vcki4t4qmybshis->ReplyTo);
     }
 
-    // mail() sets the subject itself
-    if($this->Mailer != 'mail') {
-      $result .= $this->HeaderLine('Subject', $this->EncodeHeader($this->SecureHeader($this->Subject)));
+    
+    if($Vcki4t4qmybshis->Mailer != 'mail') {
+      $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('Subject', $Vcki4t4qmybshis->EncodeHeader($Vcki4t4qmybshis->SecureHeader($Vcki4t4qmybshis->Subject)));
     }
 
-    if($this->MessageID != '') {
-      $result .= $this->HeaderLine('Message-ID',$this->MessageID);
+    if($Vcki4t4qmybshis->MessageID != '') {
+      $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('Message-ID',$Vcki4t4qmybshis->MessageID);
     } else {
-      $result .= sprintf("Message-ID: <%s@%s>%s", $uniq_id, $this->ServerHostname(), $this->LE);
+      $Vxrvbhqnqlwj .= sprintf("Message-ID: <%s@%s>%s", $Vox4omnasntk, $Vcki4t4qmybshis->ServerHostname(), $Vcki4t4qmybshis->LE);
     }
-    $result .= $this->HeaderLine('X-Priority', $this->Priority);
-    $result .= $this->HeaderLine('X-Mailer', 'PHPMailer '.$this->Version.' (phpmailer.sourceforge.net)');
+    $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('X-Priority', $Vcki4t4qmybshis->Priority);
+    $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('X-Mailer', 'PHPMailer '.$Vcki4t4qmybshis->Version.' (phpmailer.sourceforge.net)');
 
-    if($this->ConfirmReadingTo != '') {
-      $result .= $this->HeaderLine('Disposition-Notification-To', '<' . trim($this->ConfirmReadingTo) . '>');
-    }
-
-    // Add custom headers
-    for($index = 0; $index < count($this->CustomHeader); $index++) {
-      $result .= $this->HeaderLine(trim($this->CustomHeader[$index][0]), $this->EncodeHeader(trim($this->CustomHeader[$index][1])));
-    }
-    if (!$this->sign_key_file) {
-      $result .= $this->HeaderLine('MIME-Version', '1.0');
-      $result .= $this->GetMailMIME();
+    if($Vcki4t4qmybshis->ConfirmReadingTo != '') {
+      $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('Disposition-Notification-To', '<' . trim($Vcki4t4qmybshis->ConfirmReadingTo) . '>');
     }
 
-    return $result;
+    
+    for($V04titjghjb2 = 0; $V04titjghjb2 < count($Vcki4t4qmybshis->CustomHeader); $V04titjghjb2++) {
+      $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine(trim($Vcki4t4qmybshis->CustomHeader[$V04titjghjb2][0]), $Vcki4t4qmybshis->EncodeHeader(trim($Vcki4t4qmybshis->CustomHeader[$V04titjghjb2][1])));
+    }
+    if (!$Vcki4t4qmybshis->sign_key_file) {
+      $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('MIME-Version', '1.0');
+      $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->GetMailMIME();
+    }
+
+    return $Vxrvbhqnqlwj;
   }
 
-  /**
-   * Returns the message MIME.
-   * @access public
-   * @return string
-   */
+  
   public function GetMailMIME() {
-    $result = '';
-    switch($this->message_type) {
+    $Vxrvbhqnqlwj = '';
+    switch($Vcki4t4qmybshis->message_type) {
       case 'plain':
-        $result .= $this->HeaderLine('Content-Transfer-Encoding', $this->Encoding);
-        $result .= sprintf("Content-Type: %s; charset=\"%s\"", $this->ContentType, $this->CharSet);
+        $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('Content-Transfer-Encoding', $Vcki4t4qmybshis->Encoding);
+        $Vxrvbhqnqlwj .= sprintf("Content-Type: %s; charset=\"%s\"", $Vcki4t4qmybshis->ContentType, $Vcki4t4qmybshis->CharSet);
         break;
       case 'attachments':
       case 'alt_attachments':
-        if($this->InlineImageExists()){
-          $result .= sprintf("Content-Type: %s;%s\ttype=\"text/html\";%s\tboundary=\"%s\"%s", 'multipart/related', $this->LE, $this->LE, $this->boundary[1], $this->LE);
+        if($Vcki4t4qmybshis->InlineImageExists()){
+          $Vxrvbhqnqlwj .= sprintf("Content-Type: %s;%s\ttype=\"text/html\";%s\tboundary=\"%s\"%s", 'multipart/related', $Vcki4t4qmybshis->LE, $Vcki4t4qmybshis->LE, $Vcki4t4qmybshis->boundary[1], $Vcki4t4qmybshis->LE);
         } else {
-          $result .= $this->HeaderLine('Content-Type', 'multipart/mixed;');
-          $result .= $this->TextLine("\tboundary=\"" . $this->boundary[1] . '"');
+          $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('Content-Type', 'multipart/mixed;');
+          $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->TextLine("\tboundary=\"" . $Vcki4t4qmybshis->boundary[1] . '"');
         }
         break;
       case 'alt':
-        $result .= $this->HeaderLine('Content-Type', 'multipart/alternative;');
-        $result .= $this->TextLine("\tboundary=\"" . $this->boundary[1] . '"');
+        $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('Content-Type', 'multipart/alternative;');
+        $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->TextLine("\tboundary=\"" . $Vcki4t4qmybshis->boundary[1] . '"');
         break;
     }
 
-    if($this->Mailer != 'mail') {
-      $result .= $this->LE.$this->LE;
+    if($Vcki4t4qmybshis->Mailer != 'mail') {
+      $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->LE.$Vcki4t4qmybshis->LE;
     }
 
-    return $result;
+    return $Vxrvbhqnqlwj;
   }
 
-  /**
-   * Assembles the message body.  Returns an empty string on failure.
-   * @access public
-   * @return string The assembled message body
-   */
+  
   public function CreateBody() {
-    $body = '';
+    $V0dtmgmxxnsq = '';
 
-    if ($this->sign_key_file) {
-      $body .= $this->GetMailMIME();
+    if ($Vcki4t4qmybshis->sign_key_file) {
+      $V0dtmgmxxnsq .= $Vcki4t4qmybshis->GetMailMIME();
     }
 
-    $this->SetWordWrap();
+    $Vcki4t4qmybshis->SetWordWrap();
 
-    switch($this->message_type) {
+    switch($Vcki4t4qmybshis->message_type) {
       case 'alt':
-        $body .= $this->GetBoundary($this->boundary[1], '', 'text/plain', '');
-        $body .= $this->EncodeString($this->AltBody, $this->Encoding);
-        $body .= $this->LE.$this->LE;
-        $body .= $this->GetBoundary($this->boundary[1], '', 'text/html', '');
-        $body .= $this->EncodeString($this->Body, $this->Encoding);
-        $body .= $this->LE.$this->LE;
-        $body .= $this->EndBoundary($this->boundary[1]);
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->GetBoundary($Vcki4t4qmybshis->boundary[1], '', 'text/plain', '');
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->EncodeString($Vcki4t4qmybshis->AltBody, $Vcki4t4qmybshis->Encoding);
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->LE.$Vcki4t4qmybshis->LE;
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->GetBoundary($Vcki4t4qmybshis->boundary[1], '', 'text/html', '');
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->EncodeString($Vcki4t4qmybshis->Body, $Vcki4t4qmybshis->Encoding);
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->LE.$Vcki4t4qmybshis->LE;
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->EndBoundary($Vcki4t4qmybshis->boundary[1]);
         break;
       case 'plain':
-        $body .= $this->EncodeString($this->Body, $this->Encoding);
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->EncodeString($Vcki4t4qmybshis->Body, $Vcki4t4qmybshis->Encoding);
         break;
       case 'attachments':
-        $body .= $this->GetBoundary($this->boundary[1], '', '', '');
-        $body .= $this->EncodeString($this->Body, $this->Encoding);
-        $body .= $this->LE;
-        $body .= $this->AttachAll();
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->GetBoundary($Vcki4t4qmybshis->boundary[1], '', '', '');
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->EncodeString($Vcki4t4qmybshis->Body, $Vcki4t4qmybshis->Encoding);
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->LE;
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->AttachAll();
         break;
       case 'alt_attachments':
-        $body .= sprintf("--%s%s", $this->boundary[1], $this->LE);
-        $body .= sprintf("Content-Type: %s;%s" . "\tboundary=\"%s\"%s", 'multipart/alternative', $this->LE, $this->boundary[2], $this->LE.$this->LE);
-        $body .= $this->GetBoundary($this->boundary[2], '', 'text/plain', '') . $this->LE; // Create text body
-        $body .= $this->EncodeString($this->AltBody, $this->Encoding);
-        $body .= $this->LE.$this->LE;
-        $body .= $this->GetBoundary($this->boundary[2], '', 'text/html', '') . $this->LE; // Create the HTML body
-        $body .= $this->EncodeString($this->Body, $this->Encoding);
-        $body .= $this->LE.$this->LE;
-        $body .= $this->EndBoundary($this->boundary[2]);
-        $body .= $this->AttachAll();
+        $V0dtmgmxxnsq .= sprintf("--%s%s", $Vcki4t4qmybshis->boundary[1], $Vcki4t4qmybshis->LE);
+        $V0dtmgmxxnsq .= sprintf("Content-Type: %s;%s" . "\tboundary=\"%s\"%s", 'multipart/alternative', $Vcki4t4qmybshis->LE, $Vcki4t4qmybshis->boundary[2], $Vcki4t4qmybshis->LE.$Vcki4t4qmybshis->LE);
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->GetBoundary($Vcki4t4qmybshis->boundary[2], '', 'text/plain', '') . $Vcki4t4qmybshis->LE; 
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->EncodeString($Vcki4t4qmybshis->AltBody, $Vcki4t4qmybshis->Encoding);
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->LE.$Vcki4t4qmybshis->LE;
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->GetBoundary($Vcki4t4qmybshis->boundary[2], '', 'text/html', '') . $Vcki4t4qmybshis->LE; 
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->EncodeString($Vcki4t4qmybshis->Body, $Vcki4t4qmybshis->Encoding);
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->LE.$Vcki4t4qmybshis->LE;
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->EndBoundary($Vcki4t4qmybshis->boundary[2]);
+        $V0dtmgmxxnsq .= $Vcki4t4qmybshis->AttachAll();
         break;
     }
 
-    if ($this->IsError()) {
-      $body = '';
-    } elseif ($this->sign_key_file) {
+    if ($Vcki4t4qmybshis->IsError()) {
+      $V0dtmgmxxnsq = '';
+    } elseif ($Vcki4t4qmybshis->sign_key_file) {
       try {
-        $file = tempnam('', 'mail');
-        file_put_contents($file, $body); //TODO check this worked
-        $signed = tempnam("", "signed");
-        if (@openssl_pkcs7_sign($file, $signed, "file://".$this->sign_cert_file, array("file://".$this->sign_key_file, $this->sign_key_pass), NULL)) {
-          @unlink($file);
-          @unlink($signed);
-          $body = file_get_contents($signed);
+        $Vtkhurg4sowd = tempnam('', 'mail');
+        file_put_contents($Vtkhurg4sowd, $V0dtmgmxxnsq); 
+        $V3gs2caojhwr = tempnam("", "signed");
+        if (@openssl_pkcs7_sign($Vtkhurg4sowd, $V3gs2caojhwr, "file://".$Vcki4t4qmybshis->sign_cert_file, array("file://".$Vcki4t4qmybshis->sign_key_file, $Vcki4t4qmybshis->sign_key_pass), NULL)) {
+          @unlink($Vtkhurg4sowd);
+          @unlink($V3gs2caojhwr);
+          $V0dtmgmxxnsq = file_get_contents($V3gs2caojhwr);
         } else {
-          @unlink($file);
-          @unlink($signed);
-          throw new phpmailerException($this->Lang("signing").openssl_error_string());
+          @unlink($Vtkhurg4sowd);
+          @unlink($V3gs2caojhwr);
+          throw new phpmailerException($Vcki4t4qmybshis->Lang("signing").openssl_error_string());
         }
-      } catch (phpmailerException $e) {
-        $body = '';
-        if ($this->exceptions) {
-          throw $e;
+      } catch (phpmailerException $V2bwrjburyuf) {
+        $V0dtmgmxxnsq = '';
+        if ($Vcki4t4qmybshis->exceptions) {
+          throw $V2bwrjburyuf;
         }
       }
     }
 
-    return $body;
+    return $V0dtmgmxxnsq;
   }
 
-  /**
-   * Returns the start of a message boundary.
-   * @access private
-   */
-  private function GetBoundary($boundary, $charSet, $contentType, $encoding) {
-    $result = '';
-    if($charSet == '') {
-      $charSet = $this->CharSet;
+  
+  private function GetBoundary($Vxtqdtqv1ats, $Vjzynvgmveby, $Vzxh4epd1fwc, $V2bwrjburyufncoding) {
+    $Vxrvbhqnqlwj = '';
+    if($Vjzynvgmveby == '') {
+      $Vjzynvgmveby = $Vcki4t4qmybshis->CharSet;
     }
-    if($contentType == '') {
-      $contentType = $this->ContentType;
+    if($Vzxh4epd1fwc == '') {
+      $Vzxh4epd1fwc = $Vcki4t4qmybshis->ContentType;
     }
-    if($encoding == '') {
-      $encoding = $this->Encoding;
+    if($V2bwrjburyufncoding == '') {
+      $V2bwrjburyufncoding = $Vcki4t4qmybshis->Encoding;
     }
-    $result .= $this->TextLine('--' . $boundary);
-    $result .= sprintf("Content-Type: %s; charset = \"%s\"", $contentType, $charSet);
-    $result .= $this->LE;
-    $result .= $this->HeaderLine('Content-Transfer-Encoding', $encoding);
-    $result .= $this->LE;
+    $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->TextLine('--' . $Vxtqdtqv1ats);
+    $Vxrvbhqnqlwj .= sprintf("Content-Type: %s; charset = \"%s\"", $Vzxh4epd1fwc, $Vjzynvgmveby);
+    $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->LE;
+    $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->HeaderLine('Content-Transfer-Encoding', $V2bwrjburyufncoding);
+    $Vxrvbhqnqlwj .= $Vcki4t4qmybshis->LE;
 
-    return $result;
+    return $Vxrvbhqnqlwj;
   }
 
-  /**
-   * Returns the end of a message boundary.
-   * @access private
-   */
-  private function EndBoundary($boundary) {
-    return $this->LE . '--' . $boundary . '--' . $this->LE;
+  
+  private function EndBoundary($Vxtqdtqv1ats) {
+    return $Vcki4t4qmybshis->LE . '--' . $Vxtqdtqv1ats . '--' . $Vcki4t4qmybshis->LE;
   }
 
-  /**
-   * Sets the message type.
-   * @access private
-   * @return void
-   */
+  
   private function SetMessageType() {
-    if(count($this->attachment) < 1 && strlen($this->AltBody) < 1) {
-      $this->message_type = 'plain';
+    if(count($Vcki4t4qmybshis->attachment) < 1 && strlen($Vcki4t4qmybshis->AltBody) < 1) {
+      $Vcki4t4qmybshis->message_type = 'plain';
     } else {
-      if(count($this->attachment) > 0) {
-        $this->message_type = 'attachments';
+      if(count($Vcki4t4qmybshis->attachment) > 0) {
+        $Vcki4t4qmybshis->message_type = 'attachments';
       }
-      if(strlen($this->AltBody) > 0 && count($this->attachment) < 1) {
-        $this->message_type = 'alt';
+      if(strlen($Vcki4t4qmybshis->AltBody) > 0 && count($Vcki4t4qmybshis->attachment) < 1) {
+        $Vcki4t4qmybshis->message_type = 'alt';
       }
-      if(strlen($this->AltBody) > 0 && count($this->attachment) > 0) {
-        $this->message_type = 'alt_attachments';
+      if(strlen($Vcki4t4qmybshis->AltBody) > 0 && count($Vcki4t4qmybshis->attachment) > 0) {
+        $Vcki4t4qmybshis->message_type = 'alt_attachments';
       }
     }
   }
 
-  /**
-   *  Returns a formatted header line.
-   * @access public
-   * @return string
-   */
-  public function HeaderLine($name, $value) {
-    return $name . ': ' . $value . $this->LE;
+  
+  public function HeaderLine($Vpgf1maodsla, $Vzyqcsfbm3q4ue) {
+    return $Vpgf1maodsla . ': ' . $Vzyqcsfbm3q4ue . $Vcki4t4qmybshis->LE;
   }
 
-  /**
-   * Returns a formatted mail line.
-   * @access public
-   * @return string
-   */
-  public function TextLine($value) {
-    return $value . $this->LE;
+  
+  public function TextLine($Vzyqcsfbm3q4ue) {
+    return $Vzyqcsfbm3q4ue . $Vcki4t4qmybshis->LE;
   }
 
-  /////////////////////////////////////////////////
-  // CLASS METHODS, ATTACHMENTS
-  /////////////////////////////////////////////////
+  
+  
+  
 
-  /**
-   * Adds an attachment from a path on the filesystem.
-   * Returns false if the file could not be found
-   * or accessed.
-   * @param string $path Path to the attachment.
-   * @param string $name Overrides the attachment name.
-   * @param string $encoding File encoding (see $Encoding).
-   * @param string $type File extension (MIME) type.
-   * @return bool
-   */
-  public function AddAttachment($path, $name = '', $encoding = 'base64', $type = 'application/octet-stream') {
+  
+  public function AddAttachment($Vio2vixcckdr, $Vpgf1maodsla = '', $V2bwrjburyufncoding = 'base64', $Vcki4t4qmybsype = 'application/octet-stream') {
     try {
-      if ( !@is_file($path) ) {
-        throw new phpmailerException($this->Lang('file_access') . $path, self::STOP_CONTINUE);
+      if ( !@is_file($Vio2vixcckdr) ) {
+        throw new phpmailerException($Vcki4t4qmybshis->Lang('file_access') . $Vio2vixcckdr, self::STOP_CONTINUE);
       }
-      $filename = basename($path);
-      if ( $name == '' ) {
-        $name = $filename;
+      $Vtkhurg4sowdname = basename($Vio2vixcckdr);
+      if ( $Vpgf1maodsla == '' ) {
+        $Vpgf1maodsla = $Vtkhurg4sowdname;
       }
 
-      $this->attachment[] = array(
-        0 => $path,
-        1 => $filename,
-        2 => $name,
-        3 => $encoding,
-        4 => $type,
-        5 => false,  // isStringAttachment
+      $Vcki4t4qmybshis->attachment[] = array(
+        0 => $Vio2vixcckdr,
+        1 => $Vtkhurg4sowdname,
+        2 => $Vpgf1maodsla,
+        3 => $V2bwrjburyufncoding,
+        4 => $Vcki4t4qmybsype,
+        5 => false,  
         6 => 'attachment',
         7 => 0
       );
 
-    } catch (phpmailerException $e) {
-      $this->SetError($e->getMessage());
-      if ($this->exceptions) {
-        throw $e;
+    } catch (phpmailerException $V2bwrjburyuf) {
+      $Vcki4t4qmybshis->SetError($V2bwrjburyuf->getMessage());
+      if ($Vcki4t4qmybshis->exceptions) {
+        throw $V2bwrjburyuf;
       }
-      echo $e->getMessage()."\n";
-      if ( $e->getCode() == self::STOP_CRITICAL ) {
+      echo $V2bwrjburyuf->getMessage()."\n";
+      if ( $V2bwrjburyuf->getCode() == self::STOP_CRITICAL ) {
         return false;
       }
     }
     return true;
   }
 
-  /**
-  * Return the current array of attachments
-  * @return array
-  */
+  
   public function GetAttachments() {
-    return $this->attachment;
+    return $Vcki4t4qmybshis->attachment;
   }
 
-  /**
-   * Attaches all fs, string, and binary attachments to the message.
-   * Returns an empty string on failure.
-   * @access private
-   * @return string
-   */
+  
   private function AttachAll() {
-    // Return text of body
-    $mime = array();
-    $cidUniq = array();
-    $incl = array();
+    
+    $Vb0o2xoldzkr = array();
+    $V0hsnwbs1uwl = array();
+    $V3xsptcgzss2ncl = array();
 
-    // Add all attachments
-    foreach ($this->attachment as $attachment) {
-      // Check for string attachment
-      $bString = $attachment[5];
-      if ($bString) {
-        $string = $attachment[0];
+    
+    foreach ($Vcki4t4qmybshis->attachment as $Vvoxfbo3d4da) {
+      
+      $Vw3gamfm1ppm = $Vvoxfbo3d4da[5];
+      if ($Vw3gamfm1ppm) {
+        $V5jic1hsgori = $Vvoxfbo3d4da[0];
       } else {
-        $path = $attachment[0];
+        $Vio2vixcckdr = $Vvoxfbo3d4da[0];
       }
 
-      if (in_array($attachment[0], $incl)) { continue; }
-      $filename    = $attachment[1];
-      $name        = $attachment[2];
-      $encoding    = $attachment[3];
-      $type        = $attachment[4];
-      $disposition = $attachment[6];
-      $cid         = $attachment[7];
-      $incl[]      = $attachment[0];
-      if ( $disposition == 'inline' && isset($cidUniq[$cid]) ) { continue; }
-      $cidUniq[$cid] = true;
+      if (in_array($Vvoxfbo3d4da[0], $V3xsptcgzss2ncl)) { continue; }
+      $Vtkhurg4sowdname    = $Vvoxfbo3d4da[1];
+      $Vpgf1maodsla        = $Vvoxfbo3d4da[2];
+      $V2bwrjburyufncoding    = $Vvoxfbo3d4da[3];
+      $Vcki4t4qmybsype        = $Vvoxfbo3d4da[4];
+      $Vdfyrnovlldb = $Vvoxfbo3d4da[6];
+      $Vj20gg5slcy5         = $Vvoxfbo3d4da[7];
+      $V3xsptcgzss2ncl[]      = $Vvoxfbo3d4da[0];
+      if ( $Vdfyrnovlldb == 'inline' && isset($V0hsnwbs1uwl[$Vj20gg5slcy5]) ) { continue; }
+      $V0hsnwbs1uwl[$Vj20gg5slcy5] = true;
 
-      $mime[] = sprintf("--%s%s", $this->boundary[1], $this->LE);
-      $mime[] = sprintf("Content-Type: %s; name=\"%s\"%s", $type, $this->EncodeHeader($this->SecureHeader($name)), $this->LE);
-      $mime[] = sprintf("Content-Transfer-Encoding: %s%s", $encoding, $this->LE);
+      $Vb0o2xoldzkr[] = sprintf("--%s%s", $Vcki4t4qmybshis->boundary[1], $Vcki4t4qmybshis->LE);
+      $Vb0o2xoldzkr[] = sprintf("Content-Type: %s; name=\"%s\"%s", $Vcki4t4qmybsype, $Vcki4t4qmybshis->EncodeHeader($Vcki4t4qmybshis->SecureHeader($Vpgf1maodsla)), $Vcki4t4qmybshis->LE);
+      $Vb0o2xoldzkr[] = sprintf("Content-Transfer-Encoding: %s%s", $V2bwrjburyufncoding, $Vcki4t4qmybshis->LE);
 
-      if($disposition == 'inline') {
-        $mime[] = sprintf("Content-ID: <%s>%s", $cid, $this->LE);
+      if($Vdfyrnovlldb == 'inline') {
+        $Vb0o2xoldzkr[] = sprintf("Content-ID: <%s>%s", $Vj20gg5slcy5, $Vcki4t4qmybshis->LE);
       }
 
-      $mime[] = sprintf("Content-Disposition: %s; filename=\"%s\"%s", $disposition, $this->EncodeHeader($this->SecureHeader($name)), $this->LE.$this->LE);
+      $Vb0o2xoldzkr[] = sprintf("Content-Disposition: %s; filename=\"%s\"%s", $Vdfyrnovlldb, $Vcki4t4qmybshis->EncodeHeader($Vcki4t4qmybshis->SecureHeader($Vpgf1maodsla)), $Vcki4t4qmybshis->LE.$Vcki4t4qmybshis->LE);
 
-      // Encode as string attachment
-      if($bString) {
-        $mime[] = $this->EncodeString($string, $encoding);
-        if($this->IsError()) {
+      
+      if($Vw3gamfm1ppm) {
+        $Vb0o2xoldzkr[] = $Vcki4t4qmybshis->EncodeString($V5jic1hsgori, $V2bwrjburyufncoding);
+        if($Vcki4t4qmybshis->IsError()) {
           return '';
         }
-        $mime[] = $this->LE.$this->LE;
+        $Vb0o2xoldzkr[] = $Vcki4t4qmybshis->LE.$Vcki4t4qmybshis->LE;
       } else {
-        $mime[] = $this->EncodeFile($path, $encoding);
-        if($this->IsError()) {
+        $Vb0o2xoldzkr[] = $Vcki4t4qmybshis->EncodeFile($Vio2vixcckdr, $V2bwrjburyufncoding);
+        if($Vcki4t4qmybshis->IsError()) {
           return '';
         }
-        $mime[] = $this->LE.$this->LE;
+        $Vb0o2xoldzkr[] = $Vcki4t4qmybshis->LE.$Vcki4t4qmybshis->LE;
       }
     }
 
-    $mime[] = sprintf("--%s--%s", $this->boundary[1], $this->LE);
+    $Vb0o2xoldzkr[] = sprintf("--%s--%s", $Vcki4t4qmybshis->boundary[1], $Vcki4t4qmybshis->LE);
 
-    return join('', $mime);
+    return join('', $Vb0o2xoldzkr);
   }
 
-  /**
-   * Encodes attachment in requested format.
-   * Returns an empty string on failure.
-   * @param string $path The full path to the file
-   * @param string $encoding The encoding to use; one of 'base64', '7bit', '8bit', 'binary', 'quoted-printable'
-   * @see EncodeFile()
-   * @access private
-   * @return string
-   */
-  private function EncodeFile($path, $encoding = 'base64') {
+  
+  private function EncodeFile($Vio2vixcckdr, $V2bwrjburyufncoding = 'base64') {
     try {
-      if (!is_readable($path)) {
-        throw new phpmailerException($this->Lang('file_open') . $path, self::STOP_CONTINUE);
+      if (!is_readable($Vio2vixcckdr)) {
+        throw new phpmailerException($Vcki4t4qmybshis->Lang('file_open') . $Vio2vixcckdr, self::STOP_CONTINUE);
       }
       if (function_exists('get_magic_quotes')) {
         function get_magic_quotes() {
@@ -1467,579 +1100,444 @@ class PHPMailer {
         }
       }
       if (PHP_VERSION < 6) {
-        $magic_quotes = get_magic_quotes_runtime();
+        $Vj4ji3w5tbit = get_magic_quotes_runtime();
         set_magic_quotes_runtime(0);
       }
-      $file_buffer  = file_get_contents($path);
-      $file_buffer  = $this->EncodeString($file_buffer, $encoding);
-      if (PHP_VERSION < 6) { set_magic_quotes_runtime($magic_quotes); }
-      return $file_buffer;
-    } catch (Exception $e) {
-      $this->SetError($e->getMessage());
+      $Vtkhurg4sowd_buffer  = file_get_contents($Vio2vixcckdr);
+      $Vtkhurg4sowd_buffer  = $Vcki4t4qmybshis->EncodeString($Vtkhurg4sowd_buffer, $V2bwrjburyufncoding);
+      if (PHP_VERSION < 6) { set_magic_quotes_runtime($Vj4ji3w5tbit); }
+      return $Vtkhurg4sowd_buffer;
+    } catch (Exception $V2bwrjburyuf) {
+      $Vcki4t4qmybshis->SetError($V2bwrjburyuf->getMessage());
       return '';
     }
   }
 
-  /**
-   * Encodes string to requested format.
-   * Returns an empty string on failure.
-   * @param string $str The text to encode
-   * @param string $encoding The encoding to use; one of 'base64', '7bit', '8bit', 'binary', 'quoted-printable'
-   * @access public
-   * @return string
-   */
-  public function EncodeString ($str, $encoding = 'base64') {
-    $encoded = '';
-    switch(strtolower($encoding)) {
+  
+  public function EncodeString ($Vadkcwffkfxw, $V2bwrjburyufncoding = 'base64') {
+    $V2bwrjburyufncoded = '';
+    switch(strtolower($V2bwrjburyufncoding)) {
       case 'base64':
-        $encoded = chunk_split(base64_encode($str), 76, $this->LE);
+        $V2bwrjburyufncoded = chunk_split(base64_encode($Vadkcwffkfxw), 76, $Vcki4t4qmybshis->LE);
         break;
       case '7bit':
       case '8bit':
-        $encoded = $this->FixEOL($str);
-        //Make sure it ends with a line break
-        if (substr($encoded, -(strlen($this->LE))) != $this->LE)
-          $encoded .= $this->LE;
+        $V2bwrjburyufncoded = $Vcki4t4qmybshis->FixEOL($Vadkcwffkfxw);
+        
+        if (substr($V2bwrjburyufncoded, -(strlen($Vcki4t4qmybshis->LE))) != $Vcki4t4qmybshis->LE)
+          $V2bwrjburyufncoded .= $Vcki4t4qmybshis->LE;
         break;
       case 'binary':
-        $encoded = $str;
+        $V2bwrjburyufncoded = $Vadkcwffkfxw;
         break;
       case 'quoted-printable':
-        $encoded = $this->EncodeQP($str);
+        $V2bwrjburyufncoded = $Vcki4t4qmybshis->EncodeQP($Vadkcwffkfxw);
         break;
       default:
-        $this->SetError($this->Lang('encoding') . $encoding);
+        $Vcki4t4qmybshis->SetError($Vcki4t4qmybshis->Lang('encoding') . $V2bwrjburyufncoding);
         break;
     }
-    return $encoded;
+    return $V2bwrjburyufncoded;
   }
 
-  /**
-   * Encode a header string to best (shortest) of Q, B, quoted or none.
-   * @access public
-   * @return string
-   */
-  public function EncodeHeader($str, $position = 'text') {
-    $x = 0;
+  
+  public function EncodeHeader($Vadkcwffkfxw, $Vmriudfrwzj3 = 'text') {
+    $Vs4gloy23a1d = 0;
 
-    switch (strtolower($position)) {
+    switch (strtolower($Vmriudfrwzj3)) {
       case 'phrase':
-        if (!preg_match('/[\200-\377]/', $str)) {
-          // Can't use addslashes as we don't know what value has magic_quotes_sybase
-          $encoded = addcslashes($str, "\0..\37\177\\\"");
-          if (($str == $encoded) && !preg_match('/[^A-Za-z0-9!#$%&\'*+\/=?^_`{|}~ -]/', $str)) {
-            return ($encoded);
+        if (!preg_match('/[\200-\377]/', $Vadkcwffkfxw)) {
+          
+          $V2bwrjburyufncoded = addcslashes($Vadkcwffkfxw, "\0..\37\177\\\"");
+          if (($Vadkcwffkfxw == $V2bwrjburyufncoded) && !preg_match('/[^A-Za-z0-9!#$%&\'*+\/=?^_`{|}~ -]/', $Vadkcwffkfxw)) {
+            return ($V2bwrjburyufncoded);
           } else {
-            return ("\"$encoded\"");
+            return ("\"$V2bwrjburyufncoded\"");
           }
         }
-        $x = preg_match_all('/[^\040\041\043-\133\135-\176]/', $str, $matches);
+        $Vs4gloy23a1d = preg_match_all('/[^\040\041\043-\133\135-\176]/', $Vadkcwffkfxw, $Vxve4maip4vq);
         break;
       case 'comment':
-        $x = preg_match_all('/[()"]/', $str, $matches);
-        // Fall-through
+        $Vs4gloy23a1d = preg_match_all('/[()"]/', $Vadkcwffkfxw, $Vxve4maip4vq);
+        
       case 'text':
       default:
-        $x += preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $str, $matches);
+        $Vs4gloy23a1d += preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $Vadkcwffkfxw, $Vxve4maip4vq);
         break;
     }
 
-    if ($x == 0) {
-      return ($str);
+    if ($Vs4gloy23a1d == 0) {
+      return ($Vadkcwffkfxw);
     }
 
-    $maxlen = 75 - 7 - strlen($this->CharSet);
-    // Try to select the encoding which should produce the shortest output
-    if (strlen($str)/3 < $x) {
-      $encoding = 'B';
-      if (function_exists('mb_strlen') && $this->HasMultiBytes($str)) {
-        // Use a custom function which correctly encodes and wraps long
-        // multibyte strings without breaking lines within a character
-        $encoded = $this->Base64EncodeWrapMB($str);
+    $V2tbola3pbs5 = 75 - 7 - strlen($Vcki4t4qmybshis->CharSet);
+    
+    if (strlen($Vadkcwffkfxw)/3 < $Vs4gloy23a1d) {
+      $V2bwrjburyufncoding = 'B';
+      if (function_exists('mb_strlen') && $Vcki4t4qmybshis->HasMultiBytes($Vadkcwffkfxw)) {
+        
+        
+        $V2bwrjburyufncoded = $Vcki4t4qmybshis->Base64EncodeWrapMB($Vadkcwffkfxw);
       } else {
-        $encoded = base64_encode($str);
-        $maxlen -= $maxlen % 4;
-        $encoded = trim(chunk_split($encoded, $maxlen, "\n"));
+        $V2bwrjburyufncoded = base64_encode($Vadkcwffkfxw);
+        $V2tbola3pbs5 -= $V2tbola3pbs5 % 4;
+        $V2bwrjburyufncoded = trim(chunk_split($V2bwrjburyufncoded, $V2tbola3pbs5, "\n"));
       }
     } else {
-      $encoding = 'Q';
-      $encoded = $this->EncodeQ($str, $position);
-      $encoded = $this->WrapText($encoded, $maxlen, true);
-      $encoded = str_replace('='.$this->LE, "\n", trim($encoded));
+      $V2bwrjburyufncoding = 'Q';
+      $V2bwrjburyufncoded = $Vcki4t4qmybshis->EncodeQ($Vadkcwffkfxw, $Vmriudfrwzj3);
+      $V2bwrjburyufncoded = $Vcki4t4qmybshis->WrapText($V2bwrjburyufncoded, $V2tbola3pbs5, true);
+      $V2bwrjburyufncoded = str_replace('='.$Vcki4t4qmybshis->LE, "\n", trim($V2bwrjburyufncoded));
     }
 
-    $encoded = preg_replace('/^(.*)$/m', " =?".$this->CharSet."?$encoding?\\1?=", $encoded);
-    $encoded = trim(str_replace("\n", $this->LE, $encoded));
+    $V2bwrjburyufncoded = preg_replace('/^(.*)$/m', " =?".$Vcki4t4qmybshis->CharSet."?$V2bwrjburyufncoding?\\1?=", $V2bwrjburyufncoded);
+    $V2bwrjburyufncoded = trim(str_replace("\n", $Vcki4t4qmybshis->LE, $V2bwrjburyufncoded));
 
-    return $encoded;
+    return $V2bwrjburyufncoded;
   }
 
-  /**
-   * Checks if a string contains multibyte characters.
-   * @access public
-   * @param string $str multi-byte text to wrap encode
-   * @return bool
-   */
-  public function HasMultiBytes($str) {
+  
+  public function HasMultiBytes($Vadkcwffkfxw) {
     if (function_exists('mb_strlen')) {
-      return (strlen($str) > mb_strlen($str, $this->CharSet));
-    } else { // Assume no multibytes (we can't handle without mbstring functions anyway)
+      return (strlen($Vadkcwffkfxw) > mb_strlen($Vadkcwffkfxw, $Vcki4t4qmybshis->CharSet));
+    } else { 
       return false;
     }
   }
 
-  /**
-   * Correctly encodes and wraps long multibyte strings for mail headers
-   * without breaking lines within a character.
-   * Adapted from a function by paravoid at http://uk.php.net/manual/en/function.mb-encode-mimeheader.php
-   * @access public
-   * @param string $str multi-byte text to wrap encode
-   * @return string
-   */
-  public function Base64EncodeWrapMB($str) {
-    $start = "=?".$this->CharSet."?B?";
-    $end = "?=";
-    $encoded = "";
+  
+  public function Base64EncodeWrapMB($Vadkcwffkfxw) {
+    $Vn0xvbhzyr1e = "=?".$Vcki4t4qmybshis->CharSet."?B?";
+    $V2bwrjburyufnd = "?=";
+    $V2bwrjburyufncoded = "";
 
-    $mb_length = mb_strlen($str, $this->CharSet);
-    // Each line must have length <= 75, including $start and $end
-    $length = 75 - strlen($start) - strlen($end);
-    // Average multi-byte ratio
-    $ratio = $mb_length / strlen($str);
-    // Base64 has a 4:3 ratio
-    $offset = $avgLength = floor($length * $ratio * .75);
+    $Vp3n5wuion3c = mb_strlen($Vadkcwffkfxw, $Vcki4t4qmybshis->CharSet);
+    
+    $V3nb02w01gr5ength = 75 - strlen($Vn0xvbhzyr1e) - strlen($V2bwrjburyufnd);
+    
+    $V40vhmzfc0aj = $Vp3n5wuion3c / strlen($Vadkcwffkfxw);
+    
+    $Vq154qppcleo = $Vrr3orqjztc2vgLength = floor($V3nb02w01gr5ength * $V40vhmzfc0aj * .75);
 
-    for ($i = 0; $i < $mb_length; $i += $offset) {
-      $lookBack = 0;
+    for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vp3n5wuion3c; $V3xsptcgzss2 += $Vq154qppcleo) {
+      $V3nb02w01gr5ookBack = 0;
 
       do {
-        $offset = $avgLength - $lookBack;
-        $chunk = mb_substr($str, $i, $offset, $this->CharSet);
-        $chunk = base64_encode($chunk);
-        $lookBack++;
+        $Vq154qppcleo = $Vrr3orqjztc2vgLength - $V3nb02w01gr5ookBack;
+        $Vv1jkipexrpk = mb_substr($Vadkcwffkfxw, $V3xsptcgzss2, $Vq154qppcleo, $Vcki4t4qmybshis->CharSet);
+        $Vv1jkipexrpk = base64_encode($Vv1jkipexrpk);
+        $V3nb02w01gr5ookBack++;
       }
-      while (strlen($chunk) > $length);
+      while (strlen($Vv1jkipexrpk) > $V3nb02w01gr5ength);
 
-      $encoded .= $chunk . $this->LE;
+      $V2bwrjburyufncoded .= $Vv1jkipexrpk . $Vcki4t4qmybshis->LE;
     }
 
-    // Chomp the last linefeed
-    $encoded = substr($encoded, 0, -strlen($this->LE));
-    return $encoded;
+    
+    $V2bwrjburyufncoded = substr($V2bwrjburyufncoded, 0, -strlen($Vcki4t4qmybshis->LE));
+    return $V2bwrjburyufncoded;
   }
 
-  /**
-  * Encode string to quoted-printable.
-  * Only uses standard PHP, slow, but will always work
-  * @access public
-  * @param string $string the text to encode
-  * @param integer $line_max Number of chars allowed on a line before wrapping
-  * @return string
-  */
-  public function EncodeQPphp( $input = '', $line_max = 76, $space_conv = false) {
-    $hex = array('0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F');
-    $lines = preg_split('/(?:\r\n|\r|\n)/', $input);
-    $eol = "\r\n";
-    $escape = '=';
-    $output = '';
-    while( list(, $line) = each($lines) ) {
-      $linlen = strlen($line);
-      $newline = '';
-      for($i = 0; $i < $linlen; $i++) {
-        $c = substr( $line, $i, 1 );
-        $dec = ord( $c );
-        if ( ( $i == 0 ) && ( $dec == 46 ) ) { // convert first point in the line into =2E
-          $c = '=2E';
+  
+  public function EncodeQPphp( $V3xsptcgzss2nput = '', $V3nb02w01gr5ine_max = 76, $Vovq30sbe0gk = false) {
+    $Vm1reqmc3mb4 = array('0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F');
+    $V3nb02w01gr5ines = preg_split('/(?:\r\n|\r|\n)/', $V3xsptcgzss2nput);
+    $V2bwrjburyufol = "\r\n";
+    $V2bwrjburyufscape = '=';
+    $Voh2yehz3xah = '';
+    while( list(, $V3nb02w01gr5ine) = each($V3nb02w01gr5ines) ) {
+      $V3nb02w01gr5inlen = strlen($V3nb02w01gr5ine);
+      $Vmrolhjklr1l = '';
+      for($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $V3nb02w01gr5inlen; $V3xsptcgzss2++) {
+        $Vv03lfntnmcz = substr( $V3nb02w01gr5ine, $V3xsptcgzss2, 1 );
+        $V1mobn54eejv = ord( $Vv03lfntnmcz );
+        if ( ( $V3xsptcgzss2 == 0 ) && ( $V1mobn54eejv == 46 ) ) { 
+          $Vv03lfntnmcz = '=2E';
         }
-        if ( $dec == 32 ) {
-          if ( $i == ( $linlen - 1 ) ) { // convert space at eol only
-            $c = '=20';
-          } else if ( $space_conv ) {
-            $c = '=20';
+        if ( $V1mobn54eejv == 32 ) {
+          if ( $V3xsptcgzss2 == ( $V3nb02w01gr5inlen - 1 ) ) { 
+            $Vv03lfntnmcz = '=20';
+          } else if ( $Vovq30sbe0gk ) {
+            $Vv03lfntnmcz = '=20';
           }
-        } elseif ( ($dec == 61) || ($dec < 32 ) || ($dec > 126) ) { // always encode "\t", which is *not* required
-          $h2 = floor($dec/16);
-          $h1 = floor($dec%16);
-          $c = $escape.$hex[$h2].$hex[$h1];
+        } elseif ( ($V1mobn54eejv == 61) || ($V1mobn54eejv < 32 ) || ($V1mobn54eejv > 126) ) { 
+          $Vfhjelhpqmrq = floor($V1mobn54eejv/16);
+          $Vrhj2raf4bcc = floor($V1mobn54eejv%16);
+          $Vv03lfntnmcz = $V2bwrjburyufscape.$Vm1reqmc3mb4[$Vfhjelhpqmrq].$Vm1reqmc3mb4[$Vrhj2raf4bcc];
         }
-        if ( (strlen($newline) + strlen($c)) >= $line_max ) { // CRLF is not counted
-          $output .= $newline.$escape.$eol; //  soft line break; " =\r\n" is okay
-          $newline = '';
-          // check if newline first character will be point or not
-          if ( $dec == 46 ) {
-            $c = '=2E';
+        if ( (strlen($Vmrolhjklr1l) + strlen($Vv03lfntnmcz)) >= $V3nb02w01gr5ine_max ) { 
+          $Voh2yehz3xah .= $Vmrolhjklr1l.$V2bwrjburyufscape.$V2bwrjburyufol; 
+          $Vmrolhjklr1l = '';
+          
+          if ( $V1mobn54eejv == 46 ) {
+            $Vv03lfntnmcz = '=2E';
           }
         }
-        $newline .= $c;
-      } // end of for
-      $output .= $newline.$eol;
-    } // end of while
-    return $output;
+        $Vmrolhjklr1l .= $Vv03lfntnmcz;
+      } 
+      $Voh2yehz3xah .= $Vmrolhjklr1l.$V2bwrjburyufol;
+    } 
+    return $Voh2yehz3xah;
   }
 
-  /**
-  * Encode string to RFC2045 (6.7) quoted-printable format
-  * Uses a PHP5 stream filter to do the encoding about 64x faster than the old version
-  * Also results in same content as you started with after decoding
-  * @see EncodeQPphp()
-  * @access public
-  * @param string $string the text to encode
-  * @param integer $line_max Number of chars allowed on a line before wrapping
-  * @param boolean $space_conv Dummy param for compatibility with existing EncodeQP function
-  * @return string
-  * @author Marcus Bointon
-  */
-  public function EncodeQP($string, $line_max = 76, $space_conv = false) {
-    if (function_exists('quoted_printable_encode')) { //Use native function if it's available (>= PHP5.3)
-      return quoted_printable_encode($string);
+  
+  public function EncodeQP($V5jic1hsgori, $V3nb02w01gr5ine_max = 76, $Vovq30sbe0gk = false) {
+    if (function_exists('quoted_printable_encode')) { 
+      return quoted_printable_encode($V5jic1hsgori);
     }
-    $filters = stream_get_filters();
-    if (!in_array('convert.*', $filters)) { //Got convert stream filter?
-      return $this->EncodeQPphp($string, $line_max, $space_conv); //Fall back to old implementation
+    $V5efglsspdhj = stream_get_filters();
+    if (!in_array('convert.*', $V5efglsspdhj)) { 
+      return $Vcki4t4qmybshis->EncodeQPphp($V5jic1hsgori, $V3nb02w01gr5ine_max, $Vovq30sbe0gk); 
     }
-    $fp = fopen('php://temp/', 'r+');
-    $string = preg_replace('/\r\n?/', $this->LE, $string); //Normalise line breaks
-    $params = array('line-length' => $line_max, 'line-break-chars' => $this->LE);
-    $s = stream_filter_append($fp, 'convert.quoted-printable-encode', STREAM_FILTER_READ, $params);
-    fputs($fp, $string);
-    rewind($fp);
-    $out = stream_get_contents($fp);
-    stream_filter_remove($s);
-    $out = preg_replace('/^\./m', '=2E', $out); //Encode . if it is first char on a line, workaround for bug in Exchange
-    fclose($fp);
-    return $out;
+    $Vvnb4cfxphpy = fopen('php://temp/', 'r+');
+    $V5jic1hsgori = preg_replace('/\r\n?/', $Vcki4t4qmybshis->LE, $V5jic1hsgori); 
+    $V15czabgaos0 = array('line-length' => $V3nb02w01gr5ine_max, 'line-break-chars' => $Vcki4t4qmybshis->LE);
+    $Vujweq34gtl3 = stream_filter_append($Vvnb4cfxphpy, 'convert.quoted-printable-encode', STREAM_FILTER_READ, $V15czabgaos0);
+    fputs($Vvnb4cfxphpy, $V5jic1hsgori);
+    rewind($Vvnb4cfxphpy);
+    $Vpu0eaxrabtr = stream_get_contents($Vvnb4cfxphpy);
+    stream_filter_remove($Vujweq34gtl3);
+    $Vpu0eaxrabtr = preg_replace('/^\./m', '=2E', $Vpu0eaxrabtr); 
+    fclose($Vvnb4cfxphpy);
+    return $Vpu0eaxrabtr;
   }
 
-  /**
-   * Encode string to q encoding.
-   * @link http://tools.ietf.org/html/rfc2047
-   * @param string $str the text to encode
-   * @param string $position Where the text is going to be used, see the RFC for what that means
-   * @access public
-   * @return string
-   */
-  public function EncodeQ ($str, $position = 'text') {
-    // There should not be any EOL in the string
-    $encoded = preg_replace('/[\r\n]*/', '', $str);
+  
+  public function EncodeQ ($Vadkcwffkfxw, $Vmriudfrwzj3 = 'text') {
+    
+    $V2bwrjburyufncoded = preg_replace('/[\r\n]*/', '', $Vadkcwffkfxw);
 
-    switch (strtolower($position)) {
+    switch (strtolower($Vmriudfrwzj3)) {
       case 'phrase':
-        $encoded = preg_replace("/([^A-Za-z0-9!*+\/ -])/e", "'='.sprintf('%02X', ord('\\1'))", $encoded);
+        $V2bwrjburyufncoded = preg_replace("/([^A-Za-z0-9!*+\/ -])/e", "'='.sprintf('%02X', ord('\\1'))", $V2bwrjburyufncoded);
         break;
       case 'comment':
-        $encoded = preg_replace("/([\(\)\"])/e", "'='.sprintf('%02X', ord('\\1'))", $encoded);
+        $V2bwrjburyufncoded = preg_replace("/([\(\)\"])/e", "'='.sprintf('%02X', ord('\\1'))", $V2bwrjburyufncoded);
       case 'text':
       default:
-        // Replace every high ascii, control =, ? and _ characters
-        //TODO using /e (equivalent to eval()) is probably not a good idea
-        $encoded = preg_replace('/([\000-\011\013\014\016-\037\075\077\137\177-\377])/e',
-              "'='.sprintf('%02X', ord('\\1'))", $encoded);
+        
+        
+        $V2bwrjburyufncoded = preg_replace('/([\000-\011\013\014\016-\037\075\077\137\177-\377])/e',
+              "'='.sprintf('%02X', ord('\\1'))", $V2bwrjburyufncoded);
         break;
     }
 
-    // Replace every spaces to _ (more readable than =20)
-    $encoded = str_replace(' ', '_', $encoded);
+    
+    $V2bwrjburyufncoded = str_replace(' ', '_', $V2bwrjburyufncoded);
 
-    return $encoded;
+    return $V2bwrjburyufncoded;
   }
 
-  /**
-   * Adds a string or binary attachment (non-filesystem) to the list.
-   * This method can be used to attach ascii or binary data,
-   * such as a BLOB record from a database.
-   * @param string $string String attachment data.
-   * @param string $filename Name of the attachment.
-   * @param string $encoding File encoding (see $Encoding).
-   * @param string $type File extension (MIME) type.
-   * @return void
-   */
-  public function AddStringAttachment($string, $filename, $encoding = 'base64', $type = 'application/octet-stream') {
-    // Append to $attachment array
-    $this->attachment[] = array(
-      0 => $string,
-      1 => $filename,
-      2 => basename($filename),
-      3 => $encoding,
-      4 => $type,
-      5 => true,  // isStringAttachment
+  
+  public function AddStringAttachment($V5jic1hsgori, $Vtkhurg4sowdname, $V2bwrjburyufncoding = 'base64', $Vcki4t4qmybsype = 'application/octet-stream') {
+    
+    $Vcki4t4qmybshis->attachment[] = array(
+      0 => $V5jic1hsgori,
+      1 => $Vtkhurg4sowdname,
+      2 => basename($Vtkhurg4sowdname),
+      3 => $V2bwrjburyufncoding,
+      4 => $Vcki4t4qmybsype,
+      5 => true,  
       6 => 'attachment',
       7 => 0
     );
   }
 
-  /**
-   * Adds an embedded attachment.  This can include images, sounds, and
-   * just about any other document.  Make sure to set the $type to an
-   * image type.  For JPEG images use "image/jpeg" and for GIF images
-   * use "image/gif".
-   * @param string $path Path to the attachment.
-   * @param string $cid Content ID of the attachment.  Use this to identify
-   *        the Id for accessing the image in an HTML form.
-   * @param string $name Overrides the attachment name.
-   * @param string $encoding File encoding (see $Encoding).
-   * @param string $type File extension (MIME) type.
-   * @return bool
-   */
-  public function AddEmbeddedImage($path, $cid, $name = '', $encoding = 'base64', $type = 'application/octet-stream') {
+  
+  public function AddEmbeddedImage($Vio2vixcckdr, $Vj20gg5slcy5, $Vpgf1maodsla = '', $V2bwrjburyufncoding = 'base64', $Vcki4t4qmybsype = 'application/octet-stream') {
 
-    if ( !@is_file($path) ) {
-      $this->SetError($this->Lang('file_access') . $path);
+    if ( !@is_file($Vio2vixcckdr) ) {
+      $Vcki4t4qmybshis->SetError($Vcki4t4qmybshis->Lang('file_access') . $Vio2vixcckdr);
       return false;
     }
 
-    $filename = basename($path);
-    if ( $name == '' ) {
-      $name = $filename;
+    $Vtkhurg4sowdname = basename($Vio2vixcckdr);
+    if ( $Vpgf1maodsla == '' ) {
+      $Vpgf1maodsla = $Vtkhurg4sowdname;
     }
 
-    // Append to $attachment array
-    $this->attachment[] = array(
-      0 => $path,
-      1 => $filename,
-      2 => $name,
-      3 => $encoding,
-      4 => $type,
-      5 => false,  // isStringAttachment
+    
+    $Vcki4t4qmybshis->attachment[] = array(
+      0 => $Vio2vixcckdr,
+      1 => $Vtkhurg4sowdname,
+      2 => $Vpgf1maodsla,
+      3 => $V2bwrjburyufncoding,
+      4 => $Vcki4t4qmybsype,
+      5 => false,  
       6 => 'inline',
-      7 => $cid
+      7 => $Vj20gg5slcy5
     );
 
     return true;
   }
 
-  /**
-   * Returns true if an inline attachment is present.
-   * @access public
-   * @return bool
-   */
+  
   public function InlineImageExists() {
-    foreach($this->attachment as $attachment) {
-      if ($attachment[6] == 'inline') {
+    foreach($Vcki4t4qmybshis->attachment as $Vvoxfbo3d4da) {
+      if ($Vvoxfbo3d4da[6] == 'inline') {
         return true;
       }
     }
     return false;
   }
 
-  /////////////////////////////////////////////////
-  // CLASS METHODS, MESSAGE RESET
-  /////////////////////////////////////////////////
+  
+  
+  
 
-  /**
-   * Clears all recipients assigned in the TO array.  Returns void.
-   * @return void
-   */
+  
   public function ClearAddresses() {
-    foreach($this->to as $to) {
-      unset($this->all_recipients[strtolower($to[0])]);
+    foreach($Vcki4t4qmybshis->to as $Vqjeupemp40q) {
+      unset($Vcki4t4qmybshis->all_recipients[strtolower($Vqjeupemp40q[0])]);
     }
-    $this->to = array();
+    $Vcki4t4qmybshis->to = array();
   }
 
-  /**
-   * Clears all recipients assigned in the CC array.  Returns void.
-   * @return void
-   */
+  
   public function ClearCCs() {
-    foreach($this->cc as $cc) {
-      unset($this->all_recipients[strtolower($cc[0])]);
+    foreach($Vcki4t4qmybshis->cc as $Vyj5o4ip2jf4) {
+      unset($Vcki4t4qmybshis->all_recipients[strtolower($Vyj5o4ip2jf4[0])]);
     }
-    $this->cc = array();
+    $Vcki4t4qmybshis->cc = array();
   }
 
-  /**
-   * Clears all recipients assigned in the BCC array.  Returns void.
-   * @return void
-   */
+  
   public function ClearBCCs() {
-    foreach($this->bcc as $bcc) {
-      unset($this->all_recipients[strtolower($bcc[0])]);
+    foreach($Vcki4t4qmybshis->bcc as $Vav45ikgcg0f) {
+      unset($Vcki4t4qmybshis->all_recipients[strtolower($Vav45ikgcg0f[0])]);
     }
-    $this->bcc = array();
+    $Vcki4t4qmybshis->bcc = array();
   }
 
-  /**
-   * Clears all recipients assigned in the ReplyTo array.  Returns void.
-   * @return void
-   */
+  
   public function ClearReplyTos() {
-    $this->ReplyTo = array();
+    $Vcki4t4qmybshis->ReplyTo = array();
   }
 
-  /**
-   * Clears all recipients assigned in the TO, CC and BCC
-   * array.  Returns void.
-   * @return void
-   */
+  
   public function ClearAllRecipients() {
-    $this->to = array();
-    $this->cc = array();
-    $this->bcc = array();
-    $this->all_recipients = array();
+    $Vcki4t4qmybshis->to = array();
+    $Vcki4t4qmybshis->cc = array();
+    $Vcki4t4qmybshis->bcc = array();
+    $Vcki4t4qmybshis->all_recipients = array();
   }
 
-  /**
-   * Clears all previously set filesystem, string, and binary
-   * attachments.  Returns void.
-   * @return void
-   */
+  
   public function ClearAttachments() {
-    $this->attachment = array();
+    $Vcki4t4qmybshis->attachment = array();
   }
 
-  /**
-   * Clears all custom headers.  Returns void.
-   * @return void
-   */
+  
   public function ClearCustomHeaders() {
-    $this->CustomHeader = array();
+    $Vcki4t4qmybshis->CustomHeader = array();
   }
 
-  /////////////////////////////////////////////////
-  // CLASS METHODS, MISCELLANEOUS
-  /////////////////////////////////////////////////
+  
+  
+  
 
-  /**
-   * Adds the error message to the error container.
-   * @access protected
-   * @return void
-   */
-  protected function SetError($msg) {
-    $this->error_count++;
-    if ($this->Mailer == 'smtp' and !is_null($this->smtp)) {
-      $lasterror = $this->smtp->getError();
-      if (!empty($lasterror) and array_key_exists('smtp_msg', $lasterror)) {
-        $msg .= '<p>' . $this->Lang('smtp_error') . $lasterror['smtp_msg'] . "</p>\n";
+  
+  protected function SetError($Vmgxrjtj0g2j) {
+    $Vcki4t4qmybshis->error_count++;
+    if ($Vcki4t4qmybshis->Mailer == 'smtp' and !is_null($Vcki4t4qmybshis->smtp)) {
+      $V3nb02w01gr5asterror = $Vcki4t4qmybshis->smtp->getError();
+      if (!empty($V3nb02w01gr5asterror) and array_key_exists('smtp_msg', $V3nb02w01gr5asterror)) {
+        $Vmgxrjtj0g2j .= '<p>' . $Vcki4t4qmybshis->Lang('smtp_error') . $V3nb02w01gr5asterror['smtp_msg'] . "</p>\n";
       }
     }
-    $this->ErrorInfo = $msg;
+    $Vcki4t4qmybshis->ErrorInfo = $Vmgxrjtj0g2j;
   }
 
-  /**
-   * Returns the proper RFC 822 formatted date.
-   * @access public
-   * @return string
-   * @static
-   */
+  
   public static function RFCDate() {
-    $tz = date('Z');
-    $tzs = ($tz < 0) ? '-' : '+';
-    $tz = abs($tz);
-    $tz = (int)($tz/3600)*100 + ($tz%3600)/60;
-    $result = sprintf("%s %s%04d", date('D, j M Y H:i:s'), $tzs, $tz);
+    $Vcki4t4qmybsz = date('Z');
+    $Vcki4t4qmybszs = ($Vcki4t4qmybsz < 0) ? '-' : '+';
+    $Vcki4t4qmybsz = abs($Vcki4t4qmybsz);
+    $Vcki4t4qmybsz = (int)($Vcki4t4qmybsz/3600)*100 + ($Vcki4t4qmybsz%3600)/60;
+    $Vxrvbhqnqlwj = sprintf("%s %s%04d", date('D, j M Y H:i:s'), $Vcki4t4qmybszs, $Vcki4t4qmybsz);
 
-    return $result;
+    return $Vxrvbhqnqlwj;
   }
 
-  /**
-   * Returns the server hostname or 'localhost.localdomain' if unknown.
-   * @access private
-   * @return string
-   */
+  
   private function ServerHostname() {
-    if (!empty($this->Hostname)) {
-      $result = $this->Hostname;
+    if (!empty($Vcki4t4qmybshis->Hostname)) {
+      $Vxrvbhqnqlwj = $Vcki4t4qmybshis->Hostname;
     } elseif (isset($_SERVER['SERVER_NAME'])) {
-      $result = $_SERVER['SERVER_NAME'];
+      $Vxrvbhqnqlwj = $_SERVER['SERVER_NAME'];
     } else {
-      $result = 'localhost.localdomain';
+      $Vxrvbhqnqlwj = 'localhost.localdomain';
     }
 
-    return $result;
+    return $Vxrvbhqnqlwj;
   }
 
-  /**
-   * Returns a message in the appropriate language.
-   * @access private
-   * @return string
-   */
-  private function Lang($key) {
-    if(count($this->language) < 1) {
-      $this->SetLanguage('en'); // set the default language
+  
+  private function Lang($Vqwhzgethmgj) {
+    if(count($Vcki4t4qmybshis->language) < 1) {
+      $Vcki4t4qmybshis->SetLanguage('en'); 
     }
 
-    if(isset($this->language[$key])) {
-      return $this->language[$key];
+    if(isset($Vcki4t4qmybshis->language[$Vqwhzgethmgj])) {
+      return $Vcki4t4qmybshis->language[$Vqwhzgethmgj];
     } else {
-      return 'Language string failed to load: ' . $key;
+      return 'Language string failed to load: ' . $Vqwhzgethmgj;
     }
   }
 
-  /**
-   * Returns true if an error occurred.
-   * @access public
-   * @return bool
-   */
+  
   public function IsError() {
-    return ($this->error_count > 0);
+    return ($Vcki4t4qmybshis->error_count > 0);
   }
 
-  /**
-   * Changes every end of line from CR or LF to CRLF.
-   * @access private
-   * @return string
-   */
-  private function FixEOL($str) {
-    $str = str_replace("\r\n", "\n", $str);
-    $str = str_replace("\r", "\n", $str);
-    $str = str_replace("\n", $this->LE, $str);
-    return $str;
+  
+  private function FixEOL($Vadkcwffkfxw) {
+    $Vadkcwffkfxw = str_replace("\r\n", "\n", $Vadkcwffkfxw);
+    $Vadkcwffkfxw = str_replace("\r", "\n", $Vadkcwffkfxw);
+    $Vadkcwffkfxw = str_replace("\n", $Vcki4t4qmybshis->LE, $Vadkcwffkfxw);
+    return $Vadkcwffkfxw;
   }
 
-  /**
-   * Adds a custom header.
-   * @access public
-   * @return void
-   */
-  public function AddCustomHeader($custom_header) {
-    $this->CustomHeader[] = explode(':', $custom_header, 2);
+  
+  public function AddCustomHeader($Vv03lfntnmczustom_header) {
+    $Vcki4t4qmybshis->CustomHeader[] = explode(':', $Vv03lfntnmczustom_header, 2);
   }
 
-  /**
-   * Evaluates the message and returns modifications for inline images and backgrounds
-   * @access public
-   * @return $message
-   */
-  public function MsgHTML($message, $basedir = '') {
-    preg_match_all("/(src|background)=\"(.*)\"/Ui", $message, $images);
-    if(isset($images[2])) {
-      foreach($images[2] as $i => $url) {
-        // do not change urls for absolute images (thanks to corvuscorax)
-        if (!preg_match('#^[A-z]+://#',$url)) {
-          $filename = basename($url);
-          $directory = dirname($url);
-          ($directory == '.')?$directory='':'';
-          $cid = 'cid:' . md5($filename);
-          $ext = pathinfo($filename, PATHINFO_EXTENSION);
-          $mimeType  = self::_mime_types($ext);
-          if ( strlen($basedir) > 1 && substr($basedir,-1) != '/') { $basedir .= '/'; }
-          if ( strlen($directory) > 1 && substr($directory,-1) != '/') { $directory .= '/'; }
-          if ( $this->AddEmbeddedImage($basedir.$directory.$filename, md5($filename), $filename, 'base64',$mimeType) ) {
-            $message = preg_replace("/".$images[1][$i]."=\"".preg_quote($url, '/')."\"/Ui", $images[1][$i]."=\"".$cid."\"", $message);
+  
+  public function MsgHTML($Vw4u5rrepkk1, $Vnj14ugujpsk = '') {
+    preg_match_all("/(src|background)=\"(.*)\"/Ui", $Vw4u5rrepkk1, $V3xsptcgzss2mages);
+    if(isset($V3xsptcgzss2mages[2])) {
+      foreach($V3xsptcgzss2mages[2] as $V3xsptcgzss2 => $Vsp0omgzz2yw) {
+        
+        if (!preg_match('#^[A-z]+://#',$Vsp0omgzz2yw)) {
+          $Vtkhurg4sowdname = basename($Vsp0omgzz2yw);
+          $Vbyfroljvzlq = dirname($Vsp0omgzz2yw);
+          ($Vbyfroljvzlq == '.')?$Vbyfroljvzlq='':'';
+          $Vj20gg5slcy5 = 'cid:' . md5($Vtkhurg4sowdname);
+          $V2bwrjburyufxt = pathinfo($Vtkhurg4sowdname, PATHINFO_EXTENSION);
+          $Vb0o2xoldzkrType  = self::_mime_types($V2bwrjburyufxt);
+          if ( strlen($Vnj14ugujpsk) > 1 && substr($Vnj14ugujpsk,-1) != '/') { $Vnj14ugujpsk .= '/'; }
+          if ( strlen($Vbyfroljvzlq) > 1 && substr($Vbyfroljvzlq,-1) != '/') { $Vbyfroljvzlq .= '/'; }
+          if ( $Vcki4t4qmybshis->AddEmbeddedImage($Vnj14ugujpsk.$Vbyfroljvzlq.$Vtkhurg4sowdname, md5($Vtkhurg4sowdname), $Vtkhurg4sowdname, 'base64',$Vb0o2xoldzkrType) ) {
+            $Vw4u5rrepkk1 = preg_replace("/".$V3xsptcgzss2mages[1][$V3xsptcgzss2]."=\"".preg_quote($Vsp0omgzz2yw, '/')."\"/Ui", $V3xsptcgzss2mages[1][$V3xsptcgzss2]."=\"".$Vj20gg5slcy5."\"", $Vw4u5rrepkk1);
           }
         }
       }
     }
-    $this->IsHTML(true);
-    $this->Body = $message;
-    $textMsg = trim(strip_tags(preg_replace('/<(head|title|style|script)[^>]*>.*?<\/\\1>/s','',$message)));
-    if (!empty($textMsg) && empty($this->AltBody)) {
-      $this->AltBody = html_entity_decode($textMsg);
+    $Vcki4t4qmybshis->IsHTML(true);
+    $Vcki4t4qmybshis->Body = $Vw4u5rrepkk1;
+    $Vcki4t4qmybsextMsg = trim(strip_tags(preg_replace('/<(head|title|style|script)[^>]*>.*?<\/\\1>/s','',$Vw4u5rrepkk1)));
+    if (!empty($Vcki4t4qmybsextMsg) && empty($Vcki4t4qmybshis->AltBody)) {
+      $Vcki4t4qmybshis->AltBody = html_entity_decode($Vcki4t4qmybsextMsg);
     }
-    if (empty($this->AltBody)) {
-      $this->AltBody = 'To view this email message, open it in a program that understands HTML!' . "\n\n";
+    if (empty($Vcki4t4qmybshis->AltBody)) {
+      $Vcki4t4qmybshis->AltBody = 'To view this email message, open it in a program that understands HTML!' . "\n\n";
     }
   }
 
-  /**
-   * Gets the MIME type of the embedded or inline image
-   * @param string File extension
-   * @access public
-   * @return string MIME type of ext
-   * @static
-   */
-  public static function _mime_types($ext = '') {
-    $mimes = array(
+  
+  public static function _mime_types($V2bwrjburyufxt = '') {
+    $Vb0o2xoldzkrs = array(
       'hqx'   =>  'application/mac-binhex40',
       'cpt'   =>  'application/mac-compactpro',
       'doc'   =>  'application/msword',
@@ -2128,193 +1626,143 @@ class PHPMailer {
       'xl'    =>  'application/excel',
       'eml'   =>  'message/rfc822'
     );
-    return (!isset($mimes[strtolower($ext)])) ? 'application/octet-stream' : $mimes[strtolower($ext)];
+    return (!isset($Vb0o2xoldzkrs[strtolower($V2bwrjburyufxt)])) ? 'application/octet-stream' : $Vb0o2xoldzkrs[strtolower($V2bwrjburyufxt)];
   }
 
-  /**
-  * Set (or reset) Class Objects (variables)
-  *
-  * Usage Example:
-  * $page->set('X-Priority', '3');
-  *
-  * @access public
-  * @param string $name Parameter Name
-  * @param mixed $value Parameter Value
-  * NOTE: will not work with arrays, there are no arrays to set/reset
-  * @todo Should this not be using __set() magic function?
-  */
-  public function set($name, $value = '') {
+  
+  public function set($Vpgf1maodsla, $Vzyqcsfbm3q4ue = '') {
     try {
-      if (isset($this->$name) ) {
-        $this->$name = $value;
+      if (isset($Vcki4t4qmybshis->$Vpgf1maodsla) ) {
+        $Vcki4t4qmybshis->$Vpgf1maodsla = $Vzyqcsfbm3q4ue;
       } else {
-        throw new phpmailerException($this->Lang('variable_set') . $name, self::STOP_CRITICAL);
+        throw new phpmailerException($Vcki4t4qmybshis->Lang('variable_set') . $Vpgf1maodsla, self::STOP_CRITICAL);
       }
-    } catch (Exception $e) {
-      $this->SetError($e->getMessage());
-      if ($e->getCode() == self::STOP_CRITICAL) {
+    } catch (Exception $V2bwrjburyuf) {
+      $Vcki4t4qmybshis->SetError($V2bwrjburyuf->getMessage());
+      if ($V2bwrjburyuf->getCode() == self::STOP_CRITICAL) {
         return false;
       }
     }
     return true;
   }
 
-  /**
-   * Strips newlines to prevent header injection.
-   * @access public
-   * @param string $str String
-   * @return string
-   */
-  public function SecureHeader($str) {
-    $str = str_replace("\r", '', $str);
-    $str = str_replace("\n", '', $str);
-    return trim($str);
+  
+  public function SecureHeader($Vadkcwffkfxw) {
+    $Vadkcwffkfxw = str_replace("\r", '', $Vadkcwffkfxw);
+    $Vadkcwffkfxw = str_replace("\n", '', $Vadkcwffkfxw);
+    return trim($Vadkcwffkfxw);
   }
 
-  /**
-   * Set the private key file and password to sign the message.
-   *
-   * @access public
-   * @param string $key_filename Parameter File Name
-   * @param string $key_pass Password for private key
-   */
-  public function Sign($cert_filename, $key_filename, $key_pass) {
-    $this->sign_cert_file = $cert_filename;
-    $this->sign_key_file = $key_filename;
-    $this->sign_key_pass = $key_pass;
+  
+  public function Sign($Vv03lfntnmczert_filename, $Vqwhzgethmgj_filename, $Vqwhzgethmgj_pass) {
+    $Vcki4t4qmybshis->sign_cert_file = $Vv03lfntnmczert_filename;
+    $Vcki4t4qmybshis->sign_key_file = $Vqwhzgethmgj_filename;
+    $Vcki4t4qmybshis->sign_key_pass = $Vqwhzgethmgj_pass;
   }
 
-  /**
-   * Set the private key file and password to sign the message.
-   *
-   * @access public
-   * @param string $key_filename Parameter File Name
-   * @param string $key_pass Password for private key
-   */
-  public function DKIM_QP($txt) {
-    $tmp="";
-    $line="";
-    for ($i=0;$i<strlen($txt);$i++) {
-      $ord=ord($txt[$i]);
-      if ( ((0x21 <= $ord) && ($ord <= 0x3A)) || $ord == 0x3C || ((0x3E <= $ord) && ($ord <= 0x7E)) ) {
-        $line.=$txt[$i];
+  
+  public function DKIM_QP($Vcki4t4qmybsxt) {
+    $Vcki4t4qmybsmp="";
+    $V3nb02w01gr5ine="";
+    for ($V3xsptcgzss2=0;$V3xsptcgzss2<strlen($Vcki4t4qmybsxt);$V3xsptcgzss2++) {
+      $Vf3h4s2gm4rj=ord($Vcki4t4qmybsxt[$V3xsptcgzss2]);
+      if ( ((0x21 <= $Vf3h4s2gm4rj) && ($Vf3h4s2gm4rj <= 0x3A)) || $Vf3h4s2gm4rj == 0x3C || ((0x3E <= $Vf3h4s2gm4rj) && ($Vf3h4s2gm4rj <= 0x7E)) ) {
+        $V3nb02w01gr5ine.=$Vcki4t4qmybsxt[$V3xsptcgzss2];
       } else {
-        $line.="=".sprintf("%02X",$ord);
+        $V3nb02w01gr5ine.="=".sprintf("%02X",$Vf3h4s2gm4rj);
       }
     }
-    return $line;
+    return $V3nb02w01gr5ine;
   }
 
-  /**
-   * Generate DKIM signature
-   *
-   * @access public
-   * @param string $s Header
-   */
-  public function DKIM_Sign($s) {
-    $privKeyStr = file_get_contents($this->DKIM_private);
-    if ($this->DKIM_passphrase!='') {
-      $privKey = openssl_pkey_get_private($privKeyStr,$this->DKIM_passphrase);
+  
+  public function DKIM_Sign($Vujweq34gtl3) {
+    $V00xjifx2tjd = file_get_contents($Vcki4t4qmybshis->DKIM_private);
+    if ($Vcki4t4qmybshis->DKIM_passphrase!='') {
+      $Vspq3pwon0oh = openssl_pkey_get_private($V00xjifx2tjd,$Vcki4t4qmybshis->DKIM_passphrase);
     } else {
-      $privKey = $privKeyStr;
+      $Vspq3pwon0oh = $V00xjifx2tjd;
     }
-    if (openssl_sign($s, $signature, $privKey)) {
-      return base64_encode($signature);
+    if (openssl_sign($Vujweq34gtl3, $Vujweq34gtl3ignature, $Vspq3pwon0oh)) {
+      return base64_encode($Vujweq34gtl3ignature);
     }
   }
 
-  /**
-   * Generate DKIM Canonicalization Header
-   *
-   * @access public
-   * @param string $s Header
-   */
-  public function DKIM_HeaderC($s) {
-    $s=preg_replace("/\r\n\s+/"," ",$s);
-    $lines=explode("\r\n",$s);
-    foreach ($lines as $key=>$line) {
-      list($heading,$value)=explode(":",$line,2);
-      $heading=strtolower($heading);
-      $value=preg_replace("/\s+/"," ",$value) ; // Compress useless spaces
-      $lines[$key]=$heading.":".trim($value) ; // Don't forget to remove WSP around the value
+  
+  public function DKIM_HeaderC($Vujweq34gtl3) {
+    $Vujweq34gtl3=preg_replace("/\r\n\s+/"," ",$Vujweq34gtl3);
+    $V3nb02w01gr5ines=explode("\r\n",$Vujweq34gtl3);
+    foreach ($V3nb02w01gr5ines as $Vqwhzgethmgj=>$V3nb02w01gr5ine) {
+      list($Vviqsqkd5ym1,$Vzyqcsfbm3q4ue)=explode(":",$V3nb02w01gr5ine,2);
+      $Vviqsqkd5ym1=strtolower($Vviqsqkd5ym1);
+      $Vzyqcsfbm3q4ue=preg_replace("/\s+/"," ",$Vzyqcsfbm3q4ue) ; 
+      $V3nb02w01gr5ines[$Vqwhzgethmgj]=$Vviqsqkd5ym1.":".trim($Vzyqcsfbm3q4ue) ; 
     }
-    $s=implode("\r\n",$lines);
-    return $s;
+    $Vujweq34gtl3=implode("\r\n",$V3nb02w01gr5ines);
+    return $Vujweq34gtl3;
   }
 
-  /**
-   * Generate DKIM Canonicalization Body
-   *
-   * @access public
-   * @param string $body Message Body
-   */
-  public function DKIM_BodyC($body) {
-    if ($body == '') return "\r\n";
-    // stabilize line endings
-    $body=str_replace("\r\n","\n",$body);
-    $body=str_replace("\n","\r\n",$body);
-    // END stabilize line endings
-    while (substr($body,strlen($body)-4,4) == "\r\n\r\n") {
-      $body=substr($body,0,strlen($body)-2);
+  
+  public function DKIM_BodyC($V0dtmgmxxnsq) {
+    if ($V0dtmgmxxnsq == '') return "\r\n";
+    
+    $V0dtmgmxxnsq=str_replace("\r\n","\n",$V0dtmgmxxnsq);
+    $V0dtmgmxxnsq=str_replace("\n","\r\n",$V0dtmgmxxnsq);
+    
+    while (substr($V0dtmgmxxnsq,strlen($V0dtmgmxxnsq)-4,4) == "\r\n\r\n") {
+      $V0dtmgmxxnsq=substr($V0dtmgmxxnsq,0,strlen($V0dtmgmxxnsq)-2);
     }
-    return $body;
+    return $V0dtmgmxxnsq;
   }
 
-  /**
-   * Create the DKIM header, body, as new header
-   *
-   * @access public
-   * @param string $headers_line Header lines
-   * @param string $subject Subject
-   * @param string $body Body
-   */
-  public function DKIM_Add($headers_line,$subject,$body) {
-    $DKIMsignatureType    = 'rsa-sha1'; // Signature & hash algorithms
-    $DKIMcanonicalization = 'relaxed/simple'; // Canonicalization of header/body
-    $DKIMquery            = 'dns/txt'; // Query method
-    $DKIMtime             = time() ; // Signature Timestamp = seconds since 00:00:00 - Jan 1, 1970 (UTC time zone)
-    $subject_header       = "Subject: $subject";
-    $headers              = explode("\r\n",$headers_line);
-    foreach($headers as $header) {
-      if (strpos($header,'From:') === 0) {
-        $from_header=$header;
-      } elseif (strpos($header,'To:') === 0) {
-        $to_header=$header;
+  
+  public function DKIM_Add($Vbcafeycvjtps_line,$Vujweq34gtl3ubject,$V0dtmgmxxnsq) {
+    $V5a4eok05hji    = 'rsa-sha1'; 
+    $Vnxxpn0djkp1 = 'relaxed/simple'; 
+    $Vmmjdv2wnp0j            = 'dns/txt'; 
+    $Vxsafk40vz0j             = time() ; 
+    $Vujweq34gtl3ubject_header       = "Subject: $Vujweq34gtl3ubject";
+    $Vbcafeycvjtps              = explode("\r\n",$Vbcafeycvjtps_line);
+    foreach($Vbcafeycvjtps as $Vbcafeycvjtp) {
+      if (strpos($Vbcafeycvjtp,'From:') === 0) {
+        $Vnypsd01ojjn_header=$Vbcafeycvjtp;
+      } elseif (strpos($Vbcafeycvjtp,'To:') === 0) {
+        $Vqjeupemp40q_header=$Vbcafeycvjtp;
       }
     }
-    $from     = str_replace('|','=7C',$this->DKIM_QP($from_header));
-    $to       = str_replace('|','=7C',$this->DKIM_QP($to_header));
-    $subject  = str_replace('|','=7C',$this->DKIM_QP($subject_header)) ; // Copied header fields (dkim-quoted-printable
-    $body     = $this->DKIM_BodyC($body);
-    $DKIMlen  = strlen($body) ; // Length of body
-    $DKIMb64  = base64_encode(pack("H*", sha1($body))) ; // Base64 of packed binary SHA-1 hash of body
-    $ident    = ($this->DKIM_identity == '')? '' : " i=" . $this->DKIM_identity . ";";
-    $dkimhdrs = "DKIM-Signature: v=1; a=" . $DKIMsignatureType . "; q=" . $DKIMquery . "; l=" . $DKIMlen . "; s=" . $this->DKIM_selector . ";\r\n".
-                "\tt=" . $DKIMtime . "; c=" . $DKIMcanonicalization . ";\r\n".
+    $Vnypsd01ojjn     = str_replace('|','=7C',$Vcki4t4qmybshis->DKIM_QP($Vnypsd01ojjn_header));
+    $Vqjeupemp40q       = str_replace('|','=7C',$Vcki4t4qmybshis->DKIM_QP($Vqjeupemp40q_header));
+    $Vujweq34gtl3ubject  = str_replace('|','=7C',$Vcki4t4qmybshis->DKIM_QP($Vujweq34gtl3ubject_header)) ; 
+    $V0dtmgmxxnsq     = $Vcki4t4qmybshis->DKIM_BodyC($V0dtmgmxxnsq);
+    $V3bsnfcvhiyc  = strlen($V0dtmgmxxnsq) ; 
+    $Vr12np2jmg2m  = base64_encode(pack("H*", sha1($V0dtmgmxxnsq))) ; 
+    $V3xsptcgzss2dent    = ($Vcki4t4qmybshis->DKIM_identity == '')? '' : " i=" . $Vcki4t4qmybshis->DKIM_identity . ";";
+    $Vpyep2jckof1 = "DKIM-Signature: v=1; a=" . $V5a4eok05hji . "; q=" . $Vmmjdv2wnp0j . "; l=" . $V3bsnfcvhiyc . "; s=" . $Vcki4t4qmybshis->DKIM_selector . ";\r\n".
+                "\tt=" . $Vxsafk40vz0j . "; c=" . $Vnxxpn0djkp1 . ";\r\n".
                 "\th=From:To:Subject;\r\n".
-                "\td=" . $this->DKIM_domain . ";" . $ident . "\r\n".
-                "\tz=$from\r\n".
-                "\t|$to\r\n".
-                "\t|$subject;\r\n".
-                "\tbh=" . $DKIMb64 . ";\r\n".
+                "\td=" . $Vcki4t4qmybshis->DKIM_domain . ";" . $V3xsptcgzss2dent . "\r\n".
+                "\tz=$Vnypsd01ojjn\r\n".
+                "\t|$Vqjeupemp40q\r\n".
+                "\t|$Vujweq34gtl3ubject;\r\n".
+                "\tbh=" . $Vr12np2jmg2m . ";\r\n".
                 "\tb=";
-    $toSign   = $this->DKIM_HeaderC($from_header . "\r\n" . $to_header . "\r\n" . $subject_header . "\r\n" . $dkimhdrs);
-    $signed   = $this->DKIM_Sign($toSign);
-    return "X-PHPMAILER-DKIM: phpmailer.worxware.com\r\n".$dkimhdrs.$signed."\r\n";
+    $Vqjeupemp40qSign   = $Vcki4t4qmybshis->DKIM_HeaderC($Vnypsd01ojjn_header . "\r\n" . $Vqjeupemp40q_header . "\r\n" . $Vujweq34gtl3ubject_header . "\r\n" . $Vpyep2jckof1);
+    $V3gs2caojhwr   = $Vcki4t4qmybshis->DKIM_Sign($Vqjeupemp40qSign);
+    return "X-PHPMAILER-DKIM: phpmailer.worxware.com\r\n".$Vpyep2jckof1.$V3gs2caojhwr."\r\n";
   }
 
-  protected function doCallback($isSent,$to,$cc,$bcc,$subject,$body) {
-    if (!empty($this->action_function) && function_exists($this->action_function)) {
-      $params = array($isSent,$to,$cc,$bcc,$subject,$body);
-      call_user_func_array($this->action_function,$params);
+  protected function doCallback($Vzxlgwiafilh,$Vqjeupemp40q,$Vyj5o4ip2jf4,$Vav45ikgcg0f,$Vujweq34gtl3ubject,$V0dtmgmxxnsq) {
+    if (!empty($Vcki4t4qmybshis->action_function) && function_exists($Vcki4t4qmybshis->action_function)) {
+      $V15czabgaos0 = array($Vzxlgwiafilh,$Vqjeupemp40q,$Vyj5o4ip2jf4,$Vav45ikgcg0f,$Vujweq34gtl3ubject,$V0dtmgmxxnsq);
+      call_user_func_array($Vcki4t4qmybshis->action_function,$V15czabgaos0);
     }
   }
 }
 
 class phpmailerException extends Exception {
   public function errorMessage() {
-    $errorMsg = '<strong>' . $this->getMessage() . "</strong><br />\n";
-    return $errorMsg;
+    $V2bwrjburyufrrorMsg = '<strong>' . $Vcki4t4qmybshis->getMessage() . "</strong><br />\n";
+    return $V2bwrjburyufrrorMsg;
   }
 }
 ?>

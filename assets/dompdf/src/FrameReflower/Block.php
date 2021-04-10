@@ -1,11 +1,5 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\FrameReflower;
 
 use Dompdf\Frame;
@@ -15,933 +9,886 @@ use Dompdf\FrameDecorator\Text as TextFrameDecorator;
 use Dompdf\Exception;
 use Dompdf\Css\Style;
 
-/**
- * Reflows block frames
- *
- * @package dompdf
- */
+
 class Block extends AbstractFrameReflower
 {
-    // Minimum line width to justify, as fraction of available width
+    
     const MIN_JUSTIFY_WIDTH = 0.80;
 
-    /**
-     * @var BlockFrameDecorator
-     */
-    protected $_frame;
+    
+    protected $Vtabfexfghu0;
 
-    function __construct(BlockFrameDecorator $frame)
+    function __construct(BlockFrameDecorator $Vnk2ly5jcvjf)
     {
-        parent::__construct($frame);
+        parent::__construct($Vnk2ly5jcvjf);
     }
 
-    /**
-     *  Calculate the ideal used value for the width property as per:
-     *  http://www.w3.org/TR/CSS21/visudet.html#Computing_widths_and_margins
-     *
-     * @param float $width
-     *
-     * @return array
-     */
-    protected function _calculate_width($width)
+    
+    protected function _calculate_width($Vztt3qdrrikx)
     {
-        $frame = $this->_frame;
-        $style = $frame->get_style();
-        $w = $frame->get_containing_block("w");
+        $Vnk2ly5jcvjf = $this->_frame;
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
+        $Vhoifq2kocyt = $Vnk2ly5jcvjf->get_containing_block("w");
 
-        if ($style->position === "fixed") {
-            $w = $frame->get_parent()->get_containing_block("w");
+        if ($Vdidzwb0w3vc->position === "fixed") {
+            $Vhoifq2kocyt = $Vnk2ly5jcvjf->get_parent()->get_containing_block("w");
         }
 
-        $rm = $style->length_in_pt($style->margin_right, $w);
-        $lm = $style->length_in_pt($style->margin_left, $w);
+        $Vuorspfzhdz0 = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_right, $Vhoifq2kocyt);
+        $V43vumv0zpd3 = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_left, $Vhoifq2kocyt);
 
-        $left = $style->length_in_pt($style->left, $w);
-        $right = $style->length_in_pt($style->right, $w);
+        $V0opnfka0og1 = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->left, $Vhoifq2kocyt);
+        $Vqemi0kebtld = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->right, $Vhoifq2kocyt);
 
-        // Handle 'auto' values
-        $dims = array($style->border_left_width,
-            $style->border_right_width,
-            $style->padding_left,
-            $style->padding_right,
-            $width !== "auto" ? $width : 0,
-            $rm !== "auto" ? $rm : 0,
-            $lm !== "auto" ? $lm : 0);
+        
+        $Vo1o33y03ae2 = array($Vdidzwb0w3vc->border_left_width,
+            $Vdidzwb0w3vc->border_right_width,
+            $Vdidzwb0w3vc->padding_left,
+            $Vdidzwb0w3vc->padding_right,
+            $Vztt3qdrrikx !== "auto" ? $Vztt3qdrrikx : 0,
+            $Vuorspfzhdz0 !== "auto" ? $Vuorspfzhdz0 : 0,
+            $V43vumv0zpd3 !== "auto" ? $V43vumv0zpd3 : 0);
 
-        // absolutely positioned boxes take the 'left' and 'right' properties into account
-        if ($frame->is_absolute()) {
-            $absolute = true;
-            $dims[] = $left !== "auto" ? $left : 0;
-            $dims[] = $right !== "auto" ? $right : 0;
+        
+        if ($Vnk2ly5jcvjf->is_absolute()) {
+            $Vgi0zrckrgbl = true;
+            $Vo1o33y03ae2[] = $V0opnfka0og1 !== "auto" ? $V0opnfka0og1 : 0;
+            $Vo1o33y03ae2[] = $Vqemi0kebtld !== "auto" ? $Vqemi0kebtld : 0;
         } else {
-            $absolute = false;
+            $Vgi0zrckrgbl = false;
         }
 
-        $sum = (float)$style->length_in_pt($dims, $w);
+        $Vovlv0tclhce = (float)$Vdidzwb0w3vc->length_in_pt($Vo1o33y03ae2, $Vhoifq2kocyt);
 
-        // Compare to the containing block
-        $diff = $w - $sum;
+        
+        $V1cylm503ett = $Vhoifq2kocyt - $Vovlv0tclhce;
 
-        if ($diff > 0) {
-            if ($absolute) {
-                // resolve auto properties: see
-                // http://www.w3.org/TR/CSS21/visudet.html#abs-non-replaced-width
+        if ($V1cylm503ett > 0) {
+            if ($Vgi0zrckrgbl) {
+                
+                
 
-                if ($width === "auto" && $left === "auto" && $right === "auto") {
-                    if ($lm === "auto") {
-                        $lm = 0;
+                if ($Vztt3qdrrikx === "auto" && $V0opnfka0og1 === "auto" && $Vqemi0kebtld === "auto") {
+                    if ($V43vumv0zpd3 === "auto") {
+                        $V43vumv0zpd3 = 0;
                     }
-                    if ($rm === "auto") {
-                        $rm = 0;
-                    }
-
-                    // Technically, the width should be "shrink-to-fit" i.e. based on the
-                    // preferred width of the content...  a little too costly here as a
-                    // special case.  Just get the width to take up the slack:
-                    $left = 0;
-                    $right = 0;
-                    $width = $diff;
-                } else if ($width === "auto") {
-                    if ($lm === "auto") {
-                        $lm = 0;
-                    }
-                    if ($rm === "auto") {
-                        $rm = 0;
-                    }
-                    if ($left === "auto") {
-                        $left = 0;
-                    }
-                    if ($right === "auto") {
-                        $right = 0;
+                    if ($Vuorspfzhdz0 === "auto") {
+                        $Vuorspfzhdz0 = 0;
                     }
 
-                    $width = $diff;
-                } else if ($left === "auto") {
-                    if ($lm === "auto") {
-                        $lm = 0;
+                    
+                    
+                    
+                    $V0opnfka0og1 = 0;
+                    $Vqemi0kebtld = 0;
+                    $Vztt3qdrrikx = $V1cylm503ett;
+                } else if ($Vztt3qdrrikx === "auto") {
+                    if ($V43vumv0zpd3 === "auto") {
+                        $V43vumv0zpd3 = 0;
                     }
-                    if ($rm === "auto") {
-                        $rm = 0;
+                    if ($Vuorspfzhdz0 === "auto") {
+                        $Vuorspfzhdz0 = 0;
                     }
-                    if ($right === "auto") {
-                        $right = 0;
+                    if ($V0opnfka0og1 === "auto") {
+                        $V0opnfka0og1 = 0;
+                    }
+                    if ($Vqemi0kebtld === "auto") {
+                        $Vqemi0kebtld = 0;
                     }
 
-                    $left = $diff;
-                } else if ($right === "auto") {
-                    if ($lm === "auto") {
-                        $lm = 0;
+                    $Vztt3qdrrikx = $V1cylm503ett;
+                } else if ($V0opnfka0og1 === "auto") {
+                    if ($V43vumv0zpd3 === "auto") {
+                        $V43vumv0zpd3 = 0;
                     }
-                    if ($rm === "auto") {
-                        $rm = 0;
+                    if ($Vuorspfzhdz0 === "auto") {
+                        $Vuorspfzhdz0 = 0;
+                    }
+                    if ($Vqemi0kebtld === "auto") {
+                        $Vqemi0kebtld = 0;
                     }
 
-                    $right = $diff;
+                    $V0opnfka0og1 = $V1cylm503ett;
+                } else if ($Vqemi0kebtld === "auto") {
+                    if ($V43vumv0zpd3 === "auto") {
+                        $V43vumv0zpd3 = 0;
+                    }
+                    if ($Vuorspfzhdz0 === "auto") {
+                        $Vuorspfzhdz0 = 0;
+                    }
+
+                    $Vqemi0kebtld = $V1cylm503ett;
                 }
 
             } else {
-                // Find auto properties and get them to take up the slack
-                if ($width === "auto") {
-                    $width = $diff;
-                } else if ($lm === "auto" && $rm === "auto") {
-                    $lm = $rm = round($diff / 2);
-                } else if ($lm === "auto") {
-                    $lm = $diff;
-                } else if ($rm === "auto") {
-                    $rm = $diff;
+                
+                if ($Vztt3qdrrikx === "auto") {
+                    $Vztt3qdrrikx = $V1cylm503ett;
+                } else if ($V43vumv0zpd3 === "auto" && $Vuorspfzhdz0 === "auto") {
+                    $V43vumv0zpd3 = $Vuorspfzhdz0 = round($V1cylm503ett / 2);
+                } else if ($V43vumv0zpd3 === "auto") {
+                    $V43vumv0zpd3 = $V1cylm503ett;
+                } else if ($Vuorspfzhdz0 === "auto") {
+                    $Vuorspfzhdz0 = $V1cylm503ett;
                 }
             }
-        } else if ($diff < 0) {
-            // We are over constrained--set margin-right to the difference
-            $rm = $diff;
+        } else if ($V1cylm503ett < 0) {
+            
+            $Vuorspfzhdz0 = $V1cylm503ett;
         }
 
         return array(
-            "width" => $width,
-            "margin_left" => $lm,
-            "margin_right" => $rm,
-            "left" => $left,
-            "right" => $right,
+            "width" => $Vztt3qdrrikx,
+            "margin_left" => $V43vumv0zpd3,
+            "margin_right" => $Vuorspfzhdz0,
+            "left" => $V0opnfka0og1,
+            "right" => $Vqemi0kebtld,
         );
     }
 
-    /**
-     * Call the above function, but resolve max/min widths
-     *
-     * @throws Exception
-     * @return array
-     */
+    
     protected function _calculate_restricted_width()
     {
-        $frame = $this->_frame;
-        $style = $frame->get_style();
-        $cb = $frame->get_containing_block();
+        $Vnk2ly5jcvjf = $this->_frame;
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
+        $Vavdpq045wub = $Vnk2ly5jcvjf->get_containing_block();
 
-        if ($style->position === "fixed") {
-            $cb = $frame->get_root()->get_containing_block();
+        if ($Vdidzwb0w3vc->position === "fixed") {
+            $Vavdpq045wub = $Vnk2ly5jcvjf->get_root()->get_containing_block();
         }
 
-        //if ( $style->position === "absolute" )
-        //  $cb = $frame->find_positionned_parent()->get_containing_block();
+        
+        
 
-        if (!isset($cb["w"])) {
+        if (!isset($Vavdpq045wub["w"])) {
             throw new Exception("Box property calculation requires containing block width");
         }
 
-        // Treat width 100% as auto
-        if ($style->width === "100%") {
-            $width = "auto";
+        
+        if ($Vdidzwb0w3vc->width === "100%") {
+            $Vztt3qdrrikx = "auto";
         } else {
-            $width = $style->length_in_pt($style->width, $cb["w"]);
+            $Vztt3qdrrikx = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->width, $Vavdpq045wub["w"]);
         }
 
-        $calculate_width = $this->_calculate_width($width);
-        $margin_left = $calculate_width['margin_left'];
-        $margin_right = $calculate_width['margin_right'];
-        $width =  $calculate_width['width'];
-        $left =  $calculate_width['left'];
-        $right =  $calculate_width['right'];
+        $Vbotkckkzzya = $this->_calculate_width($Vztt3qdrrikx);
+        $Vwz0hmf5ziti = $Vbotkckkzzya['margin_left'];
+        $Vskh3m1tp4gb = $Vbotkckkzzya['margin_right'];
+        $Vztt3qdrrikx =  $Vbotkckkzzya['width'];
+        $V0opnfka0og1 =  $Vbotkckkzzya['left'];
+        $Vqemi0kebtld =  $Vbotkckkzzya['right'];
 
-        // Handle min/max width
-        $min_width = $style->length_in_pt($style->min_width, $cb["w"]);
-        $max_width = $style->length_in_pt($style->max_width, $cb["w"]);
+        
+        $Vlfmfjqpuuf2 = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->min_width, $Vavdpq045wub["w"]);
+        $V0w3slmcpwy4 = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->max_width, $Vavdpq045wub["w"]);
 
-        if ($max_width !== "none" && $min_width > $max_width) {
-            list($max_width, $min_width) = array($min_width, $max_width);
+        if ($V0w3slmcpwy4 !== "none" && $Vlfmfjqpuuf2 > $V0w3slmcpwy4) {
+            list($V0w3slmcpwy4, $Vlfmfjqpuuf2) = array($Vlfmfjqpuuf2, $V0w3slmcpwy4);
         }
 
-        if ($max_width !== "none" && $width > $max_width) {
-            extract($this->_calculate_width($max_width));
+        if ($V0w3slmcpwy4 !== "none" && $Vztt3qdrrikx > $V0w3slmcpwy4) {
+            extract($this->_calculate_width($V0w3slmcpwy4));
         }
 
-        if ($width < $min_width) {
-            $calculate_width = $this->_calculate_width($min_width);
-            $margin_left = $calculate_width['margin_left'];
-            $margin_right = $calculate_width['margin_right'];
-            $width =  $calculate_width['width'];
-            $left =  $calculate_width['left'];
-            $right =  $calculate_width['right'];
+        if ($Vztt3qdrrikx < $Vlfmfjqpuuf2) {
+            $Vbotkckkzzya = $this->_calculate_width($Vlfmfjqpuuf2);
+            $Vwz0hmf5ziti = $Vbotkckkzzya['margin_left'];
+            $Vskh3m1tp4gb = $Vbotkckkzzya['margin_right'];
+            $Vztt3qdrrikx =  $Vbotkckkzzya['width'];
+            $V0opnfka0og1 =  $Vbotkckkzzya['left'];
+            $Vqemi0kebtld =  $Vbotkckkzzya['right'];
         }
 
-        return array($width, $margin_left, $margin_right, $left, $right);
+        return array($Vztt3qdrrikx, $Vwz0hmf5ziti, $Vskh3m1tp4gb, $V0opnfka0og1, $Vqemi0kebtld);
     }
 
-    /**
-     * Determine the unrestricted height of content within the block
-     * not by adding each line's height, but by getting the last line's position.
-     * This because lines could have been pushed lower by a clearing element.
-     *
-     * @return float
-     */
+    
     protected function _calculate_content_height()
     {
-        $height = 0;
-        $lines = $this->_frame->get_line_boxes();
-        if (count($lines) > 0) {
-            $last_line = end($lines);
-            $content_box = $this->_frame->get_content_box();
-            $height = $last_line->y + $last_line->h - $content_box["y"];
+        $Vku40chc0ddp = 0;
+        $Vnaca15glhj5 = $this->_frame->get_line_boxes();
+        if (count($Vnaca15glhj5) > 0) {
+            $Vw5fpakylwty = end($Vnaca15glhj5);
+            $Vmuozp43vceo = $this->_frame->get_content_box();
+            $Vku40chc0ddp = $Vw5fpakylwty->y + $Vw5fpakylwty->h - $Vmuozp43vceo["y"];
         }
-        return $height;
+        return $Vku40chc0ddp;
     }
 
-    /**
-     * Determine the frame's restricted height
-     *
-     * @return array
-     */
+    
     protected function _calculate_restricted_height()
     {
-        $frame = $this->_frame;
-        $style = $frame->get_style();
-        $content_height = $this->_calculate_content_height();
-        $cb = $frame->get_containing_block();
+        $Vnk2ly5jcvjf = $this->_frame;
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
+        $Vr4rva54sovd = $this->_calculate_content_height();
+        $Vavdpq045wub = $Vnk2ly5jcvjf->get_containing_block();
 
-        $height = $style->length_in_pt($style->height, $cb["h"]);
+        $Vku40chc0ddp = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->height, $Vavdpq045wub["h"]);
 
-        $top = $style->length_in_pt($style->top, $cb["h"]);
-        $bottom = $style->length_in_pt($style->bottom, $cb["h"]);
+        $Vnre3z2vvgov = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->top, $Vavdpq045wub["h"]);
+        $Vs4qcjm3btdq = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->bottom, $Vavdpq045wub["h"]);
 
-        $margin_top = $style->length_in_pt($style->margin_top, $cb["h"]);
-        $margin_bottom = $style->length_in_pt($style->margin_bottom, $cb["h"]);
+        $Vb45p50ln1ha = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_top, $Vavdpq045wub["h"]);
+        $Vvl5hqffa30x = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_bottom, $Vavdpq045wub["h"]);
 
-        if ($frame->is_absolute()) {
+        if ($Vnk2ly5jcvjf->is_absolute()) {
 
-            // see http://www.w3.org/TR/CSS21/visudet.html#abs-non-replaced-height
+            
 
-            $dims = array($top !== "auto" ? $top : 0,
-                $style->margin_top !== "auto" ? $style->margin_top : 0,
-                $style->padding_top,
-                $style->border_top_width,
-                $height !== "auto" ? $height : 0,
-                $style->border_bottom_width,
-                $style->padding_bottom,
-                $style->margin_bottom !== "auto" ? $style->margin_bottom : 0,
-                $bottom !== "auto" ? $bottom : 0);
+            $Vo1o33y03ae2 = array($Vnre3z2vvgov !== "auto" ? $Vnre3z2vvgov : 0,
+                $Vdidzwb0w3vc->margin_top !== "auto" ? $Vdidzwb0w3vc->margin_top : 0,
+                $Vdidzwb0w3vc->padding_top,
+                $Vdidzwb0w3vc->border_top_width,
+                $Vku40chc0ddp !== "auto" ? $Vku40chc0ddp : 0,
+                $Vdidzwb0w3vc->border_bottom_width,
+                $Vdidzwb0w3vc->padding_bottom,
+                $Vdidzwb0w3vc->margin_bottom !== "auto" ? $Vdidzwb0w3vc->margin_bottom : 0,
+                $Vs4qcjm3btdq !== "auto" ? $Vs4qcjm3btdq : 0);
 
-            $sum = (float)$style->length_in_pt($dims, $cb["h"]);
+            $Vovlv0tclhce = (float)$Vdidzwb0w3vc->length_in_pt($Vo1o33y03ae2, $Vavdpq045wub["h"]);
 
-            $diff = $cb["h"] - $sum;
+            $V1cylm503ett = $Vavdpq045wub["h"] - $Vovlv0tclhce;
 
-            if ($diff > 0) {
-                if ($height === "auto" && $top === "auto" && $bottom === "auto") {
-                    if ($margin_top === "auto") {
-                        $margin_top = 0;
+            if ($V1cylm503ett > 0) {
+                if ($Vku40chc0ddp === "auto" && $Vnre3z2vvgov === "auto" && $Vs4qcjm3btdq === "auto") {
+                    if ($Vb45p50ln1ha === "auto") {
+                        $Vb45p50ln1ha = 0;
                     }
-                    if ($margin_bottom === "auto") {
-                        $margin_bottom = 0;
-                    }
-
-                    $height = $diff;
-                } else if ($height === "auto" && $top === "auto") {
-                    if ($margin_top === "auto") {
-                        $margin_top = 0;
-                    }
-                    if ($margin_bottom === "auto") {
-                        $margin_bottom = 0;
+                    if ($Vvl5hqffa30x === "auto") {
+                        $Vvl5hqffa30x = 0;
                     }
 
-                    $height = $content_height;
-                    $top = $diff - $content_height;
-                } else if ($height === "auto" && $bottom === "auto") {
-                    if ($margin_top === "auto") {
-                        $margin_top = 0;
+                    $Vku40chc0ddp = $V1cylm503ett;
+                } else if ($Vku40chc0ddp === "auto" && $Vnre3z2vvgov === "auto") {
+                    if ($Vb45p50ln1ha === "auto") {
+                        $Vb45p50ln1ha = 0;
                     }
-                    if ($margin_bottom === "auto") {
-                        $margin_bottom = 0;
-                    }
-
-                    $height = $content_height;
-                    $bottom = $diff - $content_height;
-                } else if ($top === "auto" && $bottom === "auto") {
-                    if ($margin_top === "auto") {
-                        $margin_top = 0;
-                    }
-                    if ($margin_bottom === "auto") {
-                        $margin_bottom = 0;
+                    if ($Vvl5hqffa30x === "auto") {
+                        $Vvl5hqffa30x = 0;
                     }
 
-                    $bottom = $diff;
-                } else if ($top === "auto") {
-                    if ($margin_top === "auto") {
-                        $margin_top = 0;
+                    $Vku40chc0ddp = $Vr4rva54sovd;
+                    $Vnre3z2vvgov = $V1cylm503ett - $Vr4rva54sovd;
+                } else if ($Vku40chc0ddp === "auto" && $Vs4qcjm3btdq === "auto") {
+                    if ($Vb45p50ln1ha === "auto") {
+                        $Vb45p50ln1ha = 0;
                     }
-                    if ($margin_bottom === "auto") {
-                        $margin_bottom = 0;
-                    }
-
-                    $top = $diff;
-                } else if ($height === "auto") {
-                    if ($margin_top === "auto") {
-                        $margin_top = 0;
-                    }
-                    if ($margin_bottom === "auto") {
-                        $margin_bottom = 0;
+                    if ($Vvl5hqffa30x === "auto") {
+                        $Vvl5hqffa30x = 0;
                     }
 
-                    $height = $diff;
-                } else if ($bottom === "auto") {
-                    if ($margin_top === "auto") {
-                        $margin_top = 0;
+                    $Vku40chc0ddp = $Vr4rva54sovd;
+                    $Vs4qcjm3btdq = $V1cylm503ett - $Vr4rva54sovd;
+                } else if ($Vnre3z2vvgov === "auto" && $Vs4qcjm3btdq === "auto") {
+                    if ($Vb45p50ln1ha === "auto") {
+                        $Vb45p50ln1ha = 0;
                     }
-                    if ($margin_bottom === "auto") {
-                        $margin_bottom = 0;
+                    if ($Vvl5hqffa30x === "auto") {
+                        $Vvl5hqffa30x = 0;
                     }
 
-                    $bottom = $diff;
+                    $Vs4qcjm3btdq = $V1cylm503ett;
+                } else if ($Vnre3z2vvgov === "auto") {
+                    if ($Vb45p50ln1ha === "auto") {
+                        $Vb45p50ln1ha = 0;
+                    }
+                    if ($Vvl5hqffa30x === "auto") {
+                        $Vvl5hqffa30x = 0;
+                    }
+
+                    $Vnre3z2vvgov = $V1cylm503ett;
+                } else if ($Vku40chc0ddp === "auto") {
+                    if ($Vb45p50ln1ha === "auto") {
+                        $Vb45p50ln1ha = 0;
+                    }
+                    if ($Vvl5hqffa30x === "auto") {
+                        $Vvl5hqffa30x = 0;
+                    }
+
+                    $Vku40chc0ddp = $V1cylm503ett;
+                } else if ($Vs4qcjm3btdq === "auto") {
+                    if ($Vb45p50ln1ha === "auto") {
+                        $Vb45p50ln1ha = 0;
+                    }
+                    if ($Vvl5hqffa30x === "auto") {
+                        $Vvl5hqffa30x = 0;
+                    }
+
+                    $Vs4qcjm3btdq = $V1cylm503ett;
                 } else {
-                    if ($style->overflow === "visible") {
-                        // set all autos to zero
-                        if ($margin_top === "auto") {
-                            $margin_top = 0;
+                    if ($Vdidzwb0w3vc->overflow === "visible") {
+                        
+                        if ($Vb45p50ln1ha === "auto") {
+                            $Vb45p50ln1ha = 0;
                         }
-                        if ($margin_bottom === "auto") {
-                            $margin_bottom = 0;
+                        if ($Vvl5hqffa30x === "auto") {
+                            $Vvl5hqffa30x = 0;
                         }
-                        if ($top === "auto") {
-                            $top = 0;
+                        if ($Vnre3z2vvgov === "auto") {
+                            $Vnre3z2vvgov = 0;
                         }
-                        if ($bottom === "auto") {
-                            $bottom = 0;
+                        if ($Vs4qcjm3btdq === "auto") {
+                            $Vs4qcjm3btdq = 0;
                         }
-                        if ($height === "auto") {
-                            $height = $content_height;
+                        if ($Vku40chc0ddp === "auto") {
+                            $Vku40chc0ddp = $Vr4rva54sovd;
                         }
                     }
 
-                    // FIXME: overflow hidden
+                    
                 }
             }
 
         } else {
-            // Expand the height if overflow is visible
-            if ($height === "auto" && $content_height > $height /* && $style->overflow === "visible" */) {
-                $height = $content_height;
+            
+            if ($Vku40chc0ddp === "auto" && $Vr4rva54sovd > $Vku40chc0ddp ) {
+                $Vku40chc0ddp = $Vr4rva54sovd;
             }
 
-            // FIXME: this should probably be moved to a seperate function as per
-            // _calculate_restricted_width
+            
+            
 
-            // Only handle min/max height if the height is independent of the frame's content
-            if (!($style->overflow === "visible" || ($style->overflow === "hidden" && $height === "auto"))) {
-                $min_height = $style->min_height;
-                $max_height = $style->max_height;
+            
+            if (!($Vdidzwb0w3vc->overflow === "visible" || ($Vdidzwb0w3vc->overflow === "hidden" && $Vku40chc0ddp === "auto"))) {
+                $V1fbvsstmyzr = $Vdidzwb0w3vc->min_height;
+                $Vvilppdj3er1 = $Vdidzwb0w3vc->max_height;
 
-                if (isset($cb["h"])) {
-                    $min_height = $style->length_in_pt($min_height, $cb["h"]);
-                    $max_height = $style->length_in_pt($max_height, $cb["h"]);
-                } else if (isset($cb["w"])) {
-                    if (mb_strpos($min_height, "%") !== false) {
-                        $min_height = 0;
+                if (isset($Vavdpq045wub["h"])) {
+                    $V1fbvsstmyzr = $Vdidzwb0w3vc->length_in_pt($V1fbvsstmyzr, $Vavdpq045wub["h"]);
+                    $Vvilppdj3er1 = $Vdidzwb0w3vc->length_in_pt($Vvilppdj3er1, $Vavdpq045wub["h"]);
+                } else if (isset($Vavdpq045wub["w"])) {
+                    if (mb_strpos($V1fbvsstmyzr, "%") !== false) {
+                        $V1fbvsstmyzr = 0;
                     } else {
-                        $min_height = $style->length_in_pt($min_height, $cb["w"]);
+                        $V1fbvsstmyzr = $Vdidzwb0w3vc->length_in_pt($V1fbvsstmyzr, $Vavdpq045wub["w"]);
                     }
 
-                    if (mb_strpos($max_height, "%") !== false) {
-                        $max_height = "none";
+                    if (mb_strpos($Vvilppdj3er1, "%") !== false) {
+                        $Vvilppdj3er1 = "none";
                     } else {
-                        $max_height = $style->length_in_pt($max_height, $cb["w"]);
+                        $Vvilppdj3er1 = $Vdidzwb0w3vc->length_in_pt($Vvilppdj3er1, $Vavdpq045wub["w"]);
                     }
                 }
 
-                if ($max_height !== "none" && $min_height > $max_height) {
-                    // Swap 'em
-                    list($max_height, $min_height) = array($min_height, $max_height);
+                if ($Vvilppdj3er1 !== "none" && $V1fbvsstmyzr > $Vvilppdj3er1) {
+                    
+                    list($Vvilppdj3er1, $V1fbvsstmyzr) = array($V1fbvsstmyzr, $Vvilppdj3er1);
                 }
 
-                if ($max_height !== "none" && $height > $max_height) {
-                    $height = $max_height;
+                if ($Vvilppdj3er1 !== "none" && $Vku40chc0ddp > $Vvilppdj3er1) {
+                    $Vku40chc0ddp = $Vvilppdj3er1;
                 }
 
-                if ($height < $min_height) {
-                    $height = $min_height;
+                if ($Vku40chc0ddp < $V1fbvsstmyzr) {
+                    $Vku40chc0ddp = $V1fbvsstmyzr;
                 }
             }
         }
 
-        return array($height, $margin_top, $margin_bottom, $top, $bottom);
+        return array($Vku40chc0ddp, $Vb45p50ln1ha, $Vvl5hqffa30x, $Vnre3z2vvgov, $Vs4qcjm3btdq);
     }
 
-    /**
-     * Adjust the justification of each of our lines.
-     * http://www.w3.org/TR/CSS21/text.html#propdef-text-align
-     */
+    
     protected function _text_align()
     {
-        $style = $this->_frame->get_style();
-        $w = $this->_frame->get_containing_block("w");
-        $width = (float)$style->length_in_pt($style->width, $w);
+        $Vdidzwb0w3vc = $this->_frame->get_style();
+        $Vhoifq2kocyt = $this->_frame->get_containing_block("w");
+        $Vztt3qdrrikx = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->width, $Vhoifq2kocyt);
 
-        switch ($style->text_align) {
+        switch ($Vdidzwb0w3vc->text_align) {
             default:
             case "left":
-                foreach ($this->_frame->get_line_boxes() as $line) {
-                    if (!$line->left) {
+                foreach ($this->_frame->get_line_boxes() as $V4m4rbmlpgn2) {
+                    if (!$V4m4rbmlpgn2->left) {
                         continue;
                     }
 
-                    foreach ($line->get_frames() as $frame) {
-                        if ($frame instanceof BlockFrameDecorator) {
+                    foreach ($V4m4rbmlpgn2->get_frames() as $Vnk2ly5jcvjf) {
+                        if ($Vnk2ly5jcvjf instanceof BlockFrameDecorator) {
                             continue;
                         }
-                        $frame->set_position($frame->get_position("x") + $line->left);
+                        $Vnk2ly5jcvjf->set_position($Vnk2ly5jcvjf->get_position("x") + $V4m4rbmlpgn2->left);
                     }
                 }
                 return;
 
             case "right":
-                foreach ($this->_frame->get_line_boxes() as $line) {
-                    // Move each child over by $dx
-                    $dx = $width - $line->w - $line->right;
+                foreach ($this->_frame->get_line_boxes() as $V4m4rbmlpgn2) {
+                    
+                    $Vcprkgnutplg = $Vztt3qdrrikx - $V4m4rbmlpgn2->w - $V4m4rbmlpgn2->right;
 
-                    foreach ($line->get_frames() as $frame) {
-                        // Block frames are not aligned by text-align
-                        if ($frame instanceof BlockFrameDecorator) {
+                    foreach ($V4m4rbmlpgn2->get_frames() as $Vnk2ly5jcvjf) {
+                        
+                        if ($Vnk2ly5jcvjf instanceof BlockFrameDecorator) {
                             continue;
                         }
 
-                        $frame->set_position($frame->get_position("x") + $dx);
+                        $Vnk2ly5jcvjf->set_position($Vnk2ly5jcvjf->get_position("x") + $Vcprkgnutplg);
                     }
                 }
                 break;
 
             case "justify":
-                // We justify all lines except the last one
-                $lines = $this->_frame->get_line_boxes(); // needs to be a variable (strict standards)
-                $last_line = array_pop($lines);
+                
+                $Vnaca15glhj5 = $this->_frame->get_line_boxes(); 
+                $Vw5fpakylwty = array_pop($Vnaca15glhj5);
 
-                foreach ($lines as $i => $line) {
-                    if ($line->br) {
-                        unset($lines[$i]);
+                foreach ($Vnaca15glhj5 as $V3xsptcgzss2 => $V4m4rbmlpgn2) {
+                    if ($V4m4rbmlpgn2->br) {
+                        unset($Vnaca15glhj5[$V3xsptcgzss2]);
                     }
                 }
 
-                // One space character's width. Will be used to get a more accurate spacing
-                $space_width = $this->get_dompdf()->getFontMetrics()->getTextWidth(" ", $style->font_family, $style->font_size);
+                
+                $Vbfdfyeubtzn = $this->get_dompdf()->getFontMetrics()->getTextWidth(" ", $Vdidzwb0w3vc->font_family, $Vdidzwb0w3vc->font_size);
 
-                foreach ($lines as $line) {
-                    if ($line->left) {
-                        foreach ($line->get_frames() as $frame) {
-                            if (!$frame instanceof TextFrameDecorator) {
+                foreach ($Vnaca15glhj5 as $V4m4rbmlpgn2) {
+                    if ($V4m4rbmlpgn2->left) {
+                        foreach ($V4m4rbmlpgn2->get_frames() as $Vnk2ly5jcvjf) {
+                            if (!$Vnk2ly5jcvjf instanceof TextFrameDecorator) {
                                 continue;
                             }
 
-                            $frame->set_position($frame->get_position("x") + $line->left);
+                            $Vnk2ly5jcvjf->set_position($Vnk2ly5jcvjf->get_position("x") + $V4m4rbmlpgn2->left);
                         }
                     }
 
-                    // Set the spacing for each child
-                    if ($line->wc > 1) {
-                        $spacing = ($width - ($line->left + $line->w + $line->right) + $space_width) / ($line->wc - 1);
+                    
+                    if ($V4m4rbmlpgn2->wc > 1) {
+                        $Vuwwdaccmizk = ($Vztt3qdrrikx - ($V4m4rbmlpgn2->left + $V4m4rbmlpgn2->w + $V4m4rbmlpgn2->right) + $Vbfdfyeubtzn) / ($V4m4rbmlpgn2->wc - 1);
                     } else {
-                        $spacing = 0;
+                        $Vuwwdaccmizk = 0;
                     }
 
-                    $dx = 0;
-                    foreach ($line->get_frames() as $frame) {
-                        if (!$frame instanceof TextFrameDecorator) {
+                    $Vcprkgnutplg = 0;
+                    foreach ($V4m4rbmlpgn2->get_frames() as $Vnk2ly5jcvjf) {
+                        if (!$Vnk2ly5jcvjf instanceof TextFrameDecorator) {
                             continue;
                         }
 
-                        $text = $frame->get_text();
-                        $spaces = mb_substr_count($text, " ");
+                        $Vnlbbd31sxbf = $Vnk2ly5jcvjf->get_text();
+                        $V4hs1zg3x1cl = mb_substr_count($Vnlbbd31sxbf, " ");
 
-                        $char_spacing = (float)$style->length_in_pt($style->letter_spacing);
-                        $_spacing = $spacing + $char_spacing;
+                        $Vaohjovek4hi = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->letter_spacing);
+                        $Vcu1bujgobcf = $Vuwwdaccmizk + $Vaohjovek4hi;
 
-                        $frame->set_position($frame->get_position("x") + $dx);
-                        $frame->set_text_spacing($_spacing);
+                        $Vnk2ly5jcvjf->set_position($Vnk2ly5jcvjf->get_position("x") + $Vcprkgnutplg);
+                        $Vnk2ly5jcvjf->set_text_spacing($Vcu1bujgobcf);
 
-                        $dx += $spaces * $_spacing;
+                        $Vcprkgnutplg += $V4hs1zg3x1cl * $Vcu1bujgobcf;
                     }
 
-                    // The line (should) now occupy the entire width
-                    $line->w = $width;
+                    
+                    $V4m4rbmlpgn2->w = $Vztt3qdrrikx;
                 }
 
-                // Adjust the last line if necessary
-                if ($last_line->left) {
-                    foreach ($last_line->get_frames() as $frame) {
-                        if ($frame instanceof BlockFrameDecorator) {
+                
+                if ($Vw5fpakylwty->left) {
+                    foreach ($Vw5fpakylwty->get_frames() as $Vnk2ly5jcvjf) {
+                        if ($Vnk2ly5jcvjf instanceof BlockFrameDecorator) {
                             continue;
                         }
-                        $frame->set_position($frame->get_position("x") + $last_line->left);
+                        $Vnk2ly5jcvjf->set_position($Vnk2ly5jcvjf->get_position("x") + $Vw5fpakylwty->left);
                     }
                 }
                 break;
 
             case "center":
             case "centre":
-                foreach ($this->_frame->get_line_boxes() as $line) {
-                    // Centre each line by moving each frame in the line by:
-                    $dx = ($width + $line->left - $line->w - $line->right) / 2;
+                foreach ($this->_frame->get_line_boxes() as $V4m4rbmlpgn2) {
+                    
+                    $Vcprkgnutplg = ($Vztt3qdrrikx + $V4m4rbmlpgn2->left - $V4m4rbmlpgn2->w - $V4m4rbmlpgn2->right) / 2;
 
-                    foreach ($line->get_frames() as $frame) {
-                        // Block frames are not aligned by text-align
-                        if ($frame instanceof BlockFrameDecorator) {
+                    foreach ($V4m4rbmlpgn2->get_frames() as $Vnk2ly5jcvjf) {
+                        
+                        if ($Vnk2ly5jcvjf instanceof BlockFrameDecorator) {
                             continue;
                         }
 
-                        $frame->set_position($frame->get_position("x") + $dx);
+                        $Vnk2ly5jcvjf->set_position($Vnk2ly5jcvjf->get_position("x") + $Vcprkgnutplg);
                     }
                 }
                 break;
         }
     }
 
-    /**
-     * Align inline children vertically.
-     * Aligns each child vertically after each line is reflowed
-     */
+    
     function vertical_align()
     {
-        $canvas = null;
+        $Vvzurwoc24em = null;
 
-        foreach ($this->_frame->get_line_boxes() as $line) {
+        foreach ($this->_frame->get_line_boxes() as $V4m4rbmlpgn2) {
 
-            $height = $line->h;
+            $Vku40chc0ddp = $V4m4rbmlpgn2->h;
 
-            foreach ($line->get_frames() as $frame) {
-                $style = $frame->get_style();
-                $isInlineBlock = (
-                    '-dompdf-image' === $style->display
-                    || 'inline-block' === $style->display
-                    || 'inline-table' === $style->display
+            foreach ($V4m4rbmlpgn2->get_frames() as $Vnk2ly5jcvjf) {
+                $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
+                $V3xsptcgzss2sInlineBlock = (
+                    '-dompdf-image' === $Vdidzwb0w3vc->display
+                    || 'inline-block' === $Vdidzwb0w3vc->display
+                    || 'inline-table' === $Vdidzwb0w3vc->display
                 );
-                if (!$isInlineBlock && $style->display !== "inline") {
+                if (!$V3xsptcgzss2sInlineBlock && $Vdidzwb0w3vc->display !== "inline") {
                     continue;
                 }
 
-                if (!isset($canvas)) {
-                    $canvas = $frame->get_root()->get_dompdf()->get_canvas();
+                if (!isset($Vvzurwoc24em)) {
+                    $Vvzurwoc24em = $Vnk2ly5jcvjf->get_root()->get_dompdf()->get_canvas();
                 }
 
-                $baseline = $canvas->get_font_baseline($style->font_family, $style->font_size);
-                $y_offset = 0;
+                $Vjitdbblfflh = $Vvzurwoc24em->get_font_baseline($Vdidzwb0w3vc->font_family, $Vdidzwb0w3vc->font_size);
+                $Vfkov23vd2ia = 0;
 
-                //FIXME: The 0.8 ratio applied to the height is arbitrary (used to accommodate descenders?)
-                if($isInlineBlock) {
-                    $lineFrames = $line->get_frames();
-                    if (count($lineFrames) == 1) {
+                
+                if($V3xsptcgzss2sInlineBlock) {
+                    $V4m4rbmlpgn2Frames = $V4m4rbmlpgn2->get_frames();
+                    if (count($V4m4rbmlpgn2Frames) == 1) {
                         continue;
                     }
-                    $frameBox = $frame->get_frame()->get_border_box();
-                    $imageHeightDiff = $height * 0.8 - (float)$frameBox['h'];
+                    $Vnk2ly5jcvjfBox = $Vnk2ly5jcvjf->get_frame()->get_border_box();
+                    $V3xsptcgzss2mageHeightDiff = $Vku40chc0ddp * 0.8 - (float)$Vnk2ly5jcvjfBox['h'];
 
-                    $align = $frame->get_style()->vertical_align;
-                    if (in_array($align, Style::$vertical_align_keywords) === true) {
-                        switch ($align) {
+                    $Vtzrehmtbgu2 = $Vnk2ly5jcvjf->get_style()->vertical_align;
+                    if (in_array($Vtzrehmtbgu2, Style::$Vgkblykdxhiz) === true) {
+                        switch ($Vtzrehmtbgu2) {
                             case "middle":
-                                $y_offset = $imageHeightDiff / 2;
+                                $Vfkov23vd2ia = $V3xsptcgzss2mageHeightDiff / 2;
                                 break;
 
                             case "sub":
-                                $y_offset = 0.3 * $height + $imageHeightDiff;
+                                $Vfkov23vd2ia = 0.3 * $Vku40chc0ddp + $V3xsptcgzss2mageHeightDiff;
                                 break;
 
                             case "super":
-                                $y_offset = -0.2 * $height + $imageHeightDiff;
+                                $Vfkov23vd2ia = -0.2 * $Vku40chc0ddp + $V3xsptcgzss2mageHeightDiff;
                                 break;
 
-                            case "text-top": // FIXME: this should be the height of the frame minus the height of the text
-                                $y_offset = $height - (float)$style->length_in_pt($style->get_line_height(), $style->font_size);
+                            case "text-top": 
+                                $Vfkov23vd2ia = $Vku40chc0ddp - (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->get_line_height(), $Vdidzwb0w3vc->font_size);
                                 break;
 
                             case "top":
                                 break;
 
-                            case "text-bottom": // FIXME: align bottom of image with the descender?
+                            case "text-bottom": 
                             case "bottom":
-                                $y_offset = 0.3 * $height + $imageHeightDiff;
+                                $Vfkov23vd2ia = 0.3 * $Vku40chc0ddp + $V3xsptcgzss2mageHeightDiff;
                                 break;
 
                             case "baseline":
                             default:
-                                $y_offset = $imageHeightDiff;
+                                $Vfkov23vd2ia = $V3xsptcgzss2mageHeightDiff;
                                 break;
                         }
                     } else {
-                        $y_offset = $baseline - (float)$style->length_in_pt($align, $style->font_size) - (float)$frameBox['h'];
+                        $Vfkov23vd2ia = $Vjitdbblfflh - (float)$Vdidzwb0w3vc->length_in_pt($Vtzrehmtbgu2, $Vdidzwb0w3vc->font_size) - (float)$Vnk2ly5jcvjfBox['h'];
                     }
                 } else {
-                    $parent = $frame->get_parent();
-                    if ($parent instanceof TableCellFrameDecorator) {
-                        $align = "baseline";
+                    $Vycghhqowrim = $Vnk2ly5jcvjf->get_parent();
+                    if ($Vycghhqowrim instanceof TableCellFrameDecorator) {
+                        $Vtzrehmtbgu2 = "baseline";
                     } else {
-                        $align = $parent->get_style()->vertical_align;
+                        $Vtzrehmtbgu2 = $Vycghhqowrim->get_style()->vertical_align;
                     }
-                    if (in_array($align, Style::$vertical_align_keywords) === true) {
-                        switch ($align) {
+                    if (in_array($Vtzrehmtbgu2, Style::$Vgkblykdxhiz) === true) {
+                        switch ($Vtzrehmtbgu2) {
                             case "middle":
-                                $y_offset = ($height * 0.8 - $baseline) / 2;
+                                $Vfkov23vd2ia = ($Vku40chc0ddp * 0.8 - $Vjitdbblfflh) / 2;
                                 break;
 
                             case "sub":
-                                $y_offset = $height * 0.8 - $baseline * 0.5;
+                                $Vfkov23vd2ia = $Vku40chc0ddp * 0.8 - $Vjitdbblfflh * 0.5;
                                 break;
 
                             case "super":
-                                $y_offset = $height * 0.8 - $baseline * 1.4;
+                                $Vfkov23vd2ia = $Vku40chc0ddp * 0.8 - $Vjitdbblfflh * 1.4;
                                 break;
 
                             case "text-top":
-                            case "top": // Not strictly accurate, but good enough for now
+                            case "top": 
                                 break;
 
                             case "text-bottom":
                             case "bottom":
-                                $y_offset = $height * 0.8 - $baseline;
+                                $Vfkov23vd2ia = $Vku40chc0ddp * 0.8 - $Vjitdbblfflh;
                                 break;
 
                             case "baseline":
                             default:
-                                $y_offset = $height * 0.8 - $baseline;
+                                $Vfkov23vd2ia = $Vku40chc0ddp * 0.8 - $Vjitdbblfflh;
                                 break;
                         }
                     } else {
-                        $y_offset = $height * 0.8 - $baseline - (float)$style->length_in_pt($align, $style->font_size);
+                        $Vfkov23vd2ia = $Vku40chc0ddp * 0.8 - $Vjitdbblfflh - (float)$Vdidzwb0w3vc->length_in_pt($Vtzrehmtbgu2, $Vdidzwb0w3vc->font_size);
                     }
                 }
 
-                if ($y_offset !== 0) {
-                    $frame->move(0, $y_offset);
+                if ($Vfkov23vd2ia !== 0) {
+                    $Vnk2ly5jcvjf->move(0, $Vfkov23vd2ia);
                 }
             }
         }
     }
 
-    /**
-     * @param Frame $child
-     */
-    function process_clear(Frame $child)
+    
+    function process_clear(Frame $Vtcc233inn5m)
     {
-        $child_style = $child->get_style();
-        $root = $this->_frame->get_root();
+        $Vtcc233inn5m_style = $Vtcc233inn5m->get_style();
+        $Vzlqynjxsspd = $this->_frame->get_root();
 
-        // Handle "clear"
-        if ($child_style->clear !== "none") {
-            //TODO: this is a WIP for handling clear/float frames that are in between inline frames
-            if ($child->get_prev_sibling() !== null) {
+        
+        if ($Vtcc233inn5m_style->clear !== "none") {
+            
+            if ($Vtcc233inn5m->get_prev_sibling() !== null) {
                 $this->_frame->add_line();
             }
-            if ($child_style->float !== "none" && $child->get_next_sibling()) {
+            if ($Vtcc233inn5m_style->float !== "none" && $Vtcc233inn5m->get_next_sibling()) {
                 $this->_frame->set_current_line_number($this->_frame->get_current_line_number() - 1);
             }
 
-            $lowest_y = $root->get_lowest_float_offset($child);
+            $Vqt1ny5yu5fe = $Vzlqynjxsspd->get_lowest_float_offset($Vtcc233inn5m);
 
-            // If a float is still applying, we handle it
-            if ($lowest_y) {
-                if ($child->is_in_flow()) {
-                    $line_box = $this->_frame->get_current_line_box();
-                    $line_box->y = $lowest_y + $child->get_margin_height();
-                    $line_box->left = 0;
-                    $line_box->right = 0;
+            
+            if ($Vqt1ny5yu5fe) {
+                if ($Vtcc233inn5m->is_in_flow()) {
+                    $V4m4rbmlpgn2_box = $this->_frame->get_current_line_box();
+                    $V4m4rbmlpgn2_box->y = $Vqt1ny5yu5fe + $Vtcc233inn5m->get_margin_height();
+                    $V4m4rbmlpgn2_box->left = 0;
+                    $V4m4rbmlpgn2_box->right = 0;
                 }
 
-                $child->move(0, $lowest_y - $child->get_position("y"));
+                $Vtcc233inn5m->move(0, $Vqt1ny5yu5fe - $Vtcc233inn5m->get_position("y"));
             }
         }
     }
 
-    /**
-     * @param Frame $child
-     * @param float $cb_x
-     * @param float $cb_w
-     */
-    function process_float(Frame $child, $cb_x, $cb_w)
+    
+    function process_float(Frame $Vtcc233inn5m, $Vavdpq045wub_x, $Vavdpq045wub_w)
     {
-        $child_style = $child->get_style();
-        $root = $this->_frame->get_root();
+        $Vtcc233inn5m_style = $Vtcc233inn5m->get_style();
+        $Vzlqynjxsspd = $this->_frame->get_root();
 
-        // Handle "float"
-        if ($child_style->float !== "none") {
-            $root->add_floating_frame($child);
+        
+        if ($Vtcc233inn5m_style->float !== "none") {
+            $Vzlqynjxsspd->add_floating_frame($Vtcc233inn5m);
 
-            // Remove next frame's beginning whitespace
-            $next = $child->get_next_sibling();
-            if ($next && $next instanceof TextFrameDecorator) {
-                $next->set_text(ltrim($next->get_text()));
+            
+            $V3v4ujy1pb5h = $Vtcc233inn5m->get_next_sibling();
+            if ($V3v4ujy1pb5h && $V3v4ujy1pb5h instanceof TextFrameDecorator) {
+                $V3v4ujy1pb5h->set_text(ltrim($V3v4ujy1pb5h->get_text()));
             }
 
-            $line_box = $this->_frame->get_current_line_box();
-            list($old_x, $old_y) = $child->get_position();
+            $V4m4rbmlpgn2_box = $this->_frame->get_current_line_box();
+            list($Vp1hvpko25yn, $Vhx4cvgd22jh) = $Vtcc233inn5m->get_position();
 
-            $float_x = $cb_x;
-            $float_y = $old_y;
-            $float_w = $child->get_margin_width();
+            $Vg05lakdhba2 = $Vavdpq045wub_x;
+            $V34vpbbnbhes = $Vhx4cvgd22jh;
+            $Vw20c4dsugmb = $Vtcc233inn5m->get_margin_width();
 
-            if ($child_style->clear === "none") {
-                switch ($child_style->float) {
+            if ($Vtcc233inn5m_style->clear === "none") {
+                switch ($Vtcc233inn5m_style->float) {
                     case "left":
-                        $float_x += $line_box->left;
+                        $Vg05lakdhba2 += $V4m4rbmlpgn2_box->left;
                         break;
                     case "right":
-                        $float_x += ($cb_w - $line_box->right - $float_w);
+                        $Vg05lakdhba2 += ($Vavdpq045wub_w - $V4m4rbmlpgn2_box->right - $Vw20c4dsugmb);
                         break;
                 }
             } else {
-                if ($child_style->float === "right") {
-                    $float_x += ($cb_w - $float_w);
+                if ($Vtcc233inn5m_style->float === "right") {
+                    $Vg05lakdhba2 += ($Vavdpq045wub_w - $Vw20c4dsugmb);
                 }
             }
 
-            if ($cb_w < $float_x + $float_w - $old_x) {
-                // TODO handle when floating elements don't fit
+            if ($Vavdpq045wub_w < $Vg05lakdhba2 + $Vw20c4dsugmb - $Vp1hvpko25yn) {
+                
             }
 
-            $line_box->get_float_offsets();
+            $V4m4rbmlpgn2_box->get_float_offsets();
 
-            if ($child->_float_next_line) {
-                $float_y += $line_box->h;
+            if ($Vtcc233inn5m->_float_next_line) {
+                $V34vpbbnbhes += $V4m4rbmlpgn2_box->h;
             }
 
-            $child->set_position($float_x, $float_y);
-            $child->move($float_x - $old_x, $float_y - $old_y, true);
+            $Vtcc233inn5m->set_position($Vg05lakdhba2, $V34vpbbnbhes);
+            $Vtcc233inn5m->move($Vg05lakdhba2 - $Vp1hvpko25yn, $V34vpbbnbhes - $Vhx4cvgd22jh, true);
         }
     }
 
-    /**
-     * @param BlockFrameDecorator $block
-     * @return mixed|void
-     */
-    function reflow(BlockFrameDecorator $block = null)
+    
+    function reflow(BlockFrameDecorator $Vwoflziz3q5d = null)
     {
 
-        // Check if a page break is forced
-        $page = $this->_frame->get_root();
-        $page->check_forced_page_break($this->_frame);
+        
+        $Vc0dirmmlvo4 = $this->_frame->get_root();
+        $Vc0dirmmlvo4->check_forced_page_break($this->_frame);
 
-        // Bail if the page is full
-        if ($page->is_full()) {
+        
+        if ($Vc0dirmmlvo4->is_full()) {
             return;
         }
 
-        // Generated content
+        
         $this->_set_content();
 
-        // Collapse margins if required
+        
         $this->_collapse_margins();
 
-        $style = $this->_frame->get_style();
-        $cb = $this->_frame->get_containing_block();
+        $Vdidzwb0w3vc = $this->_frame->get_style();
+        $Vavdpq045wub = $this->_frame->get_containing_block();
 
-        if ($style->position === "fixed") {
-            $cb = $this->_frame->get_root()->get_containing_block();
+        if ($Vdidzwb0w3vc->position === "fixed") {
+            $Vavdpq045wub = $this->_frame->get_root()->get_containing_block();
         }
 
-        // Determine the constraints imposed by this frame: calculate the width
-        // of the content area:
-        list($w, $left_margin, $right_margin, $left, $right) = $this->_calculate_restricted_width();
+        
+        
+        list($Vhoifq2kocyt, $V0opnfka0og1_margin, $Vqemi0kebtld_margin, $V0opnfka0og1, $Vqemi0kebtld) = $this->_calculate_restricted_width();
 
-        // Store the calculated properties
-        $style->width = $w;
-        $style->margin_left = $left_margin;
-        $style->margin_right = $right_margin;
-        $style->left = $left;
-        $style->right = $right;
+        
+        $Vdidzwb0w3vc->width = $Vhoifq2kocyt;
+        $Vdidzwb0w3vc->margin_left = $V0opnfka0og1_margin;
+        $Vdidzwb0w3vc->margin_right = $Vqemi0kebtld_margin;
+        $Vdidzwb0w3vc->left = $V0opnfka0og1;
+        $Vdidzwb0w3vc->right = $Vqemi0kebtld;
 
-        // Update the position
+        
         $this->_frame->position();
-        list($x, $y) = $this->_frame->get_position();
+        list($Vs4gloy23a1d, $Vopgub02o3q2) = $this->_frame->get_position();
 
-        // Adjust the first line based on the text-indent property
-        $indent = (float)$style->length_in_pt($style->text_indent, $cb["w"]);
-        $this->_frame->increase_line_width($indent);
+        
+        $V3xsptcgzss2ndent = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->text_indent, $Vavdpq045wub["w"]);
+        $this->_frame->increase_line_width($V3xsptcgzss2ndent);
 
-        // Determine the content edge
-        $top = (float)$style->length_in_pt(array($style->margin_top,
-            $style->padding_top,
-            $style->border_top_width), $cb["h"]);
+        
+        $Vnre3z2vvgov = (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->margin_top,
+            $Vdidzwb0w3vc->padding_top,
+            $Vdidzwb0w3vc->border_top_width), $Vavdpq045wub["h"]);
 
-        $bottom = (float)$style->length_in_pt(array($style->border_bottom_width,
-            $style->margin_bottom,
-            $style->padding_bottom), $cb["h"]);
+        $Vs4qcjm3btdq = (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->border_bottom_width,
+            $Vdidzwb0w3vc->margin_bottom,
+            $Vdidzwb0w3vc->padding_bottom), $Vavdpq045wub["h"]);
 
-        $cb_x = $x + (float)$left_margin + (float)$style->length_in_pt(array($style->border_left_width,
-                $style->padding_left), $cb["w"]);
+        $Vavdpq045wub_x = $Vs4gloy23a1d + (float)$V0opnfka0og1_margin + (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->border_left_width,
+                $Vdidzwb0w3vc->padding_left), $Vavdpq045wub["w"]);
 
-        $cb_y = $y + $top;
+        $Vavdpq045wub_y = $Vopgub02o3q2 + $Vnre3z2vvgov;
 
-        $cb_h = ($cb["h"] + $cb["y"]) - $bottom - $cb_y;
+        $Vavdpq045wub_h = ($Vavdpq045wub["h"] + $Vavdpq045wub["y"]) - $Vs4qcjm3btdq - $Vavdpq045wub_y;
 
-        // Set the y position of the first line in this block
-        $line_box = $this->_frame->get_current_line_box();
-        $line_box->y = $cb_y;
-        $line_box->get_float_offsets();
+        
+        $V4m4rbmlpgn2_box = $this->_frame->get_current_line_box();
+        $V4m4rbmlpgn2_box->y = $Vavdpq045wub_y;
+        $V4m4rbmlpgn2_box->get_float_offsets();
 
-        // Set the containing blocks and reflow each child
-        foreach ($this->_frame->get_children() as $child) {
+        
+        foreach ($this->_frame->get_children() as $Vtcc233inn5m) {
 
-            // Bail out if the page is full
-            if ($page->is_full()) {
+            
+            if ($Vc0dirmmlvo4->is_full()) {
                 break;
             }
 
-            $child->set_containing_block($cb_x, $cb_y, $w, $cb_h);
+            $Vtcc233inn5m->set_containing_block($Vavdpq045wub_x, $Vavdpq045wub_y, $Vhoifq2kocyt, $Vavdpq045wub_h);
 
-            $this->process_clear($child);
+            $this->process_clear($Vtcc233inn5m);
 
-            $child->reflow($this->_frame);
+            $Vtcc233inn5m->reflow($this->_frame);
 
-            // Don't add the child to the line if a page break has occurred
-            if ($page->check_page_break($child)) {
+            
+            if ($Vc0dirmmlvo4->check_page_break($Vtcc233inn5m)) {
                 break;
             }
 
-            $this->process_float($child, $cb_x, $w);
+            $this->process_float($Vtcc233inn5m, $Vavdpq045wub_x, $Vhoifq2kocyt);
         }
 
-        // Determine our height
-        list($height, $margin_top, $margin_bottom, $top, $bottom) = $this->_calculate_restricted_height();
-        $style->height = $height;
-        $style->margin_top = $margin_top;
-        $style->margin_bottom = $margin_bottom;
-        $style->top = $top;
-        $style->bottom = $bottom;
+        
+        list($Vku40chc0ddp, $Vb45p50ln1ha, $Vvl5hqffa30x, $Vnre3z2vvgov, $Vs4qcjm3btdq) = $this->_calculate_restricted_height();
+        $Vdidzwb0w3vc->height = $Vku40chc0ddp;
+        $Vdidzwb0w3vc->margin_top = $Vb45p50ln1ha;
+        $Vdidzwb0w3vc->margin_bottom = $Vvl5hqffa30x;
+        $Vdidzwb0w3vc->top = $Vnre3z2vvgov;
+        $Vdidzwb0w3vc->bottom = $Vs4qcjm3btdq;
 
-        $orig_style = $this->_frame->get_original_style();
+        $Vfdmsptgjprm = $this->_frame->get_original_style();
 
-        $needs_reposition = ($style->position === "absolute" && ($style->right !== "auto" || $style->bottom !== "auto"));
+        $Vn4guw2jum44 = ($Vdidzwb0w3vc->position === "absolute" && ($Vdidzwb0w3vc->right !== "auto" || $Vdidzwb0w3vc->bottom !== "auto"));
 
-        // Absolute positioning measurement
-        if ($needs_reposition) {
-            if ($orig_style->width === "auto" && ($orig_style->left === "auto" || $orig_style->right === "auto")) {
-                $width = 0;
-                foreach ($this->_frame->get_line_boxes() as $line) {
-                    $width = max($line->w, $width);
+        
+        if ($Vn4guw2jum44) {
+            if ($Vfdmsptgjprm->width === "auto" && ($Vfdmsptgjprm->left === "auto" || $Vfdmsptgjprm->right === "auto")) {
+                $Vztt3qdrrikx = 0;
+                foreach ($this->_frame->get_line_boxes() as $V4m4rbmlpgn2) {
+                    $Vztt3qdrrikx = max($V4m4rbmlpgn2->w, $Vztt3qdrrikx);
                 }
-                $style->width = $width;
+                $Vdidzwb0w3vc->width = $Vztt3qdrrikx;
             }
 
-            $style->left = $orig_style->left;
-            $style->right = $orig_style->right;
+            $Vdidzwb0w3vc->left = $Vfdmsptgjprm->left;
+            $Vdidzwb0w3vc->right = $Vfdmsptgjprm->right;
         }
 
-        // Calculate inline-block / float auto-widths
-        if (($style->display === "inline-block" || $style->float !== 'none') && $orig_style->width === 'auto') {
-            $width = 0;
+        
+        if (($Vdidzwb0w3vc->display === "inline-block" || $Vdidzwb0w3vc->float !== 'none') && $Vfdmsptgjprm->width === 'auto') {
+            $Vztt3qdrrikx = 0;
 
-            foreach ($this->_frame->get_line_boxes() as $line) {
-                $line->recalculate_width();
+            foreach ($this->_frame->get_line_boxes() as $V4m4rbmlpgn2) {
+                $V4m4rbmlpgn2->recalculate_width();
 
-                $width = max($line->w, $width);
+                $Vztt3qdrrikx = max($V4m4rbmlpgn2->w, $Vztt3qdrrikx);
             }
 
-            if ($width === 0) {
-                foreach ($this->_frame->get_children() as $child) {
-                    $width += $child->calculate_auto_width();
+            if ($Vztt3qdrrikx === 0) {
+                foreach ($this->_frame->get_children() as $Vtcc233inn5m) {
+                    $Vztt3qdrrikx += $Vtcc233inn5m->calculate_auto_width();
                 }
             }
 
-            $style->width = $width;
+            $Vdidzwb0w3vc->width = $Vztt3qdrrikx;
         }
 
         $this->_text_align();
         $this->vertical_align();
 
-        // Absolute positioning
-        if ($needs_reposition) {
-            list($x, $y) = $this->_frame->get_position();
+        
+        if ($Vn4guw2jum44) {
+            list($Vs4gloy23a1d, $Vopgub02o3q2) = $this->_frame->get_position();
             $this->_frame->position();
-            list($new_x, $new_y) = $this->_frame->get_position();
-            $this->_frame->move($new_x - $x, $new_y - $y, true);
+            list($Vnzsw0llzsnu, $Vnd1ee1yzdrw) = $this->_frame->get_position();
+            $this->_frame->move($Vnzsw0llzsnu - $Vs4gloy23a1d, $Vnd1ee1yzdrw - $Vopgub02o3q2, true);
         }
 
-        if ($block && $this->_frame->is_in_flow()) {
-            $block->add_frame_to_line($this->_frame);
+        if ($Vwoflziz3q5d && $this->_frame->is_in_flow()) {
+            $Vwoflziz3q5d->add_frame_to_line($this->_frame);
 
-            // May be inline-block
-            if ($style->display === "block") {
-                $block->add_line();
+            
+            if ($Vdidzwb0w3vc->display === "block") {
+                $Vwoflziz3q5d->add_line();
             }
         }
     }
 
-    /**
-     * Determine current frame width based on contents
-     *
-     * @return float
-     */
+    
     public function calculate_auto_width()
     {
-        $width = 0;
+        $Vztt3qdrrikx = 0;
 
-        foreach ($this->_frame->get_line_boxes() as $line) {
-            $line_width = 0;
+        foreach ($this->_frame->get_line_boxes() as $V4m4rbmlpgn2) {
+            $V4m4rbmlpgn2_width = 0;
 
-            foreach ($line->get_frames() as $frame) {
-                if ($frame->get_original_style()->width == 'auto') {
-                    $line_width += $frame->calculate_auto_width();
+            foreach ($V4m4rbmlpgn2->get_frames() as $Vnk2ly5jcvjf) {
+                if ($Vnk2ly5jcvjf->get_original_style()->width == 'auto') {
+                    $V4m4rbmlpgn2_width += $Vnk2ly5jcvjf->calculate_auto_width();
                 } else {
-                    $line_width += $frame->get_margin_width();
+                    $V4m4rbmlpgn2_width += $Vnk2ly5jcvjf->get_margin_width();
                 }
             }
 
-            $width = max($line_width, $width);
+            $Vztt3qdrrikx = max($V4m4rbmlpgn2_width, $Vztt3qdrrikx);
         }
 
-        $this->_frame->get_style()->width = $width;
+        $this->_frame->get_style()->width = $Vztt3qdrrikx;
 
         return $this->_frame->get_margin_width();
     }

@@ -1,10 +1,5 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\FrameReflower;
 
 use Dompdf\Adapter\CPDF;
@@ -15,345 +10,290 @@ use Dompdf\Frame;
 use Dompdf\FrameDecorator\Block;
 use Dompdf\Frame\Factory;
 
-/**
- * Base reflower class
- *
- * Reflower objects are responsible for determining the width and height of
- * individual frames.  They also create line and page breaks as necessary.
- *
- * @package dompdf
- */
+
 abstract class AbstractFrameReflower
 {
 
-    /**
-     * Frame for this reflower
-     *
-     * @var Frame
-     */
-    protected $_frame;
+    
+    protected $Vtabfexfghu0;
 
-    /**
-     * Cached min/max size
-     *
-     * @var array
-     */
-    protected $_min_max_cache;
+    
+    protected $V5dbawoo4gm2;
 
-    /**
-     * AbstractFrameReflower constructor.
-     * @param Frame $frame
-     */
-    function __construct(Frame $frame)
+    
+    function __construct(Frame $Vnk2ly5jcvjf)
     {
-        $this->_frame = $frame;
-        $this->_min_max_cache = null;
+        $Vcki4t4qmybshis->_frame = $Vnk2ly5jcvjf;
+        $Vcki4t4qmybshis->_min_max_cache = null;
     }
 
     function dispose()
     {
     }
 
-    /**
-     * @return Dompdf
-     */
+    
     function get_dompdf()
     {
-        return $this->_frame->get_dompdf();
+        return $Vcki4t4qmybshis->_frame->get_dompdf();
     }
 
-    /**
-     * Collapse frames margins
-     * http://www.w3.org/TR/CSS2/box.html#collapsing-margins
-     */
+    
     protected function _collapse_margins()
     {
-        $frame = $this->_frame;
-        $cb = $frame->get_containing_block();
-        $style = $frame->get_style();
+        $Vnk2ly5jcvjf = $Vcki4t4qmybshis->_frame;
+        $Vavdpq045wub = $Vnk2ly5jcvjf->get_containing_block();
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
 
-        // Margins of float/absolutely positioned/inline-block elements do not collapse.
-        if (!$frame->is_in_flow() || $frame->is_inline_block()) {
+        
+        if (!$Vnk2ly5jcvjf->is_in_flow() || $Vnk2ly5jcvjf->is_inline_block()) {
             return;
         }
 
-        $t = $style->length_in_pt($style->margin_top, $cb["h"]);
-        $b = $style->length_in_pt($style->margin_bottom, $cb["h"]);
+        $Vcki4t4qmybs = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_top, $Vavdpq045wub["h"]);
+        $Vbz3vmbr1h2v = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_bottom, $Vavdpq045wub["h"]);
 
-        // Handle 'auto' values
-        if ($t === "auto") {
-            $style->margin_top = "0pt";
-            $t = 0;
+        
+        if ($Vcki4t4qmybs === "auto") {
+            $Vdidzwb0w3vc->margin_top = "0pt";
+            $Vcki4t4qmybs = 0;
         }
 
-        if ($b === "auto") {
-            $style->margin_bottom = "0pt";
-            $b = 0;
+        if ($Vbz3vmbr1h2v === "auto") {
+            $Vdidzwb0w3vc->margin_bottom = "0pt";
+            $Vbz3vmbr1h2v = 0;
         }
 
-        // Collapse vertical margins:
-        $n = $frame->get_next_sibling();
-        if ( $n && !$n->is_block() & !$n->is_table() ) {
-            while ($n = $n->get_next_sibling()) {
-                if ($n->is_block() || $n->is_table()) {
+        
+        $V1qcutcuyu3m = $Vnk2ly5jcvjf->get_next_sibling();
+        if ( $V1qcutcuyu3m && !$V1qcutcuyu3m->is_block() & !$V1qcutcuyu3m->is_table() ) {
+            while ($V1qcutcuyu3m = $V1qcutcuyu3m->get_next_sibling()) {
+                if ($V1qcutcuyu3m->is_block() || $V1qcutcuyu3m->is_table()) {
                     break;
                 }
 
-                if (!$n->get_first_child()) {
-                    $n = null;
+                if (!$V1qcutcuyu3m->get_first_child()) {
+                    $V1qcutcuyu3m = null;
                     break;
                 }
             }
         }
 
-        if ($n) {
-            $n_style = $n->get_style();
-            $n_t = (float)$n_style->length_in_pt($n_style->margin_top, $cb["h"]);
+        if ($V1qcutcuyu3m) {
+            $V1qcutcuyu3m_style = $V1qcutcuyu3m->get_style();
+            $V1qcutcuyu3m_t = (float)$V1qcutcuyu3m_style->length_in_pt($V1qcutcuyu3m_style->margin_top, $Vavdpq045wub["h"]);
 
-            $b = $this->_get_collapsed_margin_length($b, $n_t);
-            $style->margin_bottom = $b . "pt";
-            $n_style->margin_top = "0pt";
+            $Vbz3vmbr1h2v = $Vcki4t4qmybshis->_get_collapsed_margin_length($Vbz3vmbr1h2v, $V1qcutcuyu3m_t);
+            $Vdidzwb0w3vc->margin_bottom = $Vbz3vmbr1h2v . "pt";
+            $V1qcutcuyu3m_style->margin_top = "0pt";
         }
 
-        // Collapse our first child's margin, if there is no border or padding
-        if ($style->get_border_top_width() == 0 && $style->length_in_pt($style->padding_top) == 0) {
-            $f = $this->_frame->get_first_child();
-            if ( $f && !$f->is_block() && !$f->is_table() ) {
-                while ( $f = $f->get_next_sibling() ) {
-                    if ( $f->is_block() || $f->is_table() ) {
+        
+        if ($Vdidzwb0w3vc->get_border_top_width() == 0 && $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->padding_top) == 0) {
+            $V4ljftfdeqpl = $Vcki4t4qmybshis->_frame->get_first_child();
+            if ( $V4ljftfdeqpl && !$V4ljftfdeqpl->is_block() && !$V4ljftfdeqpl->is_table() ) {
+                while ( $V4ljftfdeqpl = $V4ljftfdeqpl->get_next_sibling() ) {
+                    if ( $V4ljftfdeqpl->is_block() || $V4ljftfdeqpl->is_table() ) {
                         break;
                     }
 
-                    if ( !$f->get_first_child() ) {
-                        $f = null;
+                    if ( !$V4ljftfdeqpl->get_first_child() ) {
+                        $V4ljftfdeqpl = null;
                         break;
                     }
                 }
             }
 
-            // Margin are collapsed only between block-level boxes
-            if ($f) {
-                $f_style = $f->get_style();
-                $f_t = (float)$f_style->length_in_pt($f_style->margin_top, $cb["h"]);
+            
+            if ($V4ljftfdeqpl) {
+                $V4ljftfdeqpl_style = $V4ljftfdeqpl->get_style();
+                $V4ljftfdeqpl_t = (float)$V4ljftfdeqpl_style->length_in_pt($V4ljftfdeqpl_style->margin_top, $Vavdpq045wub["h"]);
 
-                $t = $this->_get_collapsed_margin_length($t, $f_t);
-                $style->margin_top = $t."pt";
-                $f_style->margin_top = "0pt";
+                $Vcki4t4qmybs = $Vcki4t4qmybshis->_get_collapsed_margin_length($Vcki4t4qmybs, $V4ljftfdeqpl_t);
+                $Vdidzwb0w3vc->margin_top = $Vcki4t4qmybs."pt";
+                $V4ljftfdeqpl_style->margin_top = "0pt";
             }
         }
 
-        // Collapse our last child's margin, if there is no border or padding
-        if ($style->get_border_bottom_width() == 0 && $style->length_in_pt($style->padding_bottom) == 0) {
-            $l = $this->_frame->get_last_child();
-            if ( $l && !$l->is_block() && !$l->is_table() ) {
-                while ( $l = $l->get_prev_sibling() ) {
-                    if ( $l->is_block() || $l->is_table() ) {
+        
+        if ($Vdidzwb0w3vc->get_border_bottom_width() == 0 && $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->padding_bottom) == 0) {
+            $V3nb02w01gr5 = $Vcki4t4qmybshis->_frame->get_last_child();
+            if ( $V3nb02w01gr5 && !$V3nb02w01gr5->is_block() && !$V3nb02w01gr5->is_table() ) {
+                while ( $V3nb02w01gr5 = $V3nb02w01gr5->get_prev_sibling() ) {
+                    if ( $V3nb02w01gr5->is_block() || $V3nb02w01gr5->is_table() ) {
                         break;
                     }
 
-                    if ( !$l->get_last_child() ) {
-                        $l = null;
+                    if ( !$V3nb02w01gr5->get_last_child() ) {
+                        $V3nb02w01gr5 = null;
                         break;
                     }
                 }
             }
 
-            // Margin are collapsed only between block-level boxes
-            if ($l) {
-                $l_style = $l->get_style();
-                $l_b = (float)$l_style->length_in_pt($l_style->margin_bottom, $cb["h"]);
+            
+            if ($V3nb02w01gr5) {
+                $V3nb02w01gr5_style = $V3nb02w01gr5->get_style();
+                $V3nb02w01gr5_b = (float)$V3nb02w01gr5_style->length_in_pt($V3nb02w01gr5_style->margin_bottom, $Vavdpq045wub["h"]);
 
-                $b = $this->_get_collapsed_margin_length($b, $l_b);
-                $style->margin_bottom = $b."pt";
-                $l_style->margin_bottom = "0pt";
+                $Vbz3vmbr1h2v = $Vcki4t4qmybshis->_get_collapsed_margin_length($Vbz3vmbr1h2v, $V3nb02w01gr5_b);
+                $Vdidzwb0w3vc->margin_bottom = $Vbz3vmbr1h2v."pt";
+                $V3nb02w01gr5_style->margin_bottom = "0pt";
             }
         }
     }
 
-    /**
-     * Get the combined (collapsed) length of two adjoining margins.
-     *
-     * See http://www.w3.org/TR/CSS2/box.html#collapsing-margins.
-     *
-     * @param number $length1
-     * @param number $length2
-     * @return number
-     */
-    private function _get_collapsed_margin_length($length1, $length2)
+    
+    private function _get_collapsed_margin_length($V3nb02w01gr5ength1, $V3nb02w01gr5ength2)
     {
-        if ($length1 < 0 && $length2 < 0) {
-            return min($length1, $length2); // min(x, y) = - max(abs(x), abs(y)), if x < 0 && y < 0
+        if ($V3nb02w01gr5ength1 < 0 && $V3nb02w01gr5ength2 < 0) {
+            return min($V3nb02w01gr5ength1, $V3nb02w01gr5ength2); 
         }
 
-        if ($length1 < 0 || $length2 < 0) {
-            return $length1 + $length2; // x + y = x - abs(y), if y < 0
+        if ($V3nb02w01gr5ength1 < 0 || $V3nb02w01gr5ength2 < 0) {
+            return $V3nb02w01gr5ength1 + $V3nb02w01gr5ength2; 
         }
 
-        return max($length1, $length2);
+        return max($V3nb02w01gr5ength1, $V3nb02w01gr5ength2);
     }
 
-    /**
-     * @param Block|null $block
-     * @return mixed
-     */
-    abstract function reflow(Block $block = null);
+    
+    abstract function reflow(Block $Vbz3vmbr1h2vlock = null);
 
-    /**
-     * Required for table layout: Returns an array(0 => min, 1 => max, "min"
-     * => min, "max" => max) of the minimum and maximum widths of this frame.
-     * This provides a basic implementation.  Child classes should override
-     * this if necessary.
-     *
-     * @return array|null
-     */
+    
     function get_min_max_width()
     {
-        if (!is_null($this->_min_max_cache)) {
-            return $this->_min_max_cache;
+        if (!is_null($Vcki4t4qmybshis->_min_max_cache)) {
+            return $Vcki4t4qmybshis->_min_max_cache;
         }
 
-        $style = $this->_frame->get_style();
+        $Vdidzwb0w3vc = $Vcki4t4qmybshis->_frame->get_style();
 
-        // Account for margins & padding
-        $dims = array($style->padding_left,
-            $style->padding_right,
-            $style->border_left_width,
-            $style->border_right_width,
-            $style->margin_left,
-            $style->margin_right);
+        
+        $Vo1o33y03ae2 = array($Vdidzwb0w3vc->padding_left,
+            $Vdidzwb0w3vc->padding_right,
+            $Vdidzwb0w3vc->border_left_width,
+            $Vdidzwb0w3vc->border_right_width,
+            $Vdidzwb0w3vc->margin_left,
+            $Vdidzwb0w3vc->margin_right);
 
-        $cb_w = $this->_frame->get_containing_block("w");
-        $delta = (float)$style->length_in_pt($dims, $cb_w);
+        $Vavdpq045wub_w = $Vcki4t4qmybshis->_frame->get_containing_block("w");
+        $Vdim3b3fegnk = (float)$Vdidzwb0w3vc->length_in_pt($Vo1o33y03ae2, $Vavdpq045wub_w);
 
-        // Handle degenerate case
-        if (!$this->_frame->get_first_child()) {
-            return $this->_min_max_cache = array(
-                $delta, $delta,
-                "min" => $delta,
-                "max" => $delta,
+        
+        if (!$Vcki4t4qmybshis->_frame->get_first_child()) {
+            return $Vcki4t4qmybshis->_min_max_cache = array(
+                $Vdim3b3fegnk, $Vdim3b3fegnk,
+                "min" => $Vdim3b3fegnk,
+                "max" => $Vdim3b3fegnk,
             );
         }
 
-        $low = array();
-        $high = array();
+        $V3nb02w01gr5ow = array();
+        $Vlzzam5wukfo = array();
 
-        for ($iter = $this->_frame->get_children()->getIterator(); $iter->valid(); $iter->next()) {
-            $inline_min = 0;
-            $inline_max = 0;
+        for ($Vqz1antku1y3 = $Vcki4t4qmybshis->_frame->get_children()->getIterator(); $Vqz1antku1y3->valid(); $Vqz1antku1y3->next()) {
+            $Veovd4ewwjmq = 0;
+            $V3soycu2yr2r = 0;
 
-            // Add all adjacent inline widths together to calculate max width
-            while ($iter->valid() && in_array($iter->current()->get_style()->display, Style::$INLINE_TYPES)) {
-                $child = $iter->current();
+            
+            while ($Vqz1antku1y3->valid() && in_array($Vqz1antku1y3->current()->get_style()->display, Style::$V3irmujeshqx)) {
+                $Vtcc233inn5m = $Vqz1antku1y3->current();
 
-                $minmax = $child->get_min_max_width();
+                $Vfsfrnel5hhj = $Vtcc233inn5m->get_min_max_width();
 
-                if (in_array($iter->current()->get_style()->white_space, array("pre", "nowrap"))) {
-                    $inline_min += $minmax["min"];
+                if (in_array($Vqz1antku1y3->current()->get_style()->white_space, array("pre", "nowrap"))) {
+                    $Veovd4ewwjmq += $Vfsfrnel5hhj["min"];
                 } else {
-                    $low[] = $minmax["min"];
+                    $V3nb02w01gr5ow[] = $Vfsfrnel5hhj["min"];
                 }
 
-                $inline_max += $minmax["max"];
-                $iter->next();
+                $V3soycu2yr2r += $Vfsfrnel5hhj["max"];
+                $Vqz1antku1y3->next();
             }
 
-            if ($inline_max > 0) {
-                $high[] = $inline_max;
+            if ($V3soycu2yr2r > 0) {
+                $Vlzzam5wukfo[] = $V3soycu2yr2r;
             }
-            if ($inline_min > 0) {
-                $low[] = $inline_min;
+            if ($Veovd4ewwjmq > 0) {
+                $V3nb02w01gr5ow[] = $Veovd4ewwjmq;
             }
 
-            if ($iter->valid()) {
-                list($low[], $high[]) = $iter->current()->get_min_max_width();
+            if ($Vqz1antku1y3->valid()) {
+                list($V3nb02w01gr5ow[], $Vlzzam5wukfo[]) = $Vqz1antku1y3->current()->get_min_max_width();
                 continue;
             }
         }
-        $min = count($low) ? max($low) : 0;
-        $max = count($high) ? max($high) : 0;
+        $V2nh50bvjhl4 = count($V3nb02w01gr5ow) ? max($V3nb02w01gr5ow) : 0;
+        $Vc1ytxzqpa5h = count($Vlzzam5wukfo) ? max($Vlzzam5wukfo) : 0;
 
-        // Use specified width if it is greater than the minimum defined by the
-        // content.  If the width is a percentage ignore it for now.
-        $width = $style->width;
-        if ($width !== "auto" && !Helpers::is_percent($width)) {
-            $width = (float)$style->length_in_pt($width, $cb_w);
-            if ($min < $width) {
-                $min = $width;
+        
+        
+        $Vztt3qdrrikx = $Vdidzwb0w3vc->width;
+        if ($Vztt3qdrrikx !== "auto" && !Helpers::is_percent($Vztt3qdrrikx)) {
+            $Vztt3qdrrikx = (float)$Vdidzwb0w3vc->length_in_pt($Vztt3qdrrikx, $Vavdpq045wub_w);
+            if ($V2nh50bvjhl4 < $Vztt3qdrrikx) {
+                $V2nh50bvjhl4 = $Vztt3qdrrikx;
             }
-            if ($max < $width) {
-                $max = $width;
+            if ($Vc1ytxzqpa5h < $Vztt3qdrrikx) {
+                $Vc1ytxzqpa5h = $Vztt3qdrrikx;
             }
         }
 
-        $min += $delta;
-        $max += $delta;
-        return $this->_min_max_cache = array($min, $max, "min" => $min, "max" => $max);
+        $V2nh50bvjhl4 += $Vdim3b3fegnk;
+        $Vc1ytxzqpa5h += $Vdim3b3fegnk;
+        return $Vcki4t4qmybshis->_min_max_cache = array($V2nh50bvjhl4, $Vc1ytxzqpa5h, "min" => $V2nh50bvjhl4, "max" => $Vc1ytxzqpa5h);
     }
 
-    /**
-     * Parses a CSS string containing quotes and escaped hex characters
-     *
-     * @param $string string The CSS string to parse
-     * @param $single_trim
-     * @return string
-     */
-    protected function _parse_string($string, $single_trim = false)
+    
+    protected function _parse_string($V5jic1hsgori, $Vmsieq4gunur = false)
     {
-        if ($single_trim) {
-            $string = preg_replace('/^[\"\']/', "", $string);
-            $string = preg_replace('/[\"\']$/', "", $string);
+        if ($Vmsieq4gunur) {
+            $V5jic1hsgori = preg_replace('/^[\"\']/', "", $V5jic1hsgori);
+            $V5jic1hsgori = preg_replace('/[\"\']$/', "", $V5jic1hsgori);
         } else {
-            $string = trim($string, "'\"");
+            $V5jic1hsgori = trim($V5jic1hsgori, "'\"");
         }
 
-        $string = str_replace(array("\\\n", '\\"', "\\'"),
-            array("", '"', "'"), $string);
+        $V5jic1hsgori = str_replace(array("\\\n", '\\"', "\\'"),
+            array("", '"', "'"), $V5jic1hsgori);
 
-        // Convert escaped hex characters into ascii characters (e.g. \A => newline)
-        $string = preg_replace_callback("/\\\\([0-9a-fA-F]{0,6})/",
-            function ($matches) { return \Dompdf\Helpers::unichr(hexdec($matches[1])); },
-            $string);
-        return $string;
+        
+        $V5jic1hsgori = preg_replace_callback("/\\\\([0-9a-fA-F]{0,6})/",
+            function ($Vxve4maip4vq) { return \Dompdf\Helpers::unichr(hexdec($Vxve4maip4vq[1])); },
+            $V5jic1hsgori);
+        return $V5jic1hsgori;
     }
 
-    /**
-     * Parses a CSS "quotes" property
-     *
-     * @return array|null An array of pairs of quotes
-     */
+    
     protected function _parse_quotes()
     {
-        // Matches quote types
-        $re = '/(\'[^\']*\')|(\"[^\"]*\")/';
+        
+        $Vvht4h04zxje = '/(\'[^\']*\')|(\"[^\"]*\")/';
 
-        $quotes = $this->_frame->get_style()->quotes;
+        $Vznnzjndq4fv = $Vcki4t4qmybshis->_frame->get_style()->quotes;
 
-        // split on spaces, except within quotes
-        if (!preg_match_all($re, "$quotes", $matches, PREG_SET_ORDER)) {
+        
+        if (!preg_match_all($Vvht4h04zxje, "$Vznnzjndq4fv", $Vxve4maip4vq, PREG_SET_ORDER)) {
             return null;
         }
 
-        $quotes_array = array();
-        foreach ($matches as $_quote) {
-            $quotes_array[] = $this->_parse_string($_quote[0], true);
+        $Vznnzjndq4fv_array = array();
+        foreach ($Vxve4maip4vq as $Vpbxedwn2t35) {
+            $Vznnzjndq4fv_array[] = $Vcki4t4qmybshis->_parse_string($Vpbxedwn2t35[0], true);
         }
 
-        if (empty($quotes_array)) {
-            $quotes_array = array('"', '"');
+        if (empty($Vznnzjndq4fv_array)) {
+            $Vznnzjndq4fv_array = array('"', '"');
         }
 
-        return array_chunk($quotes_array, 2);
+        return array_chunk($Vznnzjndq4fv_array, 2);
     }
 
-    /**
-     * Parses the CSS "content" property
-     *
-     * @return string|null The resulting string
-     */
+    
     protected function _parse_content()
     {
-        // Matches generated content
-        $re = "/\n" .
+        
+        $Vvht4h04zxje = "/\n" .
             "\s(counters?\\([^)]*\\))|\n" .
             "\A(counters?\\([^)]*\\))|\n" .
             "\s([\"']) ( (?:[^\"']|\\\\[\"'])+ )(?<!\\\\)\\3|\n" .
@@ -362,168 +302,162 @@ abstract class AbstractFrameReflower
             "\A([^\s\"']+)\n" .
             "/xi";
 
-        $content = $this->_frame->get_style()->content;
+        $Voqcz2syuhkg = $Vcki4t4qmybshis->_frame->get_style()->content;
 
-        $quotes = $this->_parse_quotes();
+        $Vznnzjndq4fv = $Vcki4t4qmybshis->_parse_quotes();
 
-        // split on spaces, except within quotes
-        if (!preg_match_all($re, $content, $matches, PREG_SET_ORDER)) {
+        
+        if (!preg_match_all($Vvht4h04zxje, $Voqcz2syuhkg, $Vxve4maip4vq, PREG_SET_ORDER)) {
             return null;
         }
 
-        $text = "";
+        $Vcki4t4qmybsext = "";
 
-        foreach ($matches as $match) {
-            if (isset($match[2]) && $match[2] !== "") {
-                $match[1] = $match[2];
+        foreach ($Vxve4maip4vq as $Vyupu15qqw5c) {
+            if (isset($Vyupu15qqw5c[2]) && $Vyupu15qqw5c[2] !== "") {
+                $Vyupu15qqw5c[1] = $Vyupu15qqw5c[2];
             }
 
-            if (isset($match[6]) && $match[6] !== "") {
-                $match[4] = $match[6];
+            if (isset($Vyupu15qqw5c[6]) && $Vyupu15qqw5c[6] !== "") {
+                $Vyupu15qqw5c[4] = $Vyupu15qqw5c[6];
             }
 
-            if (isset($match[8]) && $match[8] !== "") {
-                $match[7] = $match[8];
+            if (isset($Vyupu15qqw5c[8]) && $Vyupu15qqw5c[8] !== "") {
+                $Vyupu15qqw5c[7] = $Vyupu15qqw5c[8];
             }
 
-            if (isset($match[1]) && $match[1] !== "") {
-                // counters?(...)
-                $match[1] = mb_strtolower(trim($match[1]));
+            if (isset($Vyupu15qqw5c[1]) && $Vyupu15qqw5c[1] !== "") {
+                
+                $Vyupu15qqw5c[1] = mb_strtolower(trim($Vyupu15qqw5c[1]));
 
-                // Handle counter() references:
-                // http://www.w3.org/TR/CSS21/generate.html#content
+                
+                
 
-                $i = mb_strpos($match[1], ")");
-                if ($i === false) {
+                $V3xsptcgzss2 = mb_strpos($Vyupu15qqw5c[1], ")");
+                if ($V3xsptcgzss2 === false) {
                     continue;
                 }
 
-                preg_match('/(counters?)(^\()*?\(\s*([^\s,]+)\s*(,\s*["\']?([^"\'\)]+)["\']?\s*(,\s*([^\s)]+)\s*)?)?\)/i', $match[1], $args);
-                $counter_id = $args[3];
-                if (strtolower($args[1]) == 'counter') {
-                    // counter(name [,style])
-                    if (isset($args[5])) {
-                        $type = trim($args[5]);
+                preg_match('/(counters?)(^\()*?\(\s*([^\s,]+)\s*(,\s*["\']?([^"\'\)]+)["\']?\s*(,\s*([^\s)]+)\s*)?)?\)/i', $Vyupu15qqw5c[1], $Vnwpk5tnngxb);
+                $Vjhr3wfva5ux = $Vnwpk5tnngxb[3];
+                if (strtolower($Vnwpk5tnngxb[1]) == 'counter') {
+                    
+                    if (isset($Vnwpk5tnngxb[5])) {
+                        $Vcki4t4qmybsype = trim($Vnwpk5tnngxb[5]);
                     } else {
-                        $type = null;
+                        $Vcki4t4qmybsype = null;
                     }
-                    $p = $this->_frame->lookup_counter_frame($counter_id);
+                    $Vksopkgqixky = $Vcki4t4qmybshis->_frame->lookup_counter_frame($Vjhr3wfva5ux);
 
-                    $text .= $p->counter_value($counter_id, $type);
+                    $Vcki4t4qmybsext .= $Vksopkgqixky->counter_value($Vjhr3wfva5ux, $Vcki4t4qmybsype);
 
-                } else if (strtolower($args[1]) == 'counters') {
-                    // counters(name, string [,style])
-                    if (isset($args[5])) {
-                        $string = $this->_parse_string($args[5]);
+                } else if (strtolower($Vnwpk5tnngxb[1]) == 'counters') {
+                    
+                    if (isset($Vnwpk5tnngxb[5])) {
+                        $V5jic1hsgori = $Vcki4t4qmybshis->_parse_string($Vnwpk5tnngxb[5]);
                     } else {
-                        $string = "";
-                    }
-
-                    if (isset($args[7])) {
-                        $type = trim($args[7]);
-                    } else {
-                        $type = null;
+                        $V5jic1hsgori = "";
                     }
 
-                    $p = $this->_frame->lookup_counter_frame($counter_id);
-                    $tmp = array();
-                    while ($p) {
-                        // We only want to use the counter values when they actually increment the counter
-                        if (array_key_exists($counter_id, $p->_counters)) {
-                            array_unshift($tmp, $p->counter_value($counter_id, $type));
+                    if (isset($Vnwpk5tnngxb[7])) {
+                        $Vcki4t4qmybsype = trim($Vnwpk5tnngxb[7]);
+                    } else {
+                        $Vcki4t4qmybsype = null;
+                    }
+
+                    $Vksopkgqixky = $Vcki4t4qmybshis->_frame->lookup_counter_frame($Vjhr3wfva5ux);
+                    $Vcki4t4qmybsmp = array();
+                    while ($Vksopkgqixky) {
+                        
+                        if (array_key_exists($Vjhr3wfva5ux, $Vksopkgqixky->_counters)) {
+                            array_unshift($Vcki4t4qmybsmp, $Vksopkgqixky->counter_value($Vjhr3wfva5ux, $Vcki4t4qmybsype));
                         }
-                        $p = $p->lookup_counter_frame($counter_id);
+                        $Vksopkgqixky = $Vksopkgqixky->lookup_counter_frame($Vjhr3wfva5ux);
                     }
-                    $text .= implode($string, $tmp);
+                    $Vcki4t4qmybsext .= implode($V5jic1hsgori, $Vcki4t4qmybsmp);
                 } else {
-                    // countertops?
+                    
                     continue;
                 }
 
-            } else if (isset($match[4]) && $match[4] !== "") {
-                // String match
-                $text .= $this->_parse_string($match[4]);
-            } else if (isset($match[7]) && $match[7] !== "") {
-                // Directive match
+            } else if (isset($Vyupu15qqw5c[4]) && $Vyupu15qqw5c[4] !== "") {
+                
+                $Vcki4t4qmybsext .= $Vcki4t4qmybshis->_parse_string($Vyupu15qqw5c[4]);
+            } else if (isset($Vyupu15qqw5c[7]) && $Vyupu15qqw5c[7] !== "") {
+                
 
-                if ($match[7] === "open-quote") {
-                    // FIXME: do something here
-                    $text .= $quotes[0][0];
-                } else if ($match[7] === "close-quote") {
-                    // FIXME: do something else here
-                    $text .= $quotes[0][1];
-                } else if ($match[7] === "no-open-quote") {
-                    // FIXME:
-                } else if ($match[7] === "no-close-quote") {
-                    // FIXME:
-                } else if (mb_strpos($match[7], "attr(") === 0) {
-                    $i = mb_strpos($match[7], ")");
-                    if ($i === false) {
+                if ($Vyupu15qqw5c[7] === "open-quote") {
+                    
+                    $Vcki4t4qmybsext .= $Vznnzjndq4fv[0][0];
+                } else if ($Vyupu15qqw5c[7] === "close-quote") {
+                    
+                    $Vcki4t4qmybsext .= $Vznnzjndq4fv[0][1];
+                } else if ($Vyupu15qqw5c[7] === "no-open-quote") {
+                    
+                } else if ($Vyupu15qqw5c[7] === "no-close-quote") {
+                    
+                } else if (mb_strpos($Vyupu15qqw5c[7], "attr(") === 0) {
+                    $V3xsptcgzss2 = mb_strpos($Vyupu15qqw5c[7], ")");
+                    if ($V3xsptcgzss2 === false) {
                         continue;
                     }
 
-                    $attr = mb_substr($match[7], 5, $i - 5);
-                    if ($attr == "") {
+                    $Vfhakhidzne2 = mb_substr($Vyupu15qqw5c[7], 5, $V3xsptcgzss2 - 5);
+                    if ($Vfhakhidzne2 == "") {
                         continue;
                     }
 
-                    $text .= $this->_frame->get_parent()->get_node()->getAttribute($attr);
+                    $Vcki4t4qmybsext .= $Vcki4t4qmybshis->_frame->get_parent()->get_node()->getAttribute($Vfhakhidzne2);
                 } else {
                     continue;
                 }
             }
         }
 
-        return $text;
+        return $Vcki4t4qmybsext;
     }
 
-    /**
-     * Sets the generated content of a generated frame
-     */
+    
     protected function _set_content()
     {
-        $frame = $this->_frame;
-        $style = $frame->get_style();
+        $Vnk2ly5jcvjf = $Vcki4t4qmybshis->_frame;
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
 
-        // if the element was pushed to a new page use the saved counter value, otherwise use the CSS reset value
-        if ($style->counter_reset && ($reset = $style->counter_reset) !== "none") {
-            $vars = preg_split('/\s+/', trim($reset), 2);
-            $frame->reset_counter($vars[0], (isset($frame->_counters['__' . $vars[0]]) ? $frame->_counters['__' . $vars[0]] : (isset($vars[1]) ? $vars[1] : 0)));
+        
+        if ($Vdidzwb0w3vc->counter_reset && ($Vvht4h04zxjeset = $Vdidzwb0w3vc->counter_reset) !== "none") {
+            $Vjtba0lz024s = preg_split('/\s+/', trim($Vvht4h04zxjeset), 2);
+            $Vnk2ly5jcvjf->reset_counter($Vjtba0lz024s[0], (isset($Vnk2ly5jcvjf->_counters['__' . $Vjtba0lz024s[0]]) ? $Vnk2ly5jcvjf->_counters['__' . $Vjtba0lz024s[0]] : (isset($Vjtba0lz024s[1]) ? $Vjtba0lz024s[1] : 0)));
         }
 
-        if ($style->counter_increment && ($increment = $style->counter_increment) !== "none") {
-            $frame->increment_counters($increment);
+        if ($Vdidzwb0w3vc->counter_increment && ($V3xsptcgzss2ncrement = $Vdidzwb0w3vc->counter_increment) !== "none") {
+            $Vnk2ly5jcvjf->increment_counters($V3xsptcgzss2ncrement);
         }
 
-        if ($style->content && $frame->get_node()->nodeName === "dompdf_generated") {
-            $content = $this->_parse_content();
-            // add generated content to the font subset
-            // FIXME: This is currently too late because the font subset has already been generated.
-            //        See notes in issue #750.
-            if ($frame->get_dompdf()->getOptions()->getIsFontSubsettingEnabled() && $frame->get_dompdf()->get_canvas() instanceof CPDF) {
-                $frame->get_dompdf()->get_canvas()->register_string_subset($style->font_family, $content);
+        if ($Vdidzwb0w3vc->content && $Vnk2ly5jcvjf->get_node()->nodeName === "dompdf_generated") {
+            $Voqcz2syuhkg = $Vcki4t4qmybshis->_parse_content();
+            
+            
+            
+            if ($Vnk2ly5jcvjf->get_dompdf()->getOptions()->getIsFontSubsettingEnabled() && $Vnk2ly5jcvjf->get_dompdf()->get_canvas() instanceof CPDF) {
+                $Vnk2ly5jcvjf->get_dompdf()->get_canvas()->register_string_subset($Vdidzwb0w3vc->font_family, $Voqcz2syuhkg);
             }
 
-            $node = $frame->get_node()->ownerDocument->createTextNode($content);
+            $V1qcutcuyu3mode = $Vnk2ly5jcvjf->get_node()->ownerDocument->createTextNode($Voqcz2syuhkg);
 
-            $new_style = $style->get_stylesheet()->create_style();
-            $new_style->inherit($style);
+            $V1qcutcuyu3mew_style = $Vdidzwb0w3vc->get_stylesheet()->create_style();
+            $V1qcutcuyu3mew_style->inherit($Vdidzwb0w3vc);
 
-            $new_frame = new Frame($node);
-            $new_frame->set_style($new_style);
+            $V1qcutcuyu3mew_frame = new Frame($V1qcutcuyu3mode);
+            $V1qcutcuyu3mew_frame->set_style($V1qcutcuyu3mew_style);
 
-            Factory::decorate_frame($new_frame, $frame->get_dompdf(), $frame->get_root());
-            $frame->append_child($new_frame);
+            Factory::decorate_frame($V1qcutcuyu3mew_frame, $Vnk2ly5jcvjf->get_dompdf(), $Vnk2ly5jcvjf->get_root());
+            $Vnk2ly5jcvjf->append_child($V1qcutcuyu3mew_frame);
         }
     }
 
-    /**
-     * Determine current frame width based on contents
-     *
-     * @return float
-     */
+    
     public function calculate_auto_width()
     {
-        return $this->_frame->get_margin_width();
+        return $Vcki4t4qmybshis->_frame->get_margin_width();
     }
 }

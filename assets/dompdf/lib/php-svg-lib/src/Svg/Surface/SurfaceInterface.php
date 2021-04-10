@@ -1,36 +1,27 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien M�nager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Surface;
 
 use Svg\Style;
 
-/**
- * Interface Surface, like CanvasRenderingContext2D
- *
- * @package Svg
- */
+
 interface SurfaceInterface
 {
     public function save();
 
     public function restore();
 
-    // transformations (default transform is the identity matrix)
-    public function scale($x, $y);
+    
+    public function scale($Vs4gloy23a1d, $Vopgub02o3q2);
 
-    public function rotate($angle);
+    public function rotate($Vtmcaiuo2hqy);
 
-    public function translate($x, $y);
+    public function translate($Vs4gloy23a1d, $Vopgub02o3q2);
 
-    public function transform($a, $b, $c, $d, $e, $f);
+    public function transform($Vrr3orqjztc2, $Vbz3vmbr1h2v, $Vv03lfntnmcz, $Vcyg5xmwfpxo, $V2bwrjburyuf, $V4ljftfdeqpl);
 
-    // path ends
+    
     public function beginPath();
 
     public function closePath();
@@ -45,46 +36,44 @@ interface SurfaceInterface
 
     public function clip();
 
-    // text (see also the CanvasDrawingStyles interface)
-    public function fillText($text, $x, $y, $maxWidth = null);
+    
+    public function fillText($Vnlbbd31sxbf, $Vs4gloy23a1d, $Vopgub02o3q2, $Vv44wp1i5zfs = null);
 
-    public function strokeText($text, $x, $y, $maxWidth = null);
+    public function strokeText($Vnlbbd31sxbf, $Vs4gloy23a1d, $Vopgub02o3q2, $Vv44wp1i5zfs = null);
 
-    public function measureText($text);
+    public function measureText($Vnlbbd31sxbf);
 
-    // drawing images
-    public function drawImage($image, $sx, $sy, $sw = null, $sh = null, $dx = null, $dy = null, $dw = null, $dh = null);
+    
+    public function drawImage($Vnxkvrc5q2ng, $Vjz2piyfb2ut, $Vskekw1ijrky, $Vwuismxitwwp = null, $Vdsvjjxxrru4 = null, $Vcyg5xmwfpxox = null, $Vcyg5xmwfpxoy = null, $Vcyg5xmwfpxow = null, $Vcyg5xmwfpxoh = null);
 
-    // paths
-    public function lineTo($x, $y);
+    
+    public function lineTo($Vs4gloy23a1d, $Vopgub02o3q2);
 
-    public function moveTo($x, $y);
+    public function moveTo($Vs4gloy23a1d, $Vopgub02o3q2);
 
-    public function quadraticCurveTo($cpx, $cpy, $x, $y);
+    public function quadraticCurveTo($Vv03lfntnmczpx, $Vv03lfntnmczpy, $Vs4gloy23a1d, $Vopgub02o3q2);
 
-    public function bezierCurveTo($cp1x, $cp1y, $cp2x, $cp2y, $x, $y);
+    public function bezierCurveTo($Vv03lfntnmczp1x, $Vv03lfntnmczp1y, $Vv03lfntnmczp2x, $Vv03lfntnmczp2y, $Vs4gloy23a1d, $Vopgub02o3q2);
 
-    public function arcTo($x1, $y1, $x2, $y2, $radius);
+    public function arcTo($Vs4gloy23a1d1, $Vopgub02o3q21, $Vs4gloy23a1d2, $Vopgub02o3q22, $V4tsg1pc0dnr);
 
-    public function circle($x, $y, $radius);
+    public function circle($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnr);
 
-    public function arc($x, $y, $radius, $startAngle, $endAngle, $anticlockwise = false);
+    public function arc($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnr, $Vk21laijil03, $V2bwrjburyufndAngle, $Vrr3orqjztc2nticlockwise = false);
 
-    public function ellipse($x, $y, $radiusX, $radiusY, $rotation, $startAngle, $endAngle, $anticlockwise);
+    public function ellipse($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnrX, $V4tsg1pc0dnrY, $Vodyfhojz44d, $Vk21laijil03, $V2bwrjburyufndAngle, $Vrr3orqjztc2nticlockwise);
 
-    // Rectangle
-    public function rect($x, $y, $w, $h, $rx = 0, $ry = 0);
+    
+    public function rect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vvyapc0zfcyf = 0, $Vzvzlsqbnl5g = 0);
 
-    public function fillRect($x, $y, $w, $h);
+    public function fillRect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa);
 
-    public function strokeRect($x, $y, $w, $h);
+    public function strokeRect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa);
 
-    public function setStyle(Style $style);
+    public function setStyle(Style $Vdidzwb0w3vc);
 
-    /**
-     * @return Style
-     */
+    
     public function getStyle();
 
-    public function setFont($family, $style, $weight);
+    public function setFont($V4ljftfdeqplamily, $Vdidzwb0w3vc, $Vhoifq2kocyteight);
 }

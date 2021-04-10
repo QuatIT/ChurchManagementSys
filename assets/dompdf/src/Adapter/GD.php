@@ -1,11 +1,5 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\Adapter;
 
 use Dompdf\Canvas;
@@ -13,936 +7,612 @@ use Dompdf\Dompdf;
 use Dompdf\Image\Cache;
 use Dompdf\Helpers;
 
-/**
- * Image rendering interface
- *
- * Renders to an image format supported by GD (jpeg, gif, png, xpm).
- * Not super-useful day-to-day but handy nonetheless
- *
- * @package dompdf
- */
+
 class GD implements Canvas
 {
-    /**
-     * @var Dompdf
-     */
-    private $_dompdf;
+    
+    private $V3mbiykvshg0;
 
-    /**
-     * Resource handle for the image
-     *
-     * @var resource
-     */
-    private $_img;
+    
+    private $Vf4abxhgyf2g;
 
-    /**
-     * Resource handle for the image
-     *
-     * @var resource[]
-     */
-    private $_imgs;
+    
+    private $Vf4abxhgyf2gs;
 
-    /**
-     * Apparent canvas width in pixels
-     *
-     * @var int
-     */
-    private $_width;
+    
+    private $Vn1ew5szmvh5;
 
-    /**
-     * Apparent canvas height in pixels
-     *
-     * @var int
-     */
-    private $_height;
+    
+    private $V0mpk4c0jqb4;
 
-    /**
-     * Actual image width in pixels
-     *
-     * @var int
-     */
-    private $_actual_width;
+    
+    private $Vdd3tpbgg2vg;
 
-    /**
-     * Actual image height in pixels
-     *
-     * @var int
-     */
-    private $_actual_height;
+    
+    private $Vccjolfgmp1p;
 
-    /**
-     * Current page number
-     *
-     * @var int
-     */
-    private $_page_number;
+    
+    private $Vcwhthsojqkt;
 
-    /**
-     * Total number of pages
-     *
-     * @var int
-     */
-    private $_page_count;
+    
+    private $V0gs0rui431h;
 
-    /**
-     * Image antialias factor
-     *
-     * @var float
-     */
-    private $_aa_factor;
+    
+    private $Vksyujut1z3f;
 
-    /**
-     * Allocated colors
-     *
-     * @var array
-     */
-    private $_colors;
+    
+    private $Vghd1l0cefy3;
 
-    /**
-     * Background color
-     *
-     * @var int
-     */
-    private $_bg_color;
+    
+    private $Vzqeo4tahn54;
 
-    /**
-     * Background color array
-     *
-     * @var int
-     */
-    private $_bg_color_array;
+    
+    private $Vzqeo4tahn54_array;
 
-    /**
-     * Actual DPI
-     *
-     * @var int
-     */
-    private $dpi;
+    
+    private $Vs5sugw0qedn;
 
-    /**
-     * Amount to scale font sizes
-     *
-     * Font sizes are 72 DPI, GD internally uses 96. Scale them proportionally.
-     * 72 / 96 = 0.75.
-     *
-     * @var float
-     */
+    
     const FONT_SCALE = 0.75;
 
-    /**
-     * Class constructor
-     *
-     * @param mixed $size The size of image to create: array(x1,y1,x2,y2) or "letter", "legal", etc.
-     * @param string $orientation The orientation of the document (either 'landscape' or 'portrait')
-     * @param Dompdf $dompdf
-     * @param float $aa_factor Anti-aliasing factor, 1 for no AA
-     * @param array $bg_color Image background color: array(r,g,b,a), 0 <= r,g,b,a <= 1
-     */
-    public function __construct($size = 'letter', $orientation = "portrait", Dompdf $dompdf, $aa_factor = 1.0, $bg_color = array(1, 1, 1, 0))
+    
+    public function __construct($Vlak25col1u3 = 'letter', $Vurj2rpl3rvw = "portrait", Dompdf $Vhvghaoacagz, $Vw5clfrbvdu2 = 1.0, $V3ty1ibg54n1 = array(1, 1, 1, 0))
     {
 
-        if (!is_array($size)) {
-            $size = strtolower($size);
+        if (!is_array($Vlak25col1u3)) {
+            $Vlak25col1u3 = strtolower($Vlak25col1u3);
 
-            if (isset(CPDF::$PAPER_SIZES[$size])) {
-                $size = CPDF::$PAPER_SIZES[$size];
+            if (isset(CPDF::$Vjvvabr4mx10[$Vlak25col1u3])) {
+                $Vlak25col1u3 = CPDF::$Vjvvabr4mx10[$Vlak25col1u3];
             } else {
-                $size = CPDF::$PAPER_SIZES["letter"];
+                $Vlak25col1u3 = CPDF::$Vjvvabr4mx10["letter"];
             }
         }
 
-        if (strtolower($orientation) === "landscape") {
-            list($size[2], $size[3]) = array($size[3], $size[2]);
+        if (strtolower($Vurj2rpl3rvw) === "landscape") {
+            list($Vlak25col1u3[2], $Vlak25col1u3[3]) = array($Vlak25col1u3[3], $Vlak25col1u3[2]);
         }
 
-        $this->_dompdf = $dompdf;
+        $this->_dompdf = $Vhvghaoacagz;
 
         $this->dpi = $this->get_dompdf()->getOptions()->getDpi();
 
-        if ($aa_factor < 1) {
-            $aa_factor = 1;
+        if ($Vw5clfrbvdu2 < 1) {
+            $Vw5clfrbvdu2 = 1;
         }
 
-        $this->_aa_factor = $aa_factor;
+        $this->_aa_factor = $Vw5clfrbvdu2;
 
-        $size[2] *= $aa_factor;
-        $size[3] *= $aa_factor;
+        $Vlak25col1u3[2] *= $Vw5clfrbvdu2;
+        $Vlak25col1u3[3] *= $Vw5clfrbvdu2;
 
-        $this->_width = $size[2] - $size[0];
-        $this->_height = $size[3] - $size[1];
+        $this->_width = $Vlak25col1u3[2] - $Vlak25col1u3[0];
+        $this->_height = $Vlak25col1u3[3] - $Vlak25col1u3[1];
 
         $this->_actual_width = $this->_upscale($this->_width);
         $this->_actual_height = $this->_upscale($this->_height);
 
-        if (is_null($bg_color) || !is_array($bg_color)) {
-            // Pure white bg
-            $bg_color = array(1, 1, 1, 0);
+        if (is_null($V3ty1ibg54n1) || !is_array($V3ty1ibg54n1)) {
+            
+            $V3ty1ibg54n1 = array(1, 1, 1, 0);
         }
 
-        $this->_bg_color_array = $bg_color;
+        $this->_bg_color_array = $V3ty1ibg54n1;
 
         $this->new_page();
     }
 
-    /**
-     * @return Dompdf
-     */
+    
     public function get_dompdf()
     {
         return $this->_dompdf;
     }
 
-    /**
-     * Return the GF image resource
-     *
-     * @return resource
-     */
+    
     public function get_image()
     {
         return $this->_img;
     }
 
-    /**
-     * Return the image's width in pixels
-     *
-     * @return float
-     */
+    
     public function get_width()
     {
         return $this->_width / $this->_aa_factor;
     }
 
-    /**
-     * Return the image's height in pixels
-     *
-     * @return float
-     */
+    
     public function get_height()
     {
         return $this->_height / $this->_aa_factor;
     }
 
-    /**
-     * Returns the current page number
-     * @return int
-     */
+    
     public function get_page_number()
     {
         return $this->_page_number;
     }
 
-    /**
-     * Returns the total number of pages in the document
-     * @return int
-     */
+    
     public function get_page_count()
     {
         return $this->_page_count;
     }
 
-    /**
-     * Sets the current page number
-     *
-     * @param int $num
-     */
-    public function set_page_number($num)
+    
+    public function set_page_number($Vxnixw2qni35)
     {
-        $this->_page_number = $num;
+        $this->_page_number = $Vxnixw2qni35;
     }
 
-    /**
-     * Sets the page count
-     *
-     * @param int $count
-     */
-    public function set_page_count($count)
+    
+    public function set_page_count($Vj4h4hyymhja)
     {
-        $this->_page_count = $count;
+        $this->_page_count = $Vj4h4hyymhja;
     }
 
-    /**
-     * Sets the opacity
-     *
-     * @param $opacity
-     * @param $mode
-     */
-    public function set_opacity($opacity, $mode = "Normal")
+    
+    public function set_opacity($Vdrvff4n2sqc, $Vgauloeyyiwd = "Normal")
     {
-        // FIXME
+        
     }
 
-    /**
-     * Allocate a new color.  Allocate with GD as needed and store
-     * previously allocated colors in $this->_colors.
-     *
-     * @param array $color The new current color
-     * @return int           The allocated color
-     */
-    private function _allocate_color($color)
+    
+    private function _allocate_color($Vexxkxtdr01j)
     {
-        $a = isset($color["alpha"]) ? $color["alpha"] : 1;
+        $Vrr3orqjztc2 = isset($Vexxkxtdr01j["alpha"]) ? $Vexxkxtdr01j["alpha"] : 1;
 
-        if (isset($color["c"])) {
-            $color = Helpers::cmyk_to_rgb($color);
+        if (isset($Vexxkxtdr01j["c"])) {
+            $Vexxkxtdr01j = Helpers::cmyk_to_rgb($Vexxkxtdr01j);
         }
 
-        list($r, $g, $b) = $color;
+        list($Vkabkv5ip0kg, $Vg5wspvkpf2e, $Vbz3vmbr1h2v) = $Vexxkxtdr01j;
 
-        $r *= 255;
-        $g *= 255;
-        $b *= 255;
-        $a = 127 - ($a * 127);
+        $Vkabkv5ip0kg *= 255;
+        $Vg5wspvkpf2e *= 255;
+        $Vbz3vmbr1h2v *= 255;
+        $Vrr3orqjztc2 = 127 - ($Vrr3orqjztc2 * 127);
 
-        // Clip values
-        $r = $r > 255 ? 255 : $r;
-        $g = $g > 255 ? 255 : $g;
-        $b = $b > 255 ? 255 : $b;
-        $a = $a > 127 ? 127 : $a;
+        
+        $Vkabkv5ip0kg = $Vkabkv5ip0kg > 255 ? 255 : $Vkabkv5ip0kg;
+        $Vg5wspvkpf2e = $Vg5wspvkpf2e > 255 ? 255 : $Vg5wspvkpf2e;
+        $Vbz3vmbr1h2v = $Vbz3vmbr1h2v > 255 ? 255 : $Vbz3vmbr1h2v;
+        $Vrr3orqjztc2 = $Vrr3orqjztc2 > 127 ? 127 : $Vrr3orqjztc2;
 
-        $r = $r < 0 ? 0 : $r;
-        $g = $g < 0 ? 0 : $g;
-        $b = $b < 0 ? 0 : $b;
-        $a = $a < 0 ? 0 : $a;
+        $Vkabkv5ip0kg = $Vkabkv5ip0kg < 0 ? 0 : $Vkabkv5ip0kg;
+        $Vg5wspvkpf2e = $Vg5wspvkpf2e < 0 ? 0 : $Vg5wspvkpf2e;
+        $Vbz3vmbr1h2v = $Vbz3vmbr1h2v < 0 ? 0 : $Vbz3vmbr1h2v;
+        $Vrr3orqjztc2 = $Vrr3orqjztc2 < 0 ? 0 : $Vrr3orqjztc2;
 
-        $key = sprintf("#%02X%02X%02X%02X", $r, $g, $b, $a);
+        $Vqwhzgethmgj = sprintf("#%02X%02X%02X%02X", $Vkabkv5ip0kg, $Vg5wspvkpf2e, $Vbz3vmbr1h2v, $Vrr3orqjztc2);
 
-        if (isset($this->_colors[$key])) {
-            return $this->_colors[$key];
+        if (isset($this->_colors[$Vqwhzgethmgj])) {
+            return $this->_colors[$Vqwhzgethmgj];
         }
 
-        if ($a != 0) {
-            $this->_colors[$key] = imagecolorallocatealpha($this->get_image(), $r, $g, $b, $a);
+        if ($Vrr3orqjztc2 != 0) {
+            $this->_colors[$Vqwhzgethmgj] = imagecolorallocatealpha($this->get_image(), $Vkabkv5ip0kg, $Vg5wspvkpf2e, $Vbz3vmbr1h2v, $Vrr3orqjztc2);
         } else {
-            $this->_colors[$key] = imagecolorallocate($this->get_image(), $r, $g, $b);
+            $this->_colors[$Vqwhzgethmgj] = imagecolorallocate($this->get_image(), $Vkabkv5ip0kg, $Vg5wspvkpf2e, $Vbz3vmbr1h2v);
         }
 
-        return $this->_colors[$key];
+        return $this->_colors[$Vqwhzgethmgj];
     }
 
-    /**
-     * Scales value up to the current canvas DPI from 72 DPI
-     *
-     * @param float $length
-     * @return float
-     */
-    private function _upscale($length)
+    
+    private function _upscale($Vjxpogd0afis)
     {
-        return ($length * $this->dpi) / 72 * $this->_aa_factor;
+        return ($Vjxpogd0afis * $this->dpi) / 72 * $this->_aa_factor;
     }
 
-    /**
-     * Scales value down from the current canvas DPI to 72 DPI
-     *
-     * @param float $length
-     * @return float
-     */
-    private function _downscale($length)
+    
+    private function _downscale($Vjxpogd0afis)
     {
-        return ($length / $this->dpi * 72) / $this->_aa_factor;
+        return ($Vjxpogd0afis / $this->dpi * 72) / $this->_aa_factor;
     }
 
-    /**
-     * Draws a line from x1,y1 to x2,y2
-     *
-     * See {@link Style::munge_color()} for the format of the color array.
-     * See {@link Cpdf::setLineStyle()} for a description of the format of the
-     * $style parameter (aka dash).
-     *
-     * @param float $x1
-     * @param float $y1
-     * @param float $x2
-     * @param float $y2
-     * @param array $color
-     * @param float $width
-     * @param array $style
-     */
-    public function line($x1, $y1, $x2, $y2, $color, $width, $style = null)
+    
+    public function line($Vjxqwkabkvag, $Vzdywlaebz1l, $Vn5yf4urazdd, $Vfph4d2wdjam, $Vexxkxtdr01j, $Vztt3qdrrikx, $Vdidzwb0w3vc = null)
     {
 
-        // Scale by the AA factor and DPI
-        $x1 = $this->_upscale($x1);
-        $y1 = $this->_upscale($y1);
-        $x2 = $this->_upscale($x2);
-        $y2 = $this->_upscale($y2);
-        $width = $this->_upscale($width);
+        
+        $Vjxqwkabkvag = $this->_upscale($Vjxqwkabkvag);
+        $Vzdywlaebz1l = $this->_upscale($Vzdywlaebz1l);
+        $Vn5yf4urazdd = $this->_upscale($Vn5yf4urazdd);
+        $Vfph4d2wdjam = $this->_upscale($Vfph4d2wdjam);
+        $Vztt3qdrrikx = $this->_upscale($Vztt3qdrrikx);
 
-        $c = $this->_allocate_color($color);
+        $Vv03lfntnmcz = $this->_allocate_color($Vexxkxtdr01j);
 
-        // Convert the style array if required
-        if (is_array($style) && count($style) > 0) {
-            $gd_style = array();
+        
+        if (is_array($Vdidzwb0w3vc) && count($Vdidzwb0w3vc) > 0) {
+            $Vg5wspvkpf2ed_style = array();
 
-            if (count($style) == 1) {
-                for ($i = 0; $i < $style[0] * $this->_aa_factor; $i++) {
-                    $gd_style[] = $c;
+            if (count($Vdidzwb0w3vc) == 1) {
+                for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vdidzwb0w3vc[0] * $this->_aa_factor; $V3xsptcgzss2++) {
+                    $Vg5wspvkpf2ed_style[] = $Vv03lfntnmcz;
                 }
 
-                for ($i = 0; $i < $style[0] * $this->_aa_factor; $i++) {
-                    $gd_style[] = $this->_bg_color;
+                for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vdidzwb0w3vc[0] * $this->_aa_factor; $V3xsptcgzss2++) {
+                    $Vg5wspvkpf2ed_style[] = $this->_bg_color;
                 }
             } else {
-                $i = 0;
-                foreach ($style as $length) {
-                    if ($i % 2 == 0) {
-                        // 'On' pattern
-                        for ($i = 0; $i < $style[0] * $this->_aa_factor; $i++) {
-                            $gd_style[] = $c;
+                $V3xsptcgzss2 = 0;
+                foreach ($Vdidzwb0w3vc as $Vjxpogd0afis) {
+                    if ($V3xsptcgzss2 % 2 == 0) {
+                        
+                        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vdidzwb0w3vc[0] * $this->_aa_factor; $V3xsptcgzss2++) {
+                            $Vg5wspvkpf2ed_style[] = $Vv03lfntnmcz;
                         }
 
                     } else {
-                        // Off pattern
-                        for ($i = 0; $i < $style[0] * $this->_aa_factor; $i++) {
-                            $gd_style[] = $this->_bg_color;
+                        
+                        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vdidzwb0w3vc[0] * $this->_aa_factor; $V3xsptcgzss2++) {
+                            $Vg5wspvkpf2ed_style[] = $this->_bg_color;
                         }
                     }
-                    $i++;
+                    $V3xsptcgzss2++;
                 }
             }
 
-            if (!empty($gd_style)) {
-                imagesetstyle($this->get_image(), $gd_style);
-                $c = IMG_COLOR_STYLED;
+            if (!empty($Vg5wspvkpf2ed_style)) {
+                imagesetstyle($this->get_image(), $Vg5wspvkpf2ed_style);
+                $Vv03lfntnmcz = IMG_COLOR_STYLED;
             }
         }
 
-        imagesetthickness($this->get_image(), $width);
+        imagesetthickness($this->get_image(), $Vztt3qdrrikx);
 
-        imageline($this->get_image(), $x1, $y1, $x2, $y2, $c);
+        imageline($this->get_image(), $Vjxqwkabkvag, $Vzdywlaebz1l, $Vn5yf4urazdd, $Vfph4d2wdjam, $Vv03lfntnmcz);
     }
 
-    /**
-     * @param float $x1
-     * @param float $y1
-     * @param float $r1
-     * @param float $r2
-     * @param float $astart
-     * @param float $aend
-     * @param array $color
-     * @param float $width
-     * @param array $style
-     */
-    public function arc($x1, $y1, $r1, $r2, $astart, $aend, $color, $width, $style = array())
+    
+    public function arc($Vjxqwkabkvag, $Vzdywlaebz1l, $Vkabkv5ip0kg1, $Vkabkv5ip0kg2, $Vrr3orqjztc2start, $Vrr3orqjztc2end, $Vexxkxtdr01j, $Vztt3qdrrikx, $Vdidzwb0w3vc = array())
     {
-        // @todo
+        
     }
 
-    /**
-     * Draws a rectangle at x1,y1 with width w and height h
-     *
-     * See {@link Style::munge_color()} for the format of the color array.
-     * See {@link Cpdf::setLineStyle()} for a description of the $style
-     * parameter (aka dash)
-     *
-     * @param float $x1
-     * @param float $y1
-     * @param float $w
-     * @param float $h
-     * @param array $color
-     * @param float $width
-     * @param array $style
-     */
-    public function rectangle($x1, $y1, $w, $h, $color, $width, $style = null)
+    
+    public function rectangle($Vjxqwkabkvag, $Vzdywlaebz1l, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vexxkxtdr01j, $Vztt3qdrrikx, $Vdidzwb0w3vc = null)
     {
 
-        // Scale by the AA factor and DPI
-        $x1 = $this->_upscale($x1);
-        $y1 = $this->_upscale($y1);
-        $w = $this->_upscale($w);
-        $h = $this->_upscale($h);
-        $width = $this->_upscale($width);
+        
+        $Vjxqwkabkvag = $this->_upscale($Vjxqwkabkvag);
+        $Vzdywlaebz1l = $this->_upscale($Vzdywlaebz1l);
+        $Vhoifq2kocyt = $this->_upscale($Vhoifq2kocyt);
+        $Vjlmjalejjxa = $this->_upscale($Vjlmjalejjxa);
+        $Vztt3qdrrikx = $this->_upscale($Vztt3qdrrikx);
 
-        $c = $this->_allocate_color($color);
+        $Vv03lfntnmcz = $this->_allocate_color($Vexxkxtdr01j);
 
-        // Convert the style array if required
-        if (is_array($style) && count($style) > 0) {
-            $gd_style = array();
+        
+        if (is_array($Vdidzwb0w3vc) && count($Vdidzwb0w3vc) > 0) {
+            $Vg5wspvkpf2ed_style = array();
 
-            foreach ($style as $length) {
-                for ($i = 0; $i < $length; $i++) {
-                    $gd_style[] = $c;
+            foreach ($Vdidzwb0w3vc as $Vjxpogd0afis) {
+                for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vjxpogd0afis; $V3xsptcgzss2++) {
+                    $Vg5wspvkpf2ed_style[] = $Vv03lfntnmcz;
                 }
             }
 
-            if (!empty($gd_style)) {
-                imagesetstyle($this->get_image(), $gd_style);
-                $c = IMG_COLOR_STYLED;
+            if (!empty($Vg5wspvkpf2ed_style)) {
+                imagesetstyle($this->get_image(), $Vg5wspvkpf2ed_style);
+                $Vv03lfntnmcz = IMG_COLOR_STYLED;
             }
         }
 
-        imagesetthickness($this->get_image(), $width);
+        imagesetthickness($this->get_image(), $Vztt3qdrrikx);
 
-        imagerectangle($this->get_image(), $x1, $y1, $x1 + $w, $y1 + $h, $c);
+        imagerectangle($this->get_image(), $Vjxqwkabkvag, $Vzdywlaebz1l, $Vjxqwkabkvag + $Vhoifq2kocyt, $Vzdywlaebz1l + $Vjlmjalejjxa, $Vv03lfntnmcz);
     }
 
-    /**
-     * Draws a filled rectangle at x1,y1 with width w and height h
-     *
-     * See {@link Style::munge_color()} for the format of the color array.
-     *
-     * @param float $x1
-     * @param float $y1
-     * @param float $w
-     * @param float $h
-     * @param array $color
-     */
-    public function filled_rectangle($x1, $y1, $w, $h, $color)
+    
+    public function filled_rectangle($Vjxqwkabkvag, $Vzdywlaebz1l, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vexxkxtdr01j)
     {
-        // Scale by the AA factor and DPI
-        $x1 = $this->_upscale($x1);
-        $y1 = $this->_upscale($y1);
-        $w = $this->_upscale($w);
-        $h = $this->_upscale($h);
+        
+        $Vjxqwkabkvag = $this->_upscale($Vjxqwkabkvag);
+        $Vzdywlaebz1l = $this->_upscale($Vzdywlaebz1l);
+        $Vhoifq2kocyt = $this->_upscale($Vhoifq2kocyt);
+        $Vjlmjalejjxa = $this->_upscale($Vjlmjalejjxa);
 
-        $c = $this->_allocate_color($color);
+        $Vv03lfntnmcz = $this->_allocate_color($Vexxkxtdr01j);
 
-        imagefilledrectangle($this->get_image(), $x1, $y1, $x1 + $w, $y1 + $h, $c);
+        imagefilledrectangle($this->get_image(), $Vjxqwkabkvag, $Vzdywlaebz1l, $Vjxqwkabkvag + $Vhoifq2kocyt, $Vzdywlaebz1l + $Vjlmjalejjxa, $Vv03lfntnmcz);
     }
 
-    /**
-     * Starts a clipping rectangle at x1,y1 with width w and height h
-     *
-     * @param float $x1
-     * @param float $y1
-     * @param float $w
-     * @param float $h
-     */
-    public function clipping_rectangle($x1, $y1, $w, $h)
+    
+    public function clipping_rectangle($Vjxqwkabkvag, $Vzdywlaebz1l, $Vhoifq2kocyt, $Vjlmjalejjxa)
     {
-        // @todo
+        
     }
 
-    public function clipping_roundrectangle($x1, $y1, $w, $h, $rTL, $rTR, $rBR, $rBL)
+    public function clipping_roundrectangle($Vjxqwkabkvag, $Vzdywlaebz1l, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vkabkv5ip0kgTL, $Vkabkv5ip0kgTR, $Vkabkv5ip0kgBR, $Vkabkv5ip0kgBL)
     {
-        // @todo
+        
     }
 
-    /**
-     * Ends the last clipping shape
-     */
+    
     public function clipping_end()
     {
-        // @todo
+        
     }
 
-    /**
-     *
-     */
+    
     public function save()
     {
         $this->get_dompdf()->getOptions()->setDpi(72);
     }
 
-    /**
-     *
-     */
+    
     public function restore()
     {
         $this->get_dompdf()->getOptions()->setDpi($this->dpi);
     }
 
-    /**
-     * @param $angle
-     * @param $x
-     * @param $y
-     */
-    public function rotate($angle, $x, $y)
+    
+    public function rotate($Vrr3orqjztc2ngle, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
-        // @todo
+        
     }
 
-    /**
-     * @param $angle_x
-     * @param $angle_y
-     * @param $x
-     * @param $y
-     */
-    public function skew($angle_x, $angle_y, $x, $y)
+    
+    public function skew($Vrr3orqjztc2ngle_x, $Vrr3orqjztc2ngle_y, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
-        // @todo
+        
     }
 
-    /**
-     * @param $s_x
-     * @param $s_y
-     * @param $x
-     * @param $y
-     */
-    public function scale($s_x, $s_y, $x, $y)
+    
+    public function scale($Vvyyy23v5fb4, $V2fb2ve5h53x, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
-        // @todo
+        
     }
 
-    /**
-     * @param $t_x
-     * @param $t_y
-     */
-    public function translate($t_x, $t_y)
+    
+    public function translate($Vidim0y0ouos, $Vycw3amdlttj)
     {
-        // @todo
+        
     }
 
-    /**
-     * @param $a
-     * @param $b
-     * @param $c
-     * @param $d
-     * @param $e
-     * @param $f
-     */
-    public function transform($a, $b, $c, $d, $e, $f)
+    
+    public function transform($Vrr3orqjztc2, $Vbz3vmbr1h2v, $Vv03lfntnmcz, $Vcyg5xmwfpxo, $V2bwrjburyuf, $V4ljftfdeqpl)
     {
-        // @todo
+        
     }
 
-    /**
-     * Draws a polygon
-     *
-     * The polygon is formed by joining all the points stored in the $points
-     * array.  $points has the following structure:
-     * <code>
-     * array(0 => x1,
-     *       1 => y1,
-     *       2 => x2,
-     *       3 => y2,
-     *       ...
-     *       );
-     * </code>
-     *
-     * See {@link Style::munge_color()} for the format of the color array.
-     * See {@link Cpdf::setLineStyle()} for a description of the $style
-     * parameter (aka dash)
-     *
-     * @param array $points
-     * @param array $color
-     * @param float $width
-     * @param array $style
-     * @param bool $fill Fills the polygon if true
-     */
-    public function polygon($points, $color, $width = null, $style = null, $fill = false)
+    
+    public function polygon($V4jz4nyvrd2d, $Vexxkxtdr01j, $Vztt3qdrrikx = null, $Vdidzwb0w3vc = null, $V4ljftfdeqplill = false)
     {
 
-        // Scale each point by the AA factor and DPI
-        foreach (array_keys($points) as $i) {
-            $points[$i] = $this->_upscale($points[$i]);
+        
+        foreach (array_keys($V4jz4nyvrd2d) as $V3xsptcgzss2) {
+            $V4jz4nyvrd2d[$V3xsptcgzss2] = $this->_upscale($V4jz4nyvrd2d[$V3xsptcgzss2]);
         }
 
-        $c = $this->_allocate_color($color);
+        $Vv03lfntnmcz = $this->_allocate_color($Vexxkxtdr01j);
 
-        // Convert the style array if required
-        if (is_array($style) && count($style) > 0 && !$fill) {
-            $gd_style = array();
+        
+        if (is_array($Vdidzwb0w3vc) && count($Vdidzwb0w3vc) > 0 && !$V4ljftfdeqplill) {
+            $Vg5wspvkpf2ed_style = array();
 
-            foreach ($style as $length) {
-                for ($i = 0; $i < $length; $i++) {
-                    $gd_style[] = $c;
+            foreach ($Vdidzwb0w3vc as $Vjxpogd0afis) {
+                for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vjxpogd0afis; $V3xsptcgzss2++) {
+                    $Vg5wspvkpf2ed_style[] = $Vv03lfntnmcz;
                 }
             }
 
-            if (!empty($gd_style)) {
-                imagesetstyle($this->get_image(), $gd_style);
-                $c = IMG_COLOR_STYLED;
+            if (!empty($Vg5wspvkpf2ed_style)) {
+                imagesetstyle($this->get_image(), $Vg5wspvkpf2ed_style);
+                $Vv03lfntnmcz = IMG_COLOR_STYLED;
             }
         }
 
-        imagesetthickness($this->get_image(), $width);
+        imagesetthickness($this->get_image(), $Vztt3qdrrikx);
 
-        if ($fill) {
-            imagefilledpolygon($this->get_image(), $points, count($points) / 2, $c);
+        if ($V4ljftfdeqplill) {
+            imagefilledpolygon($this->get_image(), $V4jz4nyvrd2d, count($V4jz4nyvrd2d) / 2, $Vv03lfntnmcz);
         } else {
-            imagepolygon($this->get_image(), $points, count($points) / 2, $c);
+            imagepolygon($this->get_image(), $V4jz4nyvrd2d, count($V4jz4nyvrd2d) / 2, $Vv03lfntnmcz);
         }
     }
 
-    /**
-     * Draws a circle at $x,$y with radius $r
-     *
-     * See {@link Style::munge_color()} for the format of the color array.
-     * See {@link Cpdf::setLineStyle()} for a description of the $style
-     * parameter (aka dash)
-     *
-     * @param float $x
-     * @param float $y
-     * @param float $r
-     * @param array $color
-     * @param float $width
-     * @param array $style
-     * @param bool $fill Fills the circle if true
-     */
-    public function circle($x, $y, $r, $color, $width = null, $style = null, $fill = false)
+    
+    public function circle($Vs4gloy23a1d, $Vopgub02o3q2, $Vkabkv5ip0kg, $Vexxkxtdr01j, $Vztt3qdrrikx = null, $Vdidzwb0w3vc = null, $V4ljftfdeqplill = false)
     {
-        // Scale by the AA factor and DPI
-        $x = $this->_upscale($x);
-        $y = $this->_upscale($y);
-        $r = $this->_upscale($r);
+        
+        $Vs4gloy23a1d = $this->_upscale($Vs4gloy23a1d);
+        $Vopgub02o3q2 = $this->_upscale($Vopgub02o3q2);
+        $Vkabkv5ip0kg = $this->_upscale($Vkabkv5ip0kg);
 
-        $c = $this->_allocate_color($color);
+        $Vv03lfntnmcz = $this->_allocate_color($Vexxkxtdr01j);
 
-        // Convert the style array if required
-        if (is_array($style) && count($style) > 0 && !$fill) {
-            $gd_style = array();
+        
+        if (is_array($Vdidzwb0w3vc) && count($Vdidzwb0w3vc) > 0 && !$V4ljftfdeqplill) {
+            $Vg5wspvkpf2ed_style = array();
 
-            foreach ($style as $length) {
-                for ($i = 0; $i < $length; $i++) {
-                    $gd_style[] = $c;
+            foreach ($Vdidzwb0w3vc as $Vjxpogd0afis) {
+                for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vjxpogd0afis; $V3xsptcgzss2++) {
+                    $Vg5wspvkpf2ed_style[] = $Vv03lfntnmcz;
                 }
             }
 
-            if (!empty($gd_style)) {
-                imagesetstyle($this->get_image(), $gd_style);
-                $c = IMG_COLOR_STYLED;
+            if (!empty($Vg5wspvkpf2ed_style)) {
+                imagesetstyle($this->get_image(), $Vg5wspvkpf2ed_style);
+                $Vv03lfntnmcz = IMG_COLOR_STYLED;
             }
         }
 
-        imagesetthickness($this->get_image(), $width);
+        imagesetthickness($this->get_image(), $Vztt3qdrrikx);
 
-        if ($fill) {
-            imagefilledellipse($this->get_image(), $x, $y, $r, $r, $c);
+        if ($V4ljftfdeqplill) {
+            imagefilledellipse($this->get_image(), $Vs4gloy23a1d, $Vopgub02o3q2, $Vkabkv5ip0kg, $Vkabkv5ip0kg, $Vv03lfntnmcz);
         } else {
-            imageellipse($this->get_image(), $x, $y, $r, $r, $c);
+            imageellipse($this->get_image(), $Vs4gloy23a1d, $Vopgub02o3q2, $Vkabkv5ip0kg, $Vkabkv5ip0kg, $Vv03lfntnmcz);
         }
     }
 
-    /**
-     * Add an image to the pdf.
-     * The image is placed at the specified x and y coordinates with the
-     * given width and height.
-     *
-     * @param string $img_url the path to the image
-     * @param float $x x position
-     * @param float $y y position
-     * @param int $w width (in pixels)
-     * @param int $h height (in pixels)
-     * @param string $resolution
-     * @return void
-     *
-     * @throws \Exception
-     * @internal param string $img_type the type (e.g. extension) of the image
-     */
-    public function image($img_url, $x, $y, $w, $h, $resolution = "normal")
+    
+    public function image($V3xsptcgzss2mg_url, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vkabkv5ip0kgesolution = "normal")
     {
-        $img_type = Cache::detect_type($img_url, $this->get_dompdf()->getHttpContext());
+        $V3xsptcgzss2mg_type = Cache::detect_type($V3xsptcgzss2mg_url, $this->get_dompdf()->getHttpContext());
 
-        if (!$img_type) {
+        if (!$V3xsptcgzss2mg_type) {
             return;
         }
 
-        $func_name = "imagecreatefrom$img_type";
-        if (!function_exists($func_name)) {
-            if (!method_exists("Dompdf\Helpers", $func_name)) {
-                throw new \Exception("Function $func_name() not found.  Cannot convert $type image: $img_url.  Please install the image PHP extension.");
+        $V4ljftfdeqplunc_name = "imagecreatefrom$V3xsptcgzss2mg_type";
+        if (!function_exists($V4ljftfdeqplunc_name)) {
+            if (!method_exists("Dompdf\Helpers", $V4ljftfdeqplunc_name)) {
+                throw new \Exception("Function $V4ljftfdeqplunc_name() not found.  Cannot convert $Vxeifmjzikkj image: $V3xsptcgzss2mg_url.  Please install the image PHP extension.");
             }
-            $func_name = "\\Dompdf\\Helpers::" . $func_name;
+            $V4ljftfdeqplunc_name = "\\Dompdf\\Helpers::" . $V4ljftfdeqplunc_name;
         }
-        $src = @call_user_func($func_name, $img_url);
+        $Veo0deounvgk = @call_user_func($V4ljftfdeqplunc_name, $V3xsptcgzss2mg_url);
 
-        if (!$src) {
-            return; // Probably should add to $_dompdf_errors or whatever here
-        }
-
-        // Scale by the AA factor and DPI
-        $x = $this->_upscale($x);
-        $y = $this->_upscale($y);
-
-        $w = $this->_upscale($w);
-        $h = $this->_upscale($h);
-
-        $img_w = imagesx($src);
-        $img_h = imagesy($src);
-
-        imagecopyresampled($this->get_image(), $src, $x, $y, 0, 0, $w, $h, $img_w, $img_h);
-    }
-
-    /**
-     * Writes text at the specified x and y coordinates
-     * See {@link Style::munge_color()} for the format of the color array.
-     *
-     * @param float $x
-     * @param float $y
-     * @param string $text the text to write
-     * @param string $font the font file to use
-     * @param float $size the font size, in points
-     * @param array $color
-     * @param float $word_spacing word spacing adjustment
-     * @param float $char_spacing
-     * @param float $angle Text angle
-     *
-     * @return void
-     */
-    public function text($x, $y, $text, $font, $size, $color = array(0, 0, 0), $word_spacing = 0.0, $char_spacing = 0.0, $angle = 0.0)
-    {
-        // Scale by the AA factor and DPI
-        $x = $this->_upscale($x);
-        $y = $this->_upscale($y);
-        $size = $this->_upscale($size) * self::FONT_SCALE;
-
-        $h = $this->get_font_height_actual($font, $size);
-        $c = $this->_allocate_color($color);
-
-        // imagettftext() converts numeric entities to their respective
-        // character. Preserve any originally double encoded entities to be
-        // represented as is.
-        // eg: &amp;#160; will render &#160; rather than its character.
-        $text = preg_replace('/&(#(?:x[a-fA-F0-9]+|[0-9]+);)/', '&#38;\1', $text);
-
-        $text = mb_encode_numericentity($text, array(0x0080, 0xff, 0, 0xff), 'UTF-8');
-
-        $font = $this->get_ttf_file($font);
-
-        // FIXME: word spacing
-        imagettftext($this->get_image(), $size, $angle, $x, $y + $h, $c, $font, $text);
-    }
-
-    public function javascript($code)
-    {
-        // Not implemented
-    }
-
-    /**
-     * Add a named destination (similar to <a name="foo">...</a> in html)
-     *
-     * @param string $anchorname The name of the named destination
-     */
-    public function add_named_dest($anchorname)
-    {
-        // Not implemented
-    }
-
-    /**
-     * Add a link to the pdf
-     *
-     * @param string $url The url to link to
-     * @param float $x The x position of the link
-     * @param float $y The y position of the link
-     * @param float $width The width of the link
-     * @param float $height The height of the link
-     */
-    public function add_link($url, $x, $y, $width, $height)
-    {
-        // Not implemented
-    }
-
-    /**
-     * Add meta information to the PDF
-     *
-     * @param string $label label of the value (Creator, Producer, etc.)
-     * @param string $value the text to set
-     */
-    public function add_info($label, $value)
-    {
-        // N/A
-    }
-
-    /**
-     * @param string $view
-     * @param array $options
-     */
-    public function set_default_view($view, $options = array())
-    {
-        // N/A
-    }
-
-    /**
-     * Calculates text size, in points
-     *
-     * @param string $text the text to be sized
-     * @param string $font the desired font
-     * @param float $size the desired font size
-     * @param float $word_spacing word spacing, if any
-     * @param float $char_spacing char spacing, if any
-     *
-     * @return float
-     */
-    public function get_text_width($text, $font, $size, $word_spacing = 0.0, $char_spacing = 0.0)
-    {
-        $font = $this->get_ttf_file($font);
-        $size = $this->_upscale($size) * self::FONT_SCALE;
-
-        // imagettfbbox() converts numeric entities to their respective
-        // character. Preserve any originally double encoded entities to be
-        // represented as is.
-        // eg: &amp;#160; will render &#160; rather than its character.
-        $text = preg_replace('/&(#(?:x[a-fA-F0-9]+|[0-9]+);)/', '&#38;\1', $text);
-
-        $text = mb_encode_numericentity($text, array(0x0080, 0xffff, 0, 0xffff), 'UTF-8');
-
-        // FIXME: word spacing
-        list($x1, , $x2) = imagettfbbox($size, 0, $font, $text);
-
-        // Add additional 1pt to prevent text overflow issues
-        return $this->_downscale($x2 - $x1) + 1;
-    }
-
-    /**
-     * @param $font
-     * @return string
-     */
-    public function get_ttf_file($font)
-    {
-        if ( stripos($font, ".ttf") === false ) {
-            $font .= ".ttf";
+        if (!$Veo0deounvgk) {
+            return; 
         }
 
-        if (!file_exists($font)) {
-            $font_metrics = $this->_dompdf->getFontMetrics();
-            $font = $font_metrics->getFont($this->_dompdf->getOptions()->getDefaultFont()) . ".ttf";
-            if (!file_exists($font)) {
-                if (strpos($font, "mono")) {
-                    $font = $font_metrics->getFont("DejaVu Mono") . ".ttf";
-                } elseif (strpos($font, "sans") !== false) {
-                    $font = $font_metrics->getFont("DejaVu Sans") . ".ttf";
-                } elseif (strpos($font, "serif")) {
-                    $font = $font_metrics->getFont("DejaVu Serif") . ".ttf";
+        
+        $Vs4gloy23a1d = $this->_upscale($Vs4gloy23a1d);
+        $Vopgub02o3q2 = $this->_upscale($Vopgub02o3q2);
+
+        $Vhoifq2kocyt = $this->_upscale($Vhoifq2kocyt);
+        $Vjlmjalejjxa = $this->_upscale($Vjlmjalejjxa);
+
+        $V3xsptcgzss2mg_w = imagesx($Veo0deounvgk);
+        $V3xsptcgzss2mg_h = imagesy($Veo0deounvgk);
+
+        imagecopyresampled($this->get_image(), $Veo0deounvgk, $Vs4gloy23a1d, $Vopgub02o3q2, 0, 0, $Vhoifq2kocyt, $Vjlmjalejjxa, $V3xsptcgzss2mg_w, $V3xsptcgzss2mg_h);
+    }
+
+    
+    public function text($Vs4gloy23a1d, $Vopgub02o3q2, $Vnlbbd31sxbf, $V4ljftfdeqplont, $Vlak25col1u3, $Vexxkxtdr01j = array(0, 0, 0), $Vhoifq2kocytord_spacing = 0.0, $Vv03lfntnmczhar_spacing = 0.0, $Vrr3orqjztc2ngle = 0.0)
+    {
+        
+        $Vs4gloy23a1d = $this->_upscale($Vs4gloy23a1d);
+        $Vopgub02o3q2 = $this->_upscale($Vopgub02o3q2);
+        $Vlak25col1u3 = $this->_upscale($Vlak25col1u3) * self::FONT_SCALE;
+
+        $Vjlmjalejjxa = $this->get_font_height_actual($V4ljftfdeqplont, $Vlak25col1u3);
+        $Vv03lfntnmcz = $this->_allocate_color($Vexxkxtdr01j);
+
+        
+        
+        
+        
+        $Vnlbbd31sxbf = preg_replace('/&(#(?:x[a-fA-F0-9]+|[0-9]+);)/', '&#38;\1', $Vnlbbd31sxbf);
+
+        $Vnlbbd31sxbf = mb_encode_numericentity($Vnlbbd31sxbf, array(0x0080, 0xff, 0, 0xff), 'UTF-8');
+
+        $V4ljftfdeqplont = $this->get_ttf_file($V4ljftfdeqplont);
+
+        
+        imagettftext($this->get_image(), $Vlak25col1u3, $Vrr3orqjztc2ngle, $Vs4gloy23a1d, $Vopgub02o3q2 + $Vjlmjalejjxa, $Vv03lfntnmcz, $V4ljftfdeqplont, $Vnlbbd31sxbf);
+    }
+
+    public function javascript($Vv03lfntnmczode)
+    {
+        
+    }
+
+    
+    public function add_named_dest($Vrr3orqjztc2nchorname)
+    {
+        
+    }
+
+    
+    public function add_link($Vsp0omgzz2yw, $Vs4gloy23a1d, $Vopgub02o3q2, $Vztt3qdrrikx, $Vjlmjalejjxaeight)
+    {
+        
+    }
+
+    
+    public function add_info($V4qeqspuux02, $Vqfra35f14fv)
+    {
+        
+    }
+
+    
+    public function set_default_view($Vl1wquemb3h4, $Vi43cktvy0zi = array())
+    {
+        
+    }
+
+    
+    public function get_text_width($Vnlbbd31sxbf, $V4ljftfdeqplont, $Vlak25col1u3, $Vhoifq2kocytord_spacing = 0.0, $Vv03lfntnmczhar_spacing = 0.0)
+    {
+        $V4ljftfdeqplont = $this->get_ttf_file($V4ljftfdeqplont);
+        $Vlak25col1u3 = $this->_upscale($Vlak25col1u3) * self::FONT_SCALE;
+
+        
+        
+        
+        
+        $Vnlbbd31sxbf = preg_replace('/&(#(?:x[a-fA-F0-9]+|[0-9]+);)/', '&#38;\1', $Vnlbbd31sxbf);
+
+        $Vnlbbd31sxbf = mb_encode_numericentity($Vnlbbd31sxbf, array(0x0080, 0xffff, 0, 0xffff), 'UTF-8');
+
+        
+        list($Vjxqwkabkvag, , $Vn5yf4urazdd) = imagettfbbox($Vlak25col1u3, 0, $V4ljftfdeqplont, $Vnlbbd31sxbf);
+
+        
+        return $this->_downscale($Vn5yf4urazdd - $Vjxqwkabkvag) + 1;
+    }
+
+    
+    public function get_ttf_file($V4ljftfdeqplont)
+    {
+        if ( stripos($V4ljftfdeqplont, ".ttf") === false ) {
+            $V4ljftfdeqplont .= ".ttf";
+        }
+
+        if (!file_exists($V4ljftfdeqplont)) {
+            $V4ljftfdeqplont_metrics = $this->_dompdf->getFontMetrics();
+            $V4ljftfdeqplont = $V4ljftfdeqplont_metrics->getFont($this->_dompdf->getOptions()->getDefaultFont()) . ".ttf";
+            if (!file_exists($V4ljftfdeqplont)) {
+                if (strpos($V4ljftfdeqplont, "mono")) {
+                    $V4ljftfdeqplont = $V4ljftfdeqplont_metrics->getFont("DejaVu Mono") . ".ttf";
+                } elseif (strpos($V4ljftfdeqplont, "sans") !== false) {
+                    $V4ljftfdeqplont = $V4ljftfdeqplont_metrics->getFont("DejaVu Sans") . ".ttf";
+                } elseif (strpos($V4ljftfdeqplont, "serif")) {
+                    $V4ljftfdeqplont = $V4ljftfdeqplont_metrics->getFont("DejaVu Serif") . ".ttf";
                 } else {
-                    $font = $font_metrics->getFont("DejaVu Sans") . ".ttf";
+                    $V4ljftfdeqplont = $V4ljftfdeqplont_metrics->getFont("DejaVu Sans") . ".ttf";
                 }
             }
         }
 
-        return $font;
+        return $V4ljftfdeqplont;
     }
 
-    /**
-     * Calculates font height, in points
-     *
-     * @param string $font
-     * @param float $size
-     * @return float
-     */
-    public function get_font_height($font, $size)
+    
+    public function get_font_height($V4ljftfdeqplont, $Vlak25col1u3)
     {
-        $size = $this->_upscale($size) * self::FONT_SCALE;
+        $Vlak25col1u3 = $this->_upscale($Vlak25col1u3) * self::FONT_SCALE;
 
-        $height = $this->get_font_height_actual($font, $size);
+        $Vjlmjalejjxaeight = $this->get_font_height_actual($V4ljftfdeqplont, $Vlak25col1u3);
 
-        return $this->_downscale($height);
+        return $this->_downscale($Vjlmjalejjxaeight);
     }
 
-    private function get_font_height_actual($font, $size)
+    private function get_font_height_actual($V4ljftfdeqplont, $Vlak25col1u3)
     {
-        $font = $this->get_ttf_file($font);
-        $ratio = $this->_dompdf->getOptions()->getFontHeightRatio();
+        $V4ljftfdeqplont = $this->get_ttf_file($V4ljftfdeqplont);
+        $Vkabkv5ip0kgatio = $this->_dompdf->getOptions()->getFontHeightRatio();
 
-        // FIXME: word spacing
-        list(, $y2, , , , $y1) = imagettfbbox($size, 0, $font, "MXjpqytfhl"); // Test string with ascenders, descenders and caps
-        return ($y2 - $y1) * $ratio;
+        
+        list(, $Vfph4d2wdjam, , , , $Vzdywlaebz1l) = imagettfbbox($Vlak25col1u3, 0, $V4ljftfdeqplont, "MXjpqytfhl"); 
+        return ($Vfph4d2wdjam - $Vzdywlaebz1l) * $Vkabkv5ip0kgatio;
     }
 
-    /**
-     * @param string $font
-     * @param float $size
-     * @return float
-     */
-    public function get_font_baseline($font, $size)
+    
+    public function get_font_baseline($V4ljftfdeqplont, $Vlak25col1u3)
     {
-        $ratio = $this->_dompdf->getOptions()->getFontHeightRatio();
-        return $this->get_font_height($font, $size) / $ratio;
+        $Vkabkv5ip0kgatio = $this->_dompdf->getOptions()->getFontHeightRatio();
+        return $this->get_font_height($V4ljftfdeqplont, $Vlak25col1u3) / $Vkabkv5ip0kgatio;
     }
 
-    /**
-     * Starts a new page
-     *
-     * Subsequent drawing operations will appear on the new page.
-     */
+    
     public function new_page()
     {
         $this->_page_number++;
@@ -960,128 +630,111 @@ class GD implements Canvas
 
     public function open_object()
     {
-        // N/A
+        
     }
 
     public function close_object()
     {
-        // N/A
+        
     }
 
     public function add_object()
     {
-        // N/A
+        
     }
 
     public function page_text()
     {
-        // N/A
+        
     }
 
-    /**
-     * Streams the image to the client.
-     *
-     * @param string $filename The filename to present to the client.
-     * @param array $options Associative array: 'type' => jpeg|jpg|png; 'quality' => 0 - 100 (JPEG only);
-     *     'page' => Number of the page to output (defaults to the first); 'Attachment': 1 or 0 (default 1).
-     */
-    public function stream($filename, $options = array())
+    
+    public function stream($V4ljftfdeqplilename, $Vi43cktvy0zi = array())
     {
         if (headers_sent()) {
             die("Unable to stream image: headers already sent");
         }
 
-        if (!isset($options["type"])) $options["type"] = "png";
-        if (!isset($options["Attachment"])) $options["Attachment"] = true;
-        $type = strtolower($options["type"]);
+        if (!isset($Vi43cktvy0zi["type"])) $Vi43cktvy0zi["type"] = "png";
+        if (!isset($Vi43cktvy0zi["Attachment"])) $Vi43cktvy0zi["Attachment"] = true;
+        $Vxeifmjzikkj = strtolower($Vi43cktvy0zi["type"]);
 
-        switch ($type) {
+        switch ($Vxeifmjzikkj) {
             case "jpg":
             case "jpeg":
-                $contentType = "image/jpeg";
-                $extension = ".jpg";
+                $Vv03lfntnmczontentType = "image/jpeg";
+                $V2bwrjburyufxtension = ".jpg";
                 break;
             case "png":
             default:
-                $contentType = "image/png";
-                $extension = ".png";
+                $Vv03lfntnmczontentType = "image/png";
+                $V2bwrjburyufxtension = ".png";
                 break;
         }
 
         header("Cache-Control: private");
-        header("Content-Type: $contentType");
+        header("Content-Type: $Vv03lfntnmczontentType");
 
-        $filename = str_replace(array("\n", "'"), "", basename($filename, ".$type")) . $extension;
-        $attachment = $options["Attachment"] ? "attachment" : "inline";
-        header(Helpers::buildContentDispositionHeader($attachment, $filename));
+        $V4ljftfdeqplilename = str_replace(array("\n", "'"), "", basename($V4ljftfdeqplilename, ".$Vxeifmjzikkj")) . $V2bwrjburyufxtension;
+        $Vrr3orqjztc2ttachment = $Vi43cktvy0zi["Attachment"] ? "attachment" : "inline";
+        header(Helpers::buildContentDispositionHeader($Vrr3orqjztc2ttachment, $V4ljftfdeqplilename));
 
-        $this->_output($options);
+        $this->_output($Vi43cktvy0zi);
         flush();
     }
 
-    /**
-     * Returns the image as a string.
-     *
-     * @param array $options Associative array: 'type' => jpeg|jpg|png; 'quality' => 0 - 100 (JPEG only);
-     *     'page' => Number of the page to output (defaults to the first).
-     * @return string
-     */
-    public function output($options = array())
+    
+    public function output($Vi43cktvy0zi = array())
     {
         ob_start();
 
-        $this->_output($options);
+        $this->_output($Vi43cktvy0zi);
 
         return ob_get_clean();
     }
 
-    /**
-     * Outputs the image stream directly.
-     *
-     * @param array $options Associative array: 'type' => jpeg|jpg|png; 'quality' => 0 - 100 (JPEG only);
-     *     'page' => Number of the page to output (defaults to the first).
-     */
-    private function _output($options = array())
+    
+    private function _output($Vi43cktvy0zi = array())
     {
-        if (!isset($options["type"])) $options["type"] = "png";
-        if (!isset($options["page"])) $options["page"] = 1;
-        $type = strtolower($options["type"]);
+        if (!isset($Vi43cktvy0zi["type"])) $Vi43cktvy0zi["type"] = "png";
+        if (!isset($Vi43cktvy0zi["page"])) $Vi43cktvy0zi["page"] = 1;
+        $Vxeifmjzikkj = strtolower($Vi43cktvy0zi["type"]);
 
-        if (isset($this->_imgs[$options["page"] - 1])) {
-            $img = $this->_imgs[$options["page"] - 1];
+        if (isset($this->_imgs[$Vi43cktvy0zi["page"] - 1])) {
+            $V3xsptcgzss2mg = $this->_imgs[$Vi43cktvy0zi["page"] - 1];
         } else {
-            $img = $this->_imgs[0];
+            $V3xsptcgzss2mg = $this->_imgs[0];
         }
 
-        // Perform any antialiasing
+        
         if ($this->_aa_factor != 1) {
-            $dst_w = $this->_actual_width / $this->_aa_factor;
-            $dst_h = $this->_actual_height / $this->_aa_factor;
-            $dst = imagecreatetruecolor($dst_w, $dst_h);
-            imagecopyresampled($dst, $img, 0, 0, 0, 0,
-                $dst_w, $dst_h,
+            $Vcyg5xmwfpxost_w = $this->_actual_width / $this->_aa_factor;
+            $Vcyg5xmwfpxost_h = $this->_actual_height / $this->_aa_factor;
+            $Vcyg5xmwfpxost = imagecreatetruecolor($Vcyg5xmwfpxost_w, $Vcyg5xmwfpxost_h);
+            imagecopyresampled($Vcyg5xmwfpxost, $V3xsptcgzss2mg, 0, 0, 0, 0,
+                $Vcyg5xmwfpxost_w, $Vcyg5xmwfpxost_h,
                 $this->_actual_width, $this->_actual_height);
         } else {
-            $dst = $img;
+            $Vcyg5xmwfpxost = $V3xsptcgzss2mg;
         }
 
-        switch ($type) {
+        switch ($Vxeifmjzikkj) {
             case "jpg":
             case "jpeg":
-                if (!isset($options["quality"])) {
-                    $options["quality"] = 75;
+                if (!isset($Vi43cktvy0zi["quality"])) {
+                    $Vi43cktvy0zi["quality"] = 75;
                 }
 
-                imagejpeg($dst, null, $options["quality"]);
+                imagejpeg($Vcyg5xmwfpxost, null, $Vi43cktvy0zi["quality"]);
                 break;
             case "png":
             default:
-                imagepng($dst);
+                imagepng($Vcyg5xmwfpxost);
                 break;
         }
 
         if ($this->_aa_factor != 1) {
-            imagedestroy($dst);
+            imagedestroy($Vcyg5xmwfpxost);
         }
     }
 }

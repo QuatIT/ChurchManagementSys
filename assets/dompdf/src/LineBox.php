@@ -1,303 +1,233 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf;
 
 use Dompdf\FrameDecorator\Block;
 use Dompdf\FrameDecorator\Page;
 
-/**
- * The line box class
- *
- * This class represents a line box
- * http://www.w3.org/TR/CSS2/visuren.html#line-box
- *
- * @package dompdf
- */
+
 class LineBox
 {
 
-    /**
-     * @var Block
-     */
-    protected $_block_frame;
+    
+    protected $Vo1a3wki1dhj;
 
-    /**
-     * @var Frame[]
-     */
-    protected $_frames = array();
+    
+    protected $Vassba4tcdne = array();
 
-    /**
-     * @var integer
-     */
-    public $wc = 0;
+    
+    public $Vrjt3xcykhaj = 0;
 
-    /**
-     * @var float
-     */
-    public $y = null;
+    
+    public $Vopgub02o3q2 = null;
 
-    /**
-     * @var float
-     */
-    public $w = 0.0;
+    
+    public $Vhoifq2kocyt = 0.0;
 
-    /**
-     * @var float
-     */
-    public $h = 0.0;
+    
+    public $Vjlmjalejjxa = 0.0;
 
-    /**
-     * @var float
-     */
-    public $left = 0.0;
+    
+    public $V0opnfka0og1 = 0.0;
 
-    /**
-     * @var float
-     */
-    public $right = 0.0;
+    
+    public $Vqemi0kebtld = 0.0;
 
-    /**
-     * @var Frame
-     */
-    public $tallest_frame = null;
+    
+    public $Vhpgk42vcvfd = null;
 
-    /**
-     * @var bool[]
-     */
-    public $floating_blocks = array();
+    
+    public $Ve40nqgog2bw = array();
 
-    /**
-     * @var bool
-     */
-    public $br = false;
+    
+    public $Vxo14t4heoku = false;
 
-    /**
-     * Class constructor
-     *
-     * @param Block $frame the Block containing this line
-     * @param int $y
-     */
-    public function __construct(Block $frame, $y = 0)
+    
+    public function __construct(Block $Vnk2ly5jcvjf, $Vopgub02o3q2 = 0)
     {
-        $this->_block_frame = $frame;
+        $this->_block_frame = $Vnk2ly5jcvjf;
         $this->_frames = array();
-        $this->y = $y;
+        $this->y = $Vopgub02o3q2;
 
         $this->get_float_offsets();
     }
 
-    /**
-     * Returns the floating elements inside the first floating parent
-     *
-     * @param Page $root
-     *
-     * @return Frame[]
-     */
-    public function get_floats_inside(Page $root)
+    
+    public function get_floats_inside(Page $Vzlqynjxsspd)
     {
-        $floating_frames = $root->get_floating_frames();
+        $Vlvq1dkrblm4 = $Vzlqynjxsspd->get_floating_frames();
 
-        if (count($floating_frames) == 0) {
-            return $floating_frames;
+        if (count($Vlvq1dkrblm4) == 0) {
+            return $Vlvq1dkrblm4;
         }
 
-        // Find nearest floating element
-        $p = $this->_block_frame;
-        while ($p->get_style()->float === "none") {
-            $parent = $p->get_parent();
+        
+        $Vksopkgqixky = $this->_block_frame;
+        while ($Vksopkgqixky->get_style()->float === "none") {
+            $Vksopkgqixkyarent = $Vksopkgqixky->get_parent();
 
-            if (!$parent) {
+            if (!$Vksopkgqixkyarent) {
                 break;
             }
 
-            $p = $parent;
+            $Vksopkgqixky = $Vksopkgqixkyarent;
         }
 
-        if ($p == $root) {
-            return $floating_frames;
+        if ($Vksopkgqixky == $Vzlqynjxsspd) {
+            return $Vlvq1dkrblm4;
         }
 
-        $parent = $p;
+        $Vksopkgqixkyarent = $Vksopkgqixky;
 
-        $childs = array();
+        $Vnmt34au1qxo = array();
 
-        foreach ($floating_frames as $_floating) {
-            $p = $_floating->get_parent();
+        foreach ($Vlvq1dkrblm4 as $Vesyhcylmqaj) {
+            $Vksopkgqixky = $Vesyhcylmqaj->get_parent();
 
-            while (($p = $p->get_parent()) && $p !== $parent);
+            while (($Vksopkgqixky = $Vksopkgqixky->get_parent()) && $Vksopkgqixky !== $Vksopkgqixkyarent);
 
-            if ($p) {
-                $childs[] = $p;
+            if ($Vksopkgqixky) {
+                $Vnmt34au1qxo[] = $Vksopkgqixky;
             }
         }
 
-        return $childs;
+        return $Vnmt34au1qxo;
     }
 
-    /**
-     *
-     */
+    
     public function get_float_offsets()
     {
-        static $anti_infinite_loop = 10000; // FIXME smelly hack
+        static $Vckblrkkkhhs = 10000; 
 
-        $reflower = $this->_block_frame->get_reflower();
+        $Vfznctyvx2oe = $this->_block_frame->get_reflower();
 
-        if (!$reflower) {
+        if (!$Vfznctyvx2oe) {
             return;
         }
 
-        $cb_w = null;
+        $Vke0k1m0vmwu = null;
 
-        $block = $this->_block_frame;
-        $root = $block->get_root();
+        $Vwoflziz3q5d = $this->_block_frame;
+        $Vzlqynjxsspd = $Vwoflziz3q5d->get_root();
 
-        if (!$root) {
+        if (!$Vzlqynjxsspd) {
             return;
         }
 
-        $style = $this->_block_frame->get_style();
-        $floating_frames = $this->get_floats_inside($root);
-        $inside_left_floating_width = 0;
-        $inside_right_floating_width = 0;
-        $outside_left_floating_width = 0;
-        $outside_right_floating_width = 0;
+        $Vdidzwb0w3vc = $this->_block_frame->get_style();
+        $Vlvq1dkrblm4 = $this->get_floats_inside($Vzlqynjxsspd);
+        $Vgjsrilwyjie = 0;
+        $Vgjl55wf0xdw = 0;
+        $Vy5bbpbfhxut = 0;
+        $Vo3jt4zx1gcd = 0;
 
-        foreach ($floating_frames as $child_key => $floating_frame) {
-            $floating_frame_parent = $floating_frame->get_parent();
-            $id = $floating_frame->get_id();
+        foreach ($Vlvq1dkrblm4 as $V42wnqg4n4th => $Vbaxrngpl52m) {
+            $Vbaxrngpl52m_parent = $Vbaxrngpl52m->get_parent();
+            $Vkriocz2qep2 = $Vbaxrngpl52m->get_id();
 
-            if (isset($this->floating_blocks[$id])) {
+            if (isset($this->floating_blocks[$Vkriocz2qep2])) {
                 continue;
             }
 
-            $float = $floating_frame->get_style()->float;
-            $floating_width = $floating_frame->get_margin_width();
+            $Vzte0430tk0z = $Vbaxrngpl52m->get_style()->float;
+            $Vzte0430tk0zing_width = $Vbaxrngpl52m->get_margin_width();
 
-            if (!$cb_w) {
-                $cb_w = $floating_frame->get_containing_block("w");
+            if (!$Vke0k1m0vmwu) {
+                $Vke0k1m0vmwu = $Vbaxrngpl52m->get_containing_block("w");
             }
 
-            $line_w = $this->get_width();
+            $Vaf1jxuakj4a = $this->get_width();
 
-            if (!$floating_frame->_float_next_line && ($cb_w <= $line_w + $floating_width) && ($cb_w > $line_w)) {
-                $floating_frame->_float_next_line = true;
+            if (!$Vbaxrngpl52m->_float_next_line && ($Vke0k1m0vmwu <= $Vaf1jxuakj4a + $Vzte0430tk0zing_width) && ($Vke0k1m0vmwu > $Vaf1jxuakj4a)) {
+                $Vbaxrngpl52m->_float_next_line = true;
                 continue;
             }
 
-            // If the child is still shifted by the floating element
-            if ($anti_infinite_loop-- > 0 &&
-                $floating_frame->get_position("y") + $floating_frame->get_margin_height() >= $this->y &&
-                $block->get_position("x") + $block->get_margin_width() >= $floating_frame->get_position("x")
+            
+            if ($Vckblrkkkhhs-- > 0 &&
+                $Vbaxrngpl52m->get_position("y") + $Vbaxrngpl52m->get_margin_height() >= $this->y &&
+                $Vwoflziz3q5d->get_position("x") + $Vwoflziz3q5d->get_margin_width() >= $Vbaxrngpl52m->get_position("x")
             ) {
-                if ($float === "left") {
-                    if ($floating_frame_parent === $this->_block_frame) {
-                        $inside_left_floating_width += $floating_width;
+                if ($Vzte0430tk0z === "left") {
+                    if ($Vbaxrngpl52m_parent === $this->_block_frame) {
+                        $Vgjsrilwyjie += $Vzte0430tk0zing_width;
                     } else {
-                        $outside_left_floating_width += $floating_width;
+                        $Vy5bbpbfhxut += $Vzte0430tk0zing_width;
                     }
-                } elseif ($float === "right") {
-                    if ($floating_frame_parent === $this->_block_frame) {
-                        $inside_right_floating_width += $floating_width;
+                } elseif ($Vzte0430tk0z === "right") {
+                    if ($Vbaxrngpl52m_parent === $this->_block_frame) {
+                        $Vgjl55wf0xdw += $Vzte0430tk0zing_width;
                     } else {
-                        $outside_right_floating_width += $floating_width;
+                        $Vo3jt4zx1gcd += $Vzte0430tk0zing_width;
                     }
                 }
 
-                $this->floating_blocks[$id] = true;
-            } // else, the floating element won't shift anymore
+                $this->floating_blocks[$Vkriocz2qep2] = true;
+            } 
             else {
-                $root->remove_floating_frame($child_key);
+                $Vzlqynjxsspd->remove_floating_frame($V42wnqg4n4th);
             }
         }
 
-        $this->left += $inside_left_floating_width;
-        if ($outside_left_floating_width > 0 && $outside_left_floating_width > ((float)$style->length_in_pt($style->margin_left) + (float)$style->length_in_pt($style->padding_left))) {
-            $this->left += $outside_left_floating_width - (float)$style->length_in_pt($style->margin_left) - (float)$style->length_in_pt($style->padding_left);
+        $this->left += $Vgjsrilwyjie;
+        if ($Vy5bbpbfhxut > 0 && $Vy5bbpbfhxut > ((float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_left) + (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->padding_left))) {
+            $this->left += $Vy5bbpbfhxut - (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_left) - (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->padding_left);
         }
-        $this->right += $inside_right_floating_width;
-        if ($outside_right_floating_width > 0 && $outside_right_floating_width > ((float)$style->length_in_pt($style->margin_left) + (float)$style->length_in_pt($style->padding_right))) {
-            $this->right += $outside_right_floating_width - (float)$style->length_in_pt($style->margin_right) - (float)$style->length_in_pt($style->padding_right);
+        $this->right += $Vgjl55wf0xdw;
+        if ($Vo3jt4zx1gcd > 0 && $Vo3jt4zx1gcd > ((float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_left) + (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->padding_right))) {
+            $this->right += $Vo3jt4zx1gcd - (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_right) - (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->padding_right);
         }
     }
 
-    /**
-     * @return float
-     */
+    
     public function get_width()
     {
         return $this->left + $this->w + $this->right;
     }
 
-    /**
-     * @return Block
-     */
+    
     public function get_block_frame()
     {
         return $this->_block_frame;
     }
 
-    /**
-     * @return Frame[]
-     */
+    
     function &get_frames()
     {
         return $this->_frames;
     }
 
-    /**
-     * @param Frame $frame
-     */
-    public function add_frame(Frame $frame)
+    
+    public function add_frame(Frame $Vnk2ly5jcvjf)
     {
-        $this->_frames[] = $frame;
+        $this->_frames[] = $Vnk2ly5jcvjf;
     }
 
-    /**
-     * Recalculate LineBox width based on the contained frames total width.
-     *
-     * @return float
-     */
+    
     public function recalculate_width()
     {
-        $width = 0;
+        $Vhoifq2kocytidth = 0;
 
-        foreach ($this->get_frames() as $frame) {
-            $width += $frame->calculate_auto_width();
+        foreach ($this->get_frames() as $Vnk2ly5jcvjf) {
+            $Vhoifq2kocytidth += $Vnk2ly5jcvjf->calculate_auto_width();
         }
 
-        return $this->w = $width;
+        return $this->w = $Vhoifq2kocytidth;
     }
 
-    /**
-     * @return string
-     */
+    
     public function __toString()
     {
-        $props = array("wc", "y", "w", "h", "left", "right", "br");
-        $s = "";
-        foreach ($props as $prop) {
-            $s .= "$prop: " . $this->$prop . "\n";
+        $Vksopkgqixkyrops = array("wc", "y", "w", "h", "left", "right", "br");
+        $Vujweq34gtl3 = "";
+        foreach ($Vksopkgqixkyrops as $Vksopkgqixkyrop) {
+            $Vujweq34gtl3 .= "$Vksopkgqixkyrop: " . $this->$Vksopkgqixkyrop . "\n";
         }
-        $s .= count($this->_frames) . " frames\n";
+        $Vujweq34gtl3 .= count($this->_frames) . " frames\n";
 
-        return $s;
+        return $Vujweq34gtl3;
     }
-    /*function __get($prop) {
-      if (!isset($this->{"_$prop"})) return;
-      return $this->{"_$prop"};
-    }*/
+    
 }
 
-/*
-class LineBoxList implements Iterator {
-  private $_p = 0;
-  private $_lines = array();
 
-}
-*/

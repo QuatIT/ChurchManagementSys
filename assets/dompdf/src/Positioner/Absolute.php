@@ -1,118 +1,98 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Dompdf\Positioner;
 
 use Dompdf\FrameDecorator\AbstractFrameDecorator;
 
-/**
- * Positions absolutely positioned frames
- */
+
 class Absolute extends AbstractPositioner
 {
 
-    /**
-     * @param AbstractFrameDecorator $frame
-     */
-    function position(AbstractFrameDecorator $frame)
+    
+    function position(AbstractFrameDecorator $Vnk2ly5jcvjf)
     {
-        $style = $frame->get_style();
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
 
-        $p = $frame->find_positionned_parent();
+        $Vksopkgqixky = $Vnk2ly5jcvjf->find_positionned_parent();
 
-        list($x, $y, $w, $h) = $frame->get_containing_block();
+        list($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa) = $Vnk2ly5jcvjf->get_containing_block();
 
-        $top = $style->length_in_pt($style->top, $h);
-        $right = $style->length_in_pt($style->right, $w);
-        $bottom = $style->length_in_pt($style->bottom, $h);
-        $left = $style->length_in_pt($style->left, $w);
+        $Vnre3z2vvgov = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->top, $Vjlmjalejjxa);
+        $Vqemi0kebtld = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->right, $Vhoifq2kocyt);
+        $Vs4qcjm3btdq = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->bottom, $Vjlmjalejjxa);
+        $V0opnfka0og1 = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->left, $Vhoifq2kocyt);
 
-        if ($p && !($left === "auto" && $right === "auto")) {
-            // Get the parent's padding box (see http://www.w3.org/TR/CSS21/visuren.html#propdef-top)
-            list($x, $y, $w, $h) = $p->get_padding_box();
+        if ($Vksopkgqixky && !($V0opnfka0og1 === "auto" && $Vqemi0kebtld === "auto")) {
+            
+            list($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa) = $Vksopkgqixky->get_padding_box();
         }
 
-        list($width, $height) = array($frame->get_margin_width(), $frame->get_margin_height());
+        list($Vhoifq2kocytidth, $Vjlmjalejjxaeight) = array($Vnk2ly5jcvjf->get_margin_width(), $Vnk2ly5jcvjf->get_margin_height());
 
-        $orig_style = $frame->get_original_style();
-        $orig_width = $orig_style->width;
-        $orig_height = $orig_style->height;
+        $Vfdmsptgjprm = $Vnk2ly5jcvjf->get_original_style();
+        $Vtt0rdyy3vqm = $Vfdmsptgjprm->width;
+        $Vsuy4wzmsutu = $Vfdmsptgjprm->height;
 
-        /****************************
-         *
-         * Width auto:
-         * ____________| left=auto | left=fixed |
-         * right=auto  |     A     |     B      |
-         * right=fixed |     C     |     D      |
-         *
-         * Width fixed:
-         * ____________| left=auto | left=fixed |
-         * right=auto  |     E     |     F      |
-         * right=fixed |     G     |     H      |
-         *****************************/
+        
 
-        if ($left === "auto") {
-            if ($right === "auto") {
-                // A or E - Keep the frame at the same position
-                $x = $x + $frame->find_block_parent()->get_current_line_box()->w;
+        if ($V0opnfka0og1 === "auto") {
+            if ($Vqemi0kebtld === "auto") {
+                
+                $Vs4gloy23a1d = $Vs4gloy23a1d + $Vnk2ly5jcvjf->find_block_parent()->get_current_line_box()->w;
             } else {
-                if ($orig_width === "auto") {
-                    // C
-                    $x += $w - $width - $right;
+                if ($Vtt0rdyy3vqm === "auto") {
+                    
+                    $Vs4gloy23a1d += $Vhoifq2kocyt - $Vhoifq2kocytidth - $Vqemi0kebtld;
                 } else {
-                    // G
-                    $x += $w - $width - $right;
+                    
+                    $Vs4gloy23a1d += $Vhoifq2kocyt - $Vhoifq2kocytidth - $Vqemi0kebtld;
                 }
             }
         } else {
-            if ($right === "auto") {
-                // B or F
-                $x += (float)$left;
+            if ($Vqemi0kebtld === "auto") {
+                
+                $Vs4gloy23a1d += (float)$V0opnfka0og1;
             } else {
-                if ($orig_width === "auto") {
-                    // D - TODO change width
-                    $x += (float)$left;
+                if ($Vtt0rdyy3vqm === "auto") {
+                    
+                    $Vs4gloy23a1d += (float)$V0opnfka0og1;
                 } else {
-                    // H - Everything is fixed: left + width win
-                    $x += (float)$left;
+                    
+                    $Vs4gloy23a1d += (float)$V0opnfka0og1;
                 }
             }
         }
 
-        // The same vertically
-        if ($top === "auto") {
-            if ($bottom === "auto") {
-                // A or E - Keep the frame at the same position
-                $y = $frame->find_block_parent()->get_current_line_box()->y;
+        
+        if ($Vnre3z2vvgov === "auto") {
+            if ($Vs4qcjm3btdq === "auto") {
+                
+                $Vopgub02o3q2 = $Vnk2ly5jcvjf->find_block_parent()->get_current_line_box()->y;
             } else {
-                if ($orig_height === "auto") {
-                    // C
-                    $y += (float)$h - $height - (float)$bottom;
+                if ($Vsuy4wzmsutu === "auto") {
+                    
+                    $Vopgub02o3q2 += (float)$Vjlmjalejjxa - $Vjlmjalejjxaeight - (float)$Vs4qcjm3btdq;
                 } else {
-                    // G
-                    $y += (float)$h - $height - (float)$bottom;
+                    
+                    $Vopgub02o3q2 += (float)$Vjlmjalejjxa - $Vjlmjalejjxaeight - (float)$Vs4qcjm3btdq;
                 }
             }
         } else {
-            if ($bottom === "auto") {
-                // B or F
-                $y += (float)$top;
+            if ($Vs4qcjm3btdq === "auto") {
+                
+                $Vopgub02o3q2 += (float)$Vnre3z2vvgov;
             } else {
-                if ($orig_height === "auto") {
-                    // D - TODO change height
-                    $y += (float)$top;
+                if ($Vsuy4wzmsutu === "auto") {
+                    
+                    $Vopgub02o3q2 += (float)$Vnre3z2vvgov;
                 } else {
-                    // H - Everything is fixed: top + height win
-                    $y += (float)$top;
+                    
+                    $Vopgub02o3q2 += (float)$Vnre3z2vvgov;
                 }
             }
         }
 
-        $frame->set_position($x, $y);
+        $Vnk2ly5jcvjf->set_position($Vs4gloy23a1d, $Vopgub02o3q2);
     }
 }

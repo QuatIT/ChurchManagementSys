@@ -1,10 +1,5 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Tag;
 
@@ -12,18 +7,18 @@ use Svg\Style;
 
 class ClipPath extends AbstractTag
 {
-    protected function before($attributes)
+    protected function before($Voywws15cvz5)
     {
-        $surface = $this->document->getSurface();
+        $Vyjtkau4njyv = $this->document->getSurface();
 
-        $surface->save();
+        $Vyjtkau4njyv->save();
 
-        $style = $this->makeStyle($attributes);
+        $Vdidzwb0w3vc = $this->makeStyle($Voywws15cvz5);
 
-        $this->setStyle($style);
-        $surface->setStyle($style);
+        $this->setStyle($Vdidzwb0w3vc);
+        $Vyjtkau4njyv->setStyle($Vdidzwb0w3vc);
 
-        $this->applyTransform($attributes);
+        $this->applyTransform($Voywws15cvz5);
     }
 
     protected function after()

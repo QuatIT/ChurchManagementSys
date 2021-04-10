@@ -6,51 +6,51 @@
 
 <?php
 
-//error_reporting(E_ALL);
+
 error_reporting(E_STRICT);
 
 date_default_timezone_set('America/Toronto');
 
 require_once('../class.phpmailer.php');
-//include("class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
 
-$mail                = new PHPMailer();
 
-$body                = file_get_contents('contents.html');
-$body                = eregi_replace("[\]",'',$body);
+$Vbfod5qpq0lc                = new PHPMailer();
 
-$mail->IsSMTP(); // telling the class to use SMTP
-$mail->Host          = "smtp1.site.com;smtp2.site.com";
-$mail->SMTPAuth      = true;                  // enable SMTP authentication
-$mail->SMTPKeepAlive = true;                  // SMTP connection will not close after each email sent
-$mail->Host          = "mail.yourdomain.com"; // sets the SMTP server
-$mail->Port          = 26;                    // set the SMTP port for the GMAIL server
-$mail->Username      = "yourname@yourdomain"; // SMTP account username
-$mail->Password      = "yourpassword";        // SMTP account password
-$mail->SetFrom('list@mydomain.com', 'List manager');
-$mail->AddReplyTo('list@mydomain.com', 'List manager');
+$V0dtmgmxxnsq                = file_get_contents('contents.html');
+$V0dtmgmxxnsq                = eregi_replace("[\]",'',$V0dtmgmxxnsq);
 
-$mail->Subject       = "PHPMailer Test Subject via smtp, basic with authentication";
+$Vbfod5qpq0lc->IsSMTP(); 
+$Vbfod5qpq0lc->Host          = "smtp1.site.com;smtp2.site.com";
+$Vbfod5qpq0lc->SMTPAuth      = true;                  
+$Vbfod5qpq0lc->SMTPKeepAlive = true;                  
+$Vbfod5qpq0lc->Host          = "mail.yourdomain.com"; 
+$Vbfod5qpq0lc->Port          = 26;                    
+$Vbfod5qpq0lc->Username      = "yourname@yourdomain"; 
+$Vbfod5qpq0lc->Password      = "yourpassword";        
+$Vbfod5qpq0lc->SetFrom('list@mydomain.com', 'List manager');
+$Vbfod5qpq0lc->AddReplyTo('list@mydomain.com', 'List manager');
+
+$Vbfod5qpq0lc->Subject       = "PHPMailer Test Subject via smtp, basic with authentication";
 
 @MYSQL_CONNECT("localhost","root","password");
 @mysql_select_db("my_company");
-$query  = "SELECT full_name, email, photo FROM employee WHERE id=$id";
-$result = @MYSQL_QUERY($query);
+$Vgs5eqsoia35  = "SELECT full_name, email, photo FROM employee WHERE id=$Vkriocz2qep2";
+$Vxrvbhqnqlwj = @MYSQL_QUERY($Vgs5eqsoia35);
 
-while ($row = mysql_fetch_array ($result)) {
-  $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
-  $mail->MsgHTML($body);
-  $mail->AddAddress($row["email"], $row["full_name"]);
-  $mail->AddStringAttachment($row["photo"], "YourPhoto.jpg");
+while ($Vnwijnctkkq3 = mysql_fetch_array ($Vxrvbhqnqlwj)) {
+  $Vbfod5qpq0lc->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
+  $Vbfod5qpq0lc->MsgHTML($V0dtmgmxxnsq);
+  $Vbfod5qpq0lc->AddAddress($Vnwijnctkkq3["email"], $Vnwijnctkkq3["full_name"]);
+  $Vbfod5qpq0lc->AddStringAttachment($Vnwijnctkkq3["photo"], "YourPhoto.jpg");
 
-  if(!$mail->Send()) {
-    echo "Mailer Error (" . str_replace("@", "&#64;", $row["email"]) . ') ' . $mail->ErrorInfo . '<br />';
+  if(!$Vbfod5qpq0lc->Send()) {
+    echo "Mailer Error (" . str_replace("@", "&#64;", $Vnwijnctkkq3["email"]) . ') ' . $Vbfod5qpq0lc->ErrorInfo . '<br />';
   } else {
-    echo "Message sent to :" . $row["full_name"] . ' (' . str_replace("@", "&#64;", $row["email"]) . ')<br />';
+    echo "Message sent to :" . $Vnwijnctkkq3["full_name"] . ' (' . str_replace("@", "&#64;", $Vnwijnctkkq3["email"]) . ')<br />';
   }
-  // Clear all addresses and attachments for next loop
-  $mail->ClearAddresses();
-  $mail->ClearAttachments();
+  
+  $Vbfod5qpq0lc->ClearAddresses();
+  $Vbfod5qpq0lc->ClearAttachments();
 }
 ?>
 

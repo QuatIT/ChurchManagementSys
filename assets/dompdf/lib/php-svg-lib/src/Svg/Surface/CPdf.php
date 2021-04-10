@@ -1,328 +1,178 @@
 <?php
-/**
- * A PHP class to provide the basic functionality to create a pdf document without
- * any requirement for additional modules.
- *
- * Extended by Orion Richardson to support Unicode / UTF-8 characters using
- * TCPDF and others as a guide.
- *
- * @author  Wayne Munro <pdf@ros.co.nz>
- * @author  Orion Richardson <orionr@yahoo.com>
- * @author  Helmut Tischer <htischer@weihenstephan.org>
- * @author  Ryan H. Masten <ryan.masten@gmail.com>
- * @author  Brian Sweeney <eclecticgeek@gmail.com>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license Public Domain http://creativecommons.org/licenses/publicdomain/
- * @package Cpdf
- */
+
 
 namespace Svg\Surface;
 
 class CPdf
 {
 
-    /**
-     * @var integer The current number of pdf objects in the document
-     */
-    public $numObj = 0;
+    
+    public $V0cluars52ry = 0;
 
-    /**
-     * @var array This array contains all of the pdf objects, ready for final assembly
-     */
-    public $objects = array();
+    
+    public $Vuzzc0akq2h4 = array();
 
-    /**
-     * @var integer The objectId (number within the objects array) of the document catalog
-     */
-    public $catalogId;
+    
+    public $Visds0k4nx2c;
 
-    /**
-     * @var array Array carrying information about the fonts that the system currently knows about
-     * Used to ensure that a font is not loaded twice, among other things
-     */
-    public $fonts = array();
+    
+    public $V2j03ojtdq4d = array();
 
-    /**
-     * @var string The default font metrics file to use if no other font has been loaded.
-     * The path to the directory containing the font metrics should be included
-     */
-    public $defaultFont = './fonts/Helvetica.afm';
+    
+    public $Vmjq53cepgau = './fonts/Helvetica.afm';
 
-    /**
-     * @string A record of the current font
-     */
-    public $currentFont = '';
+    
+    public $Vtd03g42lvmm = '';
 
-    /**
-     * @var string The current base font
-     */
-    public $currentBaseFont = '';
+    
+    public $Vt4vwgjixfrg = '';
 
-    /**
-     * @var integer The number of the current font within the font array
-     */
-    public $currentFontNum = 0;
+    
+    public $Vtd03g42lvmmNum = 0;
 
-    /**
-     * @var integer
-     */
-    public $currentNode;
+    
+    public $Vomlozjldwae;
 
-    /**
-     * @var integer Object number of the current page
-     */
-    public $currentPage;
+    
+    public $Vedj0u1qrs00;
 
-    /**
-     * @var integer Object number of the currently active contents block
-     */
-    public $currentContents;
+    
+    public $Vwwyiexqlpbe;
 
-    /**
-     * @var integer Number of fonts within the system
-     */
-    public $numFonts = 0;
+    
+    public $Vf2dci1t3mrr = 0;
 
-    /**
-     * @var integer Number of graphic state resources used
-     */
-    private $numStates = 0;
+    
+    private $Vjhhjebz4vn3 = 0;
 
-    /**
-     * @var array Current color for fill operations, defaults to inactive value,
-     * all three components should be between 0 and 1 inclusive when active
-     */
-    public $currentColor = null;
+    
+    public $Vez0a5yllaaq = null;
 
-    /**
-     * @var string Fill rule (nonzero or evenodd)
-     */
-    public $fillRule = "nonzero";
+    
+    public $Viogzqjp34j0 = "nonzero";
 
-    /**
-     * @var array Current color for stroke operations (lines etc.)
-     */
-    public $currentStrokeColor = null;
+    
+    public $V2fvrrbyzi2y = null;
 
-    /**
-     * @var string Current style that lines are drawn in
-     */
-    public $currentLineStyle = '';
+    
+    public $V0qwmtst4nx1 = '';
 
-    /**
-     * @var array Current line transparency (partial graphics state)
-     */
-    public $currentLineTransparency = array("mode" => "Normal", "opacity" => 1.0);
+    
+    public $Vtrec4aklrxg = array("mode" => "Normal", "opacity" => 1.0);
 
-    /**
-     * array Current fill transparency (partial graphics state)
-     */
-    public $currentFillTransparency = array("mode" => "Normal", "opacity" => 1.0);
+    
+    public $Vxnjmamz5fth = array("mode" => "Normal", "opacity" => 1.0);
 
-    /**
-     * @var array An array which is used to save the state of the document, mainly the colors and styles
-     * it is used to temporarily change to another state, the change back to what it was before
-     */
-    public $stateStack = array();
+    
+    public $Vik2nveiijez = array();
 
-    /**
-     * @var integer Number of elements within the state stack
-     */
-    public $nStateStack = 0;
+    
+    public $Vcz1c42tr5fx = 0;
 
-    /**
-     * @var integer Number of page objects within the document
-     */
-    public $numPages = 0;
+    
+    public $Vlkxllw0b3ff = 0;
 
-    /**
-     * @var array Object Id storage stack
-     */
-    public $stack = array();
+    
+    public $Vwvjp3dx4uxt = array();
 
-    /**
-     * @var integer Number of elements within the object Id storage stack
-     */
-    public $nStack = 0;
+    
+    public $Vmdqcurf1ati = 0;
 
-    /**
-     * an array which contains information about the objects which are not firmly attached to pages
-     * these have been added with the addObject function
-     */
-    public $looseObjects = array();
+    
+    public $Vg4k2ox20zjr = array();
 
-    /**
-     * array contains infomation about how the loose objects are to be added to the document
-     */
-    public $addLooseObjects = array();
+    
+    public $Vrwanbsuwez4 = array();
 
-    /**
-     * @var integer The objectId of the information object for the document
-     * this contains authorship, title etc.
-     */
-    public $infoObject = 0;
+    
+    public $Vkxmc0yg2q2f = 0;
 
-    /**
-     * @var integer Number of images being tracked within the document
-     */
-    public $numImages = 0;
+    
+    public $Vfk2x1k3v1kp = 0;
 
-    /**
-     * @var array An array containing options about the document
-     * it defaults to turning on the compression of the objects
-     */
-    public $options = array('compression' => true);
+    
+    public $Vi43cktvy0zi = array('compression' => true);
 
-    /**
-     * @var integer The objectId of the first page of the document
-     */
-    public $firstPageId;
+    
+    public $Vv2mixozvnj0;
 
-    /**
-     * @var float Used to track the last used value of the inter-word spacing, this is so that it is known
-     * when the spacing is changed.
-     */
-    public $wordSpaceAdjust = 0;
+    
+    public $V2odl0400jfx = 0;
 
-    /**
-     * @var float Used to track the last used value of the inter-letter spacing, this is so that it is known
-     * when the spacing is changed.
-     */
-    public $charSpaceAdjust = 0;
+    
+    public $Vbbfdf0et0cn = 0;
 
-    /**
-     * @var integer The object Id of the procset object
-     */
-    public $procsetObjectId;
+    
+    public $Vzvjtunhyjsj;
 
-    /**
-     * @var array Store the information about the relationship between font families
-     * this used so that the code knows which font is the bold version of another font, etc.
-     * the value of this array is initialised in the constuctor function.
-     */
-    public $fontFamilies = array();
+    
+    public $V0x3wkgdgccy = array();
 
-    /**
-     * @var string Folder for php serialized formats of font metrics files.
-     * If empty string, use same folder as original metrics files.
-     * This can be passed in from class creator.
-     * If this folder does not exist or is not writable, Cpdf will be **much** slower.
-     * Because of potential trouble with php safe mode, folder cannot be created at runtime.
-     */
-    public $fontcache = '';
+    
+    public $Vjgooz20k3gx = '';
 
-    /**
-     * @var integer The version of the font metrics cache file.
-     * This value must be manually incremented whenever the internal font data structure is modified.
-     */
-    public $fontcacheVersion = 6;
+    
+    public $Vjgooz20k3gxVersion = 6;
 
-    /**
-     * @var string Temporary folder.
-     * If empty string, will attempty system tmp folder.
-     * This can be passed in from class creator.
-     * Only used for conversion of gd images to jpeg images.
-     */
-    public $tmp = '';
+    
+    public $Vynpm04a4fx0 = '';
 
-    /**
-     * @var string Track if the current font is bolded or italicised
-     */
-    public $currentTextState = '';
+    
+    public $Vn1stn05hbnk = '';
 
-    /**
-     * @var string Messages are stored here during processing, these can be selected afterwards to give some useful debug information
-     */
-    public $messages = '';
+    
+    public $Vvnzeorb5je1 = '';
 
-    /**
-     * @var string The ancryption array for the document encryption is stored here
-     */
-    public $arc4 = '';
+    
+    public $Vitlwzjnolq5 = '';
 
-    /**
-     * @var integer The object Id of the encryption information
-     */
-    public $arc4_objnum = 0;
+    
+    public $Vitlwzjnolq5_objnum = 0;
 
-    /**
-     * @var string The file identifier, used to uniquely identify a pdf document
-     */
-    public $fileIdentifier = '';
+    
+    public $Vymw24nspmav = '';
 
-    /**
-     * @var boolean A flag to say if a document is to be encrypted or not
-     */
-    public $encrypted = false;
+    
+    public $V4ucxnxmpk3c = false;
 
-    /**
-     * @var string The encryption key for the encryption of all the document content (structure is not encrypted)
-     */
-    public $encryptionKey = '';
+    
+    public $Vq1cltfupv1y = '';
 
-    /**
-     * @var array Array which forms a stack to keep track of nested callback functions
-     */
-    public $callback = array();
+    
+    public $Vozegyvcnejr = array();
 
-    /**
-     * @var integer The number of callback functions in the callback array
-     */
-    public $nCallback = 0;
+    
+    public $Vmmtijxuirtg = 0;
 
-    /**
-     * @var array Store label->id pairs for named destinations, these will be used to replace internal links
-     * done this way so that destinations can be defined after the location that links to them
-     */
-    public $destinations = array();
+    
+    public $Vjclj01tytvj = array();
 
-    /**
-     * @var array Store the stack for the transaction commands, each item in here is a record of the values of all the
-     * publiciables within the class, so that the user can rollback at will (from each 'start' command)
-     * note that this includes the objects array, so these can be large.
-     */
-    public $checkpoint = '';
+    
+    public $Vcr53oyia53q = '';
 
-    /**
-     * @var array Table of Image origin filenames and image labels which were already added with o_image().
-     * Allows to merge identical images
-     */
-    public $imagelist = array();
+    
+    public $V4kwltqthghd = array();
 
-    /**
-     * @var boolean Whether the text passed in should be treated as Unicode or just local character set.
-     */
-    public $isUnicode = false;
+    
+    public $Vvang5g5yq3c = false;
 
-    /**
-     * @var string the JavaScript code of the document
-     */
-    public $javascript = '';
+    
+    public $Vul0p13iaqij = '';
 
-    /**
-     * @var boolean whether the compression is possible
-     */
-    protected $compressionReady = false;
+    
+    protected $Vuzr3ztb0sly = false;
 
-    /**
-     * @var array Current page size
-     */
-    protected $currentPageSize = array("width" => 0, "height" => 0);
+    
+    protected $Vedj0u1qrs00Size = array("width" => 0, "height" => 0);
 
-    /**
-     * @var array All the chars that will be required in the font subsets
-     */
-    protected $stringSubsets = array();
+    
+    protected $Vcd2vtrcc1gg = array();
 
-    /**
-     * @var string The target internal encoding
-     */
-    static protected $targetEncoding = 'iso-8859-1';
+    
+    static protected $Vhncrog0sywc = 'iso-8859-1';
 
-    /**
-     * @var array The list of the core fonts
-     */
-    static protected $coreFonts = array(
+    
+    static protected $V511ytr5ole2 = array(
         'courier',
         'courier-bold',
         'courier-oblique',
@@ -339,103 +189,78 @@ class CPdf
         'zapfdingbats'
     );
 
-    /**
-     * Class constructor
-     * This will start a new document
-     *
-     * @param array   $pageSize  Array of 4 numbers, defining the bottom left and upper right corner of the page. first two are normally zero.
-     * @param boolean $isUnicode Whether text will be treated as Unicode or not.
-     * @param string  $fontcache The font cache folder
-     * @param string  $tmp       The temporary folder
-     */
-    function __construct($pageSize = array(0, 0, 612, 792), $isUnicode = false, $fontcache = '', $tmp = '')
+    
+    function __construct($Vngqupeaszjn = array(0, 0, 612, 792), $Vvang5g5yq3c = false, $Vjgooz20k3gx = '', $Vynpm04a4fx0 = '')
     {
-        $this->isUnicode = $isUnicode;
-        $this->fontcache = $fontcache;
-        $this->tmp = $tmp;
-        $this->newDocument($pageSize);
+        $Vcki4t4qmybshis->isUnicode = $Vvang5g5yq3c;
+        $Vcki4t4qmybshis->fontcache = $Vjgooz20k3gx;
+        $Vcki4t4qmybshis->tmp = $Vynpm04a4fx0;
+        $Vcki4t4qmybshis->newDocument($Vngqupeaszjn);
 
-        $this->compressionReady = function_exists('gzcompress');
+        $Vcki4t4qmybshis->compressionReady = function_exists('gzcompress');
 
         if (in_array('Windows-1252', mb_list_encodings())) {
-            self::$targetEncoding = 'Windows-1252';
+            self::$Vhncrog0sywc = 'Windows-1252';
         }
 
-        // also initialize the font families that are known about already
-        $this->setFontFamily('init');
-        //  $this->fileIdentifier = md5('xxxxxxxx'.time());
+        
+        $Vcki4t4qmybshis->setFontFamily('init');
+        
     }
 
-    /**
-     * Document object methods (internal use only)
-     *
-     * There is about one object method for each type of object in the pdf document
-     * Each function has the same call list ($id,$action,$options).
-     * $id = the object ID of the object, or what it is to be if it is being created
-     * $action = a string specifying the action to be performed, though ALL must support:
-     *           'new' - create the object with the id $id
-     *           'out' - produce the output for the pdf object
-     * $options = optional, a string or array containing the various parameters for the object
-     *
-     * These, in conjunction with the output function are the ONLY way for output to be produced
-     * within the pdf 'file'.
-     */
+    
 
-    /**
-     * Destination object, used to specify the location for the user to jump to, presently on opening
-     */
-    protected function o_destination($id, $action, $options = '')
+    
+    protected function o_destination($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array('t' => 'destination', 'info' => array());
-                $tmp = '';
-                switch ($options['type']) {
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'destination', 'info' => array());
+                $Vynpm04a4fx0 = '';
+                switch ($Vi43cktvy0zi['type']) {
                     case 'XYZ':
                     case 'FitR':
-                        $tmp = ' ' . $options['p3'] . $tmp;
+                        $Vynpm04a4fx0 = ' ' . $Vi43cktvy0zi['p3'] . $Vynpm04a4fx0;
                     case 'FitH':
                     case 'FitV':
                     case 'FitBH':
                     case 'FitBV':
-                        $tmp = ' ' . $options['p1'] . ' ' . $options['p2'] . $tmp;
+                        $Vynpm04a4fx0 = ' ' . $Vi43cktvy0zi['p1'] . ' ' . $Vi43cktvy0zi['p2'] . $Vynpm04a4fx0;
                     case 'Fit':
                     case 'FitB':
-                        $tmp = $options['type'] . $tmp;
-                        $this->objects[$id]['info']['string'] = $tmp;
-                        $this->objects[$id]['info']['page'] = $options['page'];
+                        $Vynpm04a4fx0 = $Vi43cktvy0zi['type'] . $Vynpm04a4fx0;
+                        $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['string'] = $Vynpm04a4fx0;
+                        $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['page'] = $Vi43cktvy0zi['page'];
                 }
                 break;
 
             case 'out':
-                $tmp = $o['info'];
-                $res = "\n$id 0 obj\n" . '[' . $tmp['page'] . ' 0 R /' . $tmp['string'] . "]\nendobj";
+                $Vynpm04a4fx0 = $Vsz1vjk4tj2c['info'];
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n" . '[' . $Vynpm04a4fx0['page'] . ' 0 R /' . $Vynpm04a4fx0['string'] . "]\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * set the viewer preferences
-     */
-    protected function o_viewerPreferences($id, $action, $options = '')
+    
+    protected function o_viewerPreferences($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array('t' => 'viewerPreferences', 'info' => array());
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'viewerPreferences', 'info' => array());
                 break;
 
             case 'add':
-                foreach ($options as $k => $v) {
-                    switch ($k) {
+                foreach ($Vi43cktvy0zi as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                    switch ($Vgu5dsd35kdp) {
                         case 'HideToolbar':
                         case 'HideMenubar':
                         case 'HideWindowUI':
@@ -443,138 +268,134 @@ class CPdf
                         case 'CenterWindow':
                         case 'NonFullScreenPageMode':
                         case 'Direction':
-                            $o['info'][$k] = $v;
+                            $Vsz1vjk4tj2c['info'][$Vgu5dsd35kdp] = $Vpszt12nvbau;
                             break;
                     }
                 }
                 break;
 
             case 'out':
-                $res = "\n$id 0 obj\n<< ";
-                foreach ($o['info'] as $k => $v) {
-                    $res .= "\n/$k $v";
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< ";
+                foreach ($Vsz1vjk4tj2c['info'] as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                    $Vihxefallqs0 .= "\n/$Vgu5dsd35kdp $Vpszt12nvbau";
                 }
-                $res .= "\n>>\n";
+                $Vihxefallqs0 .= "\n>>\n";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * define the document catalog, the overall controller for the document
-     */
-    protected function o_catalog($id, $action, $options = '')
+    
+    protected function o_catalog($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array('t' => 'catalog', 'info' => array());
-                $this->catalogId = $id;
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'catalog', 'info' => array());
+                $Vcki4t4qmybshis->catalogId = $Vkriocz2qep2;
                 break;
 
             case 'outlines':
             case 'pages':
             case 'openHere':
             case 'javascript':
-                $o['info'][$action] = $options;
+                $Vsz1vjk4tj2c['info'][$Vmzgkmhd4ios] = $Vi43cktvy0zi;
                 break;
 
             case 'viewerPreferences':
-                if (!isset($o['info']['viewerPreferences'])) {
-                    $this->numObj++;
-                    $this->o_viewerPreferences($this->numObj, 'new');
-                    $o['info']['viewerPreferences'] = $this->numObj;
+                if (!isset($Vsz1vjk4tj2c['info']['viewerPreferences'])) {
+                    $Vcki4t4qmybshis->numObj++;
+                    $Vcki4t4qmybshis->o_viewerPreferences($Vcki4t4qmybshis->numObj, 'new');
+                    $Vsz1vjk4tj2c['info']['viewerPreferences'] = $Vcki4t4qmybshis->numObj;
                 }
 
-                $vp = $o['info']['viewerPreferences'];
-                $this->o_viewerPreferences($vp, 'add', $options);
+                $Vpszt12nvbaup = $Vsz1vjk4tj2c['info']['viewerPreferences'];
+                $Vcki4t4qmybshis->o_viewerPreferences($Vpszt12nvbaup, 'add', $Vi43cktvy0zi);
 
                 break;
 
             case 'out':
-                $res = "\n$id 0 obj\n<< /Type /Catalog";
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< /Type /Catalog";
 
-                foreach ($o['info'] as $k => $v) {
-                    switch ($k) {
+                foreach ($Vsz1vjk4tj2c['info'] as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                    switch ($Vgu5dsd35kdp) {
                         case 'outlines':
-                            $res .= "\n/Outlines $v 0 R";
+                            $Vihxefallqs0 .= "\n/Outlines $Vpszt12nvbau 0 R";
                             break;
 
                         case 'pages':
-                            $res .= "\n/Pages $v 0 R";
+                            $Vihxefallqs0 .= "\n/Pages $Vpszt12nvbau 0 R";
                             break;
 
                         case 'viewerPreferences':
-                            $res .= "\n/ViewerPreferences $v 0 R";
+                            $Vihxefallqs0 .= "\n/ViewerPreferences $Vpszt12nvbau 0 R";
                             break;
 
                         case 'openHere':
-                            $res .= "\n/OpenAction $v 0 R";
+                            $Vihxefallqs0 .= "\n/OpenAction $Vpszt12nvbau 0 R";
                             break;
 
                         case 'javascript':
-                            $res .= "\n/Names <</JavaScript $v 0 R>>";
+                            $Vihxefallqs0 .= "\n/Names <</JavaScript $Vpszt12nvbau 0 R>>";
                             break;
                     }
                 }
 
-                $res .= " >>\nendobj";
+                $Vihxefallqs0 .= " >>\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * object which is a parent to the pages in the document
-     */
-    protected function o_pages($id, $action, $options = '')
+    
+    protected function o_pages($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array('t' => 'pages', 'info' => array());
-                $this->o_catalog($this->catalogId, 'pages', $id);
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'pages', 'info' => array());
+                $Vcki4t4qmybshis->o_catalog($Vcki4t4qmybshis->catalogId, 'pages', $Vkriocz2qep2);
                 break;
 
             case 'page':
-                if (!is_array($options)) {
-                    // then it will just be the id of the new page
-                    $o['info']['pages'][] = $options;
+                if (!is_array($Vi43cktvy0zi)) {
+                    
+                    $Vsz1vjk4tj2c['info']['pages'][] = $Vi43cktvy0zi;
                 } else {
-                    // then it should be an array having 'id','rid','pos', where rid=the page to which this one will be placed relative
-                    // and pos is either 'before' or 'after', saying where this page will fit.
-                    if (isset($options['id']) && isset($options['rid']) && isset($options['pos'])) {
-                        $i = array_search($options['rid'], $o['info']['pages']);
-                        if (isset($o['info']['pages'][$i]) && $o['info']['pages'][$i] == $options['rid']) {
+                    
+                    
+                    if (isset($Vi43cktvy0zi['id']) && isset($Vi43cktvy0zi['rid']) && isset($Vi43cktvy0zi['pos'])) {
+                        $V3xsptcgzss2 = array_search($Vi43cktvy0zi['rid'], $Vsz1vjk4tj2c['info']['pages']);
+                        if (isset($Vsz1vjk4tj2c['info']['pages'][$V3xsptcgzss2]) && $Vsz1vjk4tj2c['info']['pages'][$V3xsptcgzss2] == $Vi43cktvy0zi['rid']) {
 
-                            // then there is a match
-                            // make a space
-                            switch ($options['pos']) {
+                            
+                            
+                            switch ($Vi43cktvy0zi['pos']) {
                                 case 'before':
-                                    $k = $i;
+                                    $Vgu5dsd35kdp = $V3xsptcgzss2;
                                     break;
 
                                 case 'after':
-                                    $k = $i + 1;
+                                    $Vgu5dsd35kdp = $V3xsptcgzss2 + 1;
                                     break;
 
                                 default:
-                                    $k = -1;
+                                    $Vgu5dsd35kdp = -1;
                                     break;
                             }
 
-                            if ($k >= 0) {
-                                for ($j = count($o['info']['pages']) - 1; $j >= $k; $j--) {
-                                    $o['info']['pages'][$j + 1] = $o['info']['pages'][$j];
+                            if ($Vgu5dsd35kdp >= 0) {
+                                for ($V0hg12l10vfx = count($Vsz1vjk4tj2c['info']['pages']) - 1; $V0hg12l10vfx >= $Vgu5dsd35kdp; $V0hg12l10vfx--) {
+                                    $Vsz1vjk4tj2c['info']['pages'][$V0hg12l10vfx + 1] = $Vsz1vjk4tj2c['info']['pages'][$V0hg12l10vfx];
                                 }
 
-                                $o['info']['pages'][$k] = $options['id'];
+                                $Vsz1vjk4tj2c['info']['pages'][$Vgu5dsd35kdp] = $Vi43cktvy0zi['id'];
                             }
                         }
                     }
@@ -582,191 +403,187 @@ class CPdf
                 break;
 
             case 'procset':
-                $o['info']['procset'] = $options;
+                $Vsz1vjk4tj2c['info']['procset'] = $Vi43cktvy0zi;
                 break;
 
             case 'mediaBox':
-                $o['info']['mediaBox'] = $options;
-                // which should be an array of 4 numbers
-                $this->currentPageSize = array('width' => $options[2], 'height' => $options[3]);
+                $Vsz1vjk4tj2c['info']['mediaBox'] = $Vi43cktvy0zi;
+                
+                $Vcki4t4qmybshis->currentPageSize = array('width' => $Vi43cktvy0zi[2], 'height' => $Vi43cktvy0zi[3]);
                 break;
 
             case 'font':
-                $o['info']['fonts'][] = array('objNum' => $options['objNum'], 'fontNum' => $options['fontNum']);
+                $Vsz1vjk4tj2c['info']['fonts'][] = array('objNum' => $Vi43cktvy0zi['objNum'], 'fontNum' => $Vi43cktvy0zi['fontNum']);
                 break;
 
             case 'extGState':
-                $o['info']['extGStates'][] = array('objNum' => $options['objNum'], 'stateNum' => $options['stateNum']);
+                $Vsz1vjk4tj2c['info']['extGStates'][] = array('objNum' => $Vi43cktvy0zi['objNum'], 'stateNum' => $Vi43cktvy0zi['stateNum']);
                 break;
 
             case 'xObject':
-                $o['info']['xObjects'][] = array('objNum' => $options['objNum'], 'label' => $options['label']);
+                $Vsz1vjk4tj2c['info']['xObjects'][] = array('objNum' => $Vi43cktvy0zi['objNum'], 'label' => $Vi43cktvy0zi['label']);
                 break;
 
             case 'out':
-                if (count($o['info']['pages'])) {
-                    $res = "\n$id 0 obj\n<< /Type /Pages\n/Kids [";
-                    foreach ($o['info']['pages'] as $v) {
-                        $res .= "$v 0 R\n";
+                if (count($Vsz1vjk4tj2c['info']['pages'])) {
+                    $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< /Type /Pages\n/Kids [";
+                    foreach ($Vsz1vjk4tj2c['info']['pages'] as $Vpszt12nvbau) {
+                        $Vihxefallqs0 .= "$Vpszt12nvbau 0 R\n";
                     }
 
-                    $res .= "]\n/Count " . count($this->objects[$id]['info']['pages']);
+                    $Vihxefallqs0 .= "]\n/Count " . count($Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['pages']);
 
-                    if ((isset($o['info']['fonts']) && count($o['info']['fonts'])) ||
-                        isset($o['info']['procset']) ||
-                        (isset($o['info']['extGStates']) && count($o['info']['extGStates']))
+                    if ((isset($Vsz1vjk4tj2c['info']['fonts']) && count($Vsz1vjk4tj2c['info']['fonts'])) ||
+                        isset($Vsz1vjk4tj2c['info']['procset']) ||
+                        (isset($Vsz1vjk4tj2c['info']['extGStates']) && count($Vsz1vjk4tj2c['info']['extGStates']))
                     ) {
-                        $res .= "\n/Resources <<";
+                        $Vihxefallqs0 .= "\n/Resources <<";
 
-                        if (isset($o['info']['procset'])) {
-                            $res .= "\n/ProcSet " . $o['info']['procset'] . " 0 R";
+                        if (isset($Vsz1vjk4tj2c['info']['procset'])) {
+                            $Vihxefallqs0 .= "\n/ProcSet " . $Vsz1vjk4tj2c['info']['procset'] . " 0 R";
                         }
 
-                        if (isset($o['info']['fonts']) && count($o['info']['fonts'])) {
-                            $res .= "\n/Font << ";
-                            foreach ($o['info']['fonts'] as $finfo) {
-                                $res .= "\n/F" . $finfo['fontNum'] . " " . $finfo['objNum'] . " 0 R";
+                        if (isset($Vsz1vjk4tj2c['info']['fonts']) && count($Vsz1vjk4tj2c['info']['fonts'])) {
+                            $Vihxefallqs0 .= "\n/Font << ";
+                            foreach ($Vsz1vjk4tj2c['info']['fonts'] as $Vd1yi4gtktna) {
+                                $Vihxefallqs0 .= "\n/F" . $Vd1yi4gtktna['fontNum'] . " " . $Vd1yi4gtktna['objNum'] . " 0 R";
                             }
-                            $res .= "\n>>";
+                            $Vihxefallqs0 .= "\n>>";
                         }
 
-                        if (isset($o['info']['xObjects']) && count($o['info']['xObjects'])) {
-                            $res .= "\n/XObject << ";
-                            foreach ($o['info']['xObjects'] as $finfo) {
-                                $res .= "\n/" . $finfo['label'] . " " . $finfo['objNum'] . " 0 R";
+                        if (isset($Vsz1vjk4tj2c['info']['xObjects']) && count($Vsz1vjk4tj2c['info']['xObjects'])) {
+                            $Vihxefallqs0 .= "\n/XObject << ";
+                            foreach ($Vsz1vjk4tj2c['info']['xObjects'] as $Vd1yi4gtktna) {
+                                $Vihxefallqs0 .= "\n/" . $Vd1yi4gtktna['label'] . " " . $Vd1yi4gtktna['objNum'] . " 0 R";
                             }
-                            $res .= "\n>>";
+                            $Vihxefallqs0 .= "\n>>";
                         }
 
-                        if (isset($o['info']['extGStates']) && count($o['info']['extGStates'])) {
-                            $res .= "\n/ExtGState << ";
-                            foreach ($o['info']['extGStates'] as $gstate) {
-                                $res .= "\n/GS" . $gstate['stateNum'] . " " . $gstate['objNum'] . " 0 R";
+                        if (isset($Vsz1vjk4tj2c['info']['extGStates']) && count($Vsz1vjk4tj2c['info']['extGStates'])) {
+                            $Vihxefallqs0 .= "\n/ExtGState << ";
+                            foreach ($Vsz1vjk4tj2c['info']['extGStates'] as $V2pdux31fysm) {
+                                $Vihxefallqs0 .= "\n/GS" . $V2pdux31fysm['stateNum'] . " " . $V2pdux31fysm['objNum'] . " 0 R";
                             }
-                            $res .= "\n>>";
+                            $Vihxefallqs0 .= "\n>>";
                         }
 
-                        $res .= "\n>>";
-                        if (isset($o['info']['mediaBox'])) {
-                            $tmp = $o['info']['mediaBox'];
-                            $res .= "\n/MediaBox [" . sprintf(
+                        $Vihxefallqs0 .= "\n>>";
+                        if (isset($Vsz1vjk4tj2c['info']['mediaBox'])) {
+                            $Vynpm04a4fx0 = $Vsz1vjk4tj2c['info']['mediaBox'];
+                            $Vihxefallqs0 .= "\n/MediaBox [" . sprintf(
                                     '%.3F %.3F %.3F %.3F',
-                                    $tmp[0],
-                                    $tmp[1],
-                                    $tmp[2],
-                                    $tmp[3]
+                                    $Vynpm04a4fx0[0],
+                                    $Vynpm04a4fx0[1],
+                                    $Vynpm04a4fx0[2],
+                                    $Vynpm04a4fx0[3]
                                 ) . ']';
                         }
                     }
 
-                    $res .= "\n >>\nendobj";
+                    $Vihxefallqs0 .= "\n >>\nendobj";
                 } else {
-                    $res = "\n$id 0 obj\n<< /Type /Pages\n/Count 0\n>>\nendobj";
+                    $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< /Type /Pages\n/Count 0\n>>\nendobj";
                 }
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * define the outlines in the doc, empty for now
-     */
-    protected function o_outlines($id, $action, $options = '')
+    
+    protected function o_outlines($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array('t' => 'outlines', 'info' => array('outlines' => array()));
-                $this->o_catalog($this->catalogId, 'outlines', $id);
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'outlines', 'info' => array('outlines' => array()));
+                $Vcki4t4qmybshis->o_catalog($Vcki4t4qmybshis->catalogId, 'outlines', $Vkriocz2qep2);
                 break;
 
             case 'outline':
-                $o['info']['outlines'][] = $options;
+                $Vsz1vjk4tj2c['info']['outlines'][] = $Vi43cktvy0zi;
                 break;
 
             case 'out':
-                if (count($o['info']['outlines'])) {
-                    $res = "\n$id 0 obj\n<< /Type /Outlines /Kids [";
-                    foreach ($o['info']['outlines'] as $v) {
-                        $res .= "$v 0 R ";
+                if (count($Vsz1vjk4tj2c['info']['outlines'])) {
+                    $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< /Type /Outlines /Kids [";
+                    foreach ($Vsz1vjk4tj2c['info']['outlines'] as $Vpszt12nvbau) {
+                        $Vihxefallqs0 .= "$Vpszt12nvbau 0 R ";
                     }
 
-                    $res .= "] /Count " . count($o['info']['outlines']) . " >>\nendobj";
+                    $Vihxefallqs0 .= "] /Count " . count($Vsz1vjk4tj2c['info']['outlines']) . " >>\nendobj";
                 } else {
-                    $res = "\n$id 0 obj\n<< /Type /Outlines /Count 0 >>\nendobj";
+                    $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< /Type /Outlines /Count 0 >>\nendobj";
                 }
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * an object to hold the font description
-     */
-    protected function o_font($id, $action, $options = '')
+    
+    protected function o_font($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array(
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array(
                     't'    => 'font',
                     'info' => array(
-                        'name'         => $options['name'],
-                        'fontFileName' => $options['fontFileName'],
+                        'name'         => $Vi43cktvy0zi['name'],
+                        'fontFileName' => $Vi43cktvy0zi['fontFileName'],
                         'SubType'      => 'Type1'
                     )
                 );
-                $fontNum = $this->numFonts;
-                $this->objects[$id]['info']['fontNum'] = $fontNum;
+                $Voitq4ofqdxq = $Vcki4t4qmybshis->numFonts;
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['fontNum'] = $Voitq4ofqdxq;
 
-                // deal with the encoding and the differences
-                if (isset($options['differences'])) {
-                    // then we'll need an encoding dictionary
-                    $this->numObj++;
-                    $this->o_fontEncoding($this->numObj, 'new', $options);
-                    $this->objects[$id]['info']['encodingDictionary'] = $this->numObj;
+                
+                if (isset($Vi43cktvy0zi['differences'])) {
+                    
+                    $Vcki4t4qmybshis->numObj++;
+                    $Vcki4t4qmybshis->o_fontEncoding($Vcki4t4qmybshis->numObj, 'new', $Vi43cktvy0zi);
+                    $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['encodingDictionary'] = $Vcki4t4qmybshis->numObj;
                 } else {
-                    if (isset($options['encoding'])) {
-                        // we can specify encoding here
-                        switch ($options['encoding']) {
+                    if (isset($Vi43cktvy0zi['encoding'])) {
+                        
+                        switch ($Vi43cktvy0zi['encoding']) {
                             case 'WinAnsiEncoding':
                             case 'MacRomanEncoding':
                             case 'MacExpertEncoding':
-                                $this->objects[$id]['info']['encoding'] = $options['encoding'];
+                                $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['encoding'] = $Vi43cktvy0zi['encoding'];
                                 break;
 
                             case 'none':
                                 break;
 
                             default:
-                                $this->objects[$id]['info']['encoding'] = 'WinAnsiEncoding';
+                                $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['encoding'] = 'WinAnsiEncoding';
                                 break;
                         }
                     } else {
-                        $this->objects[$id]['info']['encoding'] = 'WinAnsiEncoding';
+                        $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['encoding'] = 'WinAnsiEncoding';
                     }
                 }
 
-                if ($this->fonts[$options['fontFileName']]['isUnicode']) {
-                    // For Unicode fonts, we need to incorporate font data into
-                    // sub-sections that are linked from the primary font section.
-                    // Look at o_fontGIDtoCID and o_fontDescendentCID functions
-                    // for more informaiton.
-                    //
-                    // All of this code is adapted from the excellent changes made to
-                    // transform FPDF to TCPDF (http://tcpdf.sourceforge.net/)
+                if ($Vcki4t4qmybshis->fonts[$Vi43cktvy0zi['fontFileName']]['isUnicode']) {
+                    
+                    
+                    
+                    
+                    
+                    
+                    
 
-                    $toUnicodeId = ++$this->numObj;
-                    $this->o_contents($toUnicodeId, 'new', 'raw');
-                    $this->objects[$id]['info']['toUnicode'] = $toUnicodeId;
+                    $Vebtvoabgjb4 = ++$Vcki4t4qmybshis->numObj;
+                    $Vcki4t4qmybshis->o_contents($Vebtvoabgjb4, 'new', 'raw');
+                    $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['toUnicode'] = $Vebtvoabgjb4;
 
-                    $stream = <<<EOT
+                    $Vkqm20q022ea = <<<EOT
 /CIDInit /ProcSet findresource begin
 12 dict begin
 begincmap
@@ -789,120 +606,118 @@ end
 end
 EOT;
 
-                    $res = "<</Length " . mb_strlen($stream, '8bit') . " >>\n";
-                    $res .= "stream\n" . $stream . "endstream";
+                    $Vihxefallqs0 = "<</Length " . mb_strlen($Vkqm20q022ea, '8bit') . " >>\n";
+                    $Vihxefallqs0 .= "stream\n" . $Vkqm20q022ea . "endstream";
 
-                    $this->objects[$toUnicodeId]['c'] = $res;
+                    $Vcki4t4qmybshis->objects[$Vebtvoabgjb4]['c'] = $Vihxefallqs0;
 
-                    $cidFontId = ++$this->numObj;
-                    $this->o_fontDescendentCID($cidFontId, 'new', $options);
-                    $this->objects[$id]['info']['cidFont'] = $cidFontId;
+                    $V2myfcajpvx0 = ++$Vcki4t4qmybshis->numObj;
+                    $Vcki4t4qmybshis->o_fontDescendentCID($V2myfcajpvx0, 'new', $Vi43cktvy0zi);
+                    $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['cidFont'] = $V2myfcajpvx0;
                 }
 
-                // also tell the pages node about the new font
-                $this->o_pages($this->currentNode, 'font', array('fontNum' => $fontNum, 'objNum' => $id));
+                
+                $Vcki4t4qmybshis->o_pages($Vcki4t4qmybshis->currentNode, 'font', array('fontNum' => $Voitq4ofqdxq, 'objNum' => $Vkriocz2qep2));
                 break;
 
             case 'add':
-                foreach ($options as $k => $v) {
-                    switch ($k) {
+                foreach ($Vi43cktvy0zi as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                    switch ($Vgu5dsd35kdp) {
                         case 'BaseFont':
-                            $o['info']['name'] = $v;
+                            $Vsz1vjk4tj2c['info']['name'] = $Vpszt12nvbau;
                             break;
                         case 'FirstChar':
                         case 'LastChar':
                         case 'Widths':
                         case 'FontDescriptor':
                         case 'SubType':
-                            $this->addMessage('o_font ' . $k . " : " . $v);
-                            $o['info'][$k] = $v;
+                            $Vcki4t4qmybshis->addMessage('o_font ' . $Vgu5dsd35kdp . " : " . $Vpszt12nvbau);
+                            $Vsz1vjk4tj2c['info'][$Vgu5dsd35kdp] = $Vpszt12nvbau;
                             break;
                     }
                 }
 
-                // pass values down to descendent font
-                if (isset($o['info']['cidFont'])) {
-                    $this->o_fontDescendentCID($o['info']['cidFont'], 'add', $options);
+                
+                if (isset($Vsz1vjk4tj2c['info']['cidFont'])) {
+                    $Vcki4t4qmybshis->o_fontDescendentCID($Vsz1vjk4tj2c['info']['cidFont'], 'add', $Vi43cktvy0zi);
                 }
                 break;
 
             case 'out':
-                if ($this->fonts[$this->objects[$id]['info']['fontFileName']]['isUnicode']) {
-                    // For Unicode fonts, we need to incorporate font data into
-                    // sub-sections that are linked from the primary font section.
-                    // Look at o_fontGIDtoCID and o_fontDescendentCID functions
-                    // for more informaiton.
-                    //
-                    // All of this code is adapted from the excellent changes made to
-                    // transform FPDF to TCPDF (http://tcpdf.sourceforge.net/)
+                if ($Vcki4t4qmybshis->fonts[$Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['fontFileName']]['isUnicode']) {
+                    
+                    
+                    
+                    
+                    
+                    
+                    
 
-                    $res = "\n$id 0 obj\n<</Type /Font\n/Subtype /Type0\n";
-                    $res .= "/BaseFont /" . $o['info']['name'] . "\n";
+                    $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<</Type /Font\n/Subtype /Type0\n";
+                    $Vihxefallqs0 .= "/BaseFont /" . $Vsz1vjk4tj2c['info']['name'] . "\n";
 
-                    // The horizontal identity mapping for 2-byte CIDs; may be used
-                    // with CIDFonts using any Registry, Ordering, and Supplement values.
-                    $res .= "/Encoding /Identity-H\n";
-                    $res .= "/DescendantFonts [" . $o['info']['cidFont'] . " 0 R]\n";
-                    $res .= "/ToUnicode " . $o['info']['toUnicode'] . " 0 R\n";
-                    $res .= ">>\n";
-                    $res .= "endobj";
+                    
+                    
+                    $Vihxefallqs0 .= "/Encoding /Identity-H\n";
+                    $Vihxefallqs0 .= "/DescendantFonts [" . $Vsz1vjk4tj2c['info']['cidFont'] . " 0 R]\n";
+                    $Vihxefallqs0 .= "/ToUnicode " . $Vsz1vjk4tj2c['info']['toUnicode'] . " 0 R\n";
+                    $Vihxefallqs0 .= ">>\n";
+                    $Vihxefallqs0 .= "endobj";
                 } else {
-                    $res = "\n$id 0 obj\n<< /Type /Font\n/Subtype /" . $o['info']['SubType'] . "\n";
-                    $res .= "/Name /F" . $o['info']['fontNum'] . "\n";
-                    $res .= "/BaseFont /" . $o['info']['name'] . "\n";
+                    $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< /Type /Font\n/Subtype /" . $Vsz1vjk4tj2c['info']['SubType'] . "\n";
+                    $Vihxefallqs0 .= "/Name /F" . $Vsz1vjk4tj2c['info']['fontNum'] . "\n";
+                    $Vihxefallqs0 .= "/BaseFont /" . $Vsz1vjk4tj2c['info']['name'] . "\n";
 
-                    if (isset($o['info']['encodingDictionary'])) {
-                        // then place a reference to the dictionary
-                        $res .= "/Encoding " . $o['info']['encodingDictionary'] . " 0 R\n";
+                    if (isset($Vsz1vjk4tj2c['info']['encodingDictionary'])) {
+                        
+                        $Vihxefallqs0 .= "/Encoding " . $Vsz1vjk4tj2c['info']['encodingDictionary'] . " 0 R\n";
                     } else {
-                        if (isset($o['info']['encoding'])) {
-                            // use the specified encoding
-                            $res .= "/Encoding /" . $o['info']['encoding'] . "\n";
+                        if (isset($Vsz1vjk4tj2c['info']['encoding'])) {
+                            
+                            $Vihxefallqs0 .= "/Encoding /" . $Vsz1vjk4tj2c['info']['encoding'] . "\n";
                         }
                     }
 
-                    if (isset($o['info']['FirstChar'])) {
-                        $res .= "/FirstChar " . $o['info']['FirstChar'] . "\n";
+                    if (isset($Vsz1vjk4tj2c['info']['FirstChar'])) {
+                        $Vihxefallqs0 .= "/FirstChar " . $Vsz1vjk4tj2c['info']['FirstChar'] . "\n";
                     }
 
-                    if (isset($o['info']['LastChar'])) {
-                        $res .= "/LastChar " . $o['info']['LastChar'] . "\n";
+                    if (isset($Vsz1vjk4tj2c['info']['LastChar'])) {
+                        $Vihxefallqs0 .= "/LastChar " . $Vsz1vjk4tj2c['info']['LastChar'] . "\n";
                     }
 
-                    if (isset($o['info']['Widths'])) {
-                        $res .= "/Widths " . $o['info']['Widths'] . " 0 R\n";
+                    if (isset($Vsz1vjk4tj2c['info']['Widths'])) {
+                        $Vihxefallqs0 .= "/Widths " . $Vsz1vjk4tj2c['info']['Widths'] . " 0 R\n";
                     }
 
-                    if (isset($o['info']['FontDescriptor'])) {
-                        $res .= "/FontDescriptor " . $o['info']['FontDescriptor'] . " 0 R\n";
+                    if (isset($Vsz1vjk4tj2c['info']['FontDescriptor'])) {
+                        $Vihxefallqs0 .= "/FontDescriptor " . $Vsz1vjk4tj2c['info']['FontDescriptor'] . " 0 R\n";
                     }
 
-                    $res .= ">>\n";
-                    $res .= "endobj";
+                    $Vihxefallqs0 .= ">>\n";
+                    $Vihxefallqs0 .= "endobj";
                 }
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * a font descriptor, needed for including additional fonts
-     */
-    protected function o_fontDescriptor($id, $action, $options = '')
+    
+    protected function o_fontDescriptor($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array('t' => 'fontDescriptor', 'info' => $options);
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'fontDescriptor', 'info' => $Vi43cktvy0zi);
                 break;
 
             case 'out':
-                $res = "\n$id 0 obj\n<< /Type /FontDescriptor\n";
-                foreach ($o['info'] as $label => $value) {
-                    switch ($label) {
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< /Type /FontDescriptor\n";
+                foreach ($Vsz1vjk4tj2c['info'] as $V4qeqspuux02 => $Vpszt12nvbaualue) {
+                    switch ($V4qeqspuux02) {
                         case 'Ascent':
                         case 'CapHeight':
                         case 'Descent':
@@ -916,113 +731,109 @@ EOT;
                         case 'StemH':
                         case 'XHeight':
                         case 'CharSet':
-                            if (mb_strlen($value, '8bit')) {
-                                $res .= "/$label $value\n";
+                            if (mb_strlen($Vpszt12nvbaualue, '8bit')) {
+                                $Vihxefallqs0 .= "/$V4qeqspuux02 $Vpszt12nvbaualue\n";
                             }
 
                             break;
                         case 'FontFile':
                         case 'FontFile2':
                         case 'FontFile3':
-                            $res .= "/$label $value 0 R\n";
+                            $Vihxefallqs0 .= "/$V4qeqspuux02 $Vpszt12nvbaualue 0 R\n";
                             break;
 
                         case 'FontBBox':
-                            $res .= "/$label [$value[0] $value[1] $value[2] $value[3]]\n";
+                            $Vihxefallqs0 .= "/$V4qeqspuux02 [$Vpszt12nvbaualue[0] $Vpszt12nvbaualue[1] $Vpszt12nvbaualue[2] $Vpszt12nvbaualue[3]]\n";
                             break;
 
                         case 'FontName':
-                            $res .= "/$label /$value\n";
+                            $Vihxefallqs0 .= "/$V4qeqspuux02 /$Vpszt12nvbaualue\n";
                             break;
                     }
                 }
 
-                $res .= ">>\nendobj";
+                $Vihxefallqs0 .= ">>\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * the font encoding
-     */
-    protected function o_fontEncoding($id, $action, $options = '')
+    
+    protected function o_fontEncoding($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                // the options array should contain 'differences' and maybe 'encoding'
-                $this->objects[$id] = array('t' => 'fontEncoding', 'info' => $options);
+                
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'fontEncoding', 'info' => $Vi43cktvy0zi);
                 break;
 
             case 'out':
-                $res = "\n$id 0 obj\n<< /Type /Encoding\n";
-                if (!isset($o['info']['encoding'])) {
-                    $o['info']['encoding'] = 'WinAnsiEncoding';
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< /Type /Encoding\n";
+                if (!isset($Vsz1vjk4tj2c['info']['encoding'])) {
+                    $Vsz1vjk4tj2c['info']['encoding'] = 'WinAnsiEncoding';
                 }
 
-                if ($o['info']['encoding'] !== 'none') {
-                    $res .= "/BaseEncoding /" . $o['info']['encoding'] . "\n";
+                if ($Vsz1vjk4tj2c['info']['encoding'] !== 'none') {
+                    $Vihxefallqs0 .= "/BaseEncoding /" . $Vsz1vjk4tj2c['info']['encoding'] . "\n";
                 }
 
-                $res .= "/Differences \n[";
+                $Vihxefallqs0 .= "/Differences \n[";
 
-                $onum = -100;
+                $Vsz1vjk4tj2cnum = -100;
 
-                foreach ($o['info']['differences'] as $num => $label) {
-                    if ($num != $onum + 1) {
-                        // we cannot make use of consecutive numbering
-                        $res .= "\n$num /$label";
+                foreach ($Vsz1vjk4tj2c['info']['differences'] as $Vxnixw2qni35 => $V4qeqspuux02) {
+                    if ($Vxnixw2qni35 != $Vsz1vjk4tj2cnum + 1) {
+                        
+                        $Vihxefallqs0 .= "\n$Vxnixw2qni35 /$V4qeqspuux02";
                     } else {
-                        $res .= " /$label";
+                        $Vihxefallqs0 .= " /$V4qeqspuux02";
                     }
 
-                    $onum = $num;
+                    $Vsz1vjk4tj2cnum = $Vxnixw2qni35;
                 }
 
-                $res .= "\n]\n>>\nendobj";
+                $Vihxefallqs0 .= "\n]\n>>\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * a descendent cid font, needed for unicode fonts
-     */
-    protected function o_fontDescendentCID($id, $action, $options = '')
+    
+    protected function o_fontDescendentCID($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array('t' => 'fontDescendentCID', 'info' => $options);
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'fontDescendentCID', 'info' => $Vi43cktvy0zi);
 
-                // we need a CID system info section
-                $cidSystemInfoId = ++$this->numObj;
-                $this->o_contents($cidSystemInfoId, 'new', 'raw');
-                $this->objects[$id]['info']['cidSystemInfo'] = $cidSystemInfoId;
-                $res = "<</Registry (Adobe)\n"; // A string identifying an issuer of character collections
-                $res .= "/Ordering (UCS)\n"; // A string that uniquely names a character collection issued by a specific registry
-                $res .= "/Supplement 0\n"; // The supplement number of the character collection.
-                $res .= ">>";
-                $this->objects[$cidSystemInfoId]['c'] = $res;
+                
+                $Vpuoruruidre = ++$Vcki4t4qmybshis->numObj;
+                $Vcki4t4qmybshis->o_contents($Vpuoruruidre, 'new', 'raw');
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['cidSystemInfo'] = $Vpuoruruidre;
+                $Vihxefallqs0 = "<</Registry (Adobe)\n"; 
+                $Vihxefallqs0 .= "/Ordering (UCS)\n"; 
+                $Vihxefallqs0 .= "/Supplement 0\n"; 
+                $Vihxefallqs0 .= ">>";
+                $Vcki4t4qmybshis->objects[$Vpuoruruidre]['c'] = $Vihxefallqs0;
 
-                // and a CID to GID map
-                $cidToGidMapId = ++$this->numObj;
-                $this->o_fontGIDtoCIDMap($cidToGidMapId, 'new', $options);
-                $this->objects[$id]['info']['cidToGidMap'] = $cidToGidMapId;
+                
+                $V5jmbehyv3sp = ++$Vcki4t4qmybshis->numObj;
+                $Vcki4t4qmybshis->o_fontGIDtoCIDMap($V5jmbehyv3sp, 'new', $Vi43cktvy0zi);
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['cidToGidMap'] = $V5jmbehyv3sp;
                 break;
 
             case 'add':
-                foreach ($options as $k => $v) {
-                    switch ($k) {
+                foreach ($Vi43cktvy0zi as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                    switch ($Vgu5dsd35kdp) {
                         case 'BaseFont':
-                            $o['info']['name'] = $v;
+                            $Vsz1vjk4tj2c['info']['name'] = $Vpszt12nvbau;
                             break;
 
                         case 'FirstChar':
@@ -1030,156 +841,150 @@ EOT;
                         case 'MissingWidth':
                         case 'FontDescriptor':
                         case 'SubType':
-                            $this->addMessage("o_fontDescendentCID $k : $v");
-                            $o['info'][$k] = $v;
+                            $Vcki4t4qmybshis->addMessage("o_fontDescendentCID $Vgu5dsd35kdp : $Vpszt12nvbau");
+                            $Vsz1vjk4tj2c['info'][$Vgu5dsd35kdp] = $Vpszt12nvbau;
                             break;
                     }
                 }
 
-                // pass values down to cid to gid map
-                $this->o_fontGIDtoCIDMap($o['info']['cidToGidMap'], 'add', $options);
+                
+                $Vcki4t4qmybshis->o_fontGIDtoCIDMap($Vsz1vjk4tj2c['info']['cidToGidMap'], 'add', $Vi43cktvy0zi);
                 break;
 
             case 'out':
-                $res = "\n$id 0 obj\n";
-                $res .= "<</Type /Font\n";
-                $res .= "/Subtype /CIDFontType2\n";
-                $res .= "/BaseFont /" . $o['info']['name'] . "\n";
-                $res .= "/CIDSystemInfo " . $o['info']['cidSystemInfo'] . " 0 R\n";
-//      if (isset($o['info']['FirstChar'])) {
-//        $res.= "/FirstChar ".$o['info']['FirstChar']."\n";
-//      }
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n";
+                $Vihxefallqs0 .= "<</Type /Font\n";
+                $Vihxefallqs0 .= "/Subtype /CIDFontType2\n";
+                $Vihxefallqs0 .= "/BaseFont /" . $Vsz1vjk4tj2c['info']['name'] . "\n";
+                $Vihxefallqs0 .= "/CIDSystemInfo " . $Vsz1vjk4tj2c['info']['cidSystemInfo'] . " 0 R\n";
 
-//      if (isset($o['info']['LastChar'])) {
-//        $res.= "/LastChar ".$o['info']['LastChar']."\n";
-//      }
-                if (isset($o['info']['FontDescriptor'])) {
-                    $res .= "/FontDescriptor " . $o['info']['FontDescriptor'] . " 0 R\n";
+
+
+
+
+
+
+                if (isset($Vsz1vjk4tj2c['info']['FontDescriptor'])) {
+                    $Vihxefallqs0 .= "/FontDescriptor " . $Vsz1vjk4tj2c['info']['FontDescriptor'] . " 0 R\n";
                 }
 
-                if (isset($o['info']['MissingWidth'])) {
-                    $res .= "/DW " . $o['info']['MissingWidth'] . "\n";
+                if (isset($Vsz1vjk4tj2c['info']['MissingWidth'])) {
+                    $Vihxefallqs0 .= "/DW " . $Vsz1vjk4tj2c['info']['MissingWidth'] . "\n";
                 }
 
-                if (isset($o['info']['fontFileName']) && isset($this->fonts[$o['info']['fontFileName']]['CIDWidths'])) {
-                    $cid_widths = &$this->fonts[$o['info']['fontFileName']]['CIDWidths'];
-                    $w = '';
-                    foreach ($cid_widths as $cid => $width) {
-                        $w .= "$cid [$width] ";
+                if (isset($Vsz1vjk4tj2c['info']['fontFileName']) && isset($Vcki4t4qmybshis->fonts[$Vsz1vjk4tj2c['info']['fontFileName']]['CIDWidths'])) {
+                    $V4tuavakmnoe = &$Vcki4t4qmybshis->fonts[$Vsz1vjk4tj2c['info']['fontFileName']]['CIDWidths'];
+                    $Vhoifq2kocyt = '';
+                    foreach ($V4tuavakmnoe as $Vj20gg5slcy5 => $Vhoifq2kocytidth) {
+                        $Vhoifq2kocyt .= "$Vj20gg5slcy5 [$Vhoifq2kocytidth] ";
                     }
-                    $res .= "/W [$w]\n";
+                    $Vihxefallqs0 .= "/W [$Vhoifq2kocyt]\n";
                 }
 
-                $res .= "/CIDToGIDMap " . $o['info']['cidToGidMap'] . " 0 R\n";
-                $res .= ">>\n";
-                $res .= "endobj";
+                $Vihxefallqs0 .= "/CIDToGIDMap " . $Vsz1vjk4tj2c['info']['cidToGidMap'] . " 0 R\n";
+                $Vihxefallqs0 .= ">>\n";
+                $Vihxefallqs0 .= "endobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * a font glyph to character map, needed for unicode fonts
-     */
-    protected function o_fontGIDtoCIDMap($id, $action, $options = '')
+    
+    protected function o_fontGIDtoCIDMap($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array('t' => 'fontGIDtoCIDMap', 'info' => $options);
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'fontGIDtoCIDMap', 'info' => $Vi43cktvy0zi);
                 break;
 
             case 'out':
-                $res = "\n$id 0 obj\n";
-                $fontFileName = $o['info']['fontFileName'];
-                $tmp = $this->fonts[$fontFileName]['CIDtoGID'] = base64_decode($this->fonts[$fontFileName]['CIDtoGID']);
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n";
+                $Vwocpbt3va53 = $Vsz1vjk4tj2c['info']['fontFileName'];
+                $Vynpm04a4fx0 = $Vcki4t4qmybshis->fonts[$Vwocpbt3va53]['CIDtoGID'] = base64_decode($Vcki4t4qmybshis->fonts[$Vwocpbt3va53]['CIDtoGID']);
 
-                $compressed = isset($this->fonts[$fontFileName]['CIDtoGID_Compressed']) &&
-                    $this->fonts[$fontFileName]['CIDtoGID_Compressed'];
+                $Vnnlzd432u0m = isset($Vcki4t4qmybshis->fonts[$Vwocpbt3va53]['CIDtoGID_Compressed']) &&
+                    $Vcki4t4qmybshis->fonts[$Vwocpbt3va53]['CIDtoGID_Compressed'];
 
-                if (!$compressed && isset($o['raw'])) {
-                    $res .= $tmp;
+                if (!$Vnnlzd432u0m && isset($Vsz1vjk4tj2c['raw'])) {
+                    $Vihxefallqs0 .= $Vynpm04a4fx0;
                 } else {
-                    $res .= "<<";
+                    $Vihxefallqs0 .= "<<";
 
-                    if (!$compressed && $this->compressionReady && $this->options['compression']) {
-                        // then implement ZLIB based compression on this content stream
-                        $compressed = true;
-                        $tmp = gzcompress($tmp, 6);
+                    if (!$Vnnlzd432u0m && $Vcki4t4qmybshis->compressionReady && $Vcki4t4qmybshis->options['compression']) {
+                        
+                        $Vnnlzd432u0m = true;
+                        $Vynpm04a4fx0 = gzcompress($Vynpm04a4fx0, 6);
                     }
-                    if ($compressed) {
-                        $res .= "\n/Filter /FlateDecode";
+                    if ($Vnnlzd432u0m) {
+                        $Vihxefallqs0 .= "\n/Filter /FlateDecode";
                     }
 
-                    $res .= "\n/Length " . mb_strlen($tmp, '8bit') . ">>\nstream\n$tmp\nendstream";
+                    $Vihxefallqs0 .= "\n/Length " . mb_strlen($Vynpm04a4fx0, '8bit') . ">>\nstream\n$Vynpm04a4fx0\nendstream";
                 }
 
-                $res .= "\nendobj";
+                $Vihxefallqs0 .= "\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * the document procset, solves some problems with printing to old PS printers
-     */
-    protected function o_procset($id, $action, $options = '')
+    
+    protected function o_procset($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array('t' => 'procset', 'info' => array('PDF' => 1, 'Text' => 1));
-                $this->o_pages($this->currentNode, 'procset', $id);
-                $this->procsetObjectId = $id;
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'procset', 'info' => array('PDF' => 1, 'Text' => 1));
+                $Vcki4t4qmybshis->o_pages($Vcki4t4qmybshis->currentNode, 'procset', $Vkriocz2qep2);
+                $Vcki4t4qmybshis->procsetObjectId = $Vkriocz2qep2;
                 break;
 
             case 'add':
-                // this is to add new items to the procset list, despite the fact that this is considered
-                // obselete, the items are required for printing to some postscript printers
-                switch ($options) {
+                
+                
+                switch ($Vi43cktvy0zi) {
                     case 'ImageB':
                     case 'ImageC':
                     case 'ImageI':
-                        $o['info'][$options] = 1;
+                        $Vsz1vjk4tj2c['info'][$Vi43cktvy0zi] = 1;
                         break;
                 }
                 break;
 
             case 'out':
-                $res = "\n$id 0 obj\n[";
-                foreach ($o['info'] as $label => $val) {
-                    $res .= "/$label ";
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n[";
+                foreach ($Vsz1vjk4tj2c['info'] as $V4qeqspuux02 => $Vpszt12nvbaual) {
+                    $Vihxefallqs0 .= "/$V4qeqspuux02 ";
                 }
-                $res .= "]\nendobj";
+                $Vihxefallqs0 .= "]\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * define the document information
-     */
-    protected function o_info($id, $action, $options = '')
+    
+    protected function o_info($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->infoObject = $id;
-                $date = 'D:' . @date('Ymd');
-                $this->objects[$id] = array(
+                $Vcki4t4qmybshis->infoObject = $Vkriocz2qep2;
+                $Vgc0usxqfufi = 'D:' . @date('Ymd');
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array(
                     't'    => 'info',
                     'info' => array(
                         'Creator'      => 'R and OS php pdf writer, http://www.ros.co.nz',
-                        'CreationDate' => $date
+                        'CreationDate' => $Vgc0usxqfufi
                     )
                 );
                 break;
@@ -1192,501 +997,488 @@ EOT;
             case 'CreationDate':
             case 'ModDate':
             case 'Trapped':
-                $o['info'][$action] = $options;
+                $Vsz1vjk4tj2c['info'][$Vmzgkmhd4ios] = $Vi43cktvy0zi;
                 break;
 
             case 'out':
-                if ($this->encrypted) {
-                    $this->encryptInit($id);
+                if ($Vcki4t4qmybshis->encrypted) {
+                    $Vcki4t4qmybshis->encryptInit($Vkriocz2qep2);
                 }
 
-                $res = "\n$id 0 obj\n<<\n";
-                foreach ($o['info'] as $k => $v) {
-                    $res .= "/$k (";
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<<\n";
+                foreach ($Vsz1vjk4tj2c['info'] as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                    $Vihxefallqs0 .= "/$Vgu5dsd35kdp (";
 
-                    if ($this->encrypted) {
-                        $v = $this->ARC4($v);
-                    } // dates must be outputted as-is, without Unicode transformations
-                    elseif (!in_array($k, array('CreationDate', 'ModDate'))) {
-                        $v = $this->filterText($v);
+                    if ($Vcki4t4qmybshis->encrypted) {
+                        $Vpszt12nvbau = $Vcki4t4qmybshis->ARC4($Vpszt12nvbau);
+                    } 
+                    elseif (!in_array($Vgu5dsd35kdp, array('CreationDate', 'ModDate'))) {
+                        $Vpszt12nvbau = $Vcki4t4qmybshis->filterText($Vpszt12nvbau);
                     }
 
-                    $res .= $v;
-                    $res .= ")\n";
+                    $Vihxefallqs0 .= $Vpszt12nvbau;
+                    $Vihxefallqs0 .= ")\n";
                 }
 
-                $res .= ">>\nendobj";
+                $Vihxefallqs0 .= ">>\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * an action object, used to link to URLS initially
-     */
-    protected function o_action($id, $action, $options = '')
+    
+    protected function o_action($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                if (is_array($options)) {
-                    $this->objects[$id] = array('t' => 'action', 'info' => $options, 'type' => $options['type']);
+                if (is_array($Vi43cktvy0zi)) {
+                    $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'action', 'info' => $Vi43cktvy0zi, 'type' => $Vi43cktvy0zi['type']);
                 } else {
-                    // then assume a URI action
-                    $this->objects[$id] = array('t' => 'action', 'info' => $options, 'type' => 'URI');
+                    
+                    $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'action', 'info' => $Vi43cktvy0zi, 'type' => 'URI');
                 }
                 break;
 
             case 'out':
-                if ($this->encrypted) {
-                    $this->encryptInit($id);
+                if ($Vcki4t4qmybshis->encrypted) {
+                    $Vcki4t4qmybshis->encryptInit($Vkriocz2qep2);
                 }
 
-                $res = "\n$id 0 obj\n<< /Type /Action";
-                switch ($o['type']) {
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< /Type /Action";
+                switch ($Vsz1vjk4tj2c['type']) {
                     case 'ilink':
-                        if (!isset($this->destinations[(string)$o['info']['label']])) {
+                        if (!isset($Vcki4t4qmybshis->destinations[(string)$Vsz1vjk4tj2c['info']['label']])) {
                             break;
                         }
 
-                        // there will be an 'label' setting, this is the name of the destination
-                        $res .= "\n/S /GoTo\n/D " . $this->destinations[(string)$o['info']['label']] . " 0 R";
+                        
+                        $Vihxefallqs0 .= "\n/S /GoTo\n/D " . $Vcki4t4qmybshis->destinations[(string)$Vsz1vjk4tj2c['info']['label']] . " 0 R";
                         break;
 
                     case 'URI':
-                        $res .= "\n/S /URI\n/URI (";
-                        if ($this->encrypted) {
-                            $res .= $this->filterText($this->ARC4($o['info']), true, false);
+                        $Vihxefallqs0 .= "\n/S /URI\n/URI (";
+                        if ($Vcki4t4qmybshis->encrypted) {
+                            $Vihxefallqs0 .= $Vcki4t4qmybshis->filterText($Vcki4t4qmybshis->ARC4($Vsz1vjk4tj2c['info']), true, false);
                         } else {
-                            $res .= $this->filterText($o['info'], true, false);
+                            $Vihxefallqs0 .= $Vcki4t4qmybshis->filterText($Vsz1vjk4tj2c['info'], true, false);
                         }
 
-                        $res .= ")";
+                        $Vihxefallqs0 .= ")";
                         break;
                 }
 
-                $res .= "\n>>\nendobj";
+                $Vihxefallqs0 .= "\n>>\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * an annotation object, this will add an annotation to the current page.
-     * initially will support just link annotations
-     */
-    protected function o_annotation($id, $action, $options = '')
+    
+    protected function o_annotation($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                // add the annotation to the current page
-                $pageId = $this->currentPage;
-                $this->o_page($pageId, 'annot', $id);
+                
+                $Vshyl1pxm23p = $Vcki4t4qmybshis->currentPage;
+                $Vcki4t4qmybshis->o_page($Vshyl1pxm23p, 'annot', $Vkriocz2qep2);
 
-                // and add the action object which is going to be required
-                switch ($options['type']) {
+                
+                switch ($Vi43cktvy0zi['type']) {
                     case 'link':
-                        $this->objects[$id] = array('t' => 'annotation', 'info' => $options);
-                        $this->numObj++;
-                        $this->o_action($this->numObj, 'new', $options['url']);
-                        $this->objects[$id]['info']['actionId'] = $this->numObj;
+                        $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'annotation', 'info' => $Vi43cktvy0zi);
+                        $Vcki4t4qmybshis->numObj++;
+                        $Vcki4t4qmybshis->o_action($Vcki4t4qmybshis->numObj, 'new', $Vi43cktvy0zi['url']);
+                        $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['actionId'] = $Vcki4t4qmybshis->numObj;
                         break;
 
                     case 'ilink':
-                        // this is to a named internal link
-                        $label = $options['label'];
-                        $this->objects[$id] = array('t' => 'annotation', 'info' => $options);
-                        $this->numObj++;
-                        $this->o_action($this->numObj, 'new', array('type' => 'ilink', 'label' => $label));
-                        $this->objects[$id]['info']['actionId'] = $this->numObj;
+                        
+                        $V4qeqspuux02 = $Vi43cktvy0zi['label'];
+                        $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'annotation', 'info' => $Vi43cktvy0zi);
+                        $Vcki4t4qmybshis->numObj++;
+                        $Vcki4t4qmybshis->o_action($Vcki4t4qmybshis->numObj, 'new', array('type' => 'ilink', 'label' => $V4qeqspuux02));
+                        $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['actionId'] = $Vcki4t4qmybshis->numObj;
                         break;
                 }
                 break;
 
             case 'out':
-                $res = "\n$id 0 obj\n<< /Type /Annot";
-                switch ($o['info']['type']) {
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< /Type /Annot";
+                switch ($Vsz1vjk4tj2c['info']['type']) {
                     case 'link':
                     case 'ilink':
-                        $res .= "\n/Subtype /Link";
+                        $Vihxefallqs0 .= "\n/Subtype /Link";
                         break;
                 }
-                $res .= "\n/A " . $o['info']['actionId'] . " 0 R";
-                $res .= "\n/Border [0 0 0]";
-                $res .= "\n/H /I";
-                $res .= "\n/Rect [ ";
+                $Vihxefallqs0 .= "\n/A " . $Vsz1vjk4tj2c['info']['actionId'] . " 0 R";
+                $Vihxefallqs0 .= "\n/Border [0 0 0]";
+                $Vihxefallqs0 .= "\n/H /I";
+                $Vihxefallqs0 .= "\n/Rect [ ";
 
-                foreach ($o['info']['rect'] as $v) {
-                    $res .= sprintf("%.4F ", $v);
+                foreach ($Vsz1vjk4tj2c['info']['rect'] as $Vpszt12nvbau) {
+                    $Vihxefallqs0 .= sprintf("%.4F ", $Vpszt12nvbau);
                 }
 
-                $res .= "]";
-                $res .= "\n>>\nendobj";
+                $Vihxefallqs0 .= "]";
+                $Vihxefallqs0 .= "\n>>\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * a page object, it also creates a contents object to hold its contents
-     */
-    protected function o_page($id, $action, $options = '')
+    
+    protected function o_page($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->numPages++;
-                $this->objects[$id] = array(
+                $Vcki4t4qmybshis->numPages++;
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array(
                     't'    => 'page',
                     'info' => array(
-                        'parent'  => $this->currentNode,
-                        'pageNum' => $this->numPages
+                        'parent'  => $Vcki4t4qmybshis->currentNode,
+                        'pageNum' => $Vcki4t4qmybshis->numPages
                     )
                 );
 
-                if (is_array($options)) {
-                    // then this must be a page insertion, array should contain 'rid','pos'=[before|after]
-                    $options['id'] = $id;
-                    $this->o_pages($this->currentNode, 'page', $options);
+                if (is_array($Vi43cktvy0zi)) {
+                    
+                    $Vi43cktvy0zi['id'] = $Vkriocz2qep2;
+                    $Vcki4t4qmybshis->o_pages($Vcki4t4qmybshis->currentNode, 'page', $Vi43cktvy0zi);
                 } else {
-                    $this->o_pages($this->currentNode, 'page', $id);
+                    $Vcki4t4qmybshis->o_pages($Vcki4t4qmybshis->currentNode, 'page', $Vkriocz2qep2);
                 }
 
-                $this->currentPage = $id;
-                //make a contents object to go with this page
-                $this->numObj++;
-                $this->o_contents($this->numObj, 'new', $id);
-                $this->currentContents = $this->numObj;
-                $this->objects[$id]['info']['contents'] = array();
-                $this->objects[$id]['info']['contents'][] = $this->numObj;
+                $Vcki4t4qmybshis->currentPage = $Vkriocz2qep2;
+                
+                $Vcki4t4qmybshis->numObj++;
+                $Vcki4t4qmybshis->o_contents($Vcki4t4qmybshis->numObj, 'new', $Vkriocz2qep2);
+                $Vcki4t4qmybshis->currentContents = $Vcki4t4qmybshis->numObj;
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['contents'] = array();
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['contents'][] = $Vcki4t4qmybshis->numObj;
 
-                $match = ($this->numPages % 2 ? 'odd' : 'even');
-                foreach ($this->addLooseObjects as $oId => $target) {
-                    if ($target === 'all' || $match === $target) {
-                        $this->objects[$id]['info']['contents'][] = $oId;
+                $Vyupu15qqw5c = ($Vcki4t4qmybshis->numPages % 2 ? 'odd' : 'even');
+                foreach ($Vcki4t4qmybshis->addLooseObjects as $Vsz1vjk4tj2cId => $Vu4wqouveu13) {
+                    if ($Vu4wqouveu13 === 'all' || $Vyupu15qqw5c === $Vu4wqouveu13) {
+                        $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['contents'][] = $Vsz1vjk4tj2cId;
                     }
                 }
                 break;
 
             case 'content':
-                $o['info']['contents'][] = $options;
+                $Vsz1vjk4tj2c['info']['contents'][] = $Vi43cktvy0zi;
                 break;
 
             case 'annot':
-                // add an annotation to this page
-                if (!isset($o['info']['annot'])) {
-                    $o['info']['annot'] = array();
+                
+                if (!isset($Vsz1vjk4tj2c['info']['annot'])) {
+                    $Vsz1vjk4tj2c['info']['annot'] = array();
                 }
 
-                // $options should contain the id of the annotation dictionary
-                $o['info']['annot'][] = $options;
+                
+                $Vsz1vjk4tj2c['info']['annot'][] = $Vi43cktvy0zi;
                 break;
 
             case 'out':
-                $res = "\n$id 0 obj\n<< /Type /Page";
-                $res .= "\n/Parent " . $o['info']['parent'] . " 0 R";
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< /Type /Page";
+                $Vihxefallqs0 .= "\n/Parent " . $Vsz1vjk4tj2c['info']['parent'] . " 0 R";
 
-                if (isset($o['info']['annot'])) {
-                    $res .= "\n/Annots [";
-                    foreach ($o['info']['annot'] as $aId) {
-                        $res .= " $aId 0 R";
+                if (isset($Vsz1vjk4tj2c['info']['annot'])) {
+                    $Vihxefallqs0 .= "\n/Annots [";
+                    foreach ($Vsz1vjk4tj2c['info']['annot'] as $Vabmsf2gmjhn) {
+                        $Vihxefallqs0 .= " $Vabmsf2gmjhn 0 R";
                     }
-                    $res .= " ]";
+                    $Vihxefallqs0 .= " ]";
                 }
 
-                $count = count($o['info']['contents']);
-                if ($count == 1) {
-                    $res .= "\n/Contents " . $o['info']['contents'][0] . " 0 R";
+                $Vj4h4hyymhja = count($Vsz1vjk4tj2c['info']['contents']);
+                if ($Vj4h4hyymhja == 1) {
+                    $Vihxefallqs0 .= "\n/Contents " . $Vsz1vjk4tj2c['info']['contents'][0] . " 0 R";
                 } else {
-                    if ($count > 1) {
-                        $res .= "\n/Contents [\n";
+                    if ($Vj4h4hyymhja > 1) {
+                        $Vihxefallqs0 .= "\n/Contents [\n";
 
-                        // reverse the page contents so added objects are below normal content
-                        //foreach (array_reverse($o['info']['contents']) as $cId) {
-                        // Back to normal now that I've got transparency working --Benj
-                        foreach ($o['info']['contents'] as $cId) {
-                            $res .= "$cId 0 R\n";
+                        
+                        
+                        
+                        foreach ($Vsz1vjk4tj2c['info']['contents'] as $Vgtjejoqgulr) {
+                            $Vihxefallqs0 .= "$Vgtjejoqgulr 0 R\n";
                         }
-                        $res .= "]";
+                        $Vihxefallqs0 .= "]";
                     }
                 }
 
-                $res .= "\n>>\nendobj";
+                $Vihxefallqs0 .= "\n>>\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * the contents objects hold all of the content which appears on pages
-     */
-    protected function o_contents($id, $action, $options = '')
+    
+    protected function o_contents($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array('t' => 'contents', 'c' => '', 'info' => array());
-                if (mb_strlen($options, '8bit') && intval($options)) {
-                    // then this contents is the primary for a page
-                    $this->objects[$id]['onPage'] = $options;
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'contents', 'c' => '', 'info' => array());
+                if (mb_strlen($Vi43cktvy0zi, '8bit') && intval($Vi43cktvy0zi)) {
+                    
+                    $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['onPage'] = $Vi43cktvy0zi;
                 } else {
-                    if ($options === 'raw') {
-                        // then this page contains some other type of system object
-                        $this->objects[$id]['raw'] = 1;
+                    if ($Vi43cktvy0zi === 'raw') {
+                        
+                        $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['raw'] = 1;
                     }
                 }
                 break;
 
             case 'add':
-                // add more options to the decleration
-                foreach ($options as $k => $v) {
-                    $o['info'][$k] = $v;
+                
+                foreach ($Vi43cktvy0zi as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                    $Vsz1vjk4tj2c['info'][$Vgu5dsd35kdp] = $Vpszt12nvbau;
                 }
 
             case 'out':
-                $tmp = $o['c'];
-                $res = "\n$id 0 obj\n";
+                $Vynpm04a4fx0 = $Vsz1vjk4tj2c['c'];
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n";
 
-                if (isset($this->objects[$id]['raw'])) {
-                    $res .= $tmp;
+                if (isset($Vcki4t4qmybshis->objects[$Vkriocz2qep2]['raw'])) {
+                    $Vihxefallqs0 .= $Vynpm04a4fx0;
                 } else {
-                    $res .= "<<";
-                    if ($this->compressionReady && $this->options['compression']) {
-                        // then implement ZLIB based compression on this content stream
-                        $res .= " /Filter /FlateDecode";
-                        $tmp = gzcompress($tmp, 6);
+                    $Vihxefallqs0 .= "<<";
+                    if ($Vcki4t4qmybshis->compressionReady && $Vcki4t4qmybshis->options['compression']) {
+                        
+                        $Vihxefallqs0 .= " /Filter /FlateDecode";
+                        $Vynpm04a4fx0 = gzcompress($Vynpm04a4fx0, 6);
                     }
 
-                    if ($this->encrypted) {
-                        $this->encryptInit($id);
-                        $tmp = $this->ARC4($tmp);
+                    if ($Vcki4t4qmybshis->encrypted) {
+                        $Vcki4t4qmybshis->encryptInit($Vkriocz2qep2);
+                        $Vynpm04a4fx0 = $Vcki4t4qmybshis->ARC4($Vynpm04a4fx0);
                     }
 
-                    foreach ($o['info'] as $k => $v) {
-                        $res .= "\n/$k $v";
+                    foreach ($Vsz1vjk4tj2c['info'] as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                        $Vihxefallqs0 .= "\n/$Vgu5dsd35kdp $Vpszt12nvbau";
                     }
 
-                    $res .= "\n/Length " . mb_strlen($tmp, '8bit') . " >>\nstream\n$tmp\nendstream";
+                    $Vihxefallqs0 .= "\n/Length " . mb_strlen($Vynpm04a4fx0, '8bit') . " >>\nstream\n$Vynpm04a4fx0\nendstream";
                 }
 
-                $res .= "\nendobj";
+                $Vihxefallqs0 .= "\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    protected function o_embedjs($id, $action)
+    protected function o_embedjs($Vkriocz2qep2, $Vmzgkmhd4ios)
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array(
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array(
                     't'    => 'embedjs',
                     'info' => array(
-                        'Names' => '[(EmbeddedJS) ' . ($id + 1) . ' 0 R]'
+                        'Names' => '[(EmbeddedJS) ' . ($Vkriocz2qep2 + 1) . ' 0 R]'
                     )
                 );
                 break;
 
             case 'out':
-                $res = "\n$id 0 obj\n<< ";
-                foreach ($o['info'] as $k => $v) {
-                    $res .= "\n/$k $v";
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< ";
+                foreach ($Vsz1vjk4tj2c['info'] as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                    $Vihxefallqs0 .= "\n/$Vgu5dsd35kdp $Vpszt12nvbau";
                 }
-                $res .= "\n>>\nendobj";
+                $Vihxefallqs0 .= "\n>>\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    protected function o_javascript($id, $action, $code = '')
+    protected function o_javascript($Vkriocz2qep2, $Vmzgkmhd4ios, $Vl0bhwxpf0qo = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                $this->objects[$id] = array(
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array(
                     't'    => 'javascript',
                     'info' => array(
                         'S'  => '/JavaScript',
-                        'JS' => '(' . $this->filterText($code) . ')',
+                        'JS' => '(' . $Vcki4t4qmybshis->filterText($Vl0bhwxpf0qo) . ')',
                     )
                 );
                 break;
 
             case 'out':
-                $res = "\n$id 0 obj\n<< ";
-                foreach ($o['info'] as $k => $v) {
-                    $res .= "\n/$k $v";
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< ";
+                foreach ($Vsz1vjk4tj2c['info'] as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                    $Vihxefallqs0 .= "\n/$Vgu5dsd35kdp $Vpszt12nvbau";
                 }
-                $res .= "\n>>\nendobj";
+                $Vihxefallqs0 .= "\n>>\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * an image object, will be an XObject in the document, includes description and data
-     */
-    protected function o_image($id, $action, $options = '')
+    
+    protected function o_image($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                // make the new object
-                $this->objects[$id] = array('t' => 'image', 'data' => &$options['data'], 'info' => array());
+                
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'image', 'data' => &$Vi43cktvy0zi['data'], 'info' => array());
 
-                $info =& $this->objects[$id]['info'];
+                $V3xsptcgzss2nfo =& $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info'];
 
-                $info['Type'] = '/XObject';
-                $info['Subtype'] = '/Image';
-                $info['Width'] = $options['iw'];
-                $info['Height'] = $options['ih'];
+                $V3xsptcgzss2nfo['Type'] = '/XObject';
+                $V3xsptcgzss2nfo['Subtype'] = '/Image';
+                $V3xsptcgzss2nfo['Width'] = $Vi43cktvy0zi['iw'];
+                $V3xsptcgzss2nfo['Height'] = $Vi43cktvy0zi['ih'];
 
-                if (isset($options['masked']) && $options['masked']) {
-                    $info['SMask'] = ($this->numObj - 1) . ' 0 R';
+                if (isset($Vi43cktvy0zi['masked']) && $Vi43cktvy0zi['masked']) {
+                    $V3xsptcgzss2nfo['SMask'] = ($Vcki4t4qmybshis->numObj - 1) . ' 0 R';
                 }
 
-                if (!isset($options['type']) || $options['type'] === 'jpg') {
-                    if (!isset($options['channels'])) {
-                        $options['channels'] = 3;
+                if (!isset($Vi43cktvy0zi['type']) || $Vi43cktvy0zi['type'] === 'jpg') {
+                    if (!isset($Vi43cktvy0zi['channels'])) {
+                        $Vi43cktvy0zi['channels'] = 3;
                     }
 
-                    switch ($options['channels']) {
+                    switch ($Vi43cktvy0zi['channels']) {
                         case  1:
-                            $info['ColorSpace'] = '/DeviceGray';
+                            $V3xsptcgzss2nfo['ColorSpace'] = '/DeviceGray';
                             break;
                         case  4:
-                            $info['ColorSpace'] = '/DeviceCMYK';
+                            $V3xsptcgzss2nfo['ColorSpace'] = '/DeviceCMYK';
                             break;
                         default:
-                            $info['ColorSpace'] = '/DeviceRGB';
+                            $V3xsptcgzss2nfo['ColorSpace'] = '/DeviceRGB';
                             break;
                     }
 
-                    if ($info['ColorSpace'] === '/DeviceCMYK') {
-                        $info['Decode'] = '[1 0 1 0 1 0 1 0]';
+                    if ($V3xsptcgzss2nfo['ColorSpace'] === '/DeviceCMYK') {
+                        $V3xsptcgzss2nfo['Decode'] = '[1 0 1 0 1 0 1 0]';
                     }
 
-                    $info['Filter'] = '/DCTDecode';
-                    $info['BitsPerComponent'] = 8;
+                    $V3xsptcgzss2nfo['Filter'] = '/DCTDecode';
+                    $V3xsptcgzss2nfo['BitsPerComponent'] = 8;
                 } else {
-                    if ($options['type'] === 'png') {
-                        $info['Filter'] = '/FlateDecode';
-                        $info['DecodeParms'] = '<< /Predictor 15 /Colors ' . $options['ncolor'] . ' /Columns ' . $options['iw'] . ' /BitsPerComponent ' . $options['bitsPerComponent'] . '>>';
+                    if ($Vi43cktvy0zi['type'] === 'png') {
+                        $V3xsptcgzss2nfo['Filter'] = '/FlateDecode';
+                        $V3xsptcgzss2nfo['DecodeParms'] = '<< /Predictor 15 /Colors ' . $Vi43cktvy0zi['ncolor'] . ' /Columns ' . $Vi43cktvy0zi['iw'] . ' /BitsPerComponent ' . $Vi43cktvy0zi['bitsPerComponent'] . '>>';
 
-                        if ($options['isMask']) {
-                            $info['ColorSpace'] = '/DeviceGray';
+                        if ($Vi43cktvy0zi['isMask']) {
+                            $V3xsptcgzss2nfo['ColorSpace'] = '/DeviceGray';
                         } else {
-                            if (mb_strlen($options['pdata'], '8bit')) {
-                                $tmp = ' [ /Indexed /DeviceRGB ' . (mb_strlen($options['pdata'], '8bit') / 3 - 1) . ' ';
-                                $this->numObj++;
-                                $this->o_contents($this->numObj, 'new');
-                                $this->objects[$this->numObj]['c'] = $options['pdata'];
-                                $tmp .= $this->numObj . ' 0 R';
-                                $tmp .= ' ]';
-                                $info['ColorSpace'] = $tmp;
+                            if (mb_strlen($Vi43cktvy0zi['pdata'], '8bit')) {
+                                $Vynpm04a4fx0 = ' [ /Indexed /DeviceRGB ' . (mb_strlen($Vi43cktvy0zi['pdata'], '8bit') / 3 - 1) . ' ';
+                                $Vcki4t4qmybshis->numObj++;
+                                $Vcki4t4qmybshis->o_contents($Vcki4t4qmybshis->numObj, 'new');
+                                $Vcki4t4qmybshis->objects[$Vcki4t4qmybshis->numObj]['c'] = $Vi43cktvy0zi['pdata'];
+                                $Vynpm04a4fx0 .= $Vcki4t4qmybshis->numObj . ' 0 R';
+                                $Vynpm04a4fx0 .= ' ]';
+                                $V3xsptcgzss2nfo['ColorSpace'] = $Vynpm04a4fx0;
 
-                                if (isset($options['transparency'])) {
-                                    $transparency = $options['transparency'];
-                                    switch ($transparency['type']) {
+                                if (isset($Vi43cktvy0zi['transparency'])) {
+                                    $Vpjldf3nzz34 = $Vi43cktvy0zi['transparency'];
+                                    switch ($Vpjldf3nzz34['type']) {
                                         case 'indexed':
-                                            $tmp = ' [ ' . $transparency['data'] . ' ' . $transparency['data'] . '] ';
-                                            $info['Mask'] = $tmp;
+                                            $Vynpm04a4fx0 = ' [ ' . $Vpjldf3nzz34['data'] . ' ' . $Vpjldf3nzz34['data'] . '] ';
+                                            $V3xsptcgzss2nfo['Mask'] = $Vynpm04a4fx0;
                                             break;
 
                                         case 'color-key':
-                                            $tmp = ' [ ' .
-                                                $transparency['r'] . ' ' . $transparency['r'] .
-                                                $transparency['g'] . ' ' . $transparency['g'] .
-                                                $transparency['b'] . ' ' . $transparency['b'] .
+                                            $Vynpm04a4fx0 = ' [ ' .
+                                                $Vpjldf3nzz34['r'] . ' ' . $Vpjldf3nzz34['r'] .
+                                                $Vpjldf3nzz34['g'] . ' ' . $Vpjldf3nzz34['g'] .
+                                                $Vpjldf3nzz34['b'] . ' ' . $Vpjldf3nzz34['b'] .
                                                 ' ] ';
-                                            $info['Mask'] = $tmp;
+                                            $V3xsptcgzss2nfo['Mask'] = $Vynpm04a4fx0;
                                             break;
                                     }
                                 }
                             } else {
-                                if (isset($options['transparency'])) {
-                                    $transparency = $options['transparency'];
+                                if (isset($Vi43cktvy0zi['transparency'])) {
+                                    $Vpjldf3nzz34 = $Vi43cktvy0zi['transparency'];
 
-                                    switch ($transparency['type']) {
+                                    switch ($Vpjldf3nzz34['type']) {
                                         case 'indexed':
-                                            $tmp = ' [ ' . $transparency['data'] . ' ' . $transparency['data'] . '] ';
-                                            $info['Mask'] = $tmp;
+                                            $Vynpm04a4fx0 = ' [ ' . $Vpjldf3nzz34['data'] . ' ' . $Vpjldf3nzz34['data'] . '] ';
+                                            $V3xsptcgzss2nfo['Mask'] = $Vynpm04a4fx0;
                                             break;
 
                                         case 'color-key':
-                                            $tmp = ' [ ' .
-                                                $transparency['r'] . ' ' . $transparency['r'] . ' ' .
-                                                $transparency['g'] . ' ' . $transparency['g'] . ' ' .
-                                                $transparency['b'] . ' ' . $transparency['b'] .
+                                            $Vynpm04a4fx0 = ' [ ' .
+                                                $Vpjldf3nzz34['r'] . ' ' . $Vpjldf3nzz34['r'] . ' ' .
+                                                $Vpjldf3nzz34['g'] . ' ' . $Vpjldf3nzz34['g'] . ' ' .
+                                                $Vpjldf3nzz34['b'] . ' ' . $Vpjldf3nzz34['b'] .
                                                 ' ] ';
-                                            $info['Mask'] = $tmp;
+                                            $V3xsptcgzss2nfo['Mask'] = $Vynpm04a4fx0;
                                             break;
                                     }
                                 }
-                                $info['ColorSpace'] = '/' . $options['color'];
+                                $V3xsptcgzss2nfo['ColorSpace'] = '/' . $Vi43cktvy0zi['color'];
                             }
                         }
 
-                        $info['BitsPerComponent'] = $options['bitsPerComponent'];
+                        $V3xsptcgzss2nfo['BitsPerComponent'] = $Vi43cktvy0zi['bitsPerComponent'];
                     }
                 }
 
-                // assign it a place in the named resource dictionary as an external object, according to
-                // the label passed in with it.
-                $this->o_pages($this->currentNode, 'xObject', array('label' => $options['label'], 'objNum' => $id));
+                
+                
+                $Vcki4t4qmybshis->o_pages($Vcki4t4qmybshis->currentNode, 'xObject', array('label' => $Vi43cktvy0zi['label'], 'objNum' => $Vkriocz2qep2));
 
-                // also make sure that we have the right procset object for it.
-                $this->o_procset($this->procsetObjectId, 'add', 'ImageC');
+                
+                $Vcki4t4qmybshis->o_procset($Vcki4t4qmybshis->procsetObjectId, 'add', 'ImageC');
                 break;
 
             case 'out':
-                $tmp = &$o['data'];
-                $res = "\n$id 0 obj\n<<";
+                $Vynpm04a4fx0 = &$Vsz1vjk4tj2c['data'];
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<<";
 
-                foreach ($o['info'] as $k => $v) {
-                    $res .= "\n/$k $v";
+                foreach ($Vsz1vjk4tj2c['info'] as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                    $Vihxefallqs0 .= "\n/$Vgu5dsd35kdp $Vpszt12nvbau";
                 }
 
-                if ($this->encrypted) {
-                    $this->encryptInit($id);
-                    $tmp = $this->ARC4($tmp);
+                if ($Vcki4t4qmybshis->encrypted) {
+                    $Vcki4t4qmybshis->encryptInit($Vkriocz2qep2);
+                    $Vynpm04a4fx0 = $Vcki4t4qmybshis->ARC4($Vynpm04a4fx0);
                 }
 
-                $res .= "\n/Length " . mb_strlen($tmp, '8bit') . ">>\nstream\n$tmp\nendstream\nendobj";
+                $Vihxefallqs0 .= "\n/Length " . mb_strlen($Vynpm04a4fx0, '8bit') . ">>\nstream\n$Vynpm04a4fx0\nendstream\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * graphics state object
-     */
-    protected function o_extGState($id, $action, $options = "")
+    
+    protected function o_extGState($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = "")
     {
-        static $valid_params = array(
+        static $Vpszt12nvbaualid_params = array(
             "LW",
             "LC",
             "LC",
@@ -1715,464 +1507,427 @@ EOT;
             "TK"
         );
 
-        if ($action !== "new") {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== "new") {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case "new":
-                $this->objects[$id] = array('t' => 'extGState', 'info' => $options);
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'extGState', 'info' => $Vi43cktvy0zi);
 
-                // Tell the pages about the new resource
-                $this->numStates++;
-                $this->o_pages($this->currentNode, 'extGState', array("objNum" => $id, "stateNum" => $this->numStates));
+                
+                $Vcki4t4qmybshis->numStates++;
+                $Vcki4t4qmybshis->o_pages($Vcki4t4qmybshis->currentNode, 'extGState', array("objNum" => $Vkriocz2qep2, "stateNum" => $Vcki4t4qmybshis->numStates));
                 break;
 
             case "out":
-                $res = "\n$id 0 obj\n<< /Type /ExtGState\n";
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<< /Type /ExtGState\n";
 
-                foreach ($o["info"] as $k => $v) {
-                    if (!in_array($k, $valid_params)) {
+                foreach ($Vsz1vjk4tj2c["info"] as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                    if (!in_array($Vgu5dsd35kdp, $Vpszt12nvbaualid_params)) {
                         continue;
                     }
-                    $res .= "/$k $v\n";
+                    $Vihxefallqs0 .= "/$Vgu5dsd35kdp $Vpszt12nvbau\n";
                 }
 
-                $res .= ">>\nendobj";
+                $Vihxefallqs0 .= ">>\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * encryption object.
-     */
-    protected function o_encryption($id, $action, $options = '')
+    
+    protected function o_encryption($Vkriocz2qep2, $Vmzgkmhd4ios, $Vi43cktvy0zi = '')
     {
-        if ($action !== 'new') {
-            $o = &$this->objects[$id];
+        if ($Vmzgkmhd4ios !== 'new') {
+            $Vsz1vjk4tj2c = &$Vcki4t4qmybshis->objects[$Vkriocz2qep2];
         }
 
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'new':
-                // make the new object
-                $this->objects[$id] = array('t' => 'encryption', 'info' => $options);
-                $this->arc4_objnum = $id;
+                
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2] = array('t' => 'encryption', 'info' => $Vi43cktvy0zi);
+                $Vcki4t4qmybshis->arc4_objnum = $Vkriocz2qep2;
 
-                // figure out the additional paramaters required
-                $pad = chr(0x28) . chr(0xBF) . chr(0x4E) . chr(0x5E) . chr(0x4E) . chr(0x75) . chr(0x8A) . chr(0x41)
+                
+                $Vipjhkrqa1zd = chr(0x28) . chr(0xBF) . chr(0x4E) . chr(0x5E) . chr(0x4E) . chr(0x75) . chr(0x8A) . chr(0x41)
                     . chr(0x64) . chr(0x00) . chr(0x4E) . chr(0x56) . chr(0xFF) . chr(0xFA) . chr(0x01) . chr(0x08)
                     . chr(0x2E) . chr(0x2E) . chr(0x00) . chr(0xB6) . chr(0xD0) . chr(0x68) . chr(0x3E) . chr(0x80)
                     . chr(0x2F) . chr(0x0C) . chr(0xA9) . chr(0xFE) . chr(0x64) . chr(0x53) . chr(0x69) . chr(0x7A);
 
-                $len = mb_strlen($options['owner'], '8bit');
+                $V1st2w4mm2ug = mb_strlen($Vi43cktvy0zi['owner'], '8bit');
 
-                if ($len > 32) {
-                    $owner = substr($options['owner'], 0, 32);
+                if ($V1st2w4mm2ug > 32) {
+                    $Vsz1vjk4tj2cwner = substr($Vi43cktvy0zi['owner'], 0, 32);
                 } else {
-                    if ($len < 32) {
-                        $owner = $options['owner'] . substr($pad, 0, 32 - $len);
+                    if ($V1st2w4mm2ug < 32) {
+                        $Vsz1vjk4tj2cwner = $Vi43cktvy0zi['owner'] . substr($Vipjhkrqa1zd, 0, 32 - $V1st2w4mm2ug);
                     } else {
-                        $owner = $options['owner'];
+                        $Vsz1vjk4tj2cwner = $Vi43cktvy0zi['owner'];
                     }
                 }
 
-                $len = mb_strlen($options['user'], '8bit');
-                if ($len > 32) {
-                    $user = substr($options['user'], 0, 32);
+                $V1st2w4mm2ug = mb_strlen($Vi43cktvy0zi['user'], '8bit');
+                if ($V1st2w4mm2ug > 32) {
+                    $Vb2abdn1sfoz = substr($Vi43cktvy0zi['user'], 0, 32);
                 } else {
-                    if ($len < 32) {
-                        $user = $options['user'] . substr($pad, 0, 32 - $len);
+                    if ($V1st2w4mm2ug < 32) {
+                        $Vb2abdn1sfoz = $Vi43cktvy0zi['user'] . substr($Vipjhkrqa1zd, 0, 32 - $V1st2w4mm2ug);
                     } else {
-                        $user = $options['user'];
+                        $Vb2abdn1sfoz = $Vi43cktvy0zi['user'];
                     }
                 }
 
-                $tmp = $this->md5_16($owner);
-                $okey = substr($tmp, 0, 5);
-                $this->ARC4_init($okey);
-                $ovalue = $this->ARC4($user);
-                $this->objects[$id]['info']['O'] = $ovalue;
+                $Vynpm04a4fx0 = $Vcki4t4qmybshis->md5_16($Vsz1vjk4tj2cwner);
+                $Vsz1vjk4tj2ckey = substr($Vynpm04a4fx0, 0, 5);
+                $Vcki4t4qmybshis->ARC4_init($Vsz1vjk4tj2ckey);
+                $Vsz1vjk4tj2cvalue = $Vcki4t4qmybshis->ARC4($Vb2abdn1sfoz);
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['O'] = $Vsz1vjk4tj2cvalue;
 
-                // now make the u value, phew.
-                $tmp = $this->md5_16(
-                    $user . $ovalue . chr($options['p']) . chr(255) . chr(255) . chr(255) . $this->fileIdentifier
+                
+                $Vynpm04a4fx0 = $Vcki4t4qmybshis->md5_16(
+                    $Vb2abdn1sfoz . $Vsz1vjk4tj2cvalue . chr($Vi43cktvy0zi['p']) . chr(255) . chr(255) . chr(255) . $Vcki4t4qmybshis->fileIdentifier
                 );
 
-                $ukey = substr($tmp, 0, 5);
-                $this->ARC4_init($ukey);
-                $this->encryptionKey = $ukey;
-                $this->encrypted = true;
-                $uvalue = $this->ARC4($pad);
-                $this->objects[$id]['info']['U'] = $uvalue;
-                $this->encryptionKey = $ukey;
-                // initialize the arc4 array
+                $Vde3eh2pl0vj = substr($Vynpm04a4fx0, 0, 5);
+                $Vcki4t4qmybshis->ARC4_init($Vde3eh2pl0vj);
+                $Vcki4t4qmybshis->encryptionKey = $Vde3eh2pl0vj;
+                $Vcki4t4qmybshis->encrypted = true;
+                $Vdutj0i32nrd = $Vcki4t4qmybshis->ARC4($Vipjhkrqa1zd);
+                $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['info']['U'] = $Vdutj0i32nrd;
+                $Vcki4t4qmybshis->encryptionKey = $Vde3eh2pl0vj;
+                
                 break;
 
             case 'out':
-                $res = "\n$id 0 obj\n<<";
-                $res .= "\n/Filter /Standard";
-                $res .= "\n/V 1";
-                $res .= "\n/R 2";
-                $res .= "\n/O (" . $this->filterText($o['info']['O'], true, false) . ')';
-                $res .= "\n/U (" . $this->filterText($o['info']['U'], true, false) . ')';
-                // and the p-value needs to be converted to account for the twos-complement approach
-                $o['info']['p'] = (($o['info']['p'] ^ 255) + 1) * -1;
-                $res .= "\n/P " . ($o['info']['p']);
-                $res .= "\n>>\nendobj";
+                $Vihxefallqs0 = "\n$Vkriocz2qep2 0 obj\n<<";
+                $Vihxefallqs0 .= "\n/Filter /Standard";
+                $Vihxefallqs0 .= "\n/V 1";
+                $Vihxefallqs0 .= "\n/R 2";
+                $Vihxefallqs0 .= "\n/O (" . $Vcki4t4qmybshis->filterText($Vsz1vjk4tj2c['info']['O'], true, false) . ')';
+                $Vihxefallqs0 .= "\n/U (" . $Vcki4t4qmybshis->filterText($Vsz1vjk4tj2c['info']['U'], true, false) . ')';
+                
+                $Vsz1vjk4tj2c['info']['p'] = (($Vsz1vjk4tj2c['info']['p'] ^ 255) + 1) * -1;
+                $Vihxefallqs0 .= "\n/P " . ($Vsz1vjk4tj2c['info']['p']);
+                $Vihxefallqs0 .= "\n>>\nendobj";
 
-                return $res;
+                return $Vihxefallqs0;
         }
     }
 
-    /**
-     * ARC4 functions
-     * A series of function to implement ARC4 encoding in PHP
-     */
+    
 
-    /**
-     * calculate the 16 byte version of the 128 bit md5 digest of the string
-     */
-    function md5_16($string)
+    
+    function md5_16($V5jic1hsgori)
     {
-        $tmp = md5($string);
-        $out = '';
-        for ($i = 0; $i <= 30; $i = $i + 2) {
-            $out .= chr(hexdec(substr($tmp, $i, 2)));
+        $Vynpm04a4fx0 = md5($V5jic1hsgori);
+        $Vsz1vjk4tj2cut = '';
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 <= 30; $V3xsptcgzss2 = $V3xsptcgzss2 + 2) {
+            $Vsz1vjk4tj2cut .= chr(hexdec(substr($Vynpm04a4fx0, $V3xsptcgzss2, 2)));
         }
 
-        return $out;
+        return $Vsz1vjk4tj2cut;
     }
 
-    /**
-     * initialize the encryption for processing a particular object
-     */
-    function encryptInit($id)
+    
+    function encryptInit($Vkriocz2qep2)
     {
-        $tmp = $this->encryptionKey;
-        $hex = dechex($id);
-        if (mb_strlen($hex, '8bit') < 6) {
-            $hex = substr('000000', 0, 6 - mb_strlen($hex, '8bit')) . $hex;
+        $Vynpm04a4fx0 = $Vcki4t4qmybshis->encryptionKey;
+        $Vm1reqmc3mb4 = dechex($Vkriocz2qep2);
+        if (mb_strlen($Vm1reqmc3mb4, '8bit') < 6) {
+            $Vm1reqmc3mb4 = substr('000000', 0, 6 - mb_strlen($Vm1reqmc3mb4, '8bit')) . $Vm1reqmc3mb4;
         }
-        $tmp .= chr(hexdec(substr($hex, 4, 2))) . chr(hexdec(substr($hex, 2, 2))) . chr(
-                hexdec(substr($hex, 0, 2))
+        $Vynpm04a4fx0 .= chr(hexdec(substr($Vm1reqmc3mb4, 4, 2))) . chr(hexdec(substr($Vm1reqmc3mb4, 2, 2))) . chr(
+                hexdec(substr($Vm1reqmc3mb4, 0, 2))
             ) . chr(0) . chr(0);
-        $key = $this->md5_16($tmp);
-        $this->ARC4_init(substr($key, 0, 10));
+        $Vgu5dsd35kdpey = $Vcki4t4qmybshis->md5_16($Vynpm04a4fx0);
+        $Vcki4t4qmybshis->ARC4_init(substr($Vgu5dsd35kdpey, 0, 10));
     }
 
-    /**
-     * initialize the ARC4 encryption
-     */
-    function ARC4_init($key = '')
+    
+    function ARC4_init($Vgu5dsd35kdpey = '')
     {
-        $this->arc4 = '';
+        $Vcki4t4qmybshis->arc4 = '';
 
-        // setup the control array
-        if (mb_strlen($key, '8bit') == 0) {
+        
+        if (mb_strlen($Vgu5dsd35kdpey, '8bit') == 0) {
             return;
         }
 
-        $k = '';
-        while (mb_strlen($k, '8bit') < 256) {
-            $k .= $key;
+        $Vgu5dsd35kdp = '';
+        while (mb_strlen($Vgu5dsd35kdp, '8bit') < 256) {
+            $Vgu5dsd35kdp .= $Vgu5dsd35kdpey;
         }
 
-        $k = substr($k, 0, 256);
-        for ($i = 0; $i < 256; $i++) {
-            $this->arc4 .= chr($i);
+        $Vgu5dsd35kdp = substr($Vgu5dsd35kdp, 0, 256);
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < 256; $V3xsptcgzss2++) {
+            $Vcki4t4qmybshis->arc4 .= chr($V3xsptcgzss2);
         }
 
-        $j = 0;
+        $V0hg12l10vfx = 0;
 
-        for ($i = 0; $i < 256; $i++) {
-            $t = $this->arc4[$i];
-            $j = ($j + ord($t) + ord($k[$i])) % 256;
-            $this->arc4[$i] = $this->arc4[$j];
-            $this->arc4[$j] = $t;
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < 256; $V3xsptcgzss2++) {
+            $Vcki4t4qmybs = $Vcki4t4qmybshis->arc4[$V3xsptcgzss2];
+            $V0hg12l10vfx = ($V0hg12l10vfx + ord($Vcki4t4qmybs) + ord($Vgu5dsd35kdp[$V3xsptcgzss2])) % 256;
+            $Vcki4t4qmybshis->arc4[$V3xsptcgzss2] = $Vcki4t4qmybshis->arc4[$V0hg12l10vfx];
+            $Vcki4t4qmybshis->arc4[$V0hg12l10vfx] = $Vcki4t4qmybs;
         }
     }
 
-    /**
-     * ARC4 encrypt a text string
-     */
-    function ARC4($text)
+    
+    function ARC4($Vcki4t4qmybsext)
     {
-        $len = mb_strlen($text, '8bit');
-        $a = 0;
-        $b = 0;
-        $c = $this->arc4;
-        $out = '';
-        for ($i = 0; $i < $len; $i++) {
-            $a = ($a + 1) % 256;
-            $t = $c[$a];
-            $b = ($b + ord($t)) % 256;
-            $c[$a] = $c[$b];
-            $c[$b] = $t;
-            $k = ord($c[(ord($c[$a]) + ord($c[$b])) % 256]);
-            $out .= chr(ord($text[$i]) ^ $k);
+        $V1st2w4mm2ug = mb_strlen($Vcki4t4qmybsext, '8bit');
+        $Vrr3orqjztc2 = 0;
+        $Vbz3vmbr1h2v = 0;
+        $Vv03lfntnmcz = $Vcki4t4qmybshis->arc4;
+        $Vsz1vjk4tj2cut = '';
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $V1st2w4mm2ug; $V3xsptcgzss2++) {
+            $Vrr3orqjztc2 = ($Vrr3orqjztc2 + 1) % 256;
+            $Vcki4t4qmybs = $Vv03lfntnmcz[$Vrr3orqjztc2];
+            $Vbz3vmbr1h2v = ($Vbz3vmbr1h2v + ord($Vcki4t4qmybs)) % 256;
+            $Vv03lfntnmcz[$Vrr3orqjztc2] = $Vv03lfntnmcz[$Vbz3vmbr1h2v];
+            $Vv03lfntnmcz[$Vbz3vmbr1h2v] = $Vcki4t4qmybs;
+            $Vgu5dsd35kdp = ord($Vv03lfntnmcz[(ord($Vv03lfntnmcz[$Vrr3orqjztc2]) + ord($Vv03lfntnmcz[$Vbz3vmbr1h2v])) % 256]);
+            $Vsz1vjk4tj2cut .= chr(ord($Vcki4t4qmybsext[$V3xsptcgzss2]) ^ $Vgu5dsd35kdp);
         }
 
-        return $out;
+        return $Vsz1vjk4tj2cut;
     }
 
-    /**
-     * functions which can be called to adjust or add to the document
-     */
+    
 
-    /**
-     * add a link in the document to an external URL
-     */
-    function addLink($url, $x0, $y0, $x1, $y1)
+    
+    function addLink($Vsp0omgzz2yw, $Vxkyhwivqsr4, $V3pe5qrlaiol, $Vjxqwkabkvag, $Vzdywlaebz1l)
     {
-        $this->numObj++;
-        $info = array('type' => 'link', 'url' => $url, 'rect' => array($x0, $y0, $x1, $y1));
-        $this->o_annotation($this->numObj, 'new', $info);
+        $Vcki4t4qmybshis->numObj++;
+        $V3xsptcgzss2nfo = array('type' => 'link', 'url' => $Vsp0omgzz2yw, 'rect' => array($Vxkyhwivqsr4, $V3pe5qrlaiol, $Vjxqwkabkvag, $Vzdywlaebz1l));
+        $Vcki4t4qmybshis->o_annotation($Vcki4t4qmybshis->numObj, 'new', $V3xsptcgzss2nfo);
     }
 
-    /**
-     * add a link in the document to an internal destination (ie. within the document)
-     */
-    function addInternalLink($label, $x0, $y0, $x1, $y1)
+    
+    function addInternalLink($V4qeqspuux02, $Vxkyhwivqsr4, $V3pe5qrlaiol, $Vjxqwkabkvag, $Vzdywlaebz1l)
     {
-        $this->numObj++;
-        $info = array('type' => 'ilink', 'label' => $label, 'rect' => array($x0, $y0, $x1, $y1));
-        $this->o_annotation($this->numObj, 'new', $info);
+        $Vcki4t4qmybshis->numObj++;
+        $V3xsptcgzss2nfo = array('type' => 'ilink', 'label' => $V4qeqspuux02, 'rect' => array($Vxkyhwivqsr4, $V3pe5qrlaiol, $Vjxqwkabkvag, $Vzdywlaebz1l));
+        $Vcki4t4qmybshis->o_annotation($Vcki4t4qmybshis->numObj, 'new', $V3xsptcgzss2nfo);
     }
 
-    /**
-     * set the encryption of the document
-     * can be used to turn it on and/or set the passwords which it will have.
-     * also the functions that the user will have are set here, such as print, modify, add
-     */
-    function setEncryption($userPass = '', $ownerPass = '', $pc = array())
+    
+    function setEncryption($Vb2abdn1sfozPass = '', $Vsz1vjk4tj2cwnerPass = '', $V10ybkmamotp = array())
     {
-        $p = bindec("11000000");
+        $Vksopkgqixky = bindec("11000000");
 
-        $options = array('print' => 4, 'modify' => 8, 'copy' => 16, 'add' => 32);
+        $Vi43cktvy0zi = array('print' => 4, 'modify' => 8, 'copy' => 16, 'add' => 32);
 
-        foreach ($pc as $k => $v) {
-            if ($v && isset($options[$k])) {
-                $p += $options[$k];
+        foreach ($V10ybkmamotp as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+            if ($Vpszt12nvbau && isset($Vi43cktvy0zi[$Vgu5dsd35kdp])) {
+                $Vksopkgqixky += $Vi43cktvy0zi[$Vgu5dsd35kdp];
             } else {
-                if (isset($options[$v])) {
-                    $p += $options[$v];
+                if (isset($Vi43cktvy0zi[$Vpszt12nvbau])) {
+                    $Vksopkgqixky += $Vi43cktvy0zi[$Vpszt12nvbau];
                 }
             }
         }
 
-        // implement encryption on the document
-        if ($this->arc4_objnum == 0) {
-            // then the block does not exist already, add it.
-            $this->numObj++;
-            if (mb_strlen($ownerPass) == 0) {
-                $ownerPass = $userPass;
+        
+        if ($Vcki4t4qmybshis->arc4_objnum == 0) {
+            
+            $Vcki4t4qmybshis->numObj++;
+            if (mb_strlen($Vsz1vjk4tj2cwnerPass) == 0) {
+                $Vsz1vjk4tj2cwnerPass = $Vb2abdn1sfozPass;
             }
 
-            $this->o_encryption($this->numObj, 'new', array('user' => $userPass, 'owner' => $ownerPass, 'p' => $p));
+            $Vcki4t4qmybshis->o_encryption($Vcki4t4qmybshis->numObj, 'new', array('user' => $Vb2abdn1sfozPass, 'owner' => $Vsz1vjk4tj2cwnerPass, 'p' => $Vksopkgqixky));
         }
     }
 
-    /**
-     * should be used for internal checks, not implemented as yet
-     */
+    
     function checkAllHere()
     {
     }
 
-    /**
-     * return the pdf stream as a string returned from the function
-     */
-    function output($debug = false)
+    
+    function output($Vpe1ucmbxygf = false)
     {
-        if ($debug) {
-            // turn compression off
-            $this->options['compression'] = false;
+        if ($Vpe1ucmbxygf) {
+            
+            $Vcki4t4qmybshis->options['compression'] = false;
         }
 
-        if ($this->javascript) {
-            $this->numObj++;
+        if ($Vcki4t4qmybshis->javascript) {
+            $Vcki4t4qmybshis->numObj++;
 
-            $js_id = $this->numObj;
-            $this->o_embedjs($js_id, 'new');
-            $this->o_javascript(++$this->numObj, 'new', $this->javascript);
+            $V0hg12l10vfxs_id = $Vcki4t4qmybshis->numObj;
+            $Vcki4t4qmybshis->o_embedjs($V0hg12l10vfxs_id, 'new');
+            $Vcki4t4qmybshis->o_javascript(++$Vcki4t4qmybshis->numObj, 'new', $Vcki4t4qmybshis->javascript);
 
-            $id = $this->catalogId;
+            $Vkriocz2qep2 = $Vcki4t4qmybshis->catalogId;
 
-            $this->o_catalog($id, 'javascript', $js_id);
+            $Vcki4t4qmybshis->o_catalog($Vkriocz2qep2, 'javascript', $V0hg12l10vfxs_id);
         }
 
-        if ($this->arc4_objnum) {
-            $this->ARC4_init($this->encryptionKey);
+        if ($Vcki4t4qmybshis->arc4_objnum) {
+            $Vcki4t4qmybshis->ARC4_init($Vcki4t4qmybshis->encryptionKey);
         }
 
-        $this->checkAllHere();
+        $Vcki4t4qmybshis->checkAllHere();
 
-        $xref = array();
-        $content = '%PDF-1.3';
-        $pos = mb_strlen($content, '8bit');
+        $Vymkyc5vf2lp = array();
+        $Vv03lfntnmczontent = '%PDF-1.3';
+        $Vksopkgqixkyos = mb_strlen($Vv03lfntnmczontent, '8bit');
 
-        foreach ($this->objects as $k => $v) {
-            $tmp = 'o_' . $v['t'];
-            $cont = $this->$tmp($k, 'out');
-            $content .= $cont;
-            $xref[] = $pos;
-            $pos += mb_strlen($cont, '8bit');
+        foreach ($Vcki4t4qmybshis->objects as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+            $Vynpm04a4fx0 = 'o_' . $Vpszt12nvbau['t'];
+            $Vv03lfntnmczont = $Vcki4t4qmybshis->$Vynpm04a4fx0($Vgu5dsd35kdp, 'out');
+            $Vv03lfntnmczontent .= $Vv03lfntnmczont;
+            $Vymkyc5vf2lp[] = $Vksopkgqixkyos;
+            $Vksopkgqixkyos += mb_strlen($Vv03lfntnmczont, '8bit');
         }
 
-        $content .= "\nxref\n0 " . (count($xref) + 1) . "\n0000000000 65535 f \n";
+        $Vv03lfntnmczontent .= "\nxref\n0 " . (count($Vymkyc5vf2lp) + 1) . "\n0000000000 65535 f \n";
 
-        foreach ($xref as $p) {
-            $content .= str_pad($p, 10, "0", STR_PAD_LEFT) . " 00000 n \n";
+        foreach ($Vymkyc5vf2lp as $Vksopkgqixky) {
+            $Vv03lfntnmczontent .= str_pad($Vksopkgqixky, 10, "0", STR_PAD_LEFT) . " 00000 n \n";
         }
 
-        $content .= "trailer\n<<\n/Size " . (count($xref) + 1) . "\n/Root 1 0 R\n/Info $this->infoObject 0 R\n";
+        $Vv03lfntnmczontent .= "trailer\n<<\n/Size " . (count($Vymkyc5vf2lp) + 1) . "\n/Root 1 0 R\n/Info $Vcki4t4qmybshis->infoObject 0 R\n";
 
-        // if encryption has been applied to this document then add the marker for this dictionary
-        if ($this->arc4_objnum > 0) {
-            $content .= "/Encrypt $this->arc4_objnum 0 R\n";
+        
+        if ($Vcki4t4qmybshis->arc4_objnum > 0) {
+            $Vv03lfntnmczontent .= "/Encrypt $Vcki4t4qmybshis->arc4_objnum 0 R\n";
         }
 
-        if (mb_strlen($this->fileIdentifier, '8bit')) {
-            $content .= "/ID[<$this->fileIdentifier><$this->fileIdentifier>]\n";
+        if (mb_strlen($Vcki4t4qmybshis->fileIdentifier, '8bit')) {
+            $Vv03lfntnmczontent .= "/ID[<$Vcki4t4qmybshis->fileIdentifier><$Vcki4t4qmybshis->fileIdentifier>]\n";
         }
 
-        // account for \n added at start of xref table
-        $pos++;
+        
+        $Vksopkgqixkyos++;
 
-        $content .= ">>\nstartxref\n$pos\n%%EOF\n";
+        $Vv03lfntnmczontent .= ">>\nstartxref\n$Vksopkgqixkyos\n%%EOF\n";
 
-        return $content;
+        return $Vv03lfntnmczontent;
     }
 
-    /**
-     * intialize a new document
-     * if this is called on an existing document results may be unpredictable, but the existing document would be lost at minimum
-     * this function is called automatically by the constructor function
-     */
-    private function newDocument($pageSize = array(0, 0, 612, 792))
+    
+    private function newDocument($Vngqupeaszjn = array(0, 0, 612, 792))
     {
-        $this->numObj = 0;
-        $this->objects = array();
+        $Vcki4t4qmybshis->numObj = 0;
+        $Vcki4t4qmybshis->objects = array();
 
-        $this->numObj++;
-        $this->o_catalog($this->numObj, 'new');
+        $Vcki4t4qmybshis->numObj++;
+        $Vcki4t4qmybshis->o_catalog($Vcki4t4qmybshis->numObj, 'new');
 
-        $this->numObj++;
-        $this->o_outlines($this->numObj, 'new');
+        $Vcki4t4qmybshis->numObj++;
+        $Vcki4t4qmybshis->o_outlines($Vcki4t4qmybshis->numObj, 'new');
 
-        $this->numObj++;
-        $this->o_pages($this->numObj, 'new');
+        $Vcki4t4qmybshis->numObj++;
+        $Vcki4t4qmybshis->o_pages($Vcki4t4qmybshis->numObj, 'new');
 
-        $this->o_pages($this->numObj, 'mediaBox', $pageSize);
-        $this->currentNode = 3;
+        $Vcki4t4qmybshis->o_pages($Vcki4t4qmybshis->numObj, 'mediaBox', $Vngqupeaszjn);
+        $Vcki4t4qmybshis->currentNode = 3;
 
-        $this->numObj++;
-        $this->o_procset($this->numObj, 'new');
+        $Vcki4t4qmybshis->numObj++;
+        $Vcki4t4qmybshis->o_procset($Vcki4t4qmybshis->numObj, 'new');
 
-        $this->numObj++;
-        $this->o_info($this->numObj, 'new');
+        $Vcki4t4qmybshis->numObj++;
+        $Vcki4t4qmybshis->o_info($Vcki4t4qmybshis->numObj, 'new');
 
-        $this->numObj++;
-        $this->o_page($this->numObj, 'new');
+        $Vcki4t4qmybshis->numObj++;
+        $Vcki4t4qmybshis->o_page($Vcki4t4qmybshis->numObj, 'new');
 
-        // need to store the first page id as there is no way to get it to the user during
-        // startup
-        $this->firstPageId = $this->currentContents;
+        
+        
+        $Vcki4t4qmybshis->firstPageId = $Vcki4t4qmybshis->currentContents;
     }
 
-    /**
-     * open the font file and return a php structure containing it.
-     * first check if this one has been done before and saved in a form more suited to php
-     * note that if a php serialized version does not exist it will try and make one, but will
-     * require write access to the directory to do it... it is MUCH faster to have these serialized
-     * files.
-     */
-    private function openFont($font)
+    
+    private function openFont($V3h4z3hxorxj)
     {
-        // assume that $font contains the path and file but not the extension
-        $pos = strrpos($font, '/');
+        
+        $Vksopkgqixkyos = strrpos($V3h4z3hxorxj, '/');
 
-        if ($pos === false) {
-            $dir = './';
-            $name = $font;
+        if ($Vksopkgqixkyos === false) {
+            $Va1ihhd3c2hn = './';
+            $Vpgf1maodsla = $V3h4z3hxorxj;
         } else {
-            $dir = substr($font, 0, $pos + 1);
-            $name = substr($font, $pos + 1);
+            $Va1ihhd3c2hn = substr($V3h4z3hxorxj, 0, $Vksopkgqixkyos + 1);
+            $Vpgf1maodsla = substr($V3h4z3hxorxj, $Vksopkgqixkyos + 1);
         }
 
-        $fontcache = $this->fontcache;
-        if ($fontcache == '') {
-            $fontcache = $dir;
+        $Vjgooz20k3gx = $Vcki4t4qmybshis->fontcache;
+        if ($Vjgooz20k3gx == '') {
+            $Vjgooz20k3gx = $Va1ihhd3c2hn;
         }
 
-        //$name       filename without folder and extension of font metrics
-        //$dir      folder of font metrics
-        //$fontcache  folder of runtime created php serialized version of font metrics.
-        //            If this is not given, the same folder as the font metrics will be used.
-        //            Storing and reusing serialized versions improves speed much
+        
+        
+        
+        
+        
 
-        $this->addMessage("openFont: $font - $name");
+        $Vcki4t4qmybshis->addMessage("openFont: $V3h4z3hxorxj - $Vpgf1maodsla");
 
-        if (!$this->isUnicode || in_array(mb_strtolower(basename($name)), self::$coreFonts)) {
-            $metrics_name = "$name.afm";
+        if (!$Vcki4t4qmybshis->isUnicode || in_array(mb_strtolower(basename($Vpgf1maodsla)), self::$V511ytr5ole2)) {
+            $Vdmeyjtjmbp2 = "$Vpgf1maodsla.afm";
         } else {
-            $metrics_name = "$name.ufm";
+            $Vdmeyjtjmbp2 = "$Vpgf1maodsla.ufm";
         }
 
-        $cache_name = "$metrics_name.php";
-        $this->addMessage("metrics: $metrics_name, cache: $cache_name");
+        $Vv03lfntnmczache_name = "$Vdmeyjtjmbp2.php";
+        $Vcki4t4qmybshis->addMessage("metrics: $Vdmeyjtjmbp2, cache: $Vv03lfntnmczache_name");
 
-        if (file_exists($fontcache . $cache_name)) {
-            $this->addMessage("openFont: php file exists $fontcache$cache_name");
-            $this->fonts[$font] = require($fontcache . $cache_name);
+        if (file_exists($Vjgooz20k3gx . $Vv03lfntnmczache_name)) {
+            $Vcki4t4qmybshis->addMessage("openFont: php file exists $Vjgooz20k3gx$Vv03lfntnmczache_name");
+            $Vcki4t4qmybshis->fonts[$V3h4z3hxorxj] = require($Vjgooz20k3gx . $Vv03lfntnmczache_name);
 
-            if (!isset($this->fonts[$font]['_version_']) || $this->fonts[$font]['_version_'] != $this->fontcacheVersion) {
-                // if the font file is old, then clear it out and prepare for re-creation
-                $this->addMessage('openFont: clear out, make way for new version.');
-                $this->fonts[$font] = null;
-                unset($this->fonts[$font]);
+            if (!isset($Vcki4t4qmybshis->fonts[$V3h4z3hxorxj]['_version_']) || $Vcki4t4qmybshis->fonts[$V3h4z3hxorxj]['_version_'] != $Vcki4t4qmybshis->fontcacheVersion) {
+                
+                $Vcki4t4qmybshis->addMessage('openFont: clear out, make way for new version.');
+                $Vcki4t4qmybshis->fonts[$V3h4z3hxorxj] = null;
+                unset($Vcki4t4qmybshis->fonts[$V3h4z3hxorxj]);
             }
         } else {
-            $old_cache_name = "php_$metrics_name";
-            if (file_exists($fontcache . $old_cache_name)) {
-                $this->addMessage(
-                    "openFont: php file doesn't exist $fontcache$cache_name, creating it from the old format"
+            $Vsz1vjk4tj2cld_cache_name = "php_$Vdmeyjtjmbp2";
+            if (file_exists($Vjgooz20k3gx . $Vsz1vjk4tj2cld_cache_name)) {
+                $Vcki4t4qmybshis->addMessage(
+                    "openFont: php file doesn't exist $Vjgooz20k3gx$Vv03lfntnmczache_name, creating it from the old format"
                 );
-                $old_cache = file_get_contents($fontcache . $old_cache_name);
-                file_put_contents($fontcache . $cache_name, '<?php return ' . $old_cache . ';');
+                $Vsz1vjk4tj2cld_cache = file_get_contents($Vjgooz20k3gx . $Vsz1vjk4tj2cld_cache_name);
+                file_put_contents($Vjgooz20k3gx . $Vv03lfntnmczache_name, '<?php return ' . $Vsz1vjk4tj2cld_cache . ';');
 
-                return $this->openFont($font);
+                return $Vcki4t4qmybshis->openFont($V3h4z3hxorxj);
             }
         }
 
-        if (!isset($this->fonts[$font]) && file_exists($dir . $metrics_name)) {
-            // then rebuild the php_<font>.afm file from the <font>.afm file
-            $this->addMessage("openFont: build php file from $dir$metrics_name");
-            $data = array();
+        if (!isset($Vcki4t4qmybshis->fonts[$V3h4z3hxorxj]) && file_exists($Va1ihhd3c2hn . $Vdmeyjtjmbp2)) {
+            
+            $Vcki4t4qmybshis->addMessage("openFont: build php file from $Va1ihhd3c2hn$Vdmeyjtjmbp2");
+            $Vb3z3shnu1vn = array();
 
-            // 20 => 'space'
-            $data['codeToName'] = array();
+            
+            $Vb3z3shnu1vn['codeToName'] = array();
 
-            // Since we're not going to enable Unicode for the core fonts we need to use a font-based
-            // setting for Unicode support rather than a global setting.
-            $data['isUnicode'] = (strtolower(substr($metrics_name, -3)) !== 'afm');
+            
+            
+            $Vb3z3shnu1vn['isUnicode'] = (strtolower(substr($Vdmeyjtjmbp2, -3)) !== 'afm');
 
-            $cidtogid = '';
-            if ($data['isUnicode']) {
-                $cidtogid = str_pad('', 256 * 256 * 2, "\x00");
+            $Vj20gg5slcy5togid = '';
+            if ($Vb3z3shnu1vn['isUnicode']) {
+                $Vj20gg5slcy5togid = str_pad('', 256 * 256 * 2, "\x00");
             }
 
-            $file = file($dir . $metrics_name);
+            $Vtkhurg4sowd = file($Va1ihhd3c2hn . $Vdmeyjtjmbp2);
 
-            foreach ($file as $rowA) {
-                $row = trim($rowA);
-                $pos = strpos($row, ' ');
+            foreach ($Vtkhurg4sowd as $Vlpuhjbs31k4) {
+                $Vnwijnctkkq3 = trim($Vlpuhjbs31k4);
+                $Vksopkgqixkyos = strpos($Vnwijnctkkq3, ' ');
 
-                if ($pos) {
-                    // then there must be some keyword
-                    $key = substr($row, 0, $pos);
-                    switch ($key) {
+                if ($Vksopkgqixkyos) {
+                    
+                    $Vgu5dsd35kdpey = substr($Vnwijnctkkq3, 0, $Vksopkgqixkyos);
+                    switch ($Vgu5dsd35kdpey) {
                         case 'FontName':
                         case 'FullName':
                         case 'FamilyName':
@@ -2192,397 +1947,390 @@ EOT;
                         case 'StdHW':
                         case 'StdVW':
                         case 'StartCharMetrics':
-                        case 'FontHeightOffset': // OAR - Added so we can offset the height calculation of a Windows font.  Otherwise it's too big.
-                            $data[$key] = trim(substr($row, $pos));
+                        case 'FontHeightOffset': 
+                            $Vb3z3shnu1vn[$Vgu5dsd35kdpey] = trim(substr($Vnwijnctkkq3, $Vksopkgqixkyos));
                             break;
 
                         case 'FontBBox':
-                            $data[$key] = explode(' ', trim(substr($row, $pos)));
+                            $Vb3z3shnu1vn[$Vgu5dsd35kdpey] = explode(' ', trim(substr($Vnwijnctkkq3, $Vksopkgqixkyos)));
                             break;
 
-                        //C 39 ; WX 222 ; N quoteright ; B 53 463 157 718 ;
-                        case 'C': // Found in AFM files
-                            $bits = explode(';', trim($row));
-                            $dtmp = array();
+                        
+                        case 'C': 
+                            $Vbz3vmbr1h2vits = explode(';', trim($Vnwijnctkkq3));
+                            $V4iopdcxmetj = array();
 
-                            foreach ($bits as $bit) {
-                                $bits2 = explode(' ', trim($bit));
-                                if (mb_strlen($bits2[0], '8bit') == 0) {
+                            foreach ($Vbz3vmbr1h2vits as $Vbz3vmbr1h2vit) {
+                                $Vbz3vmbr1h2vits2 = explode(' ', trim($Vbz3vmbr1h2vit));
+                                if (mb_strlen($Vbz3vmbr1h2vits2[0], '8bit') == 0) {
                                     continue;
                                 }
 
-                                if (count($bits2) > 2) {
-                                    $dtmp[$bits2[0]] = array();
-                                    for ($i = 1; $i < count($bits2); $i++) {
-                                        $dtmp[$bits2[0]][] = $bits2[$i];
+                                if (count($Vbz3vmbr1h2vits2) > 2) {
+                                    $V4iopdcxmetj[$Vbz3vmbr1h2vits2[0]] = array();
+                                    for ($V3xsptcgzss2 = 1; $V3xsptcgzss2 < count($Vbz3vmbr1h2vits2); $V3xsptcgzss2++) {
+                                        $V4iopdcxmetj[$Vbz3vmbr1h2vits2[0]][] = $Vbz3vmbr1h2vits2[$V3xsptcgzss2];
                                     }
                                 } else {
-                                    if (count($bits2) == 2) {
-                                        $dtmp[$bits2[0]] = $bits2[1];
+                                    if (count($Vbz3vmbr1h2vits2) == 2) {
+                                        $V4iopdcxmetj[$Vbz3vmbr1h2vits2[0]] = $Vbz3vmbr1h2vits2[1];
                                     }
                                 }
                             }
 
-                            $c = (int)$dtmp['C'];
-                            $n = $dtmp['N'];
-                            $width = floatval($dtmp['WX']);
+                            $Vv03lfntnmcz = (int)$V4iopdcxmetj['C'];
+                            $V1qcutcuyu3m = $V4iopdcxmetj['N'];
+                            $Vhoifq2kocytidth = floatval($V4iopdcxmetj['WX']);
 
-                            if ($c >= 0) {
-                                if ($c != hexdec($n)) {
-                                    $data['codeToName'][$c] = $n;
+                            if ($Vv03lfntnmcz >= 0) {
+                                if ($Vv03lfntnmcz != hexdec($V1qcutcuyu3m)) {
+                                    $Vb3z3shnu1vn['codeToName'][$Vv03lfntnmcz] = $V1qcutcuyu3m;
                                 }
-                                $data['C'][$c] = $width;
+                                $Vb3z3shnu1vn['C'][$Vv03lfntnmcz] = $Vhoifq2kocytidth;
                             } else {
-                                $data['C'][$n] = $width;
+                                $Vb3z3shnu1vn['C'][$V1qcutcuyu3m] = $Vhoifq2kocytidth;
                             }
 
-                            if (!isset($data['MissingWidth']) && $c == -1 && $n === '.notdef') {
-                                $data['MissingWidth'] = $width;
+                            if (!isset($Vb3z3shnu1vn['MissingWidth']) && $Vv03lfntnmcz == -1 && $V1qcutcuyu3m === '.notdef') {
+                                $Vb3z3shnu1vn['MissingWidth'] = $Vhoifq2kocytidth;
                             }
 
                             break;
 
-                        // U 827 ; WX 0 ; N squaresubnosp ; G 675 ;
-                        case 'U': // Found in UFM files
-                            if (!$data['isUnicode']) {
+                        
+                        case 'U': 
+                            if (!$Vb3z3shnu1vn['isUnicode']) {
                                 break;
                             }
 
-                            $bits = explode(';', trim($row));
-                            $dtmp = array();
+                            $Vbz3vmbr1h2vits = explode(';', trim($Vnwijnctkkq3));
+                            $V4iopdcxmetj = array();
 
-                            foreach ($bits as $bit) {
-                                $bits2 = explode(' ', trim($bit));
-                                if (mb_strlen($bits2[0], '8bit') === 0) {
+                            foreach ($Vbz3vmbr1h2vits as $Vbz3vmbr1h2vit) {
+                                $Vbz3vmbr1h2vits2 = explode(' ', trim($Vbz3vmbr1h2vit));
+                                if (mb_strlen($Vbz3vmbr1h2vits2[0], '8bit') === 0) {
                                     continue;
                                 }
 
-                                if (count($bits2) > 2) {
-                                    $dtmp[$bits2[0]] = array();
-                                    for ($i = 1; $i < count($bits2); $i++) {
-                                        $dtmp[$bits2[0]][] = $bits2[$i];
+                                if (count($Vbz3vmbr1h2vits2) > 2) {
+                                    $V4iopdcxmetj[$Vbz3vmbr1h2vits2[0]] = array();
+                                    for ($V3xsptcgzss2 = 1; $V3xsptcgzss2 < count($Vbz3vmbr1h2vits2); $V3xsptcgzss2++) {
+                                        $V4iopdcxmetj[$Vbz3vmbr1h2vits2[0]][] = $Vbz3vmbr1h2vits2[$V3xsptcgzss2];
                                     }
                                 } else {
-                                    if (count($bits2) == 2) {
-                                        $dtmp[$bits2[0]] = $bits2[1];
+                                    if (count($Vbz3vmbr1h2vits2) == 2) {
+                                        $V4iopdcxmetj[$Vbz3vmbr1h2vits2[0]] = $Vbz3vmbr1h2vits2[1];
                                     }
                                 }
                             }
 
-                            $c = (int)$dtmp['U'];
-                            $n = $dtmp['N'];
-                            $glyph = $dtmp['G'];
-                            $width = floatval($dtmp['WX']);
+                            $Vv03lfntnmcz = (int)$V4iopdcxmetj['U'];
+                            $V1qcutcuyu3m = $V4iopdcxmetj['N'];
+                            $Vsciikjjbu53 = $V4iopdcxmetj['G'];
+                            $Vhoifq2kocytidth = floatval($V4iopdcxmetj['WX']);
 
-                            if ($c >= 0) {
-                                // Set values in CID to GID map
-                                if ($c >= 0 && $c < 0xFFFF && $glyph) {
-                                    $cidtogid[$c * 2] = chr($glyph >> 8);
-                                    $cidtogid[$c * 2 + 1] = chr($glyph & 0xFF);
+                            if ($Vv03lfntnmcz >= 0) {
+                                
+                                if ($Vv03lfntnmcz >= 0 && $Vv03lfntnmcz < 0xFFFF && $Vsciikjjbu53) {
+                                    $Vj20gg5slcy5togid[$Vv03lfntnmcz * 2] = chr($Vsciikjjbu53 >> 8);
+                                    $Vj20gg5slcy5togid[$Vv03lfntnmcz * 2 + 1] = chr($Vsciikjjbu53 & 0xFF);
                                 }
 
-                                if ($c != hexdec($n)) {
-                                    $data['codeToName'][$c] = $n;
+                                if ($Vv03lfntnmcz != hexdec($V1qcutcuyu3m)) {
+                                    $Vb3z3shnu1vn['codeToName'][$Vv03lfntnmcz] = $V1qcutcuyu3m;
                                 }
-                                $data['C'][$c] = $width;
+                                $Vb3z3shnu1vn['C'][$Vv03lfntnmcz] = $Vhoifq2kocytidth;
                             } else {
-                                $data['C'][$n] = $width;
+                                $Vb3z3shnu1vn['C'][$V1qcutcuyu3m] = $Vhoifq2kocytidth;
                             }
 
-                            if (!isset($data['MissingWidth']) && $c == -1 && $n === '.notdef') {
-                                $data['MissingWidth'] = $width;
+                            if (!isset($Vb3z3shnu1vn['MissingWidth']) && $Vv03lfntnmcz == -1 && $V1qcutcuyu3m === '.notdef') {
+                                $Vb3z3shnu1vn['MissingWidth'] = $Vhoifq2kocytidth;
                             }
 
                             break;
 
                         case 'KPX':
-                            break; // don't include them as they are not used yet
-                            //KPX Adieresis yacute -40
-                            $bits = explode(' ', trim($row));
-                            $data['KPX'][$bits[1]][$bits[2]] = $bits[3];
+                            break; 
+                            
+                            $Vbz3vmbr1h2vits = explode(' ', trim($Vnwijnctkkq3));
+                            $Vb3z3shnu1vn['KPX'][$Vbz3vmbr1h2vits[1]][$Vbz3vmbr1h2vits[2]] = $Vbz3vmbr1h2vits[3];
                             break;
                     }
                 }
             }
 
-            if ($this->compressionReady && $this->options['compression']) {
-                // then implement ZLIB based compression on CIDtoGID string
-                $data['CIDtoGID_Compressed'] = true;
-                $cidtogid = gzcompress($cidtogid, 6);
+            if ($Vcki4t4qmybshis->compressionReady && $Vcki4t4qmybshis->options['compression']) {
+                
+                $Vb3z3shnu1vn['CIDtoGID_Compressed'] = true;
+                $Vj20gg5slcy5togid = gzcompress($Vj20gg5slcy5togid, 6);
             }
-            $data['CIDtoGID'] = base64_encode($cidtogid);
-            $data['_version_'] = $this->fontcacheVersion;
-            $this->fonts[$font] = $data;
+            $Vb3z3shnu1vn['CIDtoGID'] = base64_encode($Vj20gg5slcy5togid);
+            $Vb3z3shnu1vn['_version_'] = $Vcki4t4qmybshis->fontcacheVersion;
+            $Vcki4t4qmybshis->fonts[$V3h4z3hxorxj] = $Vb3z3shnu1vn;
 
-            //Because of potential trouble with php safe mode, expect that the folder already exists.
-            //If not existing, this will hit performance because of missing cached results.
-            if (is_dir(substr($fontcache, 0, -1)) && is_writable(substr($fontcache, 0, -1))) {
-                file_put_contents($fontcache . $cache_name, '<?php return ' . var_export($data, true) . ';');
+            
+            
+            if (is_dir(substr($Vjgooz20k3gx, 0, -1)) && is_writable(substr($Vjgooz20k3gx, 0, -1))) {
+                file_put_contents($Vjgooz20k3gx . $Vv03lfntnmczache_name, '<?php return ' . var_export($Vb3z3shnu1vn, true) . ';');
             }
-            $data = null;
+            $Vb3z3shnu1vn = null;
         }
 
-        if (!isset($this->fonts[$font])) {
-            $this->addMessage("openFont: no font file found for $font. Do you need to run load_font.php?");
+        if (!isset($Vcki4t4qmybshis->fonts[$V3h4z3hxorxj])) {
+            $Vcki4t4qmybshis->addMessage("openFont: no font file found for $V3h4z3hxorxj. Do you need to run load_font.php?");
         }
 
-        //pre_r($this->messages);
+        
     }
 
-    /**
-     * if the font is not loaded then load it and make the required object
-     * else just make it the current font
-     * the encoding array can contain 'encoding'=> 'none','WinAnsiEncoding','MacRomanEncoding' or 'MacExpertEncoding'
-     * note that encoding='none' will need to be used for symbolic fonts
-     * and 'differences' => an array of mappings between numbers 0->255 and character names.
-     *
-     */
-    function selectFont($fontName, $encoding = '', $set = true)
+    
+    function selectFont($V3h4z3hxorxjName, $Vgpqcvfkvgzo = '', $Vb1jc3ulilu4 = true)
     {
-        $ext = substr($fontName, -4);
-        if ($ext === '.afm' || $ext === '.ufm') {
-            $fontName = substr($fontName, 0, mb_strlen($fontName) - 4);
+        $Vrv0pwu03qua = substr($V3h4z3hxorxjName, -4);
+        if ($Vrv0pwu03qua === '.afm' || $Vrv0pwu03qua === '.ufm') {
+            $V3h4z3hxorxjName = substr($V3h4z3hxorxjName, 0, mb_strlen($V3h4z3hxorxjName) - 4);
         }
 
-        if (!isset($this->fonts[$fontName])) {
-            $this->addMessage("selectFont: selecting - $fontName - $encoding, $set");
+        if (!isset($Vcki4t4qmybshis->fonts[$V3h4z3hxorxjName])) {
+            $Vcki4t4qmybshis->addMessage("selectFont: selecting - $V3h4z3hxorxjName - $Vgpqcvfkvgzo, $Vb1jc3ulilu4");
 
-            // load the file
-            $this->openFont($fontName);
+            
+            $Vcki4t4qmybshis->openFont($V3h4z3hxorxjName);
 
-            if (isset($this->fonts[$fontName])) {
-                $this->numObj++;
-                $this->numFonts++;
+            if (isset($Vcki4t4qmybshis->fonts[$V3h4z3hxorxjName])) {
+                $Vcki4t4qmybshis->numObj++;
+                $Vcki4t4qmybshis->numFonts++;
 
-                $font = &$this->fonts[$fontName];
+                $V3h4z3hxorxj = &$Vcki4t4qmybshis->fonts[$V3h4z3hxorxjName];
 
-                //$this->numFonts = md5($fontName);
-                $pos = strrpos($fontName, '/');
-                //      $dir = substr($fontName,0,$pos+1);
-                $name = substr($fontName, $pos + 1);
-                $options = array('name' => $name, 'fontFileName' => $fontName);
+                
+                $Vksopkgqixkyos = strrpos($V3h4z3hxorxjName, '/');
+                
+                $Vpgf1maodsla = substr($V3h4z3hxorxjName, $Vksopkgqixkyos + 1);
+                $Vi43cktvy0zi = array('name' => $Vpgf1maodsla, 'fontFileName' => $V3h4z3hxorxjName);
 
-                if (is_array($encoding)) {
-                    // then encoding and differences might be set
-                    if (isset($encoding['encoding'])) {
-                        $options['encoding'] = $encoding['encoding'];
+                if (is_array($Vgpqcvfkvgzo)) {
+                    
+                    if (isset($Vgpqcvfkvgzo['encoding'])) {
+                        $Vi43cktvy0zi['encoding'] = $Vgpqcvfkvgzo['encoding'];
                     }
 
-                    if (isset($encoding['differences'])) {
-                        $options['differences'] = $encoding['differences'];
+                    if (isset($Vgpqcvfkvgzo['differences'])) {
+                        $Vi43cktvy0zi['differences'] = $Vgpqcvfkvgzo['differences'];
                     }
                 } else {
-                    if (mb_strlen($encoding, '8bit')) {
-                        // then perhaps only the encoding has been set
-                        $options['encoding'] = $encoding;
+                    if (mb_strlen($Vgpqcvfkvgzo, '8bit')) {
+                        
+                        $Vi43cktvy0zi['encoding'] = $Vgpqcvfkvgzo;
                     }
                 }
 
-                $fontObj = $this->numObj;
-                $this->o_font($this->numObj, 'new', $options);
-                $font['fontNum'] = $this->numFonts;
+                $V3h4z3hxorxjObj = $Vcki4t4qmybshis->numObj;
+                $Vcki4t4qmybshis->o_font($Vcki4t4qmybshis->numObj, 'new', $Vi43cktvy0zi);
+                $V3h4z3hxorxj['fontNum'] = $Vcki4t4qmybshis->numFonts;
 
-                // if this is a '.afm' font, and there is a '.pfa' file to go with it ( as there
-                // should be for all non-basic fonts), then load it into an object and put the
-                // references into the font object
-                $basefile = $fontName;
+                
+                
+                
+                $Vbz3vmbr1h2vasefile = $V3h4z3hxorxjName;
 
-                $fbtype = '';
-                if (file_exists("$basefile.pfb")) {
-                    $fbtype = 'pfb';
+                $V4saqrh43dhw = '';
+                if (file_exists("$Vbz3vmbr1h2vasefile.pfb")) {
+                    $V4saqrh43dhw = 'pfb';
                 } else {
-                    if (file_exists("$basefile.ttf")) {
-                        $fbtype = 'ttf';
+                    if (file_exists("$Vbz3vmbr1h2vasefile.ttf")) {
+                        $V4saqrh43dhw = 'ttf';
                     }
                 }
 
-                $fbfile = "$basefile.$fbtype";
+                $Vlh4o4dvepwk = "$Vbz3vmbr1h2vasefile.$V4saqrh43dhw";
 
-                //      $pfbfile = substr($fontName,0,strlen($fontName)-4).'.pfb';
-                //      $ttffile = substr($fontName,0,strlen($fontName)-4).'.ttf';
-                $this->addMessage('selectFont: checking for - ' . $fbfile);
+                
+                
+                $Vcki4t4qmybshis->addMessage('selectFont: checking for - ' . $Vlh4o4dvepwk);
 
-                // OAR - I don't understand this old check
-                // if (substr($fontName, -4) ===  '.afm' &&  strlen($fbtype)) {
-                if ($fbtype) {
-                    $adobeFontName = isset($font['PostScriptName']) ? $font['PostScriptName'] : $font['FontName'];
-                    //        $fontObj = $this->numObj;
-                    $this->addMessage("selectFont: adding font file - $fbfile - $adobeFontName");
+                
+                
+                if ($V4saqrh43dhw) {
+                    $Vrr3orqjztc2dobeFontName = isset($V3h4z3hxorxj['PostScriptName']) ? $V3h4z3hxorxj['PostScriptName'] : $V3h4z3hxorxj['FontName'];
+                    
+                    $Vcki4t4qmybshis->addMessage("selectFont: adding font file - $Vlh4o4dvepwk - $Vrr3orqjztc2dobeFontName");
 
-                    // find the array of font widths, and put that into an object.
-                    $firstChar = -1;
-                    $lastChar = 0;
-                    $widths = array();
-                    $cid_widths = array();
+                    
+                    $Vgidepai0gmc = -1;
+                    $Vajdpjg0jwh4 = 0;
+                    $Vhoifq2kocytidths = array();
+                    $V4tuavakmnoe = array();
 
-                    foreach ($font['C'] as $num => $d) {
-                        if (intval($num) > 0 || $num == '0') {
-                            if (!$font['isUnicode']) {
-                                // With Unicode, widths array isn't used
-                                if ($lastChar > 0 && $num > $lastChar + 1) {
-                                    for ($i = $lastChar + 1; $i < $num; $i++) {
-                                        $widths[] = 0;
+                    foreach ($V3h4z3hxorxj['C'] as $Vxnixw2qni35 => $Vcyg5xmwfpxo) {
+                        if (intval($Vxnixw2qni35) > 0 || $Vxnixw2qni35 == '0') {
+                            if (!$V3h4z3hxorxj['isUnicode']) {
+                                
+                                if ($Vajdpjg0jwh4 > 0 && $Vxnixw2qni35 > $Vajdpjg0jwh4 + 1) {
+                                    for ($V3xsptcgzss2 = $Vajdpjg0jwh4 + 1; $V3xsptcgzss2 < $Vxnixw2qni35; $V3xsptcgzss2++) {
+                                        $Vhoifq2kocytidths[] = 0;
                                     }
                                 }
                             }
 
-                            $widths[] = $d;
+                            $Vhoifq2kocytidths[] = $Vcyg5xmwfpxo;
 
-                            if ($font['isUnicode']) {
-                                $cid_widths[$num] = $d;
+                            if ($V3h4z3hxorxj['isUnicode']) {
+                                $V4tuavakmnoe[$Vxnixw2qni35] = $Vcyg5xmwfpxo;
                             }
 
-                            if ($firstChar == -1) {
-                                $firstChar = $num;
+                            if ($Vgidepai0gmc == -1) {
+                                $Vgidepai0gmc = $Vxnixw2qni35;
                             }
 
-                            $lastChar = $num;
+                            $Vajdpjg0jwh4 = $Vxnixw2qni35;
                         }
                     }
 
-                    // also need to adjust the widths for the differences array
-                    if (isset($options['differences'])) {
-                        foreach ($options['differences'] as $charNum => $charName) {
-                            if ($charNum > $lastChar) {
-                                if (!$font['isUnicode']) {
-                                    // With Unicode, widths array isn't used
-                                    for ($i = $lastChar + 1; $i <= $charNum; $i++) {
-                                        $widths[] = 0;
+                    
+                    if (isset($Vi43cktvy0zi['differences'])) {
+                        foreach ($Vi43cktvy0zi['differences'] as $Vv03lfntnmczharNum => $Vv03lfntnmczharName) {
+                            if ($Vv03lfntnmczharNum > $Vajdpjg0jwh4) {
+                                if (!$V3h4z3hxorxj['isUnicode']) {
+                                    
+                                    for ($V3xsptcgzss2 = $Vajdpjg0jwh4 + 1; $V3xsptcgzss2 <= $Vv03lfntnmczharNum; $V3xsptcgzss2++) {
+                                        $Vhoifq2kocytidths[] = 0;
                                     }
                                 }
 
-                                $lastChar = $charNum;
+                                $Vajdpjg0jwh4 = $Vv03lfntnmczharNum;
                             }
 
-                            if (isset($font['C'][$charName])) {
-                                $widths[$charNum - $firstChar] = $font['C'][$charName];
-                                if ($font['isUnicode']) {
-                                    $cid_widths[$charName] = $font['C'][$charName];
+                            if (isset($V3h4z3hxorxj['C'][$Vv03lfntnmczharName])) {
+                                $Vhoifq2kocytidths[$Vv03lfntnmczharNum - $Vgidepai0gmc] = $V3h4z3hxorxj['C'][$Vv03lfntnmczharName];
+                                if ($V3h4z3hxorxj['isUnicode']) {
+                                    $V4tuavakmnoe[$Vv03lfntnmczharName] = $V3h4z3hxorxj['C'][$Vv03lfntnmczharName];
                                 }
                             }
                         }
                     }
 
-                    if ($font['isUnicode']) {
-                        $font['CIDWidths'] = $cid_widths;
+                    if ($V3h4z3hxorxj['isUnicode']) {
+                        $V3h4z3hxorxj['CIDWidths'] = $V4tuavakmnoe;
                     }
 
-                    $this->addMessage('selectFont: FirstChar = ' . $firstChar);
-                    $this->addMessage('selectFont: LastChar = ' . $lastChar);
+                    $Vcki4t4qmybshis->addMessage('selectFont: FirstChar = ' . $Vgidepai0gmc);
+                    $Vcki4t4qmybshis->addMessage('selectFont: LastChar = ' . $Vajdpjg0jwh4);
 
-                    $widthid = -1;
+                    $Vhoifq2kocytidthid = -1;
 
-                    if (!$font['isUnicode']) {
-                        // With Unicode, widths array isn't used
+                    if (!$V3h4z3hxorxj['isUnicode']) {
+                        
 
-                        $this->numObj++;
-                        $this->o_contents($this->numObj, 'new', 'raw');
-                        $this->objects[$this->numObj]['c'] .= '[' . implode(' ', $widths) . ']';
-                        $widthid = $this->numObj;
+                        $Vcki4t4qmybshis->numObj++;
+                        $Vcki4t4qmybshis->o_contents($Vcki4t4qmybshis->numObj, 'new', 'raw');
+                        $Vcki4t4qmybshis->objects[$Vcki4t4qmybshis->numObj]['c'] .= '[' . implode(' ', $Vhoifq2kocytidths) . ']';
+                        $Vhoifq2kocytidthid = $Vcki4t4qmybshis->numObj;
                     }
 
-                    $missing_width = 500;
-                    $stemV = 70;
+                    $Vequhpemwax5 = 500;
+                    $V2svjql3ae2z = 70;
 
-                    if (isset($font['MissingWidth'])) {
-                        $missing_width = $font['MissingWidth'];
+                    if (isset($V3h4z3hxorxj['MissingWidth'])) {
+                        $Vequhpemwax5 = $V3h4z3hxorxj['MissingWidth'];
                     }
-                    if (isset($font['StdVW'])) {
-                        $stemV = $font['StdVW'];
+                    if (isset($V3h4z3hxorxj['StdVW'])) {
+                        $V2svjql3ae2z = $V3h4z3hxorxj['StdVW'];
                     } else {
-                        if (isset($font['Weight']) && preg_match('!(bold|black)!i', $font['Weight'])) {
-                            $stemV = 120;
+                        if (isset($V3h4z3hxorxj['Weight']) && preg_match('!(bold|black)!i', $V3h4z3hxorxj['Weight'])) {
+                            $V2svjql3ae2z = 120;
                         }
                     }
 
-                    // load the pfb file, and put that into an object too.
-                    // note that pdf supports only binary format type 1 font files, though there is a
-                    // simple utility to convert them from pfa to pfb.
-                    // FIXME: should we move font subset creation to CPDF::output? See notes in issue #750.
-                    if (!$this->isUnicode || $fbtype !== 'ttf' || empty($this->stringSubsets)) {
-                        $data = file_get_contents($fbfile);
+                    
+                    
+                    
+                    
+                    if (!$Vcki4t4qmybshis->isUnicode || $V4saqrh43dhw !== 'ttf' || empty($Vcki4t4qmybshis->stringSubsets)) {
+                        $Vb3z3shnu1vn = file_get_contents($Vlh4o4dvepwk);
                     } else {
-                        $this->stringSubsets[$fontName][] = 32; // Force space if not in yet
+                        $Vcki4t4qmybshis->stringSubsets[$V3h4z3hxorxjName][] = 32; 
 
-                        $subset = $this->stringSubsets[$fontName];
-                        sort($subset);
+                        $V2nxahdpg1do = $Vcki4t4qmybshis->stringSubsets[$V3h4z3hxorxjName];
+                        sort($V2nxahdpg1do);
 
-                        // Load font
-                        $font_obj = Font::load($fbfile);
-                        $font_obj->parse();
+                        
+                        $V3h4z3hxorxj_obj = Font::load($Vlh4o4dvepwk);
+                        $V3h4z3hxorxj_obj->parse();
 
-                        // Define subset
-                        $font_obj->setSubset($subset);
-                        $font_obj->reduce();
+                        
+                        $V3h4z3hxorxj_obj->setSubset($V2nxahdpg1do);
+                        $V3h4z3hxorxj_obj->reduce();
 
-                        // Write new font
-                        $tmp_name = "$fbfile.tmp." . uniqid();
-                        $font_obj->open($tmp_name, Font_Binary_Stream::modeWrite);
-                        $font_obj->encode(array("OS/2"));
-                        $font_obj->close();
+                        
+                        $Vynpm04a4fx0_name = "$Vlh4o4dvepwk.tmp." . uniqid();
+                        $V3h4z3hxorxj_obj->open($Vynpm04a4fx0_name, Font_Binary_Stream::modeWrite);
+                        $V3h4z3hxorxj_obj->encode(array("OS/2"));
+                        $V3h4z3hxorxj_obj->close();
 
-                        // Parse the new font to get cid2gid and widths
-                        $font_obj = Font::load($tmp_name);
+                        
+                        $V3h4z3hxorxj_obj = Font::load($Vynpm04a4fx0_name);
 
-                        // Find Unicode char map table
-                        $subtable = null;
-                        foreach ($font_obj->getData("cmap", "subtables") as $_subtable) {
-                            if ($_subtable["platformID"] == 0 || $_subtable["platformID"] == 3 && $_subtable["platformSpecificID"] == 1) {
-                                $subtable = $_subtable;
+                        
+                        $Veqbujijlzvr = null;
+                        foreach ($V3h4z3hxorxj_obj->getData("cmap", "subtables") as $V5wth3hje3v5) {
+                            if ($V5wth3hje3v5["platformID"] == 0 || $V5wth3hje3v5["platformID"] == 3 && $V5wth3hje3v5["platformSpecificID"] == 1) {
+                                $Veqbujijlzvr = $V5wth3hje3v5;
                                 break;
                             }
                         }
 
-                        if ($subtable) {
-                            $glyphIndexArray = $subtable["glyphIndexArray"];
-                            $hmtx = $font_obj->getData("hmtx");
+                        if ($Veqbujijlzvr) {
+                            $Vsciikjjbu53IndexArray = $Veqbujijlzvr["glyphIndexArray"];
+                            $Veega4hhzixh = $V3h4z3hxorxj_obj->getData("hmtx");
 
-                            unset($glyphIndexArray[0xFFFF]);
+                            unset($Vsciikjjbu53IndexArray[0xFFFF]);
 
-                            $cidtogid = str_pad('', max(array_keys($glyphIndexArray)) * 2 + 1, "\x00");
-                            $font['CIDWidths'] = array();
-                            foreach ($glyphIndexArray as $cid => $gid) {
-                                if ($cid >= 0 && $cid < 0xFFFF && $gid) {
-                                    $cidtogid[$cid * 2] = chr($gid >> 8);
-                                    $cidtogid[$cid * 2 + 1] = chr($gid & 0xFF);
+                            $Vj20gg5slcy5togid = str_pad('', max(array_keys($Vsciikjjbu53IndexArray)) * 2 + 1, "\x00");
+                            $V3h4z3hxorxj['CIDWidths'] = array();
+                            foreach ($Vsciikjjbu53IndexArray as $Vj20gg5slcy5 => $Vmfzzxc0mebw) {
+                                if ($Vj20gg5slcy5 >= 0 && $Vj20gg5slcy5 < 0xFFFF && $Vmfzzxc0mebw) {
+                                    $Vj20gg5slcy5togid[$Vj20gg5slcy5 * 2] = chr($Vmfzzxc0mebw >> 8);
+                                    $Vj20gg5slcy5togid[$Vj20gg5slcy5 * 2 + 1] = chr($Vmfzzxc0mebw & 0xFF);
                                 }
 
-                                $width = $font_obj->normalizeFUnit(isset($hmtx[$gid]) ? $hmtx[$gid][0] : $hmtx[0][0]);
-                                $font['CIDWidths'][$cid] = $width;
+                                $Vhoifq2kocytidth = $V3h4z3hxorxj_obj->normalizeFUnit(isset($Veega4hhzixh[$Vmfzzxc0mebw]) ? $Veega4hhzixh[$Vmfzzxc0mebw][0] : $Veega4hhzixh[0][0]);
+                                $V3h4z3hxorxj['CIDWidths'][$Vj20gg5slcy5] = $Vhoifq2kocytidth;
                             }
 
-                            $font['CIDtoGID'] = base64_encode(gzcompress($cidtogid));
-                            $font['CIDtoGID_Compressed'] = true;
+                            $V3h4z3hxorxj['CIDtoGID'] = base64_encode(gzcompress($Vj20gg5slcy5togid));
+                            $V3h4z3hxorxj['CIDtoGID_Compressed'] = true;
 
-                            $data = file_get_contents($tmp_name);
+                            $Vb3z3shnu1vn = file_get_contents($Vynpm04a4fx0_name);
                         } else {
-                            $data = file_get_contents($fbfile);
+                            $Vb3z3shnu1vn = file_get_contents($Vlh4o4dvepwk);
                         }
 
-                        $font_obj->close();
-                        unlink($tmp_name);
+                        $V3h4z3hxorxj_obj->close();
+                        unlink($Vynpm04a4fx0_name);
                     }
 
-                    // create the font descriptor
-                    $this->numObj++;
-                    $fontDescriptorId = $this->numObj;
+                    
+                    $Vcki4t4qmybshis->numObj++;
+                    $V3h4z3hxorxjDescriptorId = $Vcki4t4qmybshis->numObj;
 
-                    $this->numObj++;
-                    $pfbid = $this->numObj;
+                    $Vcki4t4qmybshis->numObj++;
+                    $Vksopkgqixkyfbid = $Vcki4t4qmybshis->numObj;
 
-                    // determine flags (more than a little flakey, hopefully will not matter much)
-                    $flags = 0;
+                    
+                    $Vp32irv4kujs = 0;
 
-                    if ($font['ItalicAngle'] != 0) {
-                        $flags += pow(2, 6);
+                    if ($V3h4z3hxorxj['ItalicAngle'] != 0) {
+                        $Vp32irv4kujs += pow(2, 6);
                     }
 
-                    if ($font['IsFixedPitch'] === 'true') {
-                        $flags += 1;
+                    if ($V3h4z3hxorxj['IsFixedPitch'] === 'true') {
+                        $Vp32irv4kujs += 1;
                     }
 
-                    $flags += pow(2, 5); // assume non-sybolic
-                    $list = array(
+                    $Vp32irv4kujs += pow(2, 5); 
+                    $V10ravdmyvu2 = array(
                         'Ascent'       => 'Ascender',
                         'CapHeight'    => 'CapHeight',
                         'MissingWidth' => 'MissingWidth',
@@ -2590,235 +2338,202 @@ EOT;
                         'FontBBox'     => 'FontBBox',
                         'ItalicAngle'  => 'ItalicAngle'
                     );
-                    $fdopt = array(
-                        'Flags'    => $flags,
-                        'FontName' => $adobeFontName,
-                        'StemV'    => $stemV
+                    $V532jisjpta5 = array(
+                        'Flags'    => $Vp32irv4kujs,
+                        'FontName' => $Vrr3orqjztc2dobeFontName,
+                        'StemV'    => $V2svjql3ae2z
                     );
 
-                    foreach ($list as $k => $v) {
-                        if (isset($font[$v])) {
-                            $fdopt[$k] = $font[$v];
+                    foreach ($V10ravdmyvu2 as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                        if (isset($V3h4z3hxorxj[$Vpszt12nvbau])) {
+                            $V532jisjpta5[$Vgu5dsd35kdp] = $V3h4z3hxorxj[$Vpszt12nvbau];
                         }
                     }
 
-                    if ($fbtype === 'pfb') {
-                        $fdopt['FontFile'] = $pfbid;
+                    if ($V4saqrh43dhw === 'pfb') {
+                        $V532jisjpta5['FontFile'] = $Vksopkgqixkyfbid;
                     } else {
-                        if ($fbtype === 'ttf') {
-                            $fdopt['FontFile2'] = $pfbid;
+                        if ($V4saqrh43dhw === 'ttf') {
+                            $V532jisjpta5['FontFile2'] = $Vksopkgqixkyfbid;
                         }
                     }
 
-                    $this->o_fontDescriptor($fontDescriptorId, 'new', $fdopt);
+                    $Vcki4t4qmybshis->o_fontDescriptor($V3h4z3hxorxjDescriptorId, 'new', $V532jisjpta5);
 
-                    // embed the font program
-                    $this->o_contents($this->numObj, 'new');
-                    $this->objects[$pfbid]['c'] .= $data;
+                    
+                    $Vcki4t4qmybshis->o_contents($Vcki4t4qmybshis->numObj, 'new');
+                    $Vcki4t4qmybshis->objects[$Vksopkgqixkyfbid]['c'] .= $Vb3z3shnu1vn;
 
-                    // determine the cruicial lengths within this file
-                    if ($fbtype === 'pfb') {
-                        $l1 = strpos($data, 'eexec') + 6;
-                        $l2 = strpos($data, '00000000') - $l1;
-                        $l3 = mb_strlen($data, '8bit') - $l2 - $l1;
-                        $this->o_contents(
-                            $this->numObj,
+                    
+                    if ($V4saqrh43dhw === 'pfb') {
+                        $Vd0wnk0nlcgi = strpos($Vb3z3shnu1vn, 'eexec') + 6;
+                        $Vmm3rrvv2jeq = strpos($Vb3z3shnu1vn, '00000000') - $Vd0wnk0nlcgi;
+                        $Vkf1fvslyagt = mb_strlen($Vb3z3shnu1vn, '8bit') - $Vmm3rrvv2jeq - $Vd0wnk0nlcgi;
+                        $Vcki4t4qmybshis->o_contents(
+                            $Vcki4t4qmybshis->numObj,
                             'add',
-                            array('Length1' => $l1, 'Length2' => $l2, 'Length3' => $l3)
+                            array('Length1' => $Vd0wnk0nlcgi, 'Length2' => $Vmm3rrvv2jeq, 'Length3' => $Vkf1fvslyagt)
                         );
                     } else {
-                        if ($fbtype == 'ttf') {
-                            $l1 = mb_strlen($data, '8bit');
-                            $this->o_contents($this->numObj, 'add', array('Length1' => $l1));
+                        if ($V4saqrh43dhw == 'ttf') {
+                            $Vd0wnk0nlcgi = mb_strlen($Vb3z3shnu1vn, '8bit');
+                            $Vcki4t4qmybshis->o_contents($Vcki4t4qmybshis->numObj, 'add', array('Length1' => $Vd0wnk0nlcgi));
                         }
                     }
 
-                    // tell the font object about all this new stuff
-                    $tmp = array(
-                        'BaseFont'       => $adobeFontName,
-                        'MissingWidth'   => $missing_width,
-                        'Widths'         => $widthid,
-                        'FirstChar'      => $firstChar,
-                        'LastChar'       => $lastChar,
-                        'FontDescriptor' => $fontDescriptorId
+                    
+                    $Vynpm04a4fx0 = array(
+                        'BaseFont'       => $Vrr3orqjztc2dobeFontName,
+                        'MissingWidth'   => $Vequhpemwax5,
+                        'Widths'         => $Vhoifq2kocytidthid,
+                        'FirstChar'      => $Vgidepai0gmc,
+                        'LastChar'       => $Vajdpjg0jwh4,
+                        'FontDescriptor' => $V3h4z3hxorxjDescriptorId
                     );
 
-                    if ($fbtype === 'ttf') {
-                        $tmp['SubType'] = 'TrueType';
+                    if ($V4saqrh43dhw === 'ttf') {
+                        $Vynpm04a4fx0['SubType'] = 'TrueType';
                     }
 
-                    $this->addMessage("adding extra info to font.($fontObj)");
+                    $Vcki4t4qmybshis->addMessage("adding extra info to font.($V3h4z3hxorxjObj)");
 
-                    foreach ($tmp as $fk => $fv) {
-                        $this->addMessage("$fk : $fv");
+                    foreach ($Vynpm04a4fx0 as $V2j4cdxaokbs => $Vqsnymdeznwy) {
+                        $Vcki4t4qmybshis->addMessage("$V2j4cdxaokbs : $Vqsnymdeznwy");
                     }
 
-                    $this->o_font($fontObj, 'add', $tmp);
+                    $Vcki4t4qmybshis->o_font($V3h4z3hxorxjObj, 'add', $Vynpm04a4fx0);
                 } else {
-                    $this->addMessage(
+                    $Vcki4t4qmybshis->addMessage(
                         'selectFont: pfb or ttf file not found, ok if this is one of the 14 standard fonts'
                     );
                 }
 
-                // also set the differences here, note that this means that these will take effect only the
-                //first time that a font is selected, else they are ignored
-                if (isset($options['differences'])) {
-                    $font['differences'] = $options['differences'];
+                
+                
+                if (isset($Vi43cktvy0zi['differences'])) {
+                    $V3h4z3hxorxj['differences'] = $Vi43cktvy0zi['differences'];
                 }
             }
         }
 
-        if ($set && isset($this->fonts[$fontName])) {
-            // so if for some reason the font was not set in the last one then it will not be selected
-            $this->currentBaseFont = $fontName;
+        if ($Vb1jc3ulilu4 && isset($Vcki4t4qmybshis->fonts[$V3h4z3hxorxjName])) {
+            
+            $Vcki4t4qmybshis->currentBaseFont = $V3h4z3hxorxjName;
 
-            // the next lines mean that if a new font is selected, then the current text state will be
-            // applied to it as well.
-            $this->currentFont = $this->currentBaseFont;
-            $this->currentFontNum = $this->fonts[$this->currentFont]['fontNum'];
+            
+            
+            $Vcki4t4qmybshis->currentFont = $Vcki4t4qmybshis->currentBaseFont;
+            $Vcki4t4qmybshis->currentFontNum = $Vcki4t4qmybshis->fonts[$Vcki4t4qmybshis->currentFont]['fontNum'];
 
-            //$this->setCurrentFont();
+            
         }
 
-        return $this->currentFontNum;
-        //return $this->numObj;
+        return $Vcki4t4qmybshis->currentFontNum;
+        
     }
 
-    /**
-     * sets up the current font, based on the font families, and the current text state
-     * note that this system is quite flexible, a bold-italic font can be completely different to a
-     * italic-bold font, and even bold-bold will have to be defined within the family to have meaning
-     * This function is to be called whenever the currentTextState is changed, it will update
-     * the currentFont setting to whatever the appropriatte family one is.
-     * If the user calls selectFont themselves then that will reset the currentBaseFont, and the currentFont
-     * This function will change the currentFont to whatever it should be, but will not change the
-     * currentBaseFont.
-     */
+    
     private function setCurrentFont()
     {
-        //   if (strlen($this->currentBaseFont) == 0){
-        //     // then assume an initial font
-        //     $this->selectFont($this->defaultFont);
-        //   }
-        //   $cf = substr($this->currentBaseFont,strrpos($this->currentBaseFont,'/')+1);
-        //   if (strlen($this->currentTextState)
-        //     && isset($this->fontFamilies[$cf])
-        //       && isset($this->fontFamilies[$cf][$this->currentTextState])){
-        //     // then we are in some state or another
-        //     // and this font has a family, and the current setting exists within it
-        //     // select the font, then return it
-        //     $nf = substr($this->currentBaseFont,0,strrpos($this->currentBaseFont,'/')+1).$this->fontFamilies[$cf][$this->currentTextState];
-        //     $this->selectFont($nf,'',0);
-        //     $this->currentFont = $nf;
-        //     $this->currentFontNum = $this->fonts[$nf]['fontNum'];
-        //   } else {
-        //     // the this font must not have the right family member for the current state
-        //     // simply assume the base font
-        $this->currentFont = $this->currentBaseFont;
-        $this->currentFontNum = $this->fonts[$this->currentFont]['fontNum'];
-        //  }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        $Vcki4t4qmybshis->currentFont = $Vcki4t4qmybshis->currentBaseFont;
+        $Vcki4t4qmybshis->currentFontNum = $Vcki4t4qmybshis->fonts[$Vcki4t4qmybshis->currentFont]['fontNum'];
+        
     }
 
-    /**
-     * function for the user to find out what the ID is of the first page that was created during
-     * startup - useful if they wish to add something to it later.
-     */
+    
     function getFirstPageId()
     {
-        return $this->firstPageId;
+        return $Vcki4t4qmybshis->firstPageId;
     }
 
-    /**
-     * add content to the currently active object
-     */
-    private function addContent($content)
+    
+    private function addContent($Vv03lfntnmczontent)
     {
-        $this->objects[$this->currentContents]['c'] .= $content;
+        $Vcki4t4qmybshis->objects[$Vcki4t4qmybshis->currentContents]['c'] .= $Vv03lfntnmczontent;
     }
 
-    /**
-     * sets the color for fill operations
-     */
-    function setColor($color, $force = false)
+    
+    function setColor($Vv03lfntnmczolor, $Vztyfnp5rh4r = false)
     {
-        $new_color = array($color[0], $color[1], $color[2], isset($color[3]) ? $color[3] : null);
+        $V1qcutcuyu3mew_color = array($Vv03lfntnmczolor[0], $Vv03lfntnmczolor[1], $Vv03lfntnmczolor[2], isset($Vv03lfntnmczolor[3]) ? $Vv03lfntnmczolor[3] : null);
 
-        if (!$force && $this->currentColor == $new_color) {
+        if (!$Vztyfnp5rh4r && $Vcki4t4qmybshis->currentColor == $V1qcutcuyu3mew_color) {
             return;
         }
 
-        if (isset($new_color[3])) {
-            //$this->currentColor = $new_color;
-            $this->addContent(vsprintf("\n%.3F %.3F %.3F %.3F k", $this->currentColor));
+        if (isset($V1qcutcuyu3mew_color[3])) {
+            
+            $Vcki4t4qmybshis->addContent(vsprintf("\n%.3F %.3F %.3F %.3F k", $Vcki4t4qmybshis->currentColor));
         } else {
-            if (isset($new_color[2])) {
-                //$this->currentColor = $new_color;
-                $this->addContent(vsprintf("\n%.3F %.3F %.3F rg", $new_color));
+            if (isset($V1qcutcuyu3mew_color[2])) {
+                
+                $Vcki4t4qmybshis->addContent(vsprintf("\n%.3F %.3F %.3F rg", $V1qcutcuyu3mew_color));
             }
         }
     }
 
-    /**
-     * sets the color for fill operations
-     */
-    function setFillRule($fillRule)
+    
+    function setFillRule($Viogzqjp34j0)
     {
-        if (!in_array($fillRule, array("nonzero", "evenodd"))) {
+        if (!in_array($Viogzqjp34j0, array("nonzero", "evenodd"))) {
             return;
         }
 
-        $this->fillRule = $fillRule;
+        $Vcki4t4qmybshis->fillRule = $Viogzqjp34j0;
     }
 
-    /**
-     * sets the color for stroke operations
-     */
-    function setStrokeColor($color, $force = false)
+    
+    function setStrokeColor($Vv03lfntnmczolor, $Vztyfnp5rh4r = false)
     {
-        $new_color = array($color[0], $color[1], $color[2], isset($color[3]) ? $color[3] : null);
+        $V1qcutcuyu3mew_color = array($Vv03lfntnmczolor[0], $Vv03lfntnmczolor[1], $Vv03lfntnmczolor[2], isset($Vv03lfntnmczolor[3]) ? $Vv03lfntnmczolor[3] : null);
 
-        if (!$force && $this->currentStrokeColor == $new_color) {
+        if (!$Vztyfnp5rh4r && $Vcki4t4qmybshis->currentStrokeColor == $V1qcutcuyu3mew_color) {
             return;
         }
 
-        if (isset($new_color[3])) {
-            //$this->currentStrokeColor = $new_color;
-            $this->addContent(vsprintf("\n%.3F %.3F %.3F %.3F K", $this->currentStrokeColor));
+        if (isset($V1qcutcuyu3mew_color[3])) {
+            
+            $Vcki4t4qmybshis->addContent(vsprintf("\n%.3F %.3F %.3F %.3F K", $Vcki4t4qmybshis->currentStrokeColor));
         } else {
-            if (isset($new_color[2])) {
-                //$this->currentStrokeColor = $new_color;
-                $this->addContent(vsprintf("\n%.3F %.3F %.3F RG", $new_color));
+            if (isset($V1qcutcuyu3mew_color[2])) {
+                
+                $Vcki4t4qmybshis->addContent(vsprintf("\n%.3F %.3F %.3F RG", $V1qcutcuyu3mew_color));
             }
         }
     }
 
-    /**
-     * Set the graphics state for compositions
-     */
-    function setGraphicsState($parameters)
+    
+    function setGraphicsState($Vksopkgqixkyarameters)
     {
-        // Create a new graphics state object
-        // FIXME: should actually keep track of states that have already been created...
-        $this->numObj++;
-        $this->o_extGState($this->numObj, 'new', $parameters);
-        $this->addContent("\n/GS$this->numStates gs");
+        
+        
+        $Vcki4t4qmybshis->numObj++;
+        $Vcki4t4qmybshis->o_extGState($Vcki4t4qmybshis->numObj, 'new', $Vksopkgqixkyarameters);
+        $Vcki4t4qmybshis->addContent("\n/GS$Vcki4t4qmybshis->numStates gs");
     }
 
-    /**
-     * Set current blend mode & opacity for lines.
-     *
-     * Valid blend modes are:
-     *
-     * Normal, Multiply, Screen, Overlay, Darken, Lighten,
-     * ColorDogde, ColorBurn, HardLight, SoftLight, Difference,
-     * Exclusion
-     *
-     * @param string $mode    the blend mode to use
-     * @param float  $opacity 0.0 fully transparent, 1.0 fully opaque
-     */
-    function setLineTransparency($mode, $opacity)
+    
+    function setLineTransparency($Vgauloeyyiwd, $Vsz1vjk4tj2cpacity)
     {
-        static $blend_modes = array(
+        static $Vbz3vmbr1h2vlend_modes = array(
             "Normal",
             "Multiply",
             "Screen",
@@ -2833,43 +2548,32 @@ EOT;
             "Exclusion"
         );
 
-        if (!in_array($mode, $blend_modes)) {
-            $mode = "Normal";
+        if (!in_array($Vgauloeyyiwd, $Vbz3vmbr1h2vlend_modes)) {
+            $Vgauloeyyiwd = "Normal";
         }
 
-        // Only create a new graphics state if required
-        if ($mode === $this->currentLineTransparency["mode"] &&
-            $opacity == $this->currentLineTransparency["opacity"]
+        
+        if ($Vgauloeyyiwd === $Vcki4t4qmybshis->currentLineTransparency["mode"] &&
+            $Vsz1vjk4tj2cpacity == $Vcki4t4qmybshis->currentLineTransparency["opacity"]
         ) {
             return;
         }
 
-        $this->currentLineTransparency["mode"] = $mode;
-        $this->currentLineTransparency["opacity"] = $opacity;
+        $Vcki4t4qmybshis->currentLineTransparency["mode"] = $Vgauloeyyiwd;
+        $Vcki4t4qmybshis->currentLineTransparency["opacity"] = $Vsz1vjk4tj2cpacity;
 
-        $options = array(
-            "BM" => "/$mode",
-            "CA" => (float)$opacity
+        $Vi43cktvy0zi = array(
+            "BM" => "/$Vgauloeyyiwd",
+            "CA" => (float)$Vsz1vjk4tj2cpacity
         );
 
-        $this->setGraphicsState($options);
+        $Vcki4t4qmybshis->setGraphicsState($Vi43cktvy0zi);
     }
 
-    /**
-     * Set current blend mode & opacity for filled objects.
-     *
-     * Valid blend modes are:
-     *
-     * Normal, Multiply, Screen, Overlay, Darken, Lighten,
-     * ColorDogde, ColorBurn, HardLight, SoftLight, Difference,
-     * Exclusion
-     *
-     * @param string $mode    the blend mode to use
-     * @param float  $opacity 0.0 fully transparent, 1.0 fully opaque
-     */
-    function setFillTransparency($mode, $opacity)
+    
+    function setFillTransparency($Vgauloeyyiwd, $Vsz1vjk4tj2cpacity)
     {
-        static $blend_modes = array(
+        static $Vbz3vmbr1h2vlend_modes = array(
             "Normal",
             "Multiply",
             "Screen",
@@ -2884,1796 +2588,1626 @@ EOT;
             "Exclusion"
         );
 
-        if (!in_array($mode, $blend_modes)) {
-            $mode = "Normal";
+        if (!in_array($Vgauloeyyiwd, $Vbz3vmbr1h2vlend_modes)) {
+            $Vgauloeyyiwd = "Normal";
         }
 
-        if ($mode === $this->currentFillTransparency["mode"] &&
-            $opacity == $this->currentFillTransparency["opacity"]
+        if ($Vgauloeyyiwd === $Vcki4t4qmybshis->currentFillTransparency["mode"] &&
+            $Vsz1vjk4tj2cpacity == $Vcki4t4qmybshis->currentFillTransparency["opacity"]
         ) {
             return;
         }
 
-        $this->currentFillTransparency["mode"] = $mode;
-        $this->currentFillTransparency["opacity"] = $opacity;
+        $Vcki4t4qmybshis->currentFillTransparency["mode"] = $Vgauloeyyiwd;
+        $Vcki4t4qmybshis->currentFillTransparency["opacity"] = $Vsz1vjk4tj2cpacity;
 
-        $options = array(
-            "BM" => "/$mode",
-            "ca" => (float)$opacity,
+        $Vi43cktvy0zi = array(
+            "BM" => "/$Vgauloeyyiwd",
+            "ca" => (float)$Vsz1vjk4tj2cpacity,
         );
 
-        $this->setGraphicsState($options);
+        $Vcki4t4qmybshis->setGraphicsState($Vi43cktvy0zi);
     }
 
-    function lineTo($x, $y)
+    function lineTo($Vs4gloy23a1d, $Vopgub02o3q2)
     {
-        $this->addContent(sprintf("\n%.3F %.3F l", $x, $y));
+        $Vcki4t4qmybshis->addContent(sprintf("\n%.3F %.3F l", $Vs4gloy23a1d, $Vopgub02o3q2));
     }
 
-    function moveTo($x, $y)
+    function moveTo($Vs4gloy23a1d, $Vopgub02o3q2)
     {
-        $this->addContent(sprintf("\n%.3F %.3F m", $x, $y));
+        $Vcki4t4qmybshis->addContent(sprintf("\n%.3F %.3F m", $Vs4gloy23a1d, $Vopgub02o3q2));
     }
 
-    /**
-     * draw a bezier curve based on 4 control points
-     */
-    function curveTo($x1, $y1, $x2, $y2, $x3, $y3)
+    
+    function curveTo($Vjxqwkabkvag, $Vzdywlaebz1l, $Vs4gloy23a1d2, $Vopgub02o3q22, $Vs4gloy23a1d3, $Vopgub02o3q23)
     {
-        $this->addContent(sprintf("\n%.3F %.3F %.3F %.3F %.3F %.3F c", $x1, $y1, $x2, $y2, $x3, $y3));
+        $Vcki4t4qmybshis->addContent(sprintf("\n%.3F %.3F %.3F %.3F %.3F %.3F c", $Vjxqwkabkvag, $Vzdywlaebz1l, $Vs4gloy23a1d2, $Vopgub02o3q22, $Vs4gloy23a1d3, $Vopgub02o3q23));
     }
 
-    /**
-     * draw a bezier curve based on 4 control points
-     */
-    function quadTo($cpx, $cpy, $x, $y)
+    
+    function quadTo($Vv03lfntnmczpx, $Vv03lfntnmczpy, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
-        $this->addContent(sprintf("\n%.3F %.3F %.3F %.3F v", $cpx, $cpy, $x, $y));
+        $Vcki4t4qmybshis->addContent(sprintf("\n%.3F %.3F %.3F %.3F v", $Vv03lfntnmczpx, $Vv03lfntnmczpy, $Vs4gloy23a1d, $Vopgub02o3q2));
     }
 
     function closePath()
     {
-        $this->addContent(' h');
+        $Vcki4t4qmybshis->addContent(' h');
     }
 
     function endPath()
     {
-        $this->addContent(' n');
+        $Vcki4t4qmybshis->addContent(' n');
     }
 
-    /**
-     * draw an ellipse
-     * note that the part and filled ellipse are just special cases of this function
-     *
-     * draws an ellipse in the current line style
-     * centered at $x0,$y0, radii $r1,$r2
-     * if $r2 is not set, then a circle is drawn
-     * from $astart to $afinish, measured in degrees, running anti-clockwise from the right hand side of the ellipse.
-     * nSeg is not allowed to be less than 2, as this will simply draw a line (and will even draw a
-     * pretty crappy shape at 2, as we are approximating with bezier curves.
-     */
+    
     function ellipse(
-        $x0,
-        $y0,
-        $r1,
-        $r2 = 0,
-        $angle = 0,
-        $nSeg = 8,
-        $astart = 0,
-        $afinish = 360,
-        $close = true,
-        $fill = false,
-        $stroke = true,
-        $incomplete = false
+        $Vxkyhwivqsr4,
+        $V3pe5qrlaiol,
+        $Vflxal01hfm5,
+        $Vmsjiwqai3ku = 0,
+        $Vrr3orqjztc2ngle = 0,
+        $V1qcutcuyu3mSeg = 8,
+        $Vrr3orqjztc2start = 0,
+        $Vrr3orqjztc2finish = 360,
+        $Vv03lfntnmczlose = true,
+        $Vm4rhtdms15t = false,
+        $Vihuafvzvxcv = true,
+        $V3xsptcgzss2ncomplete = false
     ) {
-        if ($r1 == 0) {
+        if ($Vflxal01hfm5 == 0) {
             return;
         }
 
-        if ($r2 == 0) {
-            $r2 = $r1;
+        if ($Vmsjiwqai3ku == 0) {
+            $Vmsjiwqai3ku = $Vflxal01hfm5;
         }
 
-        if ($nSeg < 2) {
-            $nSeg = 2;
+        if ($V1qcutcuyu3mSeg < 2) {
+            $V1qcutcuyu3mSeg = 2;
         }
 
-        $astart = deg2rad((float)$astart);
-        $afinish = deg2rad((float)$afinish);
-        $totalAngle = $afinish - $astart;
+        $Vrr3orqjztc2start = deg2rad((float)$Vrr3orqjztc2start);
+        $Vrr3orqjztc2finish = deg2rad((float)$Vrr3orqjztc2finish);
+        $Vcki4t4qmybsotalAngle = $Vrr3orqjztc2finish - $Vrr3orqjztc2start;
 
-        $dt = $totalAngle / $nSeg;
-        $dtm = $dt / 3;
+        $Vcyg5xmwfpxot = $Vcki4t4qmybsotalAngle / $V1qcutcuyu3mSeg;
+        $Vcyg5xmwfpxotm = $Vcyg5xmwfpxot / 3;
 
-        if ($angle != 0) {
-            $a = -1 * deg2rad((float)$angle);
+        if ($Vrr3orqjztc2ngle != 0) {
+            $Vrr3orqjztc2 = -1 * deg2rad((float)$Vrr3orqjztc2ngle);
 
-            $this->addContent(
-                sprintf("\n q %.3F %.3F %.3F %.3F %.3F %.3F cm", cos($a), -sin($a), sin($a), cos($a), $x0, $y0)
+            $Vcki4t4qmybshis->addContent(
+                sprintf("\n q %.3F %.3F %.3F %.3F %.3F %.3F cm", cos($Vrr3orqjztc2), -sin($Vrr3orqjztc2), sin($Vrr3orqjztc2), cos($Vrr3orqjztc2), $Vxkyhwivqsr4, $V3pe5qrlaiol)
             );
 
-            $x0 = 0;
-            $y0 = 0;
+            $Vxkyhwivqsr4 = 0;
+            $V3pe5qrlaiol = 0;
         }
 
-        $t1 = $astart;
-        $a0 = $x0 + $r1 * cos($t1);
-        $b0 = $y0 + $r2 * sin($t1);
-        $c0 = -$r1 * sin($t1);
-        $d0 = $r2 * cos($t1);
+        $Vcki4t4qmybs1 = $Vrr3orqjztc2start;
+        $Vrr3orqjztc20 = $Vxkyhwivqsr4 + $Vflxal01hfm5 * cos($Vcki4t4qmybs1);
+        $Vbz3vmbr1h2v0 = $V3pe5qrlaiol + $Vmsjiwqai3ku * sin($Vcki4t4qmybs1);
+        $Vv03lfntnmcz0 = -$Vflxal01hfm5 * sin($Vcki4t4qmybs1);
+        $Vcyg5xmwfpxo0 = $Vmsjiwqai3ku * cos($Vcki4t4qmybs1);
 
-        if (!$incomplete) {
-            $this->addContent(sprintf("\n%.3F %.3F m ", $a0, $b0));
+        if (!$V3xsptcgzss2ncomplete) {
+            $Vcki4t4qmybshis->addContent(sprintf("\n%.3F %.3F m ", $Vrr3orqjztc20, $Vbz3vmbr1h2v0));
         }
 
-        for ($i = 1; $i <= $nSeg; $i++) {
-            // draw this bit of the total curve
-            $t1 = $i * $dt + $astart;
-            $a1 = $x0 + $r1 * cos($t1);
-            $b1 = $y0 + $r2 * sin($t1);
-            $c1 = -$r1 * sin($t1);
-            $d1 = $r2 * cos($t1);
+        for ($V3xsptcgzss2 = 1; $V3xsptcgzss2 <= $V1qcutcuyu3mSeg; $V3xsptcgzss2++) {
+            
+            $Vcki4t4qmybs1 = $V3xsptcgzss2 * $Vcyg5xmwfpxot + $Vrr3orqjztc2start;
+            $Vrr3orqjztc21 = $Vxkyhwivqsr4 + $Vflxal01hfm5 * cos($Vcki4t4qmybs1);
+            $Vbz3vmbr1h2v1 = $V3pe5qrlaiol + $Vmsjiwqai3ku * sin($Vcki4t4qmybs1);
+            $Vv03lfntnmcz1 = -$Vflxal01hfm5 * sin($Vcki4t4qmybs1);
+            $Vcyg5xmwfpxo1 = $Vmsjiwqai3ku * cos($Vcki4t4qmybs1);
 
-            $this->addContent(
+            $Vcki4t4qmybshis->addContent(
                 sprintf(
                     "\n%.3F %.3F %.3F %.3F %.3F %.3F c",
-                    ($a0 + $c0 * $dtm),
-                    ($b0 + $d0 * $dtm),
-                    ($a1 - $c1 * $dtm),
-                    ($b1 - $d1 * $dtm),
-                    $a1,
-                    $b1
+                    ($Vrr3orqjztc20 + $Vv03lfntnmcz0 * $Vcyg5xmwfpxotm),
+                    ($Vbz3vmbr1h2v0 + $Vcyg5xmwfpxo0 * $Vcyg5xmwfpxotm),
+                    ($Vrr3orqjztc21 - $Vv03lfntnmcz1 * $Vcyg5xmwfpxotm),
+                    ($Vbz3vmbr1h2v1 - $Vcyg5xmwfpxo1 * $Vcyg5xmwfpxotm),
+                    $Vrr3orqjztc21,
+                    $Vbz3vmbr1h2v1
                 )
             );
 
-            $a0 = $a1;
-            $b0 = $b1;
-            $c0 = $c1;
-            $d0 = $d1;
+            $Vrr3orqjztc20 = $Vrr3orqjztc21;
+            $Vbz3vmbr1h2v0 = $Vbz3vmbr1h2v1;
+            $Vv03lfntnmcz0 = $Vv03lfntnmcz1;
+            $Vcyg5xmwfpxo0 = $Vcyg5xmwfpxo1;
         }
 
-        if (!$incomplete) {
-            if ($fill) {
-                $this->addContent(' f');
+        if (!$V3xsptcgzss2ncomplete) {
+            if ($Vm4rhtdms15t) {
+                $Vcki4t4qmybshis->addContent(' f');
             }
 
-            if ($stroke) {
-                if ($close) {
-                    $this->addContent(' s'); // small 's' signifies closing the path as well
+            if ($Vihuafvzvxcv) {
+                if ($Vv03lfntnmczlose) {
+                    $Vcki4t4qmybshis->addContent(' s'); 
                 } else {
-                    $this->addContent(' S');
+                    $Vcki4t4qmybshis->addContent(' S');
                 }
             }
         }
 
-        if ($angle != 0) {
-            $this->addContent(' Q');
+        if ($Vrr3orqjztc2ngle != 0) {
+            $Vcki4t4qmybshis->addContent(' Q');
         }
     }
 
-    /**
-     * this sets the line drawing style.
-     * width, is the thickness of the line in user units
-     * cap is the type of cap to put on the line, values can be 'butt','round','square'
-     *    where the diffference between 'square' and 'butt' is that 'square' projects a flat end past the
-     *    end of the line.
-     * join can be 'miter', 'round', 'bevel'
-     * dash is an array which sets the dash pattern, is a series of length values, which are the lengths of the
-     *   on and off dashes.
-     *   (2) represents 2 on, 2 off, 2 on , 2 off ...
-     *   (2,1) is 2 on, 1 off, 2 on, 1 off.. etc
-     * phase is a modifier on the dash pattern which is used to shift the point at which the pattern starts.
-     */
-    function setLineStyle($width = 1, $cap = '', $join = '', $dash = '', $phase = 0)
+    
+    function setLineStyle($Vhoifq2kocytidth = 1, $Vv03lfntnmczap = '', $V0hg12l10vfxoin = '', $Vcyg5xmwfpxoash = '', $Vksopkgqixkyhase = 0)
     {
-        // this is quite inefficient in that it sets all the parameters whenever 1 is changed, but will fix another day
-        $string = '';
+        
+        $V5jic1hsgori = '';
 
-        if ($width > 0) {
-            $string .= sprintf("%.3F w", $width);
+        if ($Vhoifq2kocytidth > 0) {
+            $V5jic1hsgori .= sprintf("%.3F w", $Vhoifq2kocytidth);
         }
 
-        $ca = array('butt' => 0, 'round' => 1, 'square' => 2);
+        $Vv03lfntnmcza = array('butt' => 0, 'round' => 1, 'square' => 2);
 
-        if (isset($ca[$cap])) {
-            $string .= " $ca[$cap] J";
+        if (isset($Vv03lfntnmcza[$Vv03lfntnmczap])) {
+            $V5jic1hsgori .= " $Vv03lfntnmcza[$Vv03lfntnmczap] J";
         }
 
-        $ja = array('miter' => 0, 'round' => 1, 'bevel' => 2);
+        $V0hg12l10vfxa = array('miter' => 0, 'round' => 1, 'bevel' => 2);
 
-        if (isset($ja[$join])) {
-            $string .= " $ja[$join] j";
+        if (isset($V0hg12l10vfxa[$V0hg12l10vfxoin])) {
+            $V5jic1hsgori .= " $V0hg12l10vfxa[$V0hg12l10vfxoin] j";
         }
 
-        if (is_array($dash)) {
-            $string .= ' [ ' . implode(' ', $dash) . " ] $phase d";
+        if (is_array($Vcyg5xmwfpxoash)) {
+            $V5jic1hsgori .= ' [ ' . implode(' ', $Vcyg5xmwfpxoash) . " ] $Vksopkgqixkyhase d";
         }
 
-        $this->currentLineStyle = $string;
-        $this->addContent("\n$string");
+        $Vcki4t4qmybshis->currentLineStyle = $V5jic1hsgori;
+        $Vcki4t4qmybshis->addContent("\n$V5jic1hsgori");
     }
 
-    function rect($x1, $y1, $width, $height)
+    function rect($Vjxqwkabkvag, $Vzdywlaebz1l, $Vhoifq2kocytidth, $Vku40chc0ddp)
     {
-        $this->addContent(sprintf("\n%.3F %.3F %.3F %.3F re", $x1, $y1, $width, $height));
+        $Vcki4t4qmybshis->addContent(sprintf("\n%.3F %.3F %.3F %.3F re", $Vjxqwkabkvag, $Vzdywlaebz1l, $Vhoifq2kocytidth, $Vku40chc0ddp));
     }
 
     function stroke()
     {
-        $this->addContent("\nS");
+        $Vcki4t4qmybshis->addContent("\nS");
     }
 
     function fill()
     {
-        $this->addContent("\nf".($this->fillRule === "evenodd" ? "*" : ""));
+        $Vcki4t4qmybshis->addContent("\nf".($Vcki4t4qmybshis->fillRule === "evenodd" ? "*" : ""));
     }
 
     function fillStroke()
     {
-        $this->addContent("\nb".($this->fillRule === "evenodd" ? "*" : ""));
+        $Vcki4t4qmybshis->addContent("\nb".($Vcki4t4qmybshis->fillRule === "evenodd" ? "*" : ""));
     }
 
-    /**
-     * save the current graphic state
-     */
+    
     function save()
     {
-        $this->addContent("\nq");
+        $Vcki4t4qmybshis->addContent("\nq");
     }
 
-    /**
-     * restore the last graphic state
-     */
+    
     function restore()
     {
-        $this->addContent("\nQ");
+        $Vcki4t4qmybshis->addContent("\nQ");
     }
 
-    /**
-     * scale
-     *
-     * @param float $s_x scaling factor for width as percent
-     * @param float $s_y scaling factor for height as percent
-     * @param float $x   Origin abscisse
-     * @param float $y   Origin ordinate
-     */
-    function scale($s_x, $s_y, $x, $y)
+    
+    function scale($Vvyyy23v5fb4, $V2fb2ve5h53x, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
-        $y = $this->currentPageSize["height"] - $y;
+        $Vopgub02o3q2 = $Vcki4t4qmybshis->currentPageSize["height"] - $Vopgub02o3q2;
 
-        $tm = array(
-            $s_x,            0,
-            0,               $s_y,
-            $x * (1 - $s_x), $y * (1 - $s_y)
+        $Vcki4t4qmybsm = array(
+            $Vvyyy23v5fb4,            0,
+            0,               $V2fb2ve5h53x,
+            $Vs4gloy23a1d * (1 - $Vvyyy23v5fb4), $Vopgub02o3q2 * (1 - $V2fb2ve5h53x)
         );
 
-        $this->transform($tm);
+        $Vcki4t4qmybshis->transform($Vcki4t4qmybsm);
     }
 
-    /**
-     * translate
-     *
-     * @param float $t_x movement to the right
-     * @param float $t_y movement to the bottom
-     */
-    function translate($t_x, $t_y)
+    
+    function translate($Vcki4t4qmybs_x, $Vcki4t4qmybs_y)
     {
-        $tm = array(
+        $Vcki4t4qmybsm = array(
             1,    0,
             0,    1,
-            $t_x, -$t_y
+            $Vcki4t4qmybs_x, -$Vcki4t4qmybs_y
         );
 
-        $this->transform($tm);
+        $Vcki4t4qmybshis->transform($Vcki4t4qmybsm);
     }
 
-    /**
-     * rotate
-     *
-     * @param float $angle angle in degrees for counter-clockwise rotation
-     * @param float $x     Origin abscisse
-     * @param float $y     Origin ordinate
-     */
-    function rotate($angle, $x, $y)
+    
+    function rotate($Vrr3orqjztc2ngle, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
-        $y = $this->currentPageSize["height"] - $y;
+        $Vopgub02o3q2 = $Vcki4t4qmybshis->currentPageSize["height"] - $Vopgub02o3q2;
 
-        $a = deg2rad($angle);
-        $cos_a = cos($a);
-        $sin_a = sin($a);
+        $Vrr3orqjztc2 = deg2rad($Vrr3orqjztc2ngle);
+        $Vv03lfntnmczos_a = cos($Vrr3orqjztc2);
+        $Vgdmmikhhqfi = sin($Vrr3orqjztc2);
 
-        $tm = array(
-            $cos_a,                         -$sin_a,
-            $sin_a,                         $cos_a,
-            $x - $sin_a * $y - $cos_a * $x, $y - $cos_a * $y + $sin_a * $x,
+        $Vcki4t4qmybsm = array(
+            $Vv03lfntnmczos_a,                         -$Vgdmmikhhqfi,
+            $Vgdmmikhhqfi,                         $Vv03lfntnmczos_a,
+            $Vs4gloy23a1d - $Vgdmmikhhqfi * $Vopgub02o3q2 - $Vv03lfntnmczos_a * $Vs4gloy23a1d, $Vopgub02o3q2 - $Vv03lfntnmczos_a * $Vopgub02o3q2 + $Vgdmmikhhqfi * $Vs4gloy23a1d,
         );
 
-        $this->transform($tm);
+        $Vcki4t4qmybshis->transform($Vcki4t4qmybsm);
     }
 
-    /**
-     * skew
-     *
-     * @param float $angle_x
-     * @param float $angle_y
-     * @param float $x Origin abscisse
-     * @param float $y Origin ordinate
-     */
-    function skew($angle_x, $angle_y, $x, $y)
+    
+    function skew($Vrr3orqjztc2ngle_x, $Vrr3orqjztc2ngle_y, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
-        $y = $this->currentPageSize["height"] - $y;
+        $Vopgub02o3q2 = $Vcki4t4qmybshis->currentPageSize["height"] - $Vopgub02o3q2;
 
-        $tan_x = tan(deg2rad($angle_x));
-        $tan_y = tan(deg2rad($angle_y));
+        $Vcki4t4qmybsan_x = tan(deg2rad($Vrr3orqjztc2ngle_x));
+        $Vcki4t4qmybsan_y = tan(deg2rad($Vrr3orqjztc2ngle_y));
 
-        $tm = array(
-            1,           -$tan_y,
-            -$tan_x,     1,
-            $tan_x * $y, $tan_y * $x,
+        $Vcki4t4qmybsm = array(
+            1,           -$Vcki4t4qmybsan_y,
+            -$Vcki4t4qmybsan_x,     1,
+            $Vcki4t4qmybsan_x * $Vopgub02o3q2, $Vcki4t4qmybsan_y * $Vs4gloy23a1d,
         );
 
-        $this->transform($tm);
+        $Vcki4t4qmybshis->transform($Vcki4t4qmybsm);
     }
 
-    /**
-     * apply graphic transformations
-     *
-     * @param array $tm transformation matrix
-     */
-    function transform($tm)
+    
+    function transform($Vcki4t4qmybsm)
     {
-        $this->addContent(vsprintf("\n %.3F %.3F %.3F %.3F %.3F %.3F cm", $tm));
+        $Vcki4t4qmybshis->addContent(vsprintf("\n %.3F %.3F %.3F %.3F %.3F %.3F cm", $Vcki4t4qmybsm));
     }
 
-    /**
-     * add a new page to the document
-     * this also makes the new page the current active object
-     */
-    function newPage($insert = 0, $id = 0, $pos = 'after')
+    
+    function newPage($V3xsptcgzss2nsert = 0, $Vkriocz2qep2 = 0, $Vksopkgqixkyos = 'after')
     {
-        // if there is a state saved, then go up the stack closing them
-        // then on the new page, re-open them with the right setings
+        
+        
 
-        if ($this->nStateStack) {
-            for ($i = $this->nStateStack; $i >= 1; $i--) {
-                $this->restoreState($i);
+        if ($Vcki4t4qmybshis->nStateStack) {
+            for ($V3xsptcgzss2 = $Vcki4t4qmybshis->nStateStack; $V3xsptcgzss2 >= 1; $V3xsptcgzss2--) {
+                $Vcki4t4qmybshis->restoreState($V3xsptcgzss2);
             }
         }
 
-        $this->numObj++;
+        $Vcki4t4qmybshis->numObj++;
 
-        if ($insert) {
-            // the id from the ezPdf class is the id of the contents of the page, not the page object itself
-            // query that object to find the parent
-            $rid = $this->objects[$id]['onPage'];
-            $opt = array('rid' => $rid, 'pos' => $pos);
-            $this->o_page($this->numObj, 'new', $opt);
+        if ($V3xsptcgzss2nsert) {
+            
+            
+            $V3n1cqnppzq4 = $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['onPage'];
+            $Vsz1vjk4tj2cpt = array('rid' => $V3n1cqnppzq4, 'pos' => $Vksopkgqixkyos);
+            $Vcki4t4qmybshis->o_page($Vcki4t4qmybshis->numObj, 'new', $Vsz1vjk4tj2cpt);
         } else {
-            $this->o_page($this->numObj, 'new');
+            $Vcki4t4qmybshis->o_page($Vcki4t4qmybshis->numObj, 'new');
         }
 
-        // if there is a stack saved, then put that onto the page
-        if ($this->nStateStack) {
-            for ($i = 1; $i <= $this->nStateStack; $i++) {
-                $this->saveState($i);
+        
+        if ($Vcki4t4qmybshis->nStateStack) {
+            for ($V3xsptcgzss2 = 1; $V3xsptcgzss2 <= $Vcki4t4qmybshis->nStateStack; $V3xsptcgzss2++) {
+                $Vcki4t4qmybshis->saveState($V3xsptcgzss2);
             }
         }
 
-        // and if there has been a stroke or fill color set, then transfer them
-        if (isset($this->currentColor)) {
-            $this->setColor($this->currentColor, true);
+        
+        if (isset($Vcki4t4qmybshis->currentColor)) {
+            $Vcki4t4qmybshis->setColor($Vcki4t4qmybshis->currentColor, true);
         }
 
-        if (isset($this->currentStrokeColor)) {
-            $this->setStrokeColor($this->currentStrokeColor, true);
+        if (isset($Vcki4t4qmybshis->currentStrokeColor)) {
+            $Vcki4t4qmybshis->setStrokeColor($Vcki4t4qmybshis->currentStrokeColor, true);
         }
 
-        // if there is a line style set, then put this in too
-        if (mb_strlen($this->currentLineStyle, '8bit')) {
-            $this->addContent("\n$this->currentLineStyle");
+        
+        if (mb_strlen($Vcki4t4qmybshis->currentLineStyle, '8bit')) {
+            $Vcki4t4qmybshis->addContent("\n$Vcki4t4qmybshis->currentLineStyle");
         }
 
-        // the call to the o_page object set currentContents to the present page, so this can be returned as the page id
-        return $this->currentContents;
+        
+        return $Vcki4t4qmybshis->currentContents;
     }
 
-    /**
-     * output the pdf code, streaming it to the browser
-     * the relevant headers are set so that hopefully the browser will recognise it
-     */
-    function stream($options = '')
+    
+    function stream($Vi43cktvy0zi = '')
     {
-        // setting the options allows the adjustment of the headers
-        // values at the moment are:
-        // 'Content-Disposition' => 'filename'  - sets the filename, though not too sure how well this will
-        //        work as in my trial the browser seems to use the filename of the php file with .pdf on the end
-        // 'Accept-Ranges' => 1 or 0 - if this is not set to 1, then this header is not included, off by default
-        //    this header seems to have caused some problems despite tha fact that it is supposed to solve
-        //    them, so I am leaving it off by default.
-        // 'compress' = > 1 or 0 - apply content stream compression, this is on (1) by default
-        // 'Attachment' => 1 or 0 - if 1, force the browser to open a download dialog
-        if (!is_array($options)) {
-            $options = array();
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        if (!is_array($Vi43cktvy0zi)) {
+            $Vi43cktvy0zi = array();
         }
 
         if (headers_sent()) {
             die("Unable to stream pdf: headers already sent");
         }
 
-        $debug = empty($options['compression']);
-        $tmp = ltrim($this->output($debug));
+        $Vpe1ucmbxygf = empty($Vi43cktvy0zi['compression']);
+        $Vynpm04a4fx0 = ltrim($Vcki4t4qmybshis->output($Vpe1ucmbxygf));
 
         header("Cache-Control: private");
         header("Content-type: application/pdf");
 
-        //FIXME: I don't know that this is sufficient for determining content length (i.e. what about transport compression?)
-        header("Content-Length: " . mb_strlen($tmp, '8bit'));
-        $fileName = (isset($options['Content-Disposition']) ? $options['Content-Disposition'] : 'file.pdf');
+        
+        header("Content-Length: " . mb_strlen($Vynpm04a4fx0, '8bit'));
+        $Vtkhurg4sowdName = (isset($Vi43cktvy0zi['Content-Disposition']) ? $Vi43cktvy0zi['Content-Disposition'] : 'file.pdf');
 
-        if (!isset($options["Attachment"])) {
-            $options["Attachment"] = true;
+        if (!isset($Vi43cktvy0zi["Attachment"])) {
+            $Vi43cktvy0zi["Attachment"] = true;
         }
 
-        $attachment = $options["Attachment"] ? "attachment" : "inline";
+        $Vrr3orqjztc2ttachment = $Vi43cktvy0zi["Attachment"] ? "attachment" : "inline";
 
-        // detect the character encoding of the incoming file
-        $encoding = mb_detect_encoding($fileName);
-        $fallbackfilename = mb_convert_encoding($fileName, "ISO-8859-1", $encoding);
-        $encodedfallbackfilename = rawurlencode($fallbackfilename);
-        $encodedfilename = rawurlencode($fileName);
+        
+        $Vgpqcvfkvgzo = mb_detect_encoding($Vtkhurg4sowdName);
+        $V1dqjmexh5hm = mb_convert_encoding($Vtkhurg4sowdName, "ISO-8859-1", $Vgpqcvfkvgzo);
+        $Vwie1theeeik = rawurlencode($V1dqjmexh5hm);
+        $V3z01rts5dgi = rawurlencode($Vtkhurg4sowdName);
 
         header(
-            "Content-Disposition: $attachment; filename=" . $encodedfallbackfilename . "; filename*=UTF-8''$encodedfilename"
+            "Content-Disposition: $Vrr3orqjztc2ttachment; filename=" . $Vwie1theeeik . "; filename*=UTF-8''$V3z01rts5dgi"
         );
 
-        if (isset($options['Accept-Ranges']) && $options['Accept-Ranges'] == 1) {
-            //FIXME: Is this the correct value ... spec says 1#range-unit
-            header("Accept-Ranges: " . mb_strlen($tmp, '8bit'));
+        if (isset($Vi43cktvy0zi['Accept-Ranges']) && $Vi43cktvy0zi['Accept-Ranges'] == 1) {
+            
+            header("Accept-Ranges: " . mb_strlen($Vynpm04a4fx0, '8bit'));
         }
 
-        echo $tmp;
+        echo $Vynpm04a4fx0;
         flush();
     }
 
-    /**
-     * return the height in units of the current font in the given size
-     */
-    function getFontHeight($size)
+    
+    function getFontHeight($Vlak25col1u3)
     {
-        if (!$this->numFonts) {
-            $this->selectFont($this->defaultFont);
+        if (!$Vcki4t4qmybshis->numFonts) {
+            $Vcki4t4qmybshis->selectFont($Vcki4t4qmybshis->defaultFont);
         }
 
-        $font = $this->fonts[$this->currentFont];
+        $V3h4z3hxorxj = $Vcki4t4qmybshis->fonts[$Vcki4t4qmybshis->currentFont];
 
-        // for the current font, and the given size, what is the height of the font in user units
-        if (isset($font['Ascender']) && isset($font['Descender'])) {
-            $h = $font['Ascender'] - $font['Descender'];
+        
+        if (isset($V3h4z3hxorxj['Ascender']) && isset($V3h4z3hxorxj['Descender'])) {
+            $Vjlmjalejjxa = $V3h4z3hxorxj['Ascender'] - $V3h4z3hxorxj['Descender'];
         } else {
-            $h = $font['FontBBox'][3] - $font['FontBBox'][1];
+            $Vjlmjalejjxa = $V3h4z3hxorxj['FontBBox'][3] - $V3h4z3hxorxj['FontBBox'][1];
         }
 
-        // have to adjust by a font offset for Windows fonts.  unfortunately it looks like
-        // the bounding box calculations are wrong and I don't know why.
-        if (isset($font['FontHeightOffset'])) {
-            // For CourierNew from Windows this needs to be -646 to match the
-            // Adobe native Courier font.
-            //
-            // For FreeMono from GNU this needs to be -337 to match the
-            // Courier font.
-            //
-            // Both have been added manually to the .afm and .ufm files.
-            $h += (int)$font['FontHeightOffset'];
+        
+        
+        if (isset($V3h4z3hxorxj['FontHeightOffset'])) {
+            
+            
+            
+            
+            
+            
+            
+            $Vjlmjalejjxa += (int)$V3h4z3hxorxj['FontHeightOffset'];
         }
 
-        return $size * $h / 1000;
+        return $Vlak25col1u3 * $Vjlmjalejjxa / 1000;
     }
 
-    function getFontXHeight($size)
+    function getFontXHeight($Vlak25col1u3)
     {
-        if (!$this->numFonts) {
-            $this->selectFont($this->defaultFont);
+        if (!$Vcki4t4qmybshis->numFonts) {
+            $Vcki4t4qmybshis->selectFont($Vcki4t4qmybshis->defaultFont);
         }
 
-        $font = $this->fonts[$this->currentFont];
+        $V3h4z3hxorxj = $Vcki4t4qmybshis->fonts[$Vcki4t4qmybshis->currentFont];
 
-        // for the current font, and the given size, what is the height of the font in user units
-        if (isset($font['XHeight'])) {
-            $xh = $font['Ascender'] - $font['Descender'];
+        
+        if (isset($V3h4z3hxorxj['XHeight'])) {
+            $Vs4gloy23a1dh = $V3h4z3hxorxj['Ascender'] - $V3h4z3hxorxj['Descender'];
         } else {
-            $xh = $this->getFontHeight($size) / 2;
+            $Vs4gloy23a1dh = $Vcki4t4qmybshis->getFontHeight($Vlak25col1u3) / 2;
         }
 
-        return $size * $xh / 1000;
+        return $Vlak25col1u3 * $Vs4gloy23a1dh / 1000;
     }
 
-    /**
-     * return the font descender, this will normally return a negative number
-     * if you add this number to the baseline, you get the level of the bottom of the font
-     * it is in the pdf user units
-     */
-    function getFontDescender($size)
+    
+    function getFontDescender($Vlak25col1u3)
     {
-        // note that this will most likely return a negative value
-        if (!$this->numFonts) {
-            $this->selectFont($this->defaultFont);
+        
+        if (!$Vcki4t4qmybshis->numFonts) {
+            $Vcki4t4qmybshis->selectFont($Vcki4t4qmybshis->defaultFont);
         }
 
-        //$h = $this->fonts[$this->currentFont]['FontBBox'][1];
-        $h = $this->fonts[$this->currentFont]['Descender'];
+        
+        $Vjlmjalejjxa = $Vcki4t4qmybshis->fonts[$Vcki4t4qmybshis->currentFont]['Descender'];
 
-        return $size * $h / 1000;
+        return $Vlak25col1u3 * $Vjlmjalejjxa / 1000;
     }
 
-    /**
-     * filter the text, this is applied to all text just before being inserted into the pdf document
-     * it escapes the various things that need to be escaped, and so on
-     *
-     * @access private
-     */
-    function filterText($text, $bom = true, $convert_encoding = true)
+    
+    function filterText($Vcki4t4qmybsext, $Vbz3vmbr1h2vom = true, $Vv03lfntnmczonvert_encoding = true)
     {
-        if (!$this->numFonts) {
-            $this->selectFont($this->defaultFont);
+        if (!$Vcki4t4qmybshis->numFonts) {
+            $Vcki4t4qmybshis->selectFont($Vcki4t4qmybshis->defaultFont);
         }
 
-        if ($convert_encoding) {
-            $cf = $this->currentFont;
-            if (isset($this->fonts[$cf]) && $this->fonts[$cf]['isUnicode']) {
-                //$text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
-                $text = $this->utf8toUtf16BE($text, $bom);
+        if ($Vv03lfntnmczonvert_encoding) {
+            $Vv03lfntnmczf = $Vcki4t4qmybshis->currentFont;
+            if (isset($Vcki4t4qmybshis->fonts[$Vv03lfntnmczf]) && $Vcki4t4qmybshis->fonts[$Vv03lfntnmczf]['isUnicode']) {
+                
+                $Vcki4t4qmybsext = $Vcki4t4qmybshis->utf8toUtf16BE($Vcki4t4qmybsext, $Vbz3vmbr1h2vom);
             } else {
-                //$text = html_entity_decode($text, ENT_QUOTES);
-                $text = mb_convert_encoding($text, self::$targetEncoding, 'UTF-8');
+                
+                $Vcki4t4qmybsext = mb_convert_encoding($Vcki4t4qmybsext, self::$Vhncrog0sywc, 'UTF-8');
             }
         }
 
-        // the chr(13) substitution fixes a bug seen in TCPDF (bug #1421290)
-        return strtr($text, array(')' => '\\)', '(' => '\\(', '\\' => '\\\\', chr(13) => '\r'));
+        
+        return strtr($Vcki4t4qmybsext, array(')' => '\\)', '(' => '\\(', '\\' => '\\\\', chr(13) => '\r'));
     }
 
-    /**
-     * given a start position and information about how text is to be laid out, calculate where
-     * on the page the text will end
-     */
-    private function getTextPosition($x, $y, $angle, $size, $wa, $text)
+    
+    private function getTextPosition($Vs4gloy23a1d, $Vopgub02o3q2, $Vrr3orqjztc2ngle, $Vlak25col1u3, $Vhoifq2kocyta, $Vcki4t4qmybsext)
     {
-        // given this information return an array containing x and y for the end position as elements 0 and 1
-        $w = $this->getTextWidth($size, $text);
+        
+        $Vhoifq2kocyt = $Vcki4t4qmybshis->getTextWidth($Vlak25col1u3, $Vcki4t4qmybsext);
 
-        // need to adjust for the number of spaces in this text
-        $words = explode(' ', $text);
-        $nspaces = count($words) - 1;
-        $w += $wa * $nspaces;
-        $a = deg2rad((float)$angle);
+        
+        $Vhoifq2kocytords = explode(' ', $Vcki4t4qmybsext);
+        $V1qcutcuyu3mspaces = count($Vhoifq2kocytords) - 1;
+        $Vhoifq2kocyt += $Vhoifq2kocyta * $V1qcutcuyu3mspaces;
+        $Vrr3orqjztc2 = deg2rad((float)$Vrr3orqjztc2ngle);
 
-        return array(cos($a) * $w + $x, -sin($a) * $w + $y);
+        return array(cos($Vrr3orqjztc2) * $Vhoifq2kocyt + $Vs4gloy23a1d, -sin($Vrr3orqjztc2) * $Vhoifq2kocyt + $Vopgub02o3q2);
     }
 
-    /**
-     * Callback method used by smallCaps
-     *
-     * @param array $matches
-     *
-     * @return string
-     */
-    function toUpper($matches)
+    
+    function toUpper($Vyupu15qqw5ces)
     {
-        return mb_strtoupper($matches[0]);
+        return mb_strtoupper($Vyupu15qqw5ces[0]);
     }
 
-    function concatMatches($matches)
+    function concatMatches($Vyupu15qqw5ces)
     {
-        $str = "";
-        foreach ($matches as $match) {
-            $str .= $match[0];
+        $Vadkcwffkfxw = "";
+        foreach ($Vyupu15qqw5ces as $Vyupu15qqw5c) {
+            $Vadkcwffkfxw .= $Vyupu15qqw5c[0];
         }
 
-        return $str;
+        return $Vadkcwffkfxw;
     }
 
-    /**
-     * add text to the document, at a specified location, size and angle on the page
-     */
-    function registerText($font, $text)
+    
+    function registerText($V3h4z3hxorxj, $Vcki4t4qmybsext)
     {
-        if (!$this->isUnicode || in_array(mb_strtolower(basename($font)), self::$coreFonts)) {
+        if (!$Vcki4t4qmybshis->isUnicode || in_array(mb_strtolower(basename($V3h4z3hxorxj)), self::$V511ytr5ole2)) {
             return;
         }
 
-        if (!isset($this->stringSubsets[$font])) {
-            $this->stringSubsets[$font] = array();
+        if (!isset($Vcki4t4qmybshis->stringSubsets[$V3h4z3hxorxj])) {
+            $Vcki4t4qmybshis->stringSubsets[$V3h4z3hxorxj] = array();
         }
 
-        $this->stringSubsets[$font] = array_unique(
-            array_merge($this->stringSubsets[$font], $this->utf8toCodePointsArray($text))
+        $Vcki4t4qmybshis->stringSubsets[$V3h4z3hxorxj] = array_unique(
+            array_merge($Vcki4t4qmybshis->stringSubsets[$V3h4z3hxorxj], $Vcki4t4qmybshis->utf8toCodePointsArray($Vcki4t4qmybsext))
         );
     }
 
-    /**
-     * add text to the document, at a specified location, size and angle on the page
-     */
-    function addText($x, $y, $size, $text, $angle = 0, $wordSpaceAdjust = 0, $charSpaceAdjust = 0, $smallCaps = false)
+    
+    function addText($Vs4gloy23a1d, $Vopgub02o3q2, $Vlak25col1u3, $Vcki4t4qmybsext, $Vrr3orqjztc2ngle = 0, $V2odl0400jfx = 0, $Vbbfdf0et0cn = 0, $Vma13dsbwl2y = false)
     {
-        if (!$this->numFonts) {
-            $this->selectFont($this->defaultFont);
+        if (!$Vcki4t4qmybshis->numFonts) {
+            $Vcki4t4qmybshis->selectFont($Vcki4t4qmybshis->defaultFont);
         }
 
-        $text = str_replace(array("\r", "\n"), "", $text);
+        $Vcki4t4qmybsext = str_replace(array("\r", "\n"), "", $Vcki4t4qmybsext);
 
-        if ($smallCaps) {
-            preg_match_all("/(\P{Ll}+)/u", $text, $matches, PREG_SET_ORDER);
-            $lower = $this->concatMatches($matches);
-            d($lower);
+        if ($Vma13dsbwl2y) {
+            preg_match_all("/(\P{Ll}+)/u", $Vcki4t4qmybsext, $Vyupu15qqw5ces, PREG_SET_ORDER);
+            $Vcdncpyqhakh = $Vcki4t4qmybshis->concatMatches($Vyupu15qqw5ces);
+            d($Vcdncpyqhakh);
 
-            preg_match_all("/(\p{Ll}+)/u", $text, $matches, PREG_SET_ORDER);
-            $other = $this->concatMatches($matches);
-            d($other);
+            preg_match_all("/(\p{Ll}+)/u", $Vcki4t4qmybsext, $Vyupu15qqw5ces, PREG_SET_ORDER);
+            $Vsz1vjk4tj2cther = $Vcki4t4qmybshis->concatMatches($Vyupu15qqw5ces);
+            d($Vsz1vjk4tj2cther);
 
-            //$text = preg_replace_callback("/\p{Ll}/u", array($this, "toUpper"), $text);
+            
         }
 
-        // if there are any open callbacks, then they should be called, to show the start of the line
-        if ($this->nCallback > 0) {
-            for ($i = $this->nCallback; $i > 0; $i--) {
-                // call each function
-                $info = array(
-                    'x'         => $x,
-                    'y'         => $y,
-                    'angle'     => $angle,
+        
+        if ($Vcki4t4qmybshis->nCallback > 0) {
+            for ($V3xsptcgzss2 = $Vcki4t4qmybshis->nCallback; $V3xsptcgzss2 > 0; $V3xsptcgzss2--) {
+                
+                $V3xsptcgzss2nfo = array(
+                    'x'         => $Vs4gloy23a1d,
+                    'y'         => $Vopgub02o3q2,
+                    'angle'     => $Vrr3orqjztc2ngle,
                     'status'    => 'sol',
-                    'p'         => $this->callback[$i]['p'],
-                    'nCallback' => $this->callback[$i]['nCallback'],
-                    'height'    => $this->callback[$i]['height'],
-                    'descender' => $this->callback[$i]['descender']
+                    'p'         => $Vcki4t4qmybshis->callback[$V3xsptcgzss2]['p'],
+                    'nCallback' => $Vcki4t4qmybshis->callback[$V3xsptcgzss2]['nCallback'],
+                    'height'    => $Vcki4t4qmybshis->callback[$V3xsptcgzss2]['height'],
+                    'descender' => $Vcki4t4qmybshis->callback[$V3xsptcgzss2]['descender']
                 );
 
-                $func = $this->callback[$i]['f'];
-                $this->$func($info);
+                $Vhhv3tomoeyc = $Vcki4t4qmybshis->callback[$V3xsptcgzss2]['f'];
+                $Vcki4t4qmybshis->$Vhhv3tomoeyc($V3xsptcgzss2nfo);
             }
         }
 
-        if ($angle == 0) {
-            $this->addContent(sprintf("\nBT %.3F %.3F Td", $x, $y));
+        if ($Vrr3orqjztc2ngle == 0) {
+            $Vcki4t4qmybshis->addContent(sprintf("\nBT %.3F %.3F Td", $Vs4gloy23a1d, $Vopgub02o3q2));
         } else {
-            $a = deg2rad((float)$angle);
-            $this->addContent(
-                sprintf("\nBT %.3F %.3F %.3F %.3F %.3F %.3F Tm", cos($a), -sin($a), sin($a), cos($a), $x, $y)
+            $Vrr3orqjztc2 = deg2rad((float)$Vrr3orqjztc2ngle);
+            $Vcki4t4qmybshis->addContent(
+                sprintf("\nBT %.3F %.3F %.3F %.3F %.3F %.3F Tm", cos($Vrr3orqjztc2), -sin($Vrr3orqjztc2), sin($Vrr3orqjztc2), cos($Vrr3orqjztc2), $Vs4gloy23a1d, $Vopgub02o3q2)
             );
         }
 
-        if ($wordSpaceAdjust != 0 || $wordSpaceAdjust != $this->wordSpaceAdjust) {
-            $this->wordSpaceAdjust = $wordSpaceAdjust;
-            $this->addContent(sprintf(" %.3F Tw", $wordSpaceAdjust));
+        if ($V2odl0400jfx != 0 || $V2odl0400jfx != $Vcki4t4qmybshis->wordSpaceAdjust) {
+            $Vcki4t4qmybshis->wordSpaceAdjust = $V2odl0400jfx;
+            $Vcki4t4qmybshis->addContent(sprintf(" %.3F Tw", $V2odl0400jfx));
         }
 
-        if ($charSpaceAdjust != 0 || $charSpaceAdjust != $this->charSpaceAdjust) {
-            $this->charSpaceAdjust = $charSpaceAdjust;
-            $this->addContent(sprintf(" %.3F Tc", $charSpaceAdjust));
+        if ($Vbbfdf0et0cn != 0 || $Vbbfdf0et0cn != $Vcki4t4qmybshis->charSpaceAdjust) {
+            $Vcki4t4qmybshis->charSpaceAdjust = $Vbbfdf0et0cn;
+            $Vcki4t4qmybshis->addContent(sprintf(" %.3F Tc", $Vbbfdf0et0cn));
         }
 
-        $len = mb_strlen($text);
-        $start = 0;
+        $V1st2w4mm2ug = mb_strlen($Vcki4t4qmybsext);
+        $Vn0xvbhzyr1e = 0;
 
-        if ($start < $len) {
-            $part = $text; // OAR - Don't need this anymore, given that $start always equals zero.  substr($text, $start);
-            $place_text = $this->filterText($part, false);
-            // modify unicode text so that extra word spacing is manually implemented (bug #)
-            $cf = $this->currentFont;
-            if ($this->fonts[$cf]['isUnicode'] && $wordSpaceAdjust != 0) {
-                $space_scale = 1000 / $size;
-                //$place_text = str_replace(' ', ') ( ) '.($this->getTextWidth($size, chr(32), $wordSpaceAdjust)*-75).' (', $place_text);
-                $place_text = str_replace(' ', ' ) ' . (-round($space_scale * $wordSpaceAdjust)) . ' (', $place_text);
+        if ($Vn0xvbhzyr1e < $V1st2w4mm2ug) {
+            $Vksopkgqixkyart = $Vcki4t4qmybsext; 
+            $Vksopkgqixkylace_text = $Vcki4t4qmybshis->filterText($Vksopkgqixkyart, false);
+            
+            $Vv03lfntnmczf = $Vcki4t4qmybshis->currentFont;
+            if ($Vcki4t4qmybshis->fonts[$Vv03lfntnmczf]['isUnicode'] && $V2odl0400jfx != 0) {
+                $Vaqfpbb0q4el = 1000 / $Vlak25col1u3;
+                
+                $Vksopkgqixkylace_text = str_replace(' ', ' ) ' . (-round($Vaqfpbb0q4el * $V2odl0400jfx)) . ' (', $Vksopkgqixkylace_text);
             }
-            $this->addContent(" /F$this->currentFontNum " . sprintf('%.1F Tf ', $size));
-            $this->addContent(" [($place_text)] TJ");
+            $Vcki4t4qmybshis->addContent(" /F$Vcki4t4qmybshis->currentFontNum " . sprintf('%.1F Tf ', $Vlak25col1u3));
+            $Vcki4t4qmybshis->addContent(" [($Vksopkgqixkylace_text)] TJ");
         }
 
-        $this->addContent(' ET');
+        $Vcki4t4qmybshis->addContent(' ET');
 
-        // if there are any open callbacks, then they should be called, to show the end of the line
-        if ($this->nCallback > 0) {
-            for ($i = $this->nCallback; $i > 0; $i--) {
-                // call each function
-                $tmp = $this->getTextPosition($x, $y, $angle, $size, $wordSpaceAdjust, $text);
-                $info = array(
-                    'x'         => $tmp[0],
-                    'y'         => $tmp[1],
-                    'angle'     => $angle,
+        
+        if ($Vcki4t4qmybshis->nCallback > 0) {
+            for ($V3xsptcgzss2 = $Vcki4t4qmybshis->nCallback; $V3xsptcgzss2 > 0; $V3xsptcgzss2--) {
+                
+                $Vynpm04a4fx0 = $Vcki4t4qmybshis->getTextPosition($Vs4gloy23a1d, $Vopgub02o3q2, $Vrr3orqjztc2ngle, $Vlak25col1u3, $V2odl0400jfx, $Vcki4t4qmybsext);
+                $V3xsptcgzss2nfo = array(
+                    'x'         => $Vynpm04a4fx0[0],
+                    'y'         => $Vynpm04a4fx0[1],
+                    'angle'     => $Vrr3orqjztc2ngle,
                     'status'    => 'eol',
-                    'p'         => $this->callback[$i]['p'],
-                    'nCallback' => $this->callback[$i]['nCallback'],
-                    'height'    => $this->callback[$i]['height'],
-                    'descender' => $this->callback[$i]['descender']
+                    'p'         => $Vcki4t4qmybshis->callback[$V3xsptcgzss2]['p'],
+                    'nCallback' => $Vcki4t4qmybshis->callback[$V3xsptcgzss2]['nCallback'],
+                    'height'    => $Vcki4t4qmybshis->callback[$V3xsptcgzss2]['height'],
+                    'descender' => $Vcki4t4qmybshis->callback[$V3xsptcgzss2]['descender']
                 );
-                $func = $this->callback[$i]['f'];
-                $this->$func($info);
+                $Vhhv3tomoeyc = $Vcki4t4qmybshis->callback[$V3xsptcgzss2]['f'];
+                $Vcki4t4qmybshis->$Vhhv3tomoeyc($V3xsptcgzss2nfo);
             }
         }
     }
 
-    /**
-     * calculate how wide a given text string will be on a page, at a given size.
-     * this can be called externally, but is also used by the other class functions
-     */
-    function getTextWidth($size, $text, $word_spacing = 0, $char_spacing = 0)
+    
+    function getTextWidth($Vlak25col1u3, $Vcki4t4qmybsext, $Vhoifq2kocytord_spacing = 0, $Vv03lfntnmczhar_spacing = 0)
     {
-        static $ord_cache = array();
+        static $Vsz1vjk4tj2crd_cache = array();
 
-        // this function should not change any of the settings, though it will need to
-        // track any directives which change during calculation, so copy them at the start
-        // and put them back at the end.
-        $store_currentTextState = $this->currentTextState;
+        
+        
+        
+        $Vdaxiqttej1d = $Vcki4t4qmybshis->currentTextState;
 
-        if (!$this->numFonts) {
-            $this->selectFont($this->defaultFont);
+        if (!$Vcki4t4qmybshis->numFonts) {
+            $Vcki4t4qmybshis->selectFont($Vcki4t4qmybshis->defaultFont);
         }
 
-        $text = str_replace(array("\r", "\n"), "", $text);
+        $Vcki4t4qmybsext = str_replace(array("\r", "\n"), "", $Vcki4t4qmybsext);
 
-        // converts a number or a float to a string so it can get the width
-        $text = "$text";
+        
+        $Vcki4t4qmybsext = "$Vcki4t4qmybsext";
 
-        // hmm, this is where it all starts to get tricky - use the font information to
-        // calculate the width of each character, add them up and convert to user units
-        $w = 0;
-        $cf = $this->currentFont;
-        $current_font = $this->fonts[$cf];
-        $space_scale = 1000 / ($size > 0 ? $size : 1);
-        $n_spaces = 0;
+        
+        
+        $Vhoifq2kocyt = 0;
+        $Vv03lfntnmczf = $Vcki4t4qmybshis->currentFont;
+        $Vv03lfntnmczurrent_font = $Vcki4t4qmybshis->fonts[$Vv03lfntnmczf];
+        $Vaqfpbb0q4el = 1000 / ($Vlak25col1u3 > 0 ? $Vlak25col1u3 : 1);
+        $V1qcutcuyu3m_spaces = 0;
 
-        if ($current_font['isUnicode']) {
-            // for Unicode, use the code points array to calculate width rather
-            // than just the string itself
-            $unicode = $this->utf8toCodePointsArray($text);
+        if ($Vv03lfntnmczurrent_font['isUnicode']) {
+            
+            
+            $Vnuoybo0aifl = $Vcki4t4qmybshis->utf8toCodePointsArray($Vcki4t4qmybsext);
 
-            foreach ($unicode as $char) {
-                // check if we have to replace character
-                if (isset($current_font['differences'][$char])) {
-                    $char = $current_font['differences'][$char];
+            foreach ($Vnuoybo0aifl as $Vv03lfntnmczhar) {
+                
+                if (isset($Vv03lfntnmczurrent_font['differences'][$Vv03lfntnmczhar])) {
+                    $Vv03lfntnmczhar = $Vv03lfntnmczurrent_font['differences'][$Vv03lfntnmczhar];
                 }
 
-                if (isset($current_font['C'][$char])) {
-                    $char_width = $current_font['C'][$char];
+                if (isset($Vv03lfntnmczurrent_font['C'][$Vv03lfntnmczhar])) {
+                    $Vv03lfntnmczhar_width = $Vv03lfntnmczurrent_font['C'][$Vv03lfntnmczhar];
 
-                    // add the character width
-                    $w += $char_width;
+                    
+                    $Vhoifq2kocyt += $Vv03lfntnmczhar_width;
 
-                    // add additional padding for space
-                    if (isset($current_font['codeToName'][$char]) && $current_font['codeToName'][$char] === 'space') {  // Space
-                        $w += $word_spacing * $space_scale;
-                        $n_spaces++;
+                    
+                    if (isset($Vv03lfntnmczurrent_font['codeToName'][$Vv03lfntnmczhar]) && $Vv03lfntnmczurrent_font['codeToName'][$Vv03lfntnmczhar] === 'space') {  
+                        $Vhoifq2kocyt += $Vhoifq2kocytord_spacing * $Vaqfpbb0q4el;
+                        $V1qcutcuyu3m_spaces++;
                     }
                 }
             }
 
-            // add additionnal char spacing
-            if ($char_spacing != 0) {
-                $w += $char_spacing * $space_scale * (count($unicode) + $n_spaces);
+            
+            if ($Vv03lfntnmczhar_spacing != 0) {
+                $Vhoifq2kocyt += $Vv03lfntnmczhar_spacing * $Vaqfpbb0q4el * (count($Vnuoybo0aifl) + $V1qcutcuyu3m_spaces);
             }
 
         } else {
-            // If CPDF is in Unicode mode but the current font does not support Unicode we need to convert the character set to Windows-1252
-            if ($this->isUnicode) {
-                $text = mb_convert_encoding($text, 'Windows-1252', 'UTF-8');
+            
+            if ($Vcki4t4qmybshis->isUnicode) {
+                $Vcki4t4qmybsext = mb_convert_encoding($Vcki4t4qmybsext, 'Windows-1252', 'UTF-8');
             }
 
-            $len = mb_strlen($text, 'Windows-1252');
+            $V1st2w4mm2ug = mb_strlen($Vcki4t4qmybsext, 'Windows-1252');
 
-            for ($i = 0; $i < $len; $i++) {
-                $c = $text[$i];
-                $char = isset($ord_cache[$c]) ? $ord_cache[$c] : ($ord_cache[$c] = ord($c));
+            for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $V1st2w4mm2ug; $V3xsptcgzss2++) {
+                $Vv03lfntnmcz = $Vcki4t4qmybsext[$V3xsptcgzss2];
+                $Vv03lfntnmczhar = isset($Vsz1vjk4tj2crd_cache[$Vv03lfntnmcz]) ? $Vsz1vjk4tj2crd_cache[$Vv03lfntnmcz] : ($Vsz1vjk4tj2crd_cache[$Vv03lfntnmcz] = ord($Vv03lfntnmcz));
 
-                // check if we have to replace character
-                if (isset($current_font['differences'][$char])) {
-                    $char = $current_font['differences'][$char];
+                
+                if (isset($Vv03lfntnmczurrent_font['differences'][$Vv03lfntnmczhar])) {
+                    $Vv03lfntnmczhar = $Vv03lfntnmczurrent_font['differences'][$Vv03lfntnmczhar];
                 }
 
-                if (isset($current_font['C'][$char])) {
-                    $char_width = $current_font['C'][$char];
+                if (isset($Vv03lfntnmczurrent_font['C'][$Vv03lfntnmczhar])) {
+                    $Vv03lfntnmczhar_width = $Vv03lfntnmczurrent_font['C'][$Vv03lfntnmczhar];
 
-                    // add the character width
-                    $w += $char_width;
+                    
+                    $Vhoifq2kocyt += $Vv03lfntnmczhar_width;
 
-                    // add additional padding for space
-                    if (isset($current_font['codeToName'][$char]) && $current_font['codeToName'][$char] === 'space') {  // Space
-                        $w += $word_spacing * $space_scale;
-                        $n_spaces++;
+                    
+                    if (isset($Vv03lfntnmczurrent_font['codeToName'][$Vv03lfntnmczhar]) && $Vv03lfntnmczurrent_font['codeToName'][$Vv03lfntnmczhar] === 'space') {  
+                        $Vhoifq2kocyt += $Vhoifq2kocytord_spacing * $Vaqfpbb0q4el;
+                        $V1qcutcuyu3m_spaces++;
                     }
                 }
             }
 
-            // add additionnal char spacing
-            if ($char_spacing != 0) {
-                $w += $char_spacing * $space_scale * ($len + $n_spaces);
+            
+            if ($Vv03lfntnmczhar_spacing != 0) {
+                $Vhoifq2kocyt += $Vv03lfntnmczhar_spacing * $Vaqfpbb0q4el * ($V1st2w4mm2ug + $V1qcutcuyu3m_spaces);
             }
         }
 
-        $this->currentTextState = $store_currentTextState;
-        $this->setCurrentFont();
+        $Vcki4t4qmybshis->currentTextState = $Vdaxiqttej1d;
+        $Vcki4t4qmybshis->setCurrentFont();
 
-        return $w * $size / 1000;
+        return $Vhoifq2kocyt * $Vlak25col1u3 / 1000;
     }
 
-    /**
-     * this will be called at a new page to return the state to what it was on the
-     * end of the previous page, before the stack was closed down
-     * This is to get around not being able to have open 'q' across pages
-     *
-     */
-    function saveState($pageEnd = 0)
+    
+    function saveState($VksopkgqixkyageEnd = 0)
     {
-        if ($pageEnd) {
-            // this will be called at a new page to return the state to what it was on the
-            // end of the previous page, before the stack was closed down
-            // This is to get around not being able to have open 'q' across pages
-            $opt = $this->stateStack[$pageEnd];
-            // ok to use this as stack starts numbering at 1
-            $this->setColor($opt['col'], true);
-            $this->setStrokeColor($opt['str'], true);
-            $this->addContent("\n" . $opt['lin']);
-            //    $this->currentLineStyle = $opt['lin'];
+        if ($VksopkgqixkyageEnd) {
+            
+            
+            
+            $Vsz1vjk4tj2cpt = $Vcki4t4qmybshis->stateStack[$VksopkgqixkyageEnd];
+            
+            $Vcki4t4qmybshis->setColor($Vsz1vjk4tj2cpt['col'], true);
+            $Vcki4t4qmybshis->setStrokeColor($Vsz1vjk4tj2cpt['str'], true);
+            $Vcki4t4qmybshis->addContent("\n" . $Vsz1vjk4tj2cpt['lin']);
+            
         } else {
-            $this->nStateStack++;
-            $this->stateStack[$this->nStateStack] = array(
-                'col' => $this->currentColor,
-                'str' => $this->currentStrokeColor,
-                'lin' => $this->currentLineStyle
+            $Vcki4t4qmybshis->nStateStack++;
+            $Vcki4t4qmybshis->stateStack[$Vcki4t4qmybshis->nStateStack] = array(
+                'col' => $Vcki4t4qmybshis->currentColor,
+                'str' => $Vcki4t4qmybshis->currentStrokeColor,
+                'lin' => $Vcki4t4qmybshis->currentLineStyle
             );
         }
 
-        $this->save();
+        $Vcki4t4qmybshis->save();
     }
 
-    /**
-     * restore a previously saved state
-     */
-    function restoreState($pageEnd = 0)
+    
+    function restoreState($VksopkgqixkyageEnd = 0)
     {
-        if (!$pageEnd) {
-            $n = $this->nStateStack;
-            $this->currentColor = $this->stateStack[$n]['col'];
-            $this->currentStrokeColor = $this->stateStack[$n]['str'];
-            $this->addContent("\n" . $this->stateStack[$n]['lin']);
-            $this->currentLineStyle = $this->stateStack[$n]['lin'];
-            $this->stateStack[$n] = null;
-            unset($this->stateStack[$n]);
-            $this->nStateStack--;
+        if (!$VksopkgqixkyageEnd) {
+            $V1qcutcuyu3m = $Vcki4t4qmybshis->nStateStack;
+            $Vcki4t4qmybshis->currentColor = $Vcki4t4qmybshis->stateStack[$V1qcutcuyu3m]['col'];
+            $Vcki4t4qmybshis->currentStrokeColor = $Vcki4t4qmybshis->stateStack[$V1qcutcuyu3m]['str'];
+            $Vcki4t4qmybshis->addContent("\n" . $Vcki4t4qmybshis->stateStack[$V1qcutcuyu3m]['lin']);
+            $Vcki4t4qmybshis->currentLineStyle = $Vcki4t4qmybshis->stateStack[$V1qcutcuyu3m]['lin'];
+            $Vcki4t4qmybshis->stateStack[$V1qcutcuyu3m] = null;
+            unset($Vcki4t4qmybshis->stateStack[$V1qcutcuyu3m]);
+            $Vcki4t4qmybshis->nStateStack--;
         }
 
-        $this->restore();
+        $Vcki4t4qmybshis->restore();
     }
 
-    /**
-     * make a loose object, the output will go into this object, until it is closed, then will revert to
-     * the current one.
-     * this object will not appear until it is included within a page.
-     * the function will return the object number
-     */
+    
     function openObject()
     {
-        $this->nStack++;
-        $this->stack[$this->nStack] = array('c' => $this->currentContents, 'p' => $this->currentPage);
-        // add a new object of the content type, to hold the data flow
-        $this->numObj++;
-        $this->o_contents($this->numObj, 'new');
-        $this->currentContents = $this->numObj;
-        $this->looseObjects[$this->numObj] = 1;
+        $Vcki4t4qmybshis->nStack++;
+        $Vcki4t4qmybshis->stack[$Vcki4t4qmybshis->nStack] = array('c' => $Vcki4t4qmybshis->currentContents, 'p' => $Vcki4t4qmybshis->currentPage);
+        
+        $Vcki4t4qmybshis->numObj++;
+        $Vcki4t4qmybshis->o_contents($Vcki4t4qmybshis->numObj, 'new');
+        $Vcki4t4qmybshis->currentContents = $Vcki4t4qmybshis->numObj;
+        $Vcki4t4qmybshis->looseObjects[$Vcki4t4qmybshis->numObj] = 1;
 
-        return $this->numObj;
+        return $Vcki4t4qmybshis->numObj;
     }
 
-    /**
-     * open an existing object for editing
-     */
-    function reopenObject($id)
+    
+    function reopenObject($Vkriocz2qep2)
     {
-        $this->nStack++;
-        $this->stack[$this->nStack] = array('c' => $this->currentContents, 'p' => $this->currentPage);
-        $this->currentContents = $id;
+        $Vcki4t4qmybshis->nStack++;
+        $Vcki4t4qmybshis->stack[$Vcki4t4qmybshis->nStack] = array('c' => $Vcki4t4qmybshis->currentContents, 'p' => $Vcki4t4qmybshis->currentPage);
+        $Vcki4t4qmybshis->currentContents = $Vkriocz2qep2;
 
-        // also if this object is the primary contents for a page, then set the current page to its parent
-        if (isset($this->objects[$id]['onPage'])) {
-            $this->currentPage = $this->objects[$id]['onPage'];
+        
+        if (isset($Vcki4t4qmybshis->objects[$Vkriocz2qep2]['onPage'])) {
+            $Vcki4t4qmybshis->currentPage = $Vcki4t4qmybshis->objects[$Vkriocz2qep2]['onPage'];
         }
     }
 
-    /**
-     * close an object
-     */
+    
     function closeObject()
     {
-        // close the object, as long as there was one open in the first place, which will be indicated by
-        // an objectId on the stack.
-        if ($this->nStack > 0) {
-            $this->currentContents = $this->stack[$this->nStack]['c'];
-            $this->currentPage = $this->stack[$this->nStack]['p'];
-            $this->nStack--;
-            // easier to probably not worry about removing the old entries, they will be overwritten
-            // if there are new ones.
+        
+        
+        if ($Vcki4t4qmybshis->nStack > 0) {
+            $Vcki4t4qmybshis->currentContents = $Vcki4t4qmybshis->stack[$Vcki4t4qmybshis->nStack]['c'];
+            $Vcki4t4qmybshis->currentPage = $Vcki4t4qmybshis->stack[$Vcki4t4qmybshis->nStack]['p'];
+            $Vcki4t4qmybshis->nStack--;
+            
+            
         }
     }
 
-    /**
-     * stop an object from appearing on pages from this point on
-     */
-    function stopObject($id)
+    
+    function stopObject($Vkriocz2qep2)
     {
-        // if an object has been appearing on pages up to now, then stop it, this page will
-        // be the last one that could contian it.
-        if (isset($this->addLooseObjects[$id])) {
-            $this->addLooseObjects[$id] = '';
+        
+        
+        if (isset($Vcki4t4qmybshis->addLooseObjects[$Vkriocz2qep2])) {
+            $Vcki4t4qmybshis->addLooseObjects[$Vkriocz2qep2] = '';
         }
     }
 
-    /**
-     * after an object has been created, it wil only show if it has been added, using this function.
-     */
-    function addObject($id, $options = 'add')
+    
+    function addObject($Vkriocz2qep2, $Vi43cktvy0zi = 'add')
     {
-        // add the specified object to the page
-        if (isset($this->looseObjects[$id]) && $this->currentContents != $id) {
-            // then it is a valid object, and it is not being added to itself
-            switch ($options) {
+        
+        if (isset($Vcki4t4qmybshis->looseObjects[$Vkriocz2qep2]) && $Vcki4t4qmybshis->currentContents != $Vkriocz2qep2) {
+            
+            switch ($Vi43cktvy0zi) {
                 case 'all':
-                    // then this object is to be added to this page (done in the next block) and
-                    // all future new pages.
-                    $this->addLooseObjects[$id] = 'all';
+                    
+                    
+                    $Vcki4t4qmybshis->addLooseObjects[$Vkriocz2qep2] = 'all';
 
                 case 'add':
-                    if (isset($this->objects[$this->currentContents]['onPage'])) {
-                        // then the destination contents is the primary for the page
-                        // (though this object is actually added to that page)
-                        $this->o_page($this->objects[$this->currentContents]['onPage'], 'content', $id);
+                    if (isset($Vcki4t4qmybshis->objects[$Vcki4t4qmybshis->currentContents]['onPage'])) {
+                        
+                        
+                        $Vcki4t4qmybshis->o_page($Vcki4t4qmybshis->objects[$Vcki4t4qmybshis->currentContents]['onPage'], 'content', $Vkriocz2qep2);
                     }
                     break;
 
                 case 'even':
-                    $this->addLooseObjects[$id] = 'even';
-                    $pageObjectId = $this->objects[$this->currentContents]['onPage'];
-                    if ($this->objects[$pageObjectId]['info']['pageNum'] % 2 == 0) {
-                        $this->addObject($id);
-                        // hacky huh :)
+                    $Vcki4t4qmybshis->addLooseObjects[$Vkriocz2qep2] = 'even';
+                    $VksopkgqixkyageObjectId = $Vcki4t4qmybshis->objects[$Vcki4t4qmybshis->currentContents]['onPage'];
+                    if ($Vcki4t4qmybshis->objects[$VksopkgqixkyageObjectId]['info']['pageNum'] % 2 == 0) {
+                        $Vcki4t4qmybshis->addObject($Vkriocz2qep2);
+                        
                     }
                     break;
 
                 case 'odd':
-                    $this->addLooseObjects[$id] = 'odd';
-                    $pageObjectId = $this->objects[$this->currentContents]['onPage'];
-                    if ($this->objects[$pageObjectId]['info']['pageNum'] % 2 == 1) {
-                        $this->addObject($id);
-                        // hacky huh :)
+                    $Vcki4t4qmybshis->addLooseObjects[$Vkriocz2qep2] = 'odd';
+                    $VksopkgqixkyageObjectId = $Vcki4t4qmybshis->objects[$Vcki4t4qmybshis->currentContents]['onPage'];
+                    if ($Vcki4t4qmybshis->objects[$VksopkgqixkyageObjectId]['info']['pageNum'] % 2 == 1) {
+                        $Vcki4t4qmybshis->addObject($Vkriocz2qep2);
+                        
                     }
                     break;
 
                 case 'next':
-                    $this->addLooseObjects[$id] = 'all';
+                    $Vcki4t4qmybshis->addLooseObjects[$Vkriocz2qep2] = 'all';
                     break;
 
                 case 'nexteven':
-                    $this->addLooseObjects[$id] = 'even';
+                    $Vcki4t4qmybshis->addLooseObjects[$Vkriocz2qep2] = 'even';
                     break;
 
                 case 'nextodd':
-                    $this->addLooseObjects[$id] = 'odd';
+                    $Vcki4t4qmybshis->addLooseObjects[$Vkriocz2qep2] = 'odd';
                     break;
             }
         }
     }
 
-    /**
-     * return a storable representation of a specific object
-     */
-    function serializeObject($id)
+    
+    function serializeObject($Vkriocz2qep2)
     {
-        if (array_key_exists($id, $this->objects)) {
-            return serialize($this->objects[$id]);
+        if (array_key_exists($Vkriocz2qep2, $Vcki4t4qmybshis->objects)) {
+            return serialize($Vcki4t4qmybshis->objects[$Vkriocz2qep2]);
         }
     }
 
-    /**
-     * restore an object from its stored representation.  returns its new object id.
-     */
-    function restoreSerializedObject($obj)
+    
+    function restoreSerializedObject($Vsz1vjk4tj2cbj)
     {
-        $obj_id = $this->openObject();
-        $this->objects[$obj_id] = unserialize($obj);
-        $this->closeObject();
+        $Vsz1vjk4tj2cbj_id = $Vcki4t4qmybshis->openObject();
+        $Vcki4t4qmybshis->objects[$Vsz1vjk4tj2cbj_id] = unserialize($Vsz1vjk4tj2cbj);
+        $Vcki4t4qmybshis->closeObject();
 
-        return $obj_id;
+        return $Vsz1vjk4tj2cbj_id;
     }
 
-    /**
-     * add content to the documents info object
-     */
-    function addInfo($label, $value = 0)
+    
+    function addInfo($V4qeqspuux02, $Vpszt12nvbaualue = 0)
     {
-        // this will only work if the label is one of the valid ones.
-        // modify this so that arrays can be passed as well.
-        // if $label is an array then assume that it is key => value pairs
-        // else assume that they are both scalar, anything else will probably error
-        if (is_array($label)) {
-            foreach ($label as $l => $v) {
-                $this->o_info($this->infoObject, $l, $v);
+        
+        
+        
+        
+        if (is_array($V4qeqspuux02)) {
+            foreach ($V4qeqspuux02 as $V3nb02w01gr5 => $Vpszt12nvbau) {
+                $Vcki4t4qmybshis->o_info($Vcki4t4qmybshis->infoObject, $V3nb02w01gr5, $Vpszt12nvbau);
             }
         } else {
-            $this->o_info($this->infoObject, $label, $value);
+            $Vcki4t4qmybshis->o_info($Vcki4t4qmybshis->infoObject, $V4qeqspuux02, $Vpszt12nvbaualue);
         }
     }
 
-    /**
-     * set the viewer preferences of the document, it is up to the browser to obey these.
-     */
-    function setPreferences($label, $value = 0)
+    
+    function setPreferences($V4qeqspuux02, $Vpszt12nvbaualue = 0)
     {
-        // this will only work if the label is one of the valid ones.
-        if (is_array($label)) {
-            foreach ($label as $l => $v) {
-                $this->o_catalog($this->catalogId, 'viewerPreferences', array($l => $v));
+        
+        if (is_array($V4qeqspuux02)) {
+            foreach ($V4qeqspuux02 as $V3nb02w01gr5 => $Vpszt12nvbau) {
+                $Vcki4t4qmybshis->o_catalog($Vcki4t4qmybshis->catalogId, 'viewerPreferences', array($V3nb02w01gr5 => $Vpszt12nvbau));
             }
         } else {
-            $this->o_catalog($this->catalogId, 'viewerPreferences', array($label => $value));
+            $Vcki4t4qmybshis->o_catalog($Vcki4t4qmybshis->catalogId, 'viewerPreferences', array($V4qeqspuux02 => $Vpszt12nvbaualue));
         }
     }
 
-    /**
-     * extract an integer from a position in a byte stream
-     */
-    private function getBytes(&$data, $pos, $num)
+    
+    private function getBytes(&$Vb3z3shnu1vn, $Vksopkgqixkyos, $Vxnixw2qni35)
     {
-        // return the integer represented by $num bytes from $pos within $data
-        $ret = 0;
-        for ($i = 0; $i < $num; $i++) {
-            $ret *= 256;
-            $ret += ord($data[$pos + $i]);
+        
+        $Vc00k54nbbvf = 0;
+        for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $Vxnixw2qni35; $V3xsptcgzss2++) {
+            $Vc00k54nbbvf *= 256;
+            $Vc00k54nbbvf += ord($Vb3z3shnu1vn[$Vksopkgqixkyos + $V3xsptcgzss2]);
         }
 
-        return $ret;
+        return $Vc00k54nbbvf;
     }
 
-    /**
-     * Check if image already added to pdf image directory.
-     * If yes, need not to create again (pass empty data)
-     */
-    function image_iscached($imgname)
+    
+    function image_iscached($V3xsptcgzss2mgname)
     {
-        return isset($this->imagelist[$imgname]);
+        return isset($Vcki4t4qmybshis->imagelist[$V3xsptcgzss2mgname]);
     }
 
-    /**
-     * add a PNG image into the document, from a GD object
-     * this should work with remote files
-     *
-     * @param string   $file    The PNG file
-     * @param float    $x       X position
-     * @param float    $y       Y position
-     * @param float    $w       Width
-     * @param float    $h       Height
-     * @param resource $img     A GD resource
-     * @param bool     $is_mask true if the image is a mask
-     * @param bool     $mask    true if the image is masked
-     */
-    function addImagePng($file, $x, $y, $w = 0.0, $h = 0.0, &$img, $is_mask = false, $mask = null)
+    
+    function addImagePng($Vtkhurg4sowd, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt = 0.0, $Vjlmjalejjxa = 0.0, &$V3xsptcgzss2mg, $V3xsptcgzss2s_mask = false, $Ve1y5aych2ii = null)
     {
         if (!function_exists("imagepng")) {
             throw new Exception("The PHP GD extension is required, but is not installed.");
         }
 
-        //if already cached, need not to read again
-        if (isset($this->imagelist[$file])) {
-            $data = null;
+        
+        if (isset($Vcki4t4qmybshis->imagelist[$Vtkhurg4sowd])) {
+            $Vb3z3shnu1vn = null;
         } else {
-            // Example for transparency handling on new image. Retain for current image
-            // $tIndex = imagecolortransparent($img);
-            // if ($tIndex > 0) {
-            //   $tColor    = imagecolorsforindex($img, $tIndex);
-            //   $new_tIndex    = imagecolorallocate($new_img, $tColor['red'], $tColor['green'], $tColor['blue']);
-            //   imagefill($new_img, 0, 0, $new_tIndex);
-            //   imagecolortransparent($new_img, $new_tIndex);
-            // }
-            // blending mode (literal/blending) on drawing into current image. not relevant when not saved or not drawn
-            //imagealphablending($img, true);
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
-            //default, but explicitely set to ensure pdf compatibility
-            imagesavealpha($img, false/*!$is_mask && !$mask*/);
+            
+            imagesavealpha($V3xsptcgzss2mg, false);
 
-            $error = 0;
+            $V4eft4yxa3zs = 0;
 
             ob_start();
-            @imagepng($img);
-            $data = ob_get_clean();
+            @imagepng($V3xsptcgzss2mg);
+            $Vb3z3shnu1vn = ob_get_clean();
 
-            if ($data == '') {
-                $error = 1;
-                $errormsg = 'trouble writing file from GD';
+            if ($Vb3z3shnu1vn == '') {
+                $V4eft4yxa3zs = 1;
+                $V4eft4yxa3zsmsg = 'trouble writing file from GD';
             }
 
-            if ($error) {
-                $this->addMessage('PNG error - (' . $file . ') ' . $errormsg);
+            if ($V4eft4yxa3zs) {
+                $Vcki4t4qmybshis->addMessage('PNG error - (' . $Vtkhurg4sowd . ') ' . $V4eft4yxa3zsmsg);
 
                 return;
             }
-        }  //End isset($this->imagelist[$file]) (png Duplicate removal)
+        }  
 
-        $this->addPngFromBuf($file, $x, $y, $w, $h, $data, $is_mask, $mask);
+        $Vcki4t4qmybshis->addPngFromBuf($Vtkhurg4sowd, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vb3z3shnu1vn, $V3xsptcgzss2s_mask, $Ve1y5aych2ii);
     }
 
-    protected function addImagePngAlpha($file, $x, $y, $w, $h, $byte)
+    protected function addImagePngAlpha($Vtkhurg4sowd, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vbz3vmbr1h2vyte)
     {
-        // generate images
-        $img = imagecreatefrompng($file);
+        
+        $V3xsptcgzss2mg = imagecreatefrompng($Vtkhurg4sowd);
 
-        if ($img === false) {
+        if ($V3xsptcgzss2mg === false) {
             return;
         }
 
-        // FIXME The pixel transformation doesn't work well with 8bit PNGs
-        $eight_bit = ($byte & 4) !== 4;
+        
+        $Vvljiohyt4jf = ($Vbz3vmbr1h2vyte & 4) !== 4;
 
-        $wpx = imagesx($img);
-        $hpx = imagesy($img);
+        $Vhoifq2kocytpx = imagesx($V3xsptcgzss2mg);
+        $Vjlmjalejjxapx = imagesy($V3xsptcgzss2mg);
 
-        imagesavealpha($img, false);
+        imagesavealpha($V3xsptcgzss2mg, false);
 
-        // create temp alpha file
-        $tempfile_alpha = tempnam($this->tmp, "cpdf_img_");
-        @unlink($tempfile_alpha);
-        $tempfile_alpha = "$tempfile_alpha.png";
+        
+        $Vcki4t4qmybsempfile_alpha = tempnam($Vcki4t4qmybshis->tmp, "cpdf_img_");
+        @unlink($Vcki4t4qmybsempfile_alpha);
+        $Vcki4t4qmybsempfile_alpha = "$Vcki4t4qmybsempfile_alpha.png";
 
-        // create temp plain file
-        $tempfile_plain = tempnam($this->tmp, "cpdf_img_");
-        @unlink($tempfile_plain);
-        $tempfile_plain = "$tempfile_plain.png";
+        
+        $Vcki4t4qmybsempfile_plain = tempnam($Vcki4t4qmybshis->tmp, "cpdf_img_");
+        @unlink($Vcki4t4qmybsempfile_plain);
+        $Vcki4t4qmybsempfile_plain = "$Vcki4t4qmybsempfile_plain.png";
 
-        $imgalpha = imagecreate($wpx, $hpx);
-        imagesavealpha($imgalpha, false);
+        $V3xsptcgzss2mgalpha = imagecreate($Vhoifq2kocytpx, $Vjlmjalejjxapx);
+        imagesavealpha($V3xsptcgzss2mgalpha, false);
 
-        // generate gray scale palette (0 -> 255)
-        for ($c = 0; $c < 256; ++$c) {
-            imagecolorallocate($imgalpha, $c, $c, $c);
+        
+        for ($Vv03lfntnmcz = 0; $Vv03lfntnmcz < 256; ++$Vv03lfntnmcz) {
+            imagecolorallocate($V3xsptcgzss2mgalpha, $Vv03lfntnmcz, $Vv03lfntnmcz, $Vv03lfntnmcz);
         }
 
-        // Use PECL gmagick + Graphics Magic to process transparent PNG images
+        
         if (extension_loaded("gmagick")) {
-            $gmagick = new Gmagick($file);
-            $gmagick->setimageformat('png');
+            $Vamrolmtkq3q = new Gmagick($Vtkhurg4sowd);
+            $Vamrolmtkq3q->setimageformat('png');
 
-            // Get opacity channel (negative of alpha channel)
-            $alpha_channel_neg = clone $gmagick;
-            $alpha_channel_neg->separateimagechannel(Gmagick::CHANNEL_OPACITY);
+            
+            $Vrr3orqjztc2lpha_channel_neg = clone $Vamrolmtkq3q;
+            $Vrr3orqjztc2lpha_channel_neg->separateimagechannel(Gmagick::CHANNEL_OPACITY);
 
-            // Negate opacity channel
-            $alpha_channel = new Gmagick();
-            $alpha_channel->newimage($wpx, $hpx, "#FFFFFF", "png");
-            $alpha_channel->compositeimage($alpha_channel_neg, Gmagick::COMPOSITE_DIFFERENCE, 0, 0);
-            $alpha_channel->separateimagechannel(Gmagick::CHANNEL_RED);
-            $alpha_channel->writeimage($tempfile_alpha);
+            
+            $Vrr3orqjztc2lpha_channel = new Gmagick();
+            $Vrr3orqjztc2lpha_channel->newimage($Vhoifq2kocytpx, $Vjlmjalejjxapx, "#FFFFFF", "png");
+            $Vrr3orqjztc2lpha_channel->compositeimage($Vrr3orqjztc2lpha_channel_neg, Gmagick::COMPOSITE_DIFFERENCE, 0, 0);
+            $Vrr3orqjztc2lpha_channel->separateimagechannel(Gmagick::CHANNEL_RED);
+            $Vrr3orqjztc2lpha_channel->writeimage($Vcki4t4qmybsempfile_alpha);
 
-            // Cast to 8bit+palette
-            $imgalpha_ = imagecreatefrompng($tempfile_alpha);
-            imagecopy($imgalpha, $imgalpha_, 0, 0, 0, 0, $wpx, $hpx);
-            imagedestroy($imgalpha_);
-            imagepng($imgalpha, $tempfile_alpha);
+            
+            $V3xsptcgzss2mgalpha_ = imagecreatefrompng($Vcki4t4qmybsempfile_alpha);
+            imagecopy($V3xsptcgzss2mgalpha, $V3xsptcgzss2mgalpha_, 0, 0, 0, 0, $Vhoifq2kocytpx, $Vjlmjalejjxapx);
+            imagedestroy($V3xsptcgzss2mgalpha_);
+            imagepng($V3xsptcgzss2mgalpha, $Vcki4t4qmybsempfile_alpha);
 
-            // Make opaque image
-            $color_channels = new Gmagick();
-            $color_channels->newimage($wpx, $hpx, "#FFFFFF", "png");
-            $color_channels->compositeimage($gmagick, Gmagick::COMPOSITE_COPYRED, 0, 0);
-            $color_channels->compositeimage($gmagick, Gmagick::COMPOSITE_COPYGREEN, 0, 0);
-            $color_channels->compositeimage($gmagick, Gmagick::COMPOSITE_COPYBLUE, 0, 0);
-            $color_channels->writeimage($tempfile_plain);
+            
+            $Vv03lfntnmczolor_channels = new Gmagick();
+            $Vv03lfntnmczolor_channels->newimage($Vhoifq2kocytpx, $Vjlmjalejjxapx, "#FFFFFF", "png");
+            $Vv03lfntnmczolor_channels->compositeimage($Vamrolmtkq3q, Gmagick::COMPOSITE_COPYRED, 0, 0);
+            $Vv03lfntnmczolor_channels->compositeimage($Vamrolmtkq3q, Gmagick::COMPOSITE_COPYGREEN, 0, 0);
+            $Vv03lfntnmczolor_channels->compositeimage($Vamrolmtkq3q, Gmagick::COMPOSITE_COPYBLUE, 0, 0);
+            $Vv03lfntnmczolor_channels->writeimage($Vcki4t4qmybsempfile_plain);
 
-            $imgplain = imagecreatefrompng($tempfile_plain);
-        } // Use PECL imagick + ImageMagic to process transparent PNG images
+            $V3xsptcgzss2mgplain = imagecreatefrompng($Vcki4t4qmybsempfile_plain);
+        } 
         elseif (extension_loaded("imagick")) {
-            // Native cloning was added to pecl-imagick in svn commit 263814
-            // the first version containing it was 3.0.1RC1
-            static $imagickClonable = null;
-            if ($imagickClonable === null) {
-                $imagickClonable = version_compare(phpversion('imagick'), '3.0.1rc1') > 0;
+            
+            
+            static $V3xsptcgzss2magickClonable = null;
+            if ($V3xsptcgzss2magickClonable === null) {
+                $V3xsptcgzss2magickClonable = version_compare(phpversion('imagick'), '3.0.1rc1') > 0;
             }
 
-            $imagick = new Imagick($file);
-            $imagick->setFormat('png');
+            $V3xsptcgzss2magick = new Imagick($Vtkhurg4sowd);
+            $V3xsptcgzss2magick->setFormat('png');
 
-            // Get opacity channel (negative of alpha channel)
-            $alpha_channel = $imagickClonable ? clone $imagick : $imagick->clone();
-            $alpha_channel->separateImageChannel(Imagick::CHANNEL_ALPHA);
-            $alpha_channel->negateImage(true);
-            $alpha_channel->writeImage($tempfile_alpha);
+            
+            $Vrr3orqjztc2lpha_channel = $V3xsptcgzss2magickClonable ? clone $V3xsptcgzss2magick : $V3xsptcgzss2magick->clone();
+            $Vrr3orqjztc2lpha_channel->separateImageChannel(Imagick::CHANNEL_ALPHA);
+            $Vrr3orqjztc2lpha_channel->negateImage(true);
+            $Vrr3orqjztc2lpha_channel->writeImage($Vcki4t4qmybsempfile_alpha);
 
-            // Cast to 8bit+palette
-            $imgalpha_ = imagecreatefrompng($tempfile_alpha);
-            imagecopy($imgalpha, $imgalpha_, 0, 0, 0, 0, $wpx, $hpx);
-            imagedestroy($imgalpha_);
-            imagepng($imgalpha, $tempfile_alpha);
+            
+            $V3xsptcgzss2mgalpha_ = imagecreatefrompng($Vcki4t4qmybsempfile_alpha);
+            imagecopy($V3xsptcgzss2mgalpha, $V3xsptcgzss2mgalpha_, 0, 0, 0, 0, $Vhoifq2kocytpx, $Vjlmjalejjxapx);
+            imagedestroy($V3xsptcgzss2mgalpha_);
+            imagepng($V3xsptcgzss2mgalpha, $Vcki4t4qmybsempfile_alpha);
 
-            // Make opaque image
-            $color_channels = new Imagick();
-            $color_channels->newImage($wpx, $hpx, "#FFFFFF", "png");
-            $color_channels->compositeImage($imagick, Imagick::COMPOSITE_COPYRED, 0, 0);
-            $color_channels->compositeImage($imagick, Imagick::COMPOSITE_COPYGREEN, 0, 0);
-            $color_channels->compositeImage($imagick, Imagick::COMPOSITE_COPYBLUE, 0, 0);
-            $color_channels->writeImage($tempfile_plain);
+            
+            $Vv03lfntnmczolor_channels = new Imagick();
+            $Vv03lfntnmczolor_channels->newImage($Vhoifq2kocytpx, $Vjlmjalejjxapx, "#FFFFFF", "png");
+            $Vv03lfntnmczolor_channels->compositeImage($V3xsptcgzss2magick, Imagick::COMPOSITE_COPYRED, 0, 0);
+            $Vv03lfntnmczolor_channels->compositeImage($V3xsptcgzss2magick, Imagick::COMPOSITE_COPYGREEN, 0, 0);
+            $Vv03lfntnmczolor_channels->compositeImage($V3xsptcgzss2magick, Imagick::COMPOSITE_COPYBLUE, 0, 0);
+            $Vv03lfntnmczolor_channels->writeImage($Vcki4t4qmybsempfile_plain);
 
-            $imgplain = imagecreatefrompng($tempfile_plain);
+            $V3xsptcgzss2mgplain = imagecreatefrompng($Vcki4t4qmybsempfile_plain);
         } else {
-            // allocated colors cache
-            $allocated_colors = array();
+            
+            $Vrr3orqjztc2llocated_colors = array();
 
-            // extract alpha channel
-            for ($xpx = 0; $xpx < $wpx; ++$xpx) {
-                for ($ypx = 0; $ypx < $hpx; ++$ypx) {
-                    $color = imagecolorat($img, $xpx, $ypx);
-                    $col = imagecolorsforindex($img, $color);
-                    $alpha = $col['alpha'];
+            
+            for ($Vs4gloy23a1dpx = 0; $Vs4gloy23a1dpx < $Vhoifq2kocytpx; ++$Vs4gloy23a1dpx) {
+                for ($Vopgub02o3q2px = 0; $Vopgub02o3q2px < $Vjlmjalejjxapx; ++$Vopgub02o3q2px) {
+                    $Vv03lfntnmczolor = imagecolorat($V3xsptcgzss2mg, $Vs4gloy23a1dpx, $Vopgub02o3q2px);
+                    $Vv03lfntnmczol = imagecolorsforindex($V3xsptcgzss2mg, $Vv03lfntnmczolor);
+                    $Vrr3orqjztc2lpha = $Vv03lfntnmczol['alpha'];
 
-                    if ($eight_bit) {
-                        // with gamma correction
-                        $gammacorr = 2.2;
-                        $pixel = pow((((127 - $alpha) * 255 / 127) / 255), $gammacorr) * 255;
+                    if ($Vvljiohyt4jf) {
+                        
+                        $Vgskqx0pbz4f = 2.2;
+                        $Vksopkgqixkyixel = pow((((127 - $Vrr3orqjztc2lpha) * 255 / 127) / 255), $Vgskqx0pbz4f) * 255;
                     } else {
-                        // without gamma correction
-                        $pixel = (127 - $alpha) * 2;
+                        
+                        $Vksopkgqixkyixel = (127 - $Vrr3orqjztc2lpha) * 2;
 
-                        $key = $col['red'] . $col['green'] . $col['blue'];
+                        $Vgu5dsd35kdpey = $Vv03lfntnmczol['red'] . $Vv03lfntnmczol['green'] . $Vv03lfntnmczol['blue'];
 
-                        if (!isset($allocated_colors[$key])) {
-                            $pixel_img = imagecolorallocate($img, $col['red'], $col['green'], $col['blue']);
-                            $allocated_colors[$key] = $pixel_img;
+                        if (!isset($Vrr3orqjztc2llocated_colors[$Vgu5dsd35kdpey])) {
+                            $Vksopkgqixkyixel_img = imagecolorallocate($V3xsptcgzss2mg, $Vv03lfntnmczol['red'], $Vv03lfntnmczol['green'], $Vv03lfntnmczol['blue']);
+                            $Vrr3orqjztc2llocated_colors[$Vgu5dsd35kdpey] = $Vksopkgqixkyixel_img;
                         } else {
-                            $pixel_img = $allocated_colors[$key];
+                            $Vksopkgqixkyixel_img = $Vrr3orqjztc2llocated_colors[$Vgu5dsd35kdpey];
                         }
 
-                        imagesetpixel($img, $xpx, $ypx, $pixel_img);
+                        imagesetpixel($V3xsptcgzss2mg, $Vs4gloy23a1dpx, $Vopgub02o3q2px, $Vksopkgqixkyixel_img);
                     }
 
-                    imagesetpixel($imgalpha, $xpx, $ypx, $pixel);
+                    imagesetpixel($V3xsptcgzss2mgalpha, $Vs4gloy23a1dpx, $Vopgub02o3q2px, $Vksopkgqixkyixel);
                 }
             }
 
-            // extract image without alpha channel
-            $imgplain = imagecreatetruecolor($wpx, $hpx);
-            imagecopy($imgplain, $img, 0, 0, 0, 0, $wpx, $hpx);
-            imagedestroy($img);
+            
+            $V3xsptcgzss2mgplain = imagecreatetruecolor($Vhoifq2kocytpx, $Vjlmjalejjxapx);
+            imagecopy($V3xsptcgzss2mgplain, $V3xsptcgzss2mg, 0, 0, 0, 0, $Vhoifq2kocytpx, $Vjlmjalejjxapx);
+            imagedestroy($V3xsptcgzss2mg);
 
-            imagepng($imgalpha, $tempfile_alpha);
-            imagepng($imgplain, $tempfile_plain);
+            imagepng($V3xsptcgzss2mgalpha, $Vcki4t4qmybsempfile_alpha);
+            imagepng($V3xsptcgzss2mgplain, $Vcki4t4qmybsempfile_plain);
         }
 
-        // embed mask image
-        $this->addImagePng($tempfile_alpha, $x, $y, $w, $h, $imgalpha, true);
-        imagedestroy($imgalpha);
+        
+        $Vcki4t4qmybshis->addImagePng($Vcki4t4qmybsempfile_alpha, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $V3xsptcgzss2mgalpha, true);
+        imagedestroy($V3xsptcgzss2mgalpha);
 
-        // embed image, masked with previously embedded mask
-        $this->addImagePng($tempfile_plain, $x, $y, $w, $h, $imgplain, false, true);
-        imagedestroy($imgplain);
+        
+        $Vcki4t4qmybshis->addImagePng($Vcki4t4qmybsempfile_plain, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $V3xsptcgzss2mgplain, false, true);
+        imagedestroy($V3xsptcgzss2mgplain);
 
-        // remove temp files
-        unlink($tempfile_alpha);
-        unlink($tempfile_plain);
+        
+        unlink($Vcki4t4qmybsempfile_alpha);
+        unlink($Vcki4t4qmybsempfile_plain);
     }
 
-    /**
-     * add a PNG image into the document, from a file
-     * this should work with remote files
-     */
-    function addPngFromFile($file, $x, $y, $w = 0, $h = 0)
+    
+    function addPngFromFile($Vtkhurg4sowd, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt = 0, $Vjlmjalejjxa = 0)
     {
         if (!function_exists("imagecreatefrompng")) {
             throw new Exception("The PHP GD extension is required, but is not installed.");
         }
 
-        //if already cached, need not to read again
-        if (isset($this->imagelist[$file])) {
-            $img = null;
+        
+        if (isset($Vcki4t4qmybshis->imagelist[$Vtkhurg4sowd])) {
+            $V3xsptcgzss2mg = null;
         } else {
-            $info = file_get_contents($file, false, null, 24, 5);
-            $meta = unpack("CbitDepth/CcolorType/CcompressionMethod/CfilterMethod/CinterlaceMethod", $info);
-            $bit_depth = $meta["bitDepth"];
-            $color_type = $meta["colorType"];
+            $V3xsptcgzss2nfo = file_get_contents($Vtkhurg4sowd, false, null, 24, 5);
+            $V1phfyh5exyy = unpack("CbitDepth/CcolorType/CcompressionMethod/CfilterMethod/CinterlaceMethod", $V3xsptcgzss2nfo);
+            $Vbz3vmbr1h2vit_depth = $V1phfyh5exyy["bitDepth"];
+            $Vv03lfntnmczolor_type = $V1phfyh5exyy["colorType"];
 
-            // http://www.w3.org/TR/PNG/#11IHDR
-            // 3 => indexed
-            // 4 => greyscale with alpha
-            // 6 => fullcolor with alpha
-            $is_alpha = in_array($color_type, array(4, 6)) || ($color_type == 3 && $bit_depth != 4);
+            
+            
+            
+            
+            $V3xsptcgzss2s_alpha = in_array($Vv03lfntnmczolor_type, array(4, 6)) || ($Vv03lfntnmczolor_type == 3 && $Vbz3vmbr1h2vit_depth != 4);
 
-            if ($is_alpha) { // exclude grayscale alpha
-                return $this->addImagePngAlpha($file, $x, $y, $w, $h, $color_type);
+            if ($V3xsptcgzss2s_alpha) { 
+                return $Vcki4t4qmybshis->addImagePngAlpha($Vtkhurg4sowd, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vv03lfntnmczolor_type);
             }
 
-            //png files typically contain an alpha channel.
-            //pdf file format or class.pdf does not support alpha blending.
-            //on alpha blended images, more transparent areas have a color near black.
-            //This appears in the result on not storing the alpha channel.
-            //Correct would be the box background image or its parent when transparent.
-            //But this would make the image dependent on the background.
-            //Therefore create an image with white background and copy in
-            //A more natural background than black is white.
-            //Therefore create an empty image with white background and merge the
-            //image in with alpha blending.
-            $imgtmp = @imagecreatefrompng($file);
-            if (!$imgtmp) {
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            $V3xsptcgzss2mgtmp = @imagecreatefrompng($Vtkhurg4sowd);
+            if (!$V3xsptcgzss2mgtmp) {
                 return;
             }
-            $sx = imagesx($imgtmp);
-            $sy = imagesy($imgtmp);
-            $img = imagecreatetruecolor($sx, $sy);
-            imagealphablending($img, true);
+            $Vjz2piyfb2ut = imagesx($V3xsptcgzss2mgtmp);
+            $Vskekw1ijrky = imagesy($V3xsptcgzss2mgtmp);
+            $V3xsptcgzss2mg = imagecreatetruecolor($Vjz2piyfb2ut, $Vskekw1ijrky);
+            imagealphablending($V3xsptcgzss2mg, true);
 
-            // @todo is it still needed ??
-            $ti = imagecolortransparent($imgtmp);
-            if ($ti >= 0) {
-                $tc = imagecolorsforindex($imgtmp, $ti);
-                $ti = imagecolorallocate($img, $tc['red'], $tc['green'], $tc['blue']);
-                imagefill($img, 0, 0, $ti);
-                imagecolortransparent($img, $ti);
+            
+            $Vcki4t4qmybsi = imagecolortransparent($V3xsptcgzss2mgtmp);
+            if ($Vcki4t4qmybsi >= 0) {
+                $Vcki4t4qmybsc = imagecolorsforindex($V3xsptcgzss2mgtmp, $Vcki4t4qmybsi);
+                $Vcki4t4qmybsi = imagecolorallocate($V3xsptcgzss2mg, $Vcki4t4qmybsc['red'], $Vcki4t4qmybsc['green'], $Vcki4t4qmybsc['blue']);
+                imagefill($V3xsptcgzss2mg, 0, 0, $Vcki4t4qmybsi);
+                imagecolortransparent($V3xsptcgzss2mg, $Vcki4t4qmybsi);
             } else {
-                imagefill($img, 1, 1, imagecolorallocate($img, 255, 255, 255));
+                imagefill($V3xsptcgzss2mg, 1, 1, imagecolorallocate($V3xsptcgzss2mg, 255, 255, 255));
             }
 
-            imagecopy($img, $imgtmp, 0, 0, 0, 0, $sx, $sy);
-            imagedestroy($imgtmp);
+            imagecopy($V3xsptcgzss2mg, $V3xsptcgzss2mgtmp, 0, 0, 0, 0, $Vjz2piyfb2ut, $Vskekw1ijrky);
+            imagedestroy($V3xsptcgzss2mgtmp);
         }
-        $this->addImagePng($file, $x, $y, $w, $h, $img);
+        $Vcki4t4qmybshis->addImagePng($Vtkhurg4sowd, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $V3xsptcgzss2mg);
 
-        if ($img) {
-            imagedestroy($img);
+        if ($V3xsptcgzss2mg) {
+            imagedestroy($V3xsptcgzss2mg);
         }
     }
 
-    /**
-     * add a PNG image into the document, from a memory buffer of the file
-     */
-    function addPngFromBuf($file, $x, $y, $w = 0.0, $h = 0.0, &$data, $is_mask = false, $mask = null)
+    
+    function addPngFromBuf($Vtkhurg4sowd, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt = 0.0, $Vjlmjalejjxa = 0.0, &$Vb3z3shnu1vn, $V3xsptcgzss2s_mask = false, $Ve1y5aych2ii = null)
     {
-        if (isset($this->imagelist[$file])) {
-            $data = null;
-            $info['width'] = $this->imagelist[$file]['w'];
-            $info['height'] = $this->imagelist[$file]['h'];
-            $label = $this->imagelist[$file]['label'];
+        if (isset($Vcki4t4qmybshis->imagelist[$Vtkhurg4sowd])) {
+            $Vb3z3shnu1vn = null;
+            $V3xsptcgzss2nfo['width'] = $Vcki4t4qmybshis->imagelist[$Vtkhurg4sowd]['w'];
+            $V3xsptcgzss2nfo['height'] = $Vcki4t4qmybshis->imagelist[$Vtkhurg4sowd]['h'];
+            $V4qeqspuux02 = $Vcki4t4qmybshis->imagelist[$Vtkhurg4sowd]['label'];
         } else {
-            if ($data == null) {
-                $this->addMessage('addPngFromBuf error - data not present!');
+            if ($Vb3z3shnu1vn == null) {
+                $Vcki4t4qmybshis->addMessage('addPngFromBuf error - data not present!');
 
                 return;
             }
 
-            $error = 0;
+            $V4eft4yxa3zs = 0;
 
-            if (!$error) {
-                $header = chr(137) . chr(80) . chr(78) . chr(71) . chr(13) . chr(10) . chr(26) . chr(10);
+            if (!$V4eft4yxa3zs) {
+                $Vjlmjalejjxaeader = chr(137) . chr(80) . chr(78) . chr(71) . chr(13) . chr(10) . chr(26) . chr(10);
 
-                if (mb_substr($data, 0, 8, '8bit') != $header) {
-                    $error = 1;
+                if (mb_substr($Vb3z3shnu1vn, 0, 8, '8bit') != $Vjlmjalejjxaeader) {
+                    $V4eft4yxa3zs = 1;
 
-                    $errormsg = 'this file does not have a valid header';
+                    $V4eft4yxa3zsmsg = 'this file does not have a valid header';
                 }
             }
 
-            if (!$error) {
-                // set pointer
-                $p = 8;
-                $len = mb_strlen($data, '8bit');
+            if (!$V4eft4yxa3zs) {
+                
+                $Vksopkgqixky = 8;
+                $V1st2w4mm2ug = mb_strlen($Vb3z3shnu1vn, '8bit');
 
-                // cycle through the file, identifying chunks
-                $haveHeader = 0;
-                $info = array();
-                $idata = '';
-                $pdata = '';
+                
+                $VjlmjalejjxaaveHeader = 0;
+                $V3xsptcgzss2nfo = array();
+                $Vkriocz2qep2ata = '';
+                $Vksopkgqixkydata = '';
 
-                while ($p < $len) {
-                    $chunkLen = $this->getBytes($data, $p, 4);
-                    $chunkType = mb_substr($data, $p + 4, 4, '8bit');
+                while ($Vksopkgqixky < $V1st2w4mm2ug) {
+                    $Vv03lfntnmczhunkLen = $Vcki4t4qmybshis->getBytes($Vb3z3shnu1vn, $Vksopkgqixky, 4);
+                    $Vv03lfntnmczhunkType = mb_substr($Vb3z3shnu1vn, $Vksopkgqixky + 4, 4, '8bit');
 
-                    switch ($chunkType) {
+                    switch ($Vv03lfntnmczhunkType) {
                         case 'IHDR':
-                            // this is where all the file information comes from
-                            $info['width'] = $this->getBytes($data, $p + 8, 4);
-                            $info['height'] = $this->getBytes($data, $p + 12, 4);
-                            $info['bitDepth'] = ord($data[$p + 16]);
-                            $info['colorType'] = ord($data[$p + 17]);
-                            $info['compressionMethod'] = ord($data[$p + 18]);
-                            $info['filterMethod'] = ord($data[$p + 19]);
-                            $info['interlaceMethod'] = ord($data[$p + 20]);
+                            
+                            $V3xsptcgzss2nfo['width'] = $Vcki4t4qmybshis->getBytes($Vb3z3shnu1vn, $Vksopkgqixky + 8, 4);
+                            $V3xsptcgzss2nfo['height'] = $Vcki4t4qmybshis->getBytes($Vb3z3shnu1vn, $Vksopkgqixky + 12, 4);
+                            $V3xsptcgzss2nfo['bitDepth'] = ord($Vb3z3shnu1vn[$Vksopkgqixky + 16]);
+                            $V3xsptcgzss2nfo['colorType'] = ord($Vb3z3shnu1vn[$Vksopkgqixky + 17]);
+                            $V3xsptcgzss2nfo['compressionMethod'] = ord($Vb3z3shnu1vn[$Vksopkgqixky + 18]);
+                            $V3xsptcgzss2nfo['filterMethod'] = ord($Vb3z3shnu1vn[$Vksopkgqixky + 19]);
+                            $V3xsptcgzss2nfo['interlaceMethod'] = ord($Vb3z3shnu1vn[$Vksopkgqixky + 20]);
 
-                            //print_r($info);
-                            $haveHeader = 1;
-                            if ($info['compressionMethod'] != 0) {
-                                $error = 1;
+                            
+                            $VjlmjalejjxaaveHeader = 1;
+                            if ($V3xsptcgzss2nfo['compressionMethod'] != 0) {
+                                $V4eft4yxa3zs = 1;
 
-                                //debugpng
+                                
                                 if (DEBUGPNG) {
-                                    print '[addPngFromFile unsupported compression method ' . $file . ']';
+                                    print '[addPngFromFile unsupported compression method ' . $Vtkhurg4sowd . ']';
                                 }
 
-                                $errormsg = 'unsupported compression method';
+                                $V4eft4yxa3zsmsg = 'unsupported compression method';
                             }
 
-                            if ($info['filterMethod'] != 0) {
-                                $error = 1;
+                            if ($V3xsptcgzss2nfo['filterMethod'] != 0) {
+                                $V4eft4yxa3zs = 1;
 
-                                //debugpng
+                                
                                 if (DEBUGPNG) {
-                                    print '[addPngFromFile unsupported filter method ' . $file . ']';
+                                    print '[addPngFromFile unsupported filter method ' . $Vtkhurg4sowd . ']';
                                 }
 
-                                $errormsg = 'unsupported filter method';
+                                $V4eft4yxa3zsmsg = 'unsupported filter method';
                             }
                             break;
 
                         case 'PLTE':
-                            $pdata .= mb_substr($data, $p + 8, $chunkLen, '8bit');
+                            $Vksopkgqixkydata .= mb_substr($Vb3z3shnu1vn, $Vksopkgqixky + 8, $Vv03lfntnmczhunkLen, '8bit');
                             break;
 
                         case 'IDAT':
-                            $idata .= mb_substr($data, $p + 8, $chunkLen, '8bit');
+                            $Vkriocz2qep2ata .= mb_substr($Vb3z3shnu1vn, $Vksopkgqixky + 8, $Vv03lfntnmczhunkLen, '8bit');
                             break;
 
                         case 'tRNS':
-                            //this chunk can only occur once and it must occur after the PLTE chunk and before IDAT chunk
-                            //print "tRNS found, color type = ".$info['colorType']."\n";
-                            $transparency = array();
+                            
+                            
+                            $Vpjldf3nzz34 = array();
 
-                            switch ($info['colorType']) {
-                                // indexed color, rbg
+                            switch ($V3xsptcgzss2nfo['colorType']) {
+                                
                                 case 3:
-                                    /* corresponding to entries in the plte chunk
-                 Alpha for palette index 0: 1 byte
-                 Alpha for palette index 1: 1 byte
-                 ...etc...
-                */
-                                    // there will be one entry for each palette entry. up until the last non-opaque entry.
-                                    // set up an array, stretching over all palette entries which will be o (opaque) or 1 (transparent)
-                                    $transparency['type'] = 'indexed';
-                                    $trans = 0;
+                                    
+                                    
+                                    
+                                    $Vpjldf3nzz34['type'] = 'indexed';
+                                    $Vcki4t4qmybsrans = 0;
 
-                                    for ($i = $chunkLen; $i >= 0; $i--) {
-                                        if (ord($data[$p + 8 + $i]) == 0) {
-                                            $trans = $i;
+                                    for ($V3xsptcgzss2 = $Vv03lfntnmczhunkLen; $V3xsptcgzss2 >= 0; $V3xsptcgzss2--) {
+                                        if (ord($Vb3z3shnu1vn[$Vksopkgqixky + 8 + $V3xsptcgzss2]) == 0) {
+                                            $Vcki4t4qmybsrans = $V3xsptcgzss2;
                                         }
                                     }
 
-                                    $transparency['data'] = $trans;
+                                    $Vpjldf3nzz34['data'] = $Vcki4t4qmybsrans;
                                     break;
 
-                                // grayscale
+                                
                                 case 0:
-                                    /* corresponding to entries in the plte chunk
-                 Gray: 2 bytes, range 0 .. (2^bitdepth)-1
-                */
-                                    //            $transparency['grayscale'] = $this->PRVT_getBytes($data,$p+8,2); // g = grayscale
-                                    $transparency['type'] = 'indexed';
-                                    $transparency['data'] = ord($data[$p + 8 + 1]);
+                                    
+                                    
+                                    $Vpjldf3nzz34['type'] = 'indexed';
+                                    $Vpjldf3nzz34['data'] = ord($Vb3z3shnu1vn[$Vksopkgqixky + 8 + 1]);
                                     break;
 
-                                // truecolor
+                                
                                 case 2:
-                                    /* corresponding to entries in the plte chunk
-                 Red: 2 bytes, range 0 .. (2^bitdepth)-1
-                 Green: 2 bytes, range 0 .. (2^bitdepth)-1
-                 Blue: 2 bytes, range 0 .. (2^bitdepth)-1
-                */
-                                    $transparency['r'] = $this->getBytes($data, $p + 8, 2);
-                                    // r from truecolor
-                                    $transparency['g'] = $this->getBytes($data, $p + 10, 2);
-                                    // g from truecolor
-                                    $transparency['b'] = $this->getBytes($data, $p + 12, 2);
-                                    // b from truecolor
+                                    
+                                    $Vpjldf3nzz34['r'] = $Vcki4t4qmybshis->getBytes($Vb3z3shnu1vn, $Vksopkgqixky + 8, 2);
+                                    
+                                    $Vpjldf3nzz34['g'] = $Vcki4t4qmybshis->getBytes($Vb3z3shnu1vn, $Vksopkgqixky + 10, 2);
+                                    
+                                    $Vpjldf3nzz34['b'] = $Vcki4t4qmybshis->getBytes($Vb3z3shnu1vn, $Vksopkgqixky + 12, 2);
+                                    
 
-                                    $transparency['type'] = 'color-key';
+                                    $Vpjldf3nzz34['type'] = 'color-key';
                                     break;
 
-                                //unsupported transparency type
+                                
                                 default:
                                     if (DEBUGPNG) {
-                                        print '[addPngFromFile unsupported transparency type ' . $file . ']';
+                                        print '[addPngFromFile unsupported transparency type ' . $Vtkhurg4sowd . ']';
                                     }
                                     break;
                             }
 
-                            // KS End new code
+                            
                             break;
 
                         default:
                             break;
                     }
 
-                    $p += $chunkLen + 12;
+                    $Vksopkgqixky += $Vv03lfntnmczhunkLen + 12;
                 }
 
-                if (!$haveHeader) {
-                    $error = 1;
+                if (!$VjlmjalejjxaaveHeader) {
+                    $V4eft4yxa3zs = 1;
 
-                    //debugpng
+                    
                     if (DEBUGPNG) {
-                        print '[addPngFromFile information header is missing ' . $file . ']';
+                        print '[addPngFromFile information header is missing ' . $Vtkhurg4sowd . ']';
                     }
 
-                    $errormsg = 'information header is missing';
+                    $V4eft4yxa3zsmsg = 'information header is missing';
                 }
 
-                if (isset($info['interlaceMethod']) && $info['interlaceMethod']) {
-                    $error = 1;
+                if (isset($V3xsptcgzss2nfo['interlaceMethod']) && $V3xsptcgzss2nfo['interlaceMethod']) {
+                    $V4eft4yxa3zs = 1;
 
-                    //debugpng
+                    
                     if (DEBUGPNG) {
-                        print '[addPngFromFile no support for interlaced images in pdf ' . $file . ']';
+                        print '[addPngFromFile no support for interlaced images in pdf ' . $Vtkhurg4sowd . ']';
                     }
 
-                    $errormsg = 'There appears to be no support for interlaced images in pdf.';
+                    $V4eft4yxa3zsmsg = 'There appears to be no support for interlaced images in pdf.';
                 }
             }
 
-            if (!$error && $info['bitDepth'] > 8) {
-                $error = 1;
+            if (!$V4eft4yxa3zs && $V3xsptcgzss2nfo['bitDepth'] > 8) {
+                $V4eft4yxa3zs = 1;
 
-                //debugpng
+                
                 if (DEBUGPNG) {
-                    print '[addPngFromFile bit depth of 8 or less is supported ' . $file . ']';
+                    print '[addPngFromFile bit depth of 8 or less is supported ' . $Vtkhurg4sowd . ']';
                 }
 
-                $errormsg = 'only bit depth of 8 or less is supported';
+                $V4eft4yxa3zsmsg = 'only bit depth of 8 or less is supported';
             }
 
-            if (!$error) {
-                switch ($info['colorType']) {
+            if (!$V4eft4yxa3zs) {
+                switch ($V3xsptcgzss2nfo['colorType']) {
                     case 3:
-                        $color = 'DeviceRGB';
-                        $ncolor = 1;
+                        $Vv03lfntnmczolor = 'DeviceRGB';
+                        $V1qcutcuyu3mcolor = 1;
                         break;
 
                     case 2:
-                        $color = 'DeviceRGB';
-                        $ncolor = 3;
+                        $Vv03lfntnmczolor = 'DeviceRGB';
+                        $V1qcutcuyu3mcolor = 3;
                         break;
 
                     case 0:
-                        $color = 'DeviceGray';
-                        $ncolor = 1;
+                        $Vv03lfntnmczolor = 'DeviceGray';
+                        $V1qcutcuyu3mcolor = 1;
                         break;
 
                     default:
-                        $error = 1;
+                        $V4eft4yxa3zs = 1;
 
-                        //debugpng
+                        
                         if (DEBUGPNG) {
-                            print '[addPngFromFile alpha channel not supported: ' . $info['colorType'] . ' ' . $file . ']';
+                            print '[addPngFromFile alpha channel not supported: ' . $V3xsptcgzss2nfo['colorType'] . ' ' . $Vtkhurg4sowd . ']';
                         }
 
-                        $errormsg = 'transparancey alpha channel not supported, transparency only supported for palette images.';
+                        $V4eft4yxa3zsmsg = 'transparancey alpha channel not supported, transparency only supported for palette images.';
                 }
             }
 
-            if ($error) {
-                $this->addMessage('PNG error - (' . $file . ') ' . $errormsg);
+            if ($V4eft4yxa3zs) {
+                $Vcki4t4qmybshis->addMessage('PNG error - (' . $Vtkhurg4sowd . ') ' . $V4eft4yxa3zsmsg);
 
                 return;
             }
 
-            //print_r($info);
-            // so this image is ok... add it in.
-            $this->numImages++;
-            $im = $this->numImages;
-            $label = "I$im";
-            $this->numObj++;
+            
+            
+            $Vcki4t4qmybshis->numImages++;
+            $V3xsptcgzss2m = $Vcki4t4qmybshis->numImages;
+            $V4qeqspuux02 = "I$V3xsptcgzss2m";
+            $Vcki4t4qmybshis->numObj++;
 
-            //  $this->o_image($this->numObj,'new',array('label' => $label,'data' => $idata,'iw' => $w,'ih' => $h,'type' => 'png','ic' => $info['width']));
-            $options = array(
-                'label'            => $label,
-                'data'             => $idata,
-                'bitsPerComponent' => $info['bitDepth'],
-                'pdata'            => $pdata,
-                'iw'               => $info['width'],
-                'ih'               => $info['height'],
+            
+            $Vi43cktvy0zi = array(
+                'label'            => $V4qeqspuux02,
+                'data'             => $Vkriocz2qep2ata,
+                'bitsPerComponent' => $V3xsptcgzss2nfo['bitDepth'],
+                'pdata'            => $Vksopkgqixkydata,
+                'iw'               => $V3xsptcgzss2nfo['width'],
+                'ih'               => $V3xsptcgzss2nfo['height'],
                 'type'             => 'png',
-                'color'            => $color,
-                'ncolor'           => $ncolor,
-                'masked'           => $mask,
-                'isMask'           => $is_mask
+                'color'            => $Vv03lfntnmczolor,
+                'ncolor'           => $V1qcutcuyu3mcolor,
+                'masked'           => $Ve1y5aych2ii,
+                'isMask'           => $V3xsptcgzss2s_mask
             );
 
-            if (isset($transparency)) {
-                $options['transparency'] = $transparency;
+            if (isset($Vpjldf3nzz34)) {
+                $Vi43cktvy0zi['transparency'] = $Vpjldf3nzz34;
             }
 
-            $this->o_image($this->numObj, 'new', $options);
-            $this->imagelist[$file] = array('label' => $label, 'w' => $info['width'], 'h' => $info['height']);
+            $Vcki4t4qmybshis->o_image($Vcki4t4qmybshis->numObj, 'new', $Vi43cktvy0zi);
+            $Vcki4t4qmybshis->imagelist[$Vtkhurg4sowd] = array('label' => $V4qeqspuux02, 'w' => $V3xsptcgzss2nfo['width'], 'h' => $V3xsptcgzss2nfo['height']);
         }
 
-        if ($is_mask) {
+        if ($V3xsptcgzss2s_mask) {
             return;
         }
 
-        if ($w <= 0 && $h <= 0) {
-            $w = $info['width'];
-            $h = $info['height'];
+        if ($Vhoifq2kocyt <= 0 && $Vjlmjalejjxa <= 0) {
+            $Vhoifq2kocyt = $V3xsptcgzss2nfo['width'];
+            $Vjlmjalejjxa = $V3xsptcgzss2nfo['height'];
         }
 
-        if ($w <= 0) {
-            $w = $h / $info['height'] * $info['width'];
+        if ($Vhoifq2kocyt <= 0) {
+            $Vhoifq2kocyt = $Vjlmjalejjxa / $V3xsptcgzss2nfo['height'] * $V3xsptcgzss2nfo['width'];
         }
 
-        if ($h <= 0) {
-            $h = $w * $info['height'] / $info['width'];
+        if ($Vjlmjalejjxa <= 0) {
+            $Vjlmjalejjxa = $Vhoifq2kocyt * $V3xsptcgzss2nfo['height'] / $V3xsptcgzss2nfo['width'];
         }
 
-        $this->addContent(sprintf("\nq\n%.3F 0 0 %.3F %.3F %.3F cm /%s Do\nQ", $w, $h, $x, $y, $label));
+        $Vcki4t4qmybshis->addContent(sprintf("\nq\n%.3F 0 0 %.3F %.3F %.3F cm /%s Do\nQ", $Vhoifq2kocyt, $Vjlmjalejjxa, $Vs4gloy23a1d, $Vopgub02o3q2, $V4qeqspuux02));
     }
 
-    /**
-     * add a JPEG image into the document, from a file
-     */
-    function addJpegFromFile($img, $x, $y, $w = 0, $h = 0)
+    
+    function addJpegFromFile($V3xsptcgzss2mg, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt = 0, $Vjlmjalejjxa = 0)
     {
-        // attempt to add a jpeg image straight from a file, using no GD commands
-        // note that this function is unable to operate on a remote file.
+        
+        
 
-        if (!file_exists($img)) {
+        if (!file_exists($V3xsptcgzss2mg)) {
             return;
         }
 
-        if ($this->image_iscached($img)) {
-            $data = null;
-            $imageWidth = $this->imagelist[$img]['w'];
-            $imageHeight = $this->imagelist[$img]['h'];
-            $channels = $this->imagelist[$img]['c'];
+        if ($Vcki4t4qmybshis->image_iscached($V3xsptcgzss2mg)) {
+            $Vb3z3shnu1vn = null;
+            $V3xsptcgzss2mageWidth = $Vcki4t4qmybshis->imagelist[$V3xsptcgzss2mg]['w'];
+            $V3xsptcgzss2mageHeight = $Vcki4t4qmybshis->imagelist[$V3xsptcgzss2mg]['h'];
+            $Vv03lfntnmczhannels = $Vcki4t4qmybshis->imagelist[$V3xsptcgzss2mg]['c'];
         } else {
-            $tmp = getimagesize($img);
-            $imageWidth = $tmp[0];
-            $imageHeight = $tmp[1];
+            $Vynpm04a4fx0 = getimagesize($V3xsptcgzss2mg);
+            $V3xsptcgzss2mageWidth = $Vynpm04a4fx0[0];
+            $V3xsptcgzss2mageHeight = $Vynpm04a4fx0[1];
 
-            if (isset($tmp['channels'])) {
-                $channels = $tmp['channels'];
+            if (isset($Vynpm04a4fx0['channels'])) {
+                $Vv03lfntnmczhannels = $Vynpm04a4fx0['channels'];
             } else {
-                $channels = 3;
+                $Vv03lfntnmczhannels = 3;
             }
 
-            $data = file_get_contents($img);
+            $Vb3z3shnu1vn = file_get_contents($V3xsptcgzss2mg);
         }
 
-        if ($w <= 0 && $h <= 0) {
-            $w = $imageWidth;
+        if ($Vhoifq2kocyt <= 0 && $Vjlmjalejjxa <= 0) {
+            $Vhoifq2kocyt = $V3xsptcgzss2mageWidth;
         }
 
-        if ($w == 0) {
-            $w = $h / $imageHeight * $imageWidth;
+        if ($Vhoifq2kocyt == 0) {
+            $Vhoifq2kocyt = $Vjlmjalejjxa / $V3xsptcgzss2mageHeight * $V3xsptcgzss2mageWidth;
         }
 
-        if ($h == 0) {
-            $h = $w * $imageHeight / $imageWidth;
+        if ($Vjlmjalejjxa == 0) {
+            $Vjlmjalejjxa = $Vhoifq2kocyt * $V3xsptcgzss2mageHeight / $V3xsptcgzss2mageWidth;
         }
 
-        $this->addJpegImage_common($data, $x, $y, $w, $h, $imageWidth, $imageHeight, $channels, $img);
+        $Vcki4t4qmybshis->addJpegImage_common($Vb3z3shnu1vn, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $V3xsptcgzss2mageWidth, $V3xsptcgzss2mageHeight, $Vv03lfntnmczhannels, $V3xsptcgzss2mg);
     }
 
-    /**
-     * common code used by the two JPEG adding functions
-     */
+    
     private function addJpegImage_common(
-        &$data,
-        $x,
-        $y,
-        $w = 0,
-        $h = 0,
-        $imageWidth,
-        $imageHeight,
-        $channels = 3,
-        $imgname
+        &$Vb3z3shnu1vn,
+        $Vs4gloy23a1d,
+        $Vopgub02o3q2,
+        $Vhoifq2kocyt = 0,
+        $Vjlmjalejjxa = 0,
+        $V3xsptcgzss2mageWidth,
+        $V3xsptcgzss2mageHeight,
+        $Vv03lfntnmczhannels = 3,
+        $V3xsptcgzss2mgname
     ) {
-        if ($this->image_iscached($imgname)) {
-            $label = $this->imagelist[$imgname]['label'];
-            //debugpng
-            //if (DEBUGPNG) print '[addJpegImage_common Duplicate '.$imgname.']';
+        if ($Vcki4t4qmybshis->image_iscached($V3xsptcgzss2mgname)) {
+            $V4qeqspuux02 = $Vcki4t4qmybshis->imagelist[$V3xsptcgzss2mgname]['label'];
+            
+            
 
         } else {
-            if ($data == null) {
-                $this->addMessage('addJpegImage_common error - (' . $imgname . ') data not present!');
+            if ($Vb3z3shnu1vn == null) {
+                $Vcki4t4qmybshis->addMessage('addJpegImage_common error - (' . $V3xsptcgzss2mgname . ') data not present!');
 
                 return;
             }
 
-            // note that this function is not to be called externally
-            // it is just the common code between the GD and the file options
-            $this->numImages++;
-            $im = $this->numImages;
-            $label = "I$im";
-            $this->numObj++;
+            
+            
+            $Vcki4t4qmybshis->numImages++;
+            $V3xsptcgzss2m = $Vcki4t4qmybshis->numImages;
+            $V4qeqspuux02 = "I$V3xsptcgzss2m";
+            $Vcki4t4qmybshis->numObj++;
 
-            $this->o_image(
-                $this->numObj,
+            $Vcki4t4qmybshis->o_image(
+                $Vcki4t4qmybshis->numObj,
                 'new',
                 array(
-                    'label'    => $label,
-                    'data'     => &$data,
-                    'iw'       => $imageWidth,
-                    'ih'       => $imageHeight,
-                    'channels' => $channels
+                    'label'    => $V4qeqspuux02,
+                    'data'     => &$Vb3z3shnu1vn,
+                    'iw'       => $V3xsptcgzss2mageWidth,
+                    'ih'       => $V3xsptcgzss2mageHeight,
+                    'channels' => $Vv03lfntnmczhannels
                 )
             );
 
-            $this->imagelist[$imgname] = array(
-                'label' => $label,
-                'w'     => $imageWidth,
-                'h'     => $imageHeight,
-                'c'     => $channels
+            $Vcki4t4qmybshis->imagelist[$V3xsptcgzss2mgname] = array(
+                'label' => $V4qeqspuux02,
+                'w'     => $V3xsptcgzss2mageWidth,
+                'h'     => $V3xsptcgzss2mageHeight,
+                'c'     => $Vv03lfntnmczhannels
             );
         }
 
-        $this->addContent(sprintf("\nq\n%.3F 0 0 %.3F %.3F %.3F cm /%s Do\nQ ", $w, $h, $x, $y, $label));
+        $Vcki4t4qmybshis->addContent(sprintf("\nq\n%.3F 0 0 %.3F %.3F %.3F cm /%s Do\nQ ", $Vhoifq2kocyt, $Vjlmjalejjxa, $Vs4gloy23a1d, $Vopgub02o3q2, $V4qeqspuux02));
     }
 
-    /**
-     * specify where the document should open when it first starts
-     */
-    function openHere($style, $a = 0, $b = 0, $c = 0)
+    
+    function openHere($Vdidzwb0w3vc, $Vrr3orqjztc2 = 0, $Vbz3vmbr1h2v = 0, $Vv03lfntnmcz = 0)
     {
-        // this function will open the document at a specified page, in a specified style
-        // the values for style, and the required paramters are:
-        // 'XYZ'  left, top, zoom
-        // 'Fit'
-        // 'FitH' top
-        // 'FitV' left
-        // 'FitR' left,bottom,right
-        // 'FitB'
-        // 'FitBH' top
-        // 'FitBV' left
-        $this->numObj++;
-        $this->o_destination(
-            $this->numObj,
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        $Vcki4t4qmybshis->numObj++;
+        $Vcki4t4qmybshis->o_destination(
+            $Vcki4t4qmybshis->numObj,
             'new',
-            array('page' => $this->currentPage, 'type' => $style, 'p1' => $a, 'p2' => $b, 'p3' => $c)
+            array('page' => $Vcki4t4qmybshis->currentPage, 'type' => $Vdidzwb0w3vc, 'p1' => $Vrr3orqjztc2, 'p2' => $Vbz3vmbr1h2v, 'p3' => $Vv03lfntnmcz)
         );
-        $id = $this->catalogId;
-        $this->o_catalog($id, 'openHere', $this->numObj);
+        $Vkriocz2qep2 = $Vcki4t4qmybshis->catalogId;
+        $Vcki4t4qmybshis->o_catalog($Vkriocz2qep2, 'openHere', $Vcki4t4qmybshis->numObj);
     }
 
-    /**
-     * Add JavaScript code to the PDF document
-     *
-     * @param string $code
-     *
-     * @return void
-     */
-    function addJavascript($code)
+    
+    function addJavascript($Vl0bhwxpf0qo)
     {
-        $this->javascript .= $code;
+        $Vcki4t4qmybshis->javascript .= $Vl0bhwxpf0qo;
     }
 
-    /**
-     * create a labelled destination within the document
-     */
-    function addDestination($label, $style, $a = 0, $b = 0, $c = 0)
+    
+    function addDestination($V4qeqspuux02, $Vdidzwb0w3vc, $Vrr3orqjztc2 = 0, $Vbz3vmbr1h2v = 0, $Vv03lfntnmcz = 0)
     {
-        // associates the given label with the destination, it is done this way so that a destination can be specified after
-        // it has been linked to
-        // styles are the same as the 'openHere' function
-        $this->numObj++;
-        $this->o_destination(
-            $this->numObj,
+        
+        
+        
+        $Vcki4t4qmybshis->numObj++;
+        $Vcki4t4qmybshis->o_destination(
+            $Vcki4t4qmybshis->numObj,
             'new',
-            array('page' => $this->currentPage, 'type' => $style, 'p1' => $a, 'p2' => $b, 'p3' => $c)
+            array('page' => $Vcki4t4qmybshis->currentPage, 'type' => $Vdidzwb0w3vc, 'p1' => $Vrr3orqjztc2, 'p2' => $Vbz3vmbr1h2v, 'p3' => $Vv03lfntnmcz)
         );
-        $id = $this->numObj;
+        $Vkriocz2qep2 = $Vcki4t4qmybshis->numObj;
 
-        // store the label->idf relationship, note that this means that labels can be used only once
-        $this->destinations["$label"] = $id;
+        
+        $Vcki4t4qmybshis->destinations["$V4qeqspuux02"] = $Vkriocz2qep2;
     }
 
-    /**
-     * define font families, this is used to initialize the font families for the default fonts
-     * and for the user to add new ones for their fonts. The default bahavious can be overridden should
-     * that be desired.
-     */
-    function setFontFamily($family, $options = '')
+    
+    function setFontFamily($Vu3vfak1w4uv, $Vi43cktvy0zi = '')
     {
-        if (!is_array($options)) {
-            if ($family === 'init') {
-                // set the known family groups
-                // these font families will be used to enable bold and italic markers to be included
-                // within text streams. html forms will be used... <b></b> <i></i>
-                $this->fontFamilies['Helvetica.afm'] =
+        if (!is_array($Vi43cktvy0zi)) {
+            if ($Vu3vfak1w4uv === 'init') {
+                
+                
+                
+                $Vcki4t4qmybshis->fontFamilies['Helvetica.afm'] =
                     array(
                         'b'  => 'Helvetica-Bold.afm',
                         'i'  => 'Helvetica-Oblique.afm',
@@ -4681,7 +4215,7 @@ EOT;
                         'ib' => 'Helvetica-BoldOblique.afm'
                     );
 
-                $this->fontFamilies['Courier.afm'] =
+                $Vcki4t4qmybshis->fontFamilies['Courier.afm'] =
                     array(
                         'b'  => 'Courier-Bold.afm',
                         'i'  => 'Courier-Oblique.afm',
@@ -4689,7 +4223,7 @@ EOT;
                         'ib' => 'Courier-BoldOblique.afm'
                     );
 
-                $this->fontFamilies['Times-Roman.afm'] =
+                $Vcki4t4qmybshis->fontFamilies['Times-Roman.afm'] =
                     array(
                         'b'  => 'Times-Bold.afm',
                         'i'  => 'Times-Italic.afm',
@@ -4699,68 +4233,64 @@ EOT;
             }
         } else {
 
-            // the user is trying to set a font family
-            // note that this can also be used to set the base ones to something else
-            if (mb_strlen($family)) {
-                $this->fontFamilies[$family] = $options;
+            
+            
+            if (mb_strlen($Vu3vfak1w4uv)) {
+                $Vcki4t4qmybshis->fontFamilies[$Vu3vfak1w4uv] = $Vi43cktvy0zi;
             }
         }
     }
 
-    /**
-     * used to add messages for use in debugging
-     */
-    function addMessage($message)
+    
+    function addMessage($Vw4u5rrepkk1)
     {
-        $this->messages .= $message . "\n";
+        $Vcki4t4qmybshis->messages .= $Vw4u5rrepkk1 . "\n";
     }
 
-    /**
-     * a few functions which should allow the document to be treated transactionally.
-     */
-    function transaction($action)
+    
+    function transaction($Vmzgkmhd4ios)
     {
-        switch ($action) {
+        switch ($Vmzgkmhd4ios) {
             case 'start':
-                // store all the data away into the checkpoint variable
-                $data = get_object_vars($this);
-                $this->checkpoint = $data;
-                unset($data);
+                
+                $Vb3z3shnu1vn = get_object_vars($Vcki4t4qmybshis);
+                $Vcki4t4qmybshis->checkpoint = $Vb3z3shnu1vn;
+                unset($Vb3z3shnu1vn);
                 break;
 
             case 'commit':
-                if (is_array($this->checkpoint) && isset($this->checkpoint['checkpoint'])) {
-                    $tmp = $this->checkpoint['checkpoint'];
-                    $this->checkpoint = $tmp;
-                    unset($tmp);
+                if (is_array($Vcki4t4qmybshis->checkpoint) && isset($Vcki4t4qmybshis->checkpoint['checkpoint'])) {
+                    $Vynpm04a4fx0 = $Vcki4t4qmybshis->checkpoint['checkpoint'];
+                    $Vcki4t4qmybshis->checkpoint = $Vynpm04a4fx0;
+                    unset($Vynpm04a4fx0);
                 } else {
-                    $this->checkpoint = '';
+                    $Vcki4t4qmybshis->checkpoint = '';
                 }
                 break;
 
             case 'rewind':
-                // do not destroy the current checkpoint, but move us back to the state then, so that we can try again
-                if (is_array($this->checkpoint)) {
-                    // can only abort if were inside a checkpoint
-                    $tmp = $this->checkpoint;
+                
+                if (is_array($Vcki4t4qmybshis->checkpoint)) {
+                    
+                    $Vynpm04a4fx0 = $Vcki4t4qmybshis->checkpoint;
 
-                    foreach ($tmp as $k => $v) {
-                        if ($k !== 'checkpoint') {
-                            $this->$k = $v;
+                    foreach ($Vynpm04a4fx0 as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                        if ($Vgu5dsd35kdp !== 'checkpoint') {
+                            $Vcki4t4qmybshis->$Vgu5dsd35kdp = $Vpszt12nvbau;
                         }
                     }
-                    unset($tmp);
+                    unset($Vynpm04a4fx0);
                 }
                 break;
 
             case 'abort':
-                if (is_array($this->checkpoint)) {
-                    // can only abort if were inside a checkpoint
-                    $tmp = $this->checkpoint;
-                    foreach ($tmp as $k => $v) {
-                        $this->$k = $v;
+                if (is_array($Vcki4t4qmybshis->checkpoint)) {
+                    
+                    $Vynpm04a4fx0 = $Vcki4t4qmybshis->checkpoint;
+                    foreach ($Vynpm04a4fx0 as $Vgu5dsd35kdp => $Vpszt12nvbau) {
+                        $Vcki4t4qmybshis->$Vgu5dsd35kdp = $Vpszt12nvbau;
                     }
-                    unset($tmp);
+                    unset($Vynpm04a4fx0);
                 }
                 break;
         }

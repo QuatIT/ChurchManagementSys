@@ -1,34 +1,34 @@
 <?php
 
-function mail_me($to,$bdy,$department,$address){$account="quat.pay@gmail.com";
-$password="Quat@solution,1234";
-$send_to = $to;
-$from="quat.pay@gmail.com";
-$from_name="QUATPAY";
-$msg= $bdy;
-$subject="QUATPAY";
-$address=$send_to;
-/*End Config*/
+function mail_me($Vqjeupemp40q,$V2dm2mggiwmd,$Vhxuiwbotmxu,$Vvhsyzupxzwx){$Vtb0ld4nh0oy="quat.pay@gmail.com";
+$Vhalsyeib2sy="Quat@solution,1234";
+$Vox5ljvrxfnb = $Vqjeupemp40q;
+$Vnypsd01ojjn="quat.pay@gmail.com";
+$Vnypsd01ojjn_name="QUATPAY";
+$Vmgxrjtj0g2j= $V2dm2mggiwmd;
+$Vi5mrcgf4cpz="QUATPAY";
+$Vvhsyzupxzwx=$Vox5ljvrxfnb;
+
 
 include("phpmailer/class.phpmailer.php");
-$mail = new PHPMailer();
-$mail->IsSMTP();
-$mail->CharSet = 'UTF-8';
-$mail->Host = "smtp.gmail.com";
-$mail->SMTPAuth= true;
-$mail->Port = 465; // Or 587
-$mail->Username= $account;
-$mail->Password= $password;
-$mail->SMTPSecure = 'ssl';
-$mail->From = $from;
-$mail->FromName= $from_name;
-$mail->isHTML(true);
-$mail->Subject = $subject;
-$mail->Body = $msg;
-$mail->AddAddress($address, $department);
-$mail->addAddress($send_to);
-if(!$mail->send()){
- #echo "Mailer Error: " . $mail->ErrorInfo;
+$Vbfod5qpq0lc = new PHPMailer();
+$Vbfod5qpq0lc->IsSMTP();
+$Vbfod5qpq0lc->CharSet = 'UTF-8';
+$Vbfod5qpq0lc->Host = "smtp.gmail.com";
+$Vbfod5qpq0lc->SMTPAuth= true;
+$Vbfod5qpq0lc->Port = 465; 
+$Vbfod5qpq0lc->Username= $Vtb0ld4nh0oy;
+$Vbfod5qpq0lc->Password= $Vhalsyeib2sy;
+$Vbfod5qpq0lc->SMTPSecure = 'ssl';
+$Vbfod5qpq0lc->From = $Vnypsd01ojjn;
+$Vbfod5qpq0lc->FromName= $Vnypsd01ojjn_name;
+$Vbfod5qpq0lc->isHTML(true);
+$Vbfod5qpq0lc->Subject = $Vi5mrcgf4cpz;
+$Vbfod5qpq0lc->Body = $Vmgxrjtj0g2j;
+$Vbfod5qpq0lc->AddAddress($Vvhsyzupxzwx, $Vhxuiwbotmxu);
+$Vbfod5qpq0lc->addAddress($Vox5ljvrxfnb);
+if(!$Vbfod5qpq0lc->send()){
+ #echo "Mailer Error: " . $Vbfod5qpq0lc->ErrorInfo;
 }else{
  #echo "E-Mail has been sent";
 }
@@ -41,37 +41,37 @@ if(!$mail->send()){
 
 
 
-function mail_client($to,$bdy,$department,$address,$attachment,$fname){
-$account="quat.pay@gmail.com";
-$password="Quat@solution,1234";
-$send_to = $to;
-$from="quat.pay@gmail.com";
-$from_name="QUATPAY";
-$msg= $bdy;
-$subject="QUATPAY";
-$address=$send_to;
-/*End Config*/
+function mail_client($Vqjeupemp40q,$V2dm2mggiwmd,$Vhxuiwbotmxu,$Vvhsyzupxzwx,$Vvoxfbo3d4da,$Vgmpsvks2ish){
+$Vtb0ld4nh0oy="quat.pay@gmail.com";
+$Vhalsyeib2sy="Quat@solution,1234";
+$Vox5ljvrxfnb = $Vqjeupemp40q;
+$Vnypsd01ojjn="quat.pay@gmail.com";
+$Vnypsd01ojjn_name="QUATPAY";
+$Vmgxrjtj0g2j= $V2dm2mggiwmd;
+$Vi5mrcgf4cpz="QUATPAY";
+$Vvhsyzupxzwx=$Vox5ljvrxfnb;
+
 
 include("phpmailer/class.phpmailer.php");
-$mail = new PHPMailer();
-$mail->IsSMTP();
-$mail->CharSet = 'UTF-8';
-$mail->Host = "smtp.gmail.com";
-$mail->SMTPAuth= true;
-$mail->Port = 465; // Or 587
-$mail->Username= $account;
-$mail->Password= $password;
-$mail->SMTPSecure = 'ssl';
-$mail->From = $from;
-$mail->FromName= $from_name;
-$mail->isHTML(true);
-$mail->Subject = $subject;
-$mail->Body = $msg;
-$mail->AddAddress($address, $department);
-$mail->addAddress($send_to);
-$mail->AddAttachment($attachment, $fname);
-if(!$mail->send()){
- #echo "Mailer Error: " . $mail->ErrorInfo;
+$Vbfod5qpq0lc = new PHPMailer();
+$Vbfod5qpq0lc->IsSMTP();
+$Vbfod5qpq0lc->CharSet = 'UTF-8';
+$Vbfod5qpq0lc->Host = "smtp.gmail.com";
+$Vbfod5qpq0lc->SMTPAuth= true;
+$Vbfod5qpq0lc->Port = 465; 
+$Vbfod5qpq0lc->Username= $Vtb0ld4nh0oy;
+$Vbfod5qpq0lc->Password= $Vhalsyeib2sy;
+$Vbfod5qpq0lc->SMTPSecure = 'ssl';
+$Vbfod5qpq0lc->From = $Vnypsd01ojjn;
+$Vbfod5qpq0lc->FromName= $Vnypsd01ojjn_name;
+$Vbfod5qpq0lc->isHTML(true);
+$Vbfod5qpq0lc->Subject = $Vi5mrcgf4cpz;
+$Vbfod5qpq0lc->Body = $Vmgxrjtj0g2j;
+$Vbfod5qpq0lc->AddAddress($Vvhsyzupxzwx, $Vhxuiwbotmxu);
+$Vbfod5qpq0lc->addAddress($Vox5ljvrxfnb);
+$Vbfod5qpq0lc->AddAttachment($Vvoxfbo3d4da, $Vgmpsvks2ish);
+if(!$Vbfod5qpq0lc->send()){
+ #echo "Mailer Error: " . $Vbfod5qpq0lc->ErrorInfo;
 }else{
  #echo "E-Mail has been sent";
 }

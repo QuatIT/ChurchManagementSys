@@ -1,15 +1,7 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Orion Richardson <orionr@yahoo.com>
- * @author  Helmut Tischer <htischer@weihenstephan.org>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
 
-// FIXME: Need to sanity check inputs to this class
+
+
 namespace Dompdf\Adapter;
 
 use Dompdf\Canvas;
@@ -19,30 +11,12 @@ use Dompdf\Exception;
 use Dompdf\Image\Cache;
 use Dompdf\PhpEvaluator;
 
-/**
- * PDF rendering interface
- *
- * Dompdf\Adapter\CPDF provides a simple stateless interface to the stateful one
- * provided by the Cpdf class.
- *
- * Unless otherwise mentioned, all dimensions are in points (1/72 in).  The
- * coordinate origin is in the top left corner, and y values increase
- * downwards.
- *
- * See {@link http://www.ros.co.nz/pdf/} for more complete documentation
- * on the underlying {@link Cpdf} class.
- *
- * @package dompdf
- */
+
 class CPDF implements Canvas
 {
 
-    /**
-     * Dimensions of paper sizes in points
-     *
-     * @var array;
-     */
-    static $PAPER_SIZES = array(
+    
+    static $Vjvvabr4mx10 = array(
         "4a0" => array(0, 0, 4767.87, 6740.79),
         "2a0" => array(0, 0, 3370.39, 4767.87),
         "a0" => array(0, 0, 2383.94, 3370.39),
@@ -102,113 +76,67 @@ class CPDF implements Canvas
         "11x17" => array(0, 0, 792.00, 1224.00),
     );
 
-    /**
-     * The Dompdf object
-     *
-     * @var Dompdf
-     */
-    private $_dompdf;
+    
+    private $V3mbiykvshg0;
 
-    /**
-     * Instance of Cpdf class
-     *
-     * @var Cpdf
-     */
-    private $_pdf;
+    
+    private $Vn35bvpfo0mv;
 
-    /**
-     * PDF width, in points
-     *
-     * @var float
-     */
-    private $_width;
+    
+    private $Vn1ew5szmvh5;
 
-    /**
-     * PDF height, in points
-     *
-     * @var float;
-     */
-    private $_height;
+    
+    private $V0mpk4c0jqb4;
 
-    /**
-     * Current page number
-     *
-     * @var int
-     */
-    private $_page_number;
+    
+    private $Vcwhthsojqkt;
 
-    /**
-     * Total number of pages
-     *
-     * @var int
-     */
-    private $_page_count;
+    
+    private $V0gs0rui431h;
 
-    /**
-     * Text to display on every page
-     *
-     * @var array
-     */
-    private $_page_text;
+    
+    private $V2flazjvlb52;
 
-    /**
-     * Array of pages for accesing after rendering is initially complete
-     *
-     * @var array
-     */
-    private $_pages;
+    
+    private $V5u1zcevbgki;
 
-    /**
-     * Array of temporary cached images to be deleted when processing is complete
-     *
-     * @var array
-     */
-    private $_image_cache;
+    
+    private $Vni42wo4xsry;
 
-    /**
-     * Currently-applied opacity level (0 - 1)
-     *
-     * @var float
-     */
-    private $_current_opacity = 1;
+    
+    private $Vbojzi1sitqp = 1;
 
-    /**
-     * Class constructor
-     *
-     * @param mixed $paper The size of paper to use in this PDF ({@link CPDF::$PAPER_SIZES})
-     * @param string $orientation The orientation of the document (either 'landscape' or 'portrait')
-     * @param Dompdf $dompdf The Dompdf instance
-     */
-    public function __construct($paper = "letter", $orientation = "portrait", Dompdf $dompdf)
+    
+    public function __construct($Vgyavbwa2gyd = "letter", $Vurj2rpl3rvw = "portrait", Dompdf $Vhvghaoacagz)
     {
-        if (is_array($paper)) {
-            $size = $paper;
-        } else if (isset(self::$PAPER_SIZES[mb_strtolower($paper)])) {
-            $size = self::$PAPER_SIZES[mb_strtolower($paper)];
+        if (is_array($Vgyavbwa2gyd)) {
+            $Vlak25col1u3 = $Vgyavbwa2gyd;
+        } else if (isset(self::$Vjvvabr4mx10[mb_strtolower($Vgyavbwa2gyd)])) {
+            $Vlak25col1u3 = self::$Vjvvabr4mx10[mb_strtolower($Vgyavbwa2gyd)];
         } else {
-            $size = self::$PAPER_SIZES["letter"];
+            $Vlak25col1u3 = self::$Vjvvabr4mx10["letter"];
         }
 
-        if (mb_strtolower($orientation) === "landscape") {
-            list($size[2], $size[3]) = array($size[3], $size[2]);
+        if (mb_strtolower($Vurj2rpl3rvw) === "landscape") {
+            list($Vlak25col1u3[2], $Vlak25col1u3[3]) = array($Vlak25col1u3[3], $Vlak25col1u3[2]);
         }
 
-        $this->_dompdf = $dompdf;
+        $this->_dompdf = $Vhvghaoacagz;
 
         $this->_pdf = new \Cpdf(
-            $size,
+            $Vlak25col1u3,
             true,
-            $dompdf->getOptions()->getFontCache(),
-            $dompdf->getOptions()->getTempDir()
+            $Vhvghaoacagz->getOptions()->getFontCache(),
+            $Vhvghaoacagz->getOptions()->getTempDir()
         );
 
-        $this->_pdf->addInfo("Producer", sprintf("%s + CPDF", $dompdf->version));
-        $time = substr_replace(date('YmdHisO'), '\'', -2, 0) . '\'';
-        $this->_pdf->addInfo("CreationDate", "D:$time");
-        $this->_pdf->addInfo("ModDate", "D:$time");
+        $this->_pdf->addInfo("Producer", sprintf("%s + CPDF", $Vhvghaoacagz->version));
+        $Vrsbf4q2bpny = substr_replace(date('YmdHisO'), '\'', -2, 0) . '\'';
+        $this->_pdf->addInfo("CreationDate", "D:$Vrsbf4q2bpny");
+        $this->_pdf->addInfo("ModDate", "D:$Vrsbf4q2bpny");
 
-        $this->_width = $size[2] - $size[0];
-        $this->_height = $size[3] - $size[1];
+        $this->_width = $Vlak25col1u3[2] - $Vlak25col1u3[0];
+        $this->_height = $Vlak25col1u3[3] - $Vlak25col1u3[1];
 
         $this->_page_number = $this->_page_count = 1;
         $this->_page_text = array();
@@ -218,942 +146,606 @@ class CPDF implements Canvas
         $this->_image_cache = array();
     }
 
-    /**
-     * @return Dompdf
-     */
+    
     public function get_dompdf()
     {
         return $this->_dompdf;
     }
 
-    /**
-     * Class destructor
-     *
-     * Deletes all temporary image files
-     */
+    
     public function __destruct()
     {
-        foreach ($this->_image_cache as $img) {
-            // The file might be already deleted by 3rd party tmp cleaner,
-            // the file might not have been created at all
-            // (if image outputting commands failed)
-            // or because the destructor was called twice accidentally.
-            if (!file_exists($img)) {
+        foreach ($this->_image_cache as $V1bb0p4see5o) {
+            
+            
+            
+            
+            if (!file_exists($V1bb0p4see5o)) {
                 continue;
             }
 
             if ($this->_dompdf->getOptions()->getDebugPng()) {
-                print '[__destruct unlink ' . $img . ']';
+                print '[__destruct unlink ' . $V1bb0p4see5o . ']';
             }
             if (!$this->_dompdf->getOptions()->getDebugKeepTemp()) {
-                unlink($img);
+                unlink($V1bb0p4see5o);
             }
         }
     }
 
-    /**
-     * Returns the Cpdf instance
-     *
-     * @return \Cpdf
-     */
+    
     public function get_cpdf()
     {
         return $this->_pdf;
     }
 
-    /**
-     * Add meta information to the PDF
-     *
-     * @param string $label label of the value (Creator, Producer, etc.)
-     * @param string $value the text to set
-     */
-    public function add_info($label, $value)
+    
+    public function add_info($V4qeqspuux02, $Vqfra35f14fv)
     {
-        $this->_pdf->addInfo($label, $value);
+        $this->_pdf->addInfo($V4qeqspuux02, $Vqfra35f14fv);
     }
 
-    /**
-     * Opens a new 'object'
-     *
-     * While an object is open, all drawing actions are recored in the object,
-     * as opposed to being drawn on the current page.  Objects can be added
-     * later to a specific page or to several pages.
-     *
-     * The return value is an integer ID for the new object.
-     *
-     * @see CPDF::close_object()
-     * @see CPDF::add_object()
-     *
-     * @return int
-     */
+    
     public function open_object()
     {
-        $ret = $this->_pdf->openObject();
+        $Vc00k54nbbvf = $this->_pdf->openObject();
         $this->_pdf->saveState();
-        return $ret;
+        return $Vc00k54nbbvf;
     }
 
-    /**
-     * Reopens an existing 'object'
-     *
-     * @see CPDF::open_object()
-     * @param int $object the ID of a previously opened object
-     */
-    public function reopen_object($object)
+    
+    public function reopen_object($V55objzzzsbj)
     {
-        $this->_pdf->reopenObject($object);
+        $this->_pdf->reopenObject($V55objzzzsbj);
         $this->_pdf->saveState();
     }
 
-    /**
-     * Closes the current 'object'
-     *
-     * @see CPDF::open_object()
-     */
+    
     public function close_object()
     {
         $this->_pdf->restoreState();
         $this->_pdf->closeObject();
     }
 
-    /**
-     * Adds a specified 'object' to the document
-     *
-     * $object int specifying an object created with {@link
-     * CPDF::open_object()}.  $where can be one of:
-     * - 'add' add to current page only
-     * - 'all' add to every page from the current one onwards
-     * - 'odd' add to all odd numbered pages from now on
-     * - 'even' add to all even numbered pages from now on
-     * - 'next' add the object to the next page only
-     * - 'nextodd' add to all odd numbered pages from the next one
-     * - 'nexteven' add to all even numbered pages from the next one
-     *
-     * @see Cpdf::addObject()
-     *
-     * @param int $object
-     * @param string $where
-     */
-    public function add_object($object, $where = 'all')
+    
+    public function add_object($V55objzzzsbj, $V4jncaa1nol5 = 'all')
     {
-        $this->_pdf->addObject($object, $where);
+        $this->_pdf->addObject($V55objzzzsbj, $V4jncaa1nol5);
     }
 
-    /**
-     * Stops the specified 'object' from appearing in the document.
-     *
-     * The object will stop being displayed on the page following the current
-     * one.
-     *
-     * @param int $object
-     */
-    public function stop_object($object)
+    
+    public function stop_object($V55objzzzsbj)
     {
-        $this->_pdf->stopObject($object);
+        $this->_pdf->stopObject($V55objzzzsbj);
     }
 
-    /**
-     * @access private
-     */
-    public function serialize_object($id)
+    
+    public function serialize_object($Vkriocz2qep2)
     {
-        // Serialize the pdf object's current state for retrieval later
-        return $this->_pdf->serializeObject($id);
+        
+        return $this->_pdf->serializeObject($Vkriocz2qep2);
     }
 
-    /**
-     * @access private
-     */
-    public function reopen_serialized_object($obj)
+    
+    public function reopen_serialized_object($Vx4b2juat5ap)
     {
-        return $this->_pdf->restoreSerializedObject($obj);
+        return $this->_pdf->restoreSerializedObject($Vx4b2juat5ap);
     }
 
-    //........................................................................
+    
 
-    /**
-     * Returns the PDF's width in points
-     * @return float
-     */
+    
     public function get_width()
     {
         return $this->_width;
     }
 
-    /**
-     * Returns the PDF's height in points
-     * @return float
-     */
+    
     public function get_height()
     {
         return $this->_height;
     }
 
-    /**
-     * Returns the current page number
-     * @return int
-     */
+    
     public function get_page_number()
     {
         return $this->_page_number;
     }
 
-    /**
-     * Returns the total number of pages in the document
-     * @return int
-     */
+    
     public function get_page_count()
     {
         return $this->_page_count;
     }
 
-    /**
-     * Sets the current page number
-     *
-     * @param int $num
-     */
-    public function set_page_number($num)
+    
+    public function set_page_number($Vxnixw2qni35)
     {
-        $this->_page_number = $num;
+        $this->_page_number = $Vxnixw2qni35;
     }
 
-    /**
-     * Sets the page count
-     *
-     * @param int $count
-     */
-    public function set_page_count($count)
+    
+    public function set_page_count($Vj4h4hyymhja)
     {
-        $this->_page_count = $count;
+        $this->_page_count = $Vj4h4hyymhja;
     }
 
-    /**
-     * Sets the stroke color
-     *
-     * See {@link Style::set_color()} for the format of the color array.
-     * @param array $color
-     */
-    protected function _set_stroke_color($color)
+    
+    protected function _set_stroke_color($Vexxkxtdr01j)
     {
-        $this->_pdf->setStrokeColor($color);
-        $alpha = isset($color["alpha"]) ? $color["alpha"] : 1;
+        $this->_pdf->setStrokeColor($Vexxkxtdr01j);
+        $V5352axhr3wt = isset($Vexxkxtdr01j["alpha"]) ? $Vexxkxtdr01j["alpha"] : 1;
         if ($this->_current_opacity != 1) {
-            $alpha *= $this->_current_opacity;
+            $V5352axhr3wt *= $this->_current_opacity;
         }
-        $this->_set_line_transparency("Normal", $alpha);
+        $this->_set_line_transparency("Normal", $V5352axhr3wt);
     }
 
-    /**
-     * Sets the fill colour
-     *
-     * See {@link Style::set_color()} for the format of the colour array.
-     * @param array $color
-     */
-    protected function _set_fill_color($color)
+    
+    protected function _set_fill_color($Vexxkxtdr01j)
     {
-        $this->_pdf->setColor($color);
-        $alpha = isset($color["alpha"]) ? $color["alpha"] : 1;
+        $this->_pdf->setColor($Vexxkxtdr01j);
+        $V5352axhr3wt = isset($Vexxkxtdr01j["alpha"]) ? $Vexxkxtdr01j["alpha"] : 1;
         if ($this->_current_opacity) {
-            $alpha *= $this->_current_opacity;
+            $V5352axhr3wt *= $this->_current_opacity;
         }
-        $this->_set_fill_transparency("Normal", $alpha);
+        $this->_set_fill_transparency("Normal", $V5352axhr3wt);
     }
 
-    /**
-     * Sets line transparency
-     * @see Cpdf::setLineTransparency()
-     *
-     * Valid blend modes are (case-sensitive):
-     *
-     * Normal, Multiply, Screen, Overlay, Darken, Lighten,
-     * ColorDodge, ColorBurn, HardLight, SoftLight, Difference,
-     * Exclusion
-     *
-     * @param string $mode the blending mode to use
-     * @param float $opacity 0.0 fully transparent, 1.0 fully opaque
-     */
-    protected function _set_line_transparency($mode, $opacity)
+    
+    protected function _set_line_transparency($Vgauloeyyiwd, $Vdrvff4n2sqc)
     {
-        $this->_pdf->setLineTransparency($mode, $opacity);
+        $this->_pdf->setLineTransparency($Vgauloeyyiwd, $Vdrvff4n2sqc);
     }
 
-    /**
-     * Sets fill transparency
-     * @see Cpdf::setFillTransparency()
-     *
-     * Valid blend modes are (case-sensitive):
-     *
-     * Normal, Multiply, Screen, Overlay, Darken, Lighten,
-     * ColorDogde, ColorBurn, HardLight, SoftLight, Difference,
-     * Exclusion
-     *
-     * @param string $mode the blending mode to use
-     * @param float $opacity 0.0 fully transparent, 1.0 fully opaque
-     */
-    protected function _set_fill_transparency($mode, $opacity)
+    
+    protected function _set_fill_transparency($Vgauloeyyiwd, $Vdrvff4n2sqc)
     {
-        $this->_pdf->setFillTransparency($mode, $opacity);
+        $this->_pdf->setFillTransparency($Vgauloeyyiwd, $Vdrvff4n2sqc);
     }
 
-    /**
-     * Sets the line style
-     *
-     * @see Cpdf::setLineStyle()
-     *
-     * @param float $width
-     * @param string $cap
-     * @param string $join
-     * @param array $dash
-     */
-    protected function _set_line_style($width, $cap, $join, $dash)
+    
+    protected function _set_line_style($Vztt3qdrrikx, $Vh3ypkcknmhs, $Vazpuxkzegec, $Vw1lezjmto4p)
     {
-        $this->_pdf->setLineStyle($width, $cap, $join, $dash);
+        $this->_pdf->setLineStyle($Vztt3qdrrikx, $Vh3ypkcknmhs, $Vazpuxkzegec, $Vw1lezjmto4p);
     }
 
-    /**
-     * Sets the opacity
-     *
-     * @param $opacity
-     * @param $mode
-     */
-    public function set_opacity($opacity, $mode = "Normal")
+    
+    public function set_opacity($Vdrvff4n2sqc, $Vgauloeyyiwd = "Normal")
     {
-        $this->_set_line_transparency($mode, $opacity);
-        $this->_set_fill_transparency($mode, $opacity);
-        $this->_current_opacity = $opacity;
+        $this->_set_line_transparency($Vgauloeyyiwd, $Vdrvff4n2sqc);
+        $this->_set_fill_transparency($Vgauloeyyiwd, $Vdrvff4n2sqc);
+        $this->_current_opacity = $Vdrvff4n2sqc;
     }
 
-    public function set_default_view($view, $options = array())
+    public function set_default_view($Vl1wquemb3h4, $Vi43cktvy0zi = array())
     {
-        array_unshift($options, $view);
-        call_user_func_array(array($this->_pdf, "openHere"), $options);
+        array_unshift($Vi43cktvy0zi, $Vl1wquemb3h4);
+        call_user_func_array(array($this->_pdf, "openHere"), $Vi43cktvy0zi);
     }
 
-    /**
-     * Remaps y coords from 4th to 1st quadrant
-     *
-     * @param float $y
-     * @return float
-     */
-    protected function y($y)
+    
+    protected function y($Vopgub02o3q2)
     {
-        return $this->_height - $y;
+        return $this->_height - $Vopgub02o3q2;
     }
 
-    /**
-     * Canvas implementation
-     *
-     * @param float $x1
-     * @param float $y1
-     * @param float $x2
-     * @param float $y2
-     * @param array $color
-     * @param float $width
-     * @param array $style
-     */
-    public function line($x1, $y1, $x2, $y2, $color, $width, $style = array())
+    
+    public function line($Vjxqwkabkvag, $Vopgub02o3q21, $Vn5yf4urazdd, $Vopgub02o3q22, $Vexxkxtdr01j, $Vztt3qdrrikx, $Vdidzwb0w3vc = array())
     {
-        $this->_set_stroke_color($color);
-        $this->_set_line_style($width, "butt", "", $style);
+        $this->_set_stroke_color($Vexxkxtdr01j);
+        $this->_set_line_style($Vztt3qdrrikx, "butt", "", $Vdidzwb0w3vc);
 
-        $this->_pdf->line($x1, $this->y($y1),
-            $x2, $this->y($y2));
+        $this->_pdf->line($Vjxqwkabkvag, $this->y($Vopgub02o3q21),
+            $Vn5yf4urazdd, $this->y($Vopgub02o3q22));
         $this->_set_line_transparency("Normal", $this->_current_opacity);
     }
 
-    /**
-     * @param float $x
-     * @param float $y
-     * @param float $r1
-     * @param float $r2
-     * @param float $astart
-     * @param float $aend
-     * @param array $color
-     * @param float $width
-     * @param array $style
-     */
-    public function arc($x, $y, $r1, $r2, $astart, $aend, $color, $width, $style = array())
+    
+    public function arc($Vs4gloy23a1d, $Vopgub02o3q2, $Vflxal01hfm5, $Vmsjiwqai3ku, $V0kev1i0iwnh, $Vc0idajbamqg, $Vexxkxtdr01j, $Vztt3qdrrikx, $Vdidzwb0w3vc = array())
     {
-        $this->_set_stroke_color($color);
-        $this->_set_line_style($width, "butt", "", $style);
+        $this->_set_stroke_color($Vexxkxtdr01j);
+        $this->_set_line_style($Vztt3qdrrikx, "butt", "", $Vdidzwb0w3vc);
 
-        $this->_pdf->ellipse($x, $this->y($y), $r1, $r2, 0, 8, $astart, $aend, false, false, true, false);
+        $this->_pdf->ellipse($Vs4gloy23a1d, $this->y($Vopgub02o3q2), $Vflxal01hfm5, $Vmsjiwqai3ku, 0, 8, $V0kev1i0iwnh, $Vc0idajbamqg, false, false, true, false);
         $this->_set_line_transparency("Normal", $this->_current_opacity);
     }
 
-    /**
-     * Convert a GIF or BMP image to a PNG image
-     *
-     * @param string $image_url
-     * @param integer $type
-     *
-     * @throws Exception
-     * @return string The url of the newly converted image
-     */
-    protected function _convert_gif_bmp_to_png($image_url, $type)
+    
+    protected function _convert_gif_bmp_to_png($Vteh53zjtn0n, $Vxeifmjzikkj)
     {
-        $func_name = "imagecreatefrom$type";
+        $Vhyq3fx312sp = "imagecreatefrom$Vxeifmjzikkj";
 
-        if (!function_exists($func_name)) {
-            if (!method_exists("Dompdf\Helpers", $func_name)) {
-                throw new Exception("Function $func_name() not found.  Cannot convert $type image: $image_url.  Please install the image PHP extension.");
+        if (!function_exists($Vhyq3fx312sp)) {
+            if (!method_exists("Dompdf\Helpers", $Vhyq3fx312sp)) {
+                throw new Exception("Function $Vhyq3fx312sp() not found.  Cannot convert $Vxeifmjzikkj image: $Vteh53zjtn0n.  Please install the image PHP extension.");
             }
-            $func_name = "\\Dompdf\\Helpers::" . $func_name;
+            $Vhyq3fx312sp = "\\Dompdf\\Helpers::" . $Vhyq3fx312sp;
         }
 
         set_error_handler(array("\\Dompdf\\Helpers", "record_warnings"));
-        $im = call_user_func($func_name, $image_url);
+        $V3fpkdko4crz = call_user_func($Vhyq3fx312sp, $Vteh53zjtn0n);
 
-        if ($im) {
-            imageinterlace($im, false);
+        if ($V3fpkdko4crz) {
+            imageinterlace($V3fpkdko4crz, false);
 
-            $tmp_dir = $this->_dompdf->getOptions()->getTempDir();
-            $tmp_name = tempnam($tmp_dir, "{$type}dompdf_img_");
-            @unlink($tmp_name);
-            $filename = "$tmp_name.png";
-            $this->_image_cache[] = $filename;
+            $Vwly5twschnk = $this->_dompdf->getOptions()->getTempDir();
+            $Vniukaz5mf5i = tempnam($Vwly5twschnk, "{$Vxeifmjzikkj}dompdf_img_");
+            @unlink($Vniukaz5mf5i);
+            $Vaqmmjdxljsi = "$Vniukaz5mf5i.png";
+            $this->_image_cache[] = $Vaqmmjdxljsi;
 
-            imagepng($im, $filename);
-            imagedestroy($im);
+            imagepng($V3fpkdko4crz, $Vaqmmjdxljsi);
+            imagedestroy($V3fpkdko4crz);
         } else {
-            $filename = Cache::$broken_image;
+            $Vaqmmjdxljsi = Cache::$Vp4dew3xrbtu;
         }
 
         restore_error_handler();
 
-        return $filename;
+        return $Vaqmmjdxljsi;
     }
 
-    /**
-     * @param float $x1
-     * @param float $y1
-     * @param float $w
-     * @param float $h
-     * @param array $color
-     * @param float $width
-     * @param array $style
-     */
-    public function rectangle($x1, $y1, $w, $h, $color, $width, $style = array())
+    
+    public function rectangle($Vjxqwkabkvag, $Vopgub02o3q21, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vexxkxtdr01j, $Vztt3qdrrikx, $Vdidzwb0w3vc = array())
     {
-        $this->_set_stroke_color($color);
-        $this->_set_line_style($width, "butt", "", $style);
-        $this->_pdf->rectangle($x1, $this->y($y1) - $h, $w, $h);
+        $this->_set_stroke_color($Vexxkxtdr01j);
+        $this->_set_line_style($Vztt3qdrrikx, "butt", "", $Vdidzwb0w3vc);
+        $this->_pdf->rectangle($Vjxqwkabkvag, $this->y($Vopgub02o3q21) - $Vjlmjalejjxa, $Vhoifq2kocyt, $Vjlmjalejjxa);
         $this->_set_line_transparency("Normal", $this->_current_opacity);
     }
 
-    /**
-     * @param float $x1
-     * @param float $y1
-     * @param float $w
-     * @param float $h
-     * @param array $color
-     */
-    public function filled_rectangle($x1, $y1, $w, $h, $color)
+    
+    public function filled_rectangle($Vjxqwkabkvag, $Vopgub02o3q21, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vexxkxtdr01j)
     {
-        $this->_set_fill_color($color);
-        $this->_pdf->filledRectangle($x1, $this->y($y1) - $h, $w, $h);
+        $this->_set_fill_color($Vexxkxtdr01j);
+        $this->_pdf->filledRectangle($Vjxqwkabkvag, $this->y($Vopgub02o3q21) - $Vjlmjalejjxa, $Vhoifq2kocyt, $Vjlmjalejjxa);
         $this->_set_fill_transparency("Normal", $this->_current_opacity);
     }
 
-    /**
-     * @param float $x1
-     * @param float $y1
-     * @param float $w
-     * @param float $h
-     */
-    public function clipping_rectangle($x1, $y1, $w, $h)
+    
+    public function clipping_rectangle($Vjxqwkabkvag, $Vopgub02o3q21, $Vhoifq2kocyt, $Vjlmjalejjxa)
     {
-        $this->_pdf->clippingRectangle($x1, $this->y($y1) - $h, $w, $h);
+        $this->_pdf->clippingRectangle($Vjxqwkabkvag, $this->y($Vopgub02o3q21) - $Vjlmjalejjxa, $Vhoifq2kocyt, $Vjlmjalejjxa);
     }
 
-    /**
-     * @param float $x1
-     * @param float $y1
-     * @param float $w
-     * @param float $h
-     * @param float $rTL
-     * @param float $rTR
-     * @param float $rBR
-     * @param float $rBL
-     */
-    public function clipping_roundrectangle($x1, $y1, $w, $h, $rTL, $rTR, $rBR, $rBL)
+    
+    public function clipping_roundrectangle($Vjxqwkabkvag, $Vopgub02o3q21, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vhsnbs0gwraw, $Voxjadvbzbkb, $Vpzh1agu5pge, $Vlbh2hh1w1uq)
     {
-        $this->_pdf->clippingRectangleRounded($x1, $this->y($y1) - $h, $w, $h, $rTL, $rTR, $rBR, $rBL);
+        $this->_pdf->clippingRectangleRounded($Vjxqwkabkvag, $this->y($Vopgub02o3q21) - $Vjlmjalejjxa, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vhsnbs0gwraw, $Voxjadvbzbkb, $Vpzh1agu5pge, $Vlbh2hh1w1uq);
     }
 
-    /**
-     *
-     */
+    
     public function clipping_end()
     {
         $this->_pdf->clippingEnd();
     }
 
-    /**
-     *
-     */
+    
     public function save()
     {
         $this->_pdf->saveState();
     }
 
-    /**
-     *
-     */
+    
     public function restore()
     {
         $this->_pdf->restoreState();
     }
 
-    /**
-     * @param $angle
-     * @param $x
-     * @param $y
-     */
-    public function rotate($angle, $x, $y)
+    
+    public function rotate($Vtmcaiuo2hqy, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
-        $this->_pdf->rotate($angle, $x, $y);
+        $this->_pdf->rotate($Vtmcaiuo2hqy, $Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    /**
-     * @param $angle_x
-     * @param $angle_y
-     * @param $x
-     * @param $y
-     */
-    public function skew($angle_x, $angle_y, $x, $y)
+    
+    public function skew($Vtmcaiuo2hqy_x, $Vtmcaiuo2hqy_y, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
-        $this->_pdf->skew($angle_x, $angle_y, $x, $y);
+        $this->_pdf->skew($Vtmcaiuo2hqy_x, $Vtmcaiuo2hqy_y, $Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    /**
-     * @param $s_x
-     * @param $s_y
-     * @param $x
-     * @param $y
-     */
-    public function scale($s_x, $s_y, $x, $y)
+    
+    public function scale($Vvyyy23v5fb4, $V2fb2ve5h53x, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
-        $this->_pdf->scale($s_x, $s_y, $x, $y);
+        $this->_pdf->scale($Vvyyy23v5fb4, $V2fb2ve5h53x, $Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    /**
-     * @param $t_x
-     * @param $t_y
-     */
-    public function translate($t_x, $t_y)
+    
+    public function translate($Vidim0y0ouos, $Vycw3amdlttj)
     {
-        $this->_pdf->translate($t_x, $t_y);
+        $this->_pdf->translate($Vidim0y0ouos, $Vycw3amdlttj);
     }
 
-    /**
-     * @param $a
-     * @param $b
-     * @param $c
-     * @param $d
-     * @param $e
-     * @param $f
-     */
-    public function transform($a, $b, $c, $d, $e, $f)
+    
+    public function transform($Vrr3orqjztc2, $Vbz3vmbr1h2v, $Vv03lfntnmcz, $Vcyg5xmwfpxo, $V2bwrjburyuf, $V4ljftfdeqpl)
     {
-        $this->_pdf->transform(array($a, $b, $c, $d, $e, $f));
+        $this->_pdf->transform(array($Vrr3orqjztc2, $Vbz3vmbr1h2v, $Vv03lfntnmcz, $Vcyg5xmwfpxo, $V2bwrjburyuf, $V4ljftfdeqpl));
     }
 
-    /**
-     * @param array $points
-     * @param array $color
-     * @param null $width
-     * @param array $style
-     * @param bool $fill
-     */
-    public function polygon($points, $color, $width = null, $style = array(), $fill = false)
+    
+    public function polygon($V4jz4nyvrd2d, $Vexxkxtdr01j, $Vztt3qdrrikx = null, $Vdidzwb0w3vc = array(), $V4ljftfdeqplill = false)
     {
-        $this->_set_fill_color($color);
-        $this->_set_stroke_color($color);
+        $this->_set_fill_color($Vexxkxtdr01j);
+        $this->_set_stroke_color($Vexxkxtdr01j);
 
-        // Adjust y values
-        for ($i = 1; $i < count($points); $i += 2) {
-            $points[$i] = $this->y($points[$i]);
+        
+        for ($V3xsptcgzss2 = 1; $V3xsptcgzss2 < count($V4jz4nyvrd2d); $V3xsptcgzss2 += 2) {
+            $V4jz4nyvrd2d[$V3xsptcgzss2] = $this->y($V4jz4nyvrd2d[$V3xsptcgzss2]);
         }
 
-        $this->_pdf->polygon($points, count($points) / 2, $fill);
+        $this->_pdf->polygon($V4jz4nyvrd2d, count($V4jz4nyvrd2d) / 2, $V4ljftfdeqplill);
 
         $this->_set_fill_transparency("Normal", $this->_current_opacity);
         $this->_set_line_transparency("Normal", $this->_current_opacity);
     }
 
-    /**
-     * @param float $x
-     * @param float $y
-     * @param float $r1
-     * @param array $color
-     * @param null $width
-     * @param null $style
-     * @param bool $fill
-     */
-    public function circle($x, $y, $r1, $color, $width = null, $style = null, $fill = false)
+    
+    public function circle($Vs4gloy23a1d, $Vopgub02o3q2, $Vflxal01hfm5, $Vexxkxtdr01j, $Vztt3qdrrikx = null, $Vdidzwb0w3vc = null, $V4ljftfdeqplill = false)
     {
-        $this->_set_fill_color($color);
-        $this->_set_stroke_color($color);
+        $this->_set_fill_color($Vexxkxtdr01j);
+        $this->_set_stroke_color($Vexxkxtdr01j);
 
-        if (!$fill && isset($width)) {
-            $this->_set_line_style($width, "round", "round", $style);
+        if (!$V4ljftfdeqplill && isset($Vztt3qdrrikx)) {
+            $this->_set_line_style($Vztt3qdrrikx, "round", "round", $Vdidzwb0w3vc);
         }
 
-        $this->_pdf->ellipse($x, $this->y($y), $r1, 0, 0, 8, 0, 360, 1, $fill);
+        $this->_pdf->ellipse($Vs4gloy23a1d, $this->y($Vopgub02o3q2), $Vflxal01hfm5, 0, 0, 8, 0, 360, 1, $V4ljftfdeqplill);
 
         $this->_set_fill_transparency("Normal", $this->_current_opacity);
         $this->_set_line_transparency("Normal", $this->_current_opacity);
     }
 
-    /**
-     * @param string $img
-     * @param float $x
-     * @param float $y
-     * @param int $w
-     * @param int $h
-     * @param string $resolution
-     */
-    public function image($img, $x, $y, $w, $h, $resolution = "normal")
+    
+    public function image($V1bb0p4see5o, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vcp3240dq5y1 = "normal")
     {
-        list($width, $height, $type) = Helpers::dompdf_getimagesize($img, $this->get_dompdf()->getHttpContext());
+        list($Vztt3qdrrikx, $Vjlmjalejjxaeight, $Vxeifmjzikkj) = Helpers::dompdf_getimagesize($V1bb0p4see5o, $this->get_dompdf()->getHttpContext());
 
-        $debug_png = $this->_dompdf->getOptions()->getDebugPng();
+        $Vcyg5xmwfpxoebug_png = $this->_dompdf->getOptions()->getDebugPng();
 
-        if ($debug_png) {
-            print "[image:$img|$width|$height|$type]";
+        if ($Vcyg5xmwfpxoebug_png) {
+            print "[image:$V1bb0p4see5o|$Vztt3qdrrikx|$Vjlmjalejjxaeight|$Vxeifmjzikkj]";
         }
 
-        switch ($type) {
+        switch ($Vxeifmjzikkj) {
             case "jpeg":
-                if ($debug_png) {
+                if ($Vcyg5xmwfpxoebug_png) {
                     print '!!!jpg!!!';
                 }
-                $this->_pdf->addJpegFromFile($img, $x, $this->y($y) - $h, $w, $h);
+                $this->_pdf->addJpegFromFile($V1bb0p4see5o, $Vs4gloy23a1d, $this->y($Vopgub02o3q2) - $Vjlmjalejjxa, $Vhoifq2kocyt, $Vjlmjalejjxa);
                 break;
 
             case "gif":
-            /** @noinspection PhpMissingBreakStatementInspection */
+            
             case "bmp":
-                if ($debug_png) print '!!!bmp or gif!!!';
-                // @todo use cache for BMP and GIF
-                $img = $this->_convert_gif_bmp_to_png($img, $type);
+                if ($Vcyg5xmwfpxoebug_png) print '!!!bmp or gif!!!';
+                
+                $V1bb0p4see5o = $this->_convert_gif_bmp_to_png($V1bb0p4see5o, $Vxeifmjzikkj);
 
             case "png":
-                if ($debug_png) print '!!!png!!!';
+                if ($Vcyg5xmwfpxoebug_png) print '!!!png!!!';
 
-                $this->_pdf->addPngFromFile($img, $x, $this->y($y) - $h, $w, $h);
+                $this->_pdf->addPngFromFile($V1bb0p4see5o, $Vs4gloy23a1d, $this->y($Vopgub02o3q2) - $Vjlmjalejjxa, $Vhoifq2kocyt, $Vjlmjalejjxa);
                 break;
 
             case "svg":
-                if ($debug_png) print '!!!SVG!!!';
+                if ($Vcyg5xmwfpxoebug_png) print '!!!SVG!!!';
 
-                $this->_pdf->addSvgFromFile($img, $x, $this->y($y) - $h, $w, $h);
+                $this->_pdf->addSvgFromFile($V1bb0p4see5o, $Vs4gloy23a1d, $this->y($Vopgub02o3q2) - $Vjlmjalejjxa, $Vhoifq2kocyt, $Vjlmjalejjxa);
                 break;
 
             default:
-                if ($debug_png) print '!!!unknown!!!';
+                if ($Vcyg5xmwfpxoebug_png) print '!!!unknown!!!';
         }
     }
 
-    /**
-     * @param float $x
-     * @param float $y
-     * @param string $text
-     * @param string $font
-     * @param float $size
-     * @param array $color
-     * @param float $word_space
-     * @param float $char_space
-     * @param float $angle
-     */
-    public function text($x, $y, $text, $font, $size, $color = array(0, 0, 0), $word_space = 0.0, $char_space = 0.0, $angle = 0.0)
+    
+    public function text($Vs4gloy23a1d, $Vopgub02o3q2, $Vnlbbd31sxbf, $V4ljftfdeqplont, $Vlak25col1u3, $Vexxkxtdr01j = array(0, 0, 0), $Vhoifq2kocytord_space = 0.0, $Vv03lfntnmczhar_space = 0.0, $Vtmcaiuo2hqy = 0.0)
     {
-        $pdf = $this->_pdf;
+        $Vsvnz5bsmrgs = $this->_pdf;
 
-        $this->_set_fill_color($color);
+        $this->_set_fill_color($Vexxkxtdr01j);
 
-        $font .= ".afm";
-        $pdf->selectFont($font);
+        $V4ljftfdeqplont .= ".afm";
+        $Vsvnz5bsmrgs->selectFont($V4ljftfdeqplont);
 
-        //FontMetrics::getFontHeight($font, $size) ==
-        //$this->getFontHeight($font, $size) ==
-        //$this->_pdf->selectFont($font),$this->_pdf->getFontHeight($size)
-        //- FontBBoxheight+FontHeightOffset, scaled to $size, in pt
-        //$this->_pdf->getFontDescender($size)
-        //- Descender scaled to size
-        //
-        //$this->_pdf->fonts[$this->_pdf->currentFont] sizes:
-        //['FontBBox'][0] left, ['FontBBox'][1] bottom, ['FontBBox'][2] right, ['FontBBox'][3] top
-        //Maximum extent of all glyphs of the font from the baseline point
-        //['Ascender'] maximum height above baseline except accents
-        //['Descender'] maximum depth below baseline, negative number means below baseline
-        //['FontHeightOffset'] manual enhancement of .afm files to trim windows fonts. currently not used.
-        //Values are in 1/1000 pt for a font size of 1 pt
-        //
-        //['FontBBox'][1] should be close to ['Descender']
-        //['FontBBox'][3] should be close to ['Ascender']+Accents
-        //in practice, FontBBox values are a little bigger
-        //
-        //The text position is referenced to the baseline, not to the lower corner of the FontBBox,
-        //for what the left,top corner is given.
-        //FontBBox spans also the background box for the text.
-        //If the lower corner would be used as reference point, the Descents of the glyphs would
-        //hang over the background box border.
-        //Therefore compensate only the extent above the Baseline.
-        //
-        //print '<pre>['.$font.','.$size.','.$pdf->getFontHeight($size).','.$pdf->getFontDescender($size).','.$pdf->fonts[$pdf->currentFont]['FontBBox'][3].','.$pdf->fonts[$pdf->currentFont]['FontBBox'][1].','.$pdf->fonts[$pdf->currentFont]['FontHeightOffset'].','.$pdf->fonts[$pdf->currentFont]['Ascender'].','.$pdf->fonts[$pdf->currentFont]['Descender'].']</pre>';
-        //
-        //$pdf->addText($x, $this->y($y) - ($pdf->fonts[$pdf->currentFont]['FontBBox'][3]*$size)/1000, $size, $text, $angle, $word_space, $char_space);
-        $pdf->addText($x, $this->y($y) - $pdf->getFontHeight($size), $size, $text, $angle, $word_space, $char_space);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        $Vsvnz5bsmrgs->addText($Vs4gloy23a1d, $this->y($Vopgub02o3q2) - $Vsvnz5bsmrgs->getFontHeight($Vlak25col1u3), $Vlak25col1u3, $Vnlbbd31sxbf, $Vtmcaiuo2hqy, $Vhoifq2kocytord_space, $Vv03lfntnmczhar_space);
 
         $this->_set_fill_transparency("Normal", $this->_current_opacity);
     }
 
-    /**
-     * @param string $code
-     */
-    public function javascript($code)
+    
+    public function javascript($Vv03lfntnmczode)
     {
-        $this->_pdf->addJavascript($code);
+        $this->_pdf->addJavascript($Vv03lfntnmczode);
     }
 
-    //........................................................................
+    
 
-    /**
-     * Add a named destination (similar to <a name="foo">...</a> in html)
-     *
-     * @param string $anchorname The name of the named destination
-     */
-    public function add_named_dest($anchorname)
+    
+    public function add_named_dest($Vrr3orqjztc2nchorname)
     {
-        $this->_pdf->addDestination($anchorname, "Fit");
+        $this->_pdf->addDestination($Vrr3orqjztc2nchorname, "Fit");
     }
 
-    /**
-     * Add a link to the pdf
-     *
-     * @param string $url The url to link to
-     * @param float $x The x position of the link
-     * @param float $y The y position of the link
-     * @param float $width The width of the link
-     * @param float $height The height of the link
-     */
-    public function add_link($url, $x, $y, $width, $height)
+    
+    public function add_link($Vsp0omgzz2yw, $Vs4gloy23a1d, $Vopgub02o3q2, $Vztt3qdrrikx, $Vjlmjalejjxaeight)
     {
-        $y = $this->y($y) - $height;
+        $Vopgub02o3q2 = $this->y($Vopgub02o3q2) - $Vjlmjalejjxaeight;
 
-        if (strpos($url, '#') === 0) {
-            // Local link
-            $name = substr($url, 1);
-            if ($name) {
-                $this->_pdf->addInternalLink($name, $x, $y, $x + $width, $y + $height);
+        if (strpos($Vsp0omgzz2yw, '#') === 0) {
+            
+            $Vpgf1maodsla = substr($Vsp0omgzz2yw, 1);
+            if ($Vpgf1maodsla) {
+                $this->_pdf->addInternalLink($Vpgf1maodsla, $Vs4gloy23a1d, $Vopgub02o3q2, $Vs4gloy23a1d + $Vztt3qdrrikx, $Vopgub02o3q2 + $Vjlmjalejjxaeight);
             }
         } else {
-            $this->_pdf->addLink(rawurldecode($url), $x, $y, $x + $width, $y + $height);
+            $this->_pdf->addLink(rawurldecode($Vsp0omgzz2yw), $Vs4gloy23a1d, $Vopgub02o3q2, $Vs4gloy23a1d + $Vztt3qdrrikx, $Vopgub02o3q2 + $Vjlmjalejjxaeight);
         }
     }
 
-    /**
-     * @param string $text
-     * @param string $font
-     * @param float $size
-     * @param int $word_spacing
-     * @param int $char_spacing
-     * @return float|int
-     */
-    public function get_text_width($text, $font, $size, $word_spacing = 0, $char_spacing = 0)
+    
+    public function get_text_width($Vnlbbd31sxbf, $V4ljftfdeqplont, $Vlak25col1u3, $Vhoifq2kocytord_spacing = 0, $Vv03lfntnmczhar_spacing = 0)
     {
-        $this->_pdf->selectFont($font);
-        return $this->_pdf->getTextWidth($size, $text, $word_spacing, $char_spacing);
+        $this->_pdf->selectFont($V4ljftfdeqplont);
+        return $this->_pdf->getTextWidth($Vlak25col1u3, $Vnlbbd31sxbf, $Vhoifq2kocytord_spacing, $Vv03lfntnmczhar_spacing);
     }
 
-    /**
-     * @param $font
-     * @param $string
-     */
-    public function register_string_subset($font, $string)
+    
+    public function register_string_subset($V4ljftfdeqplont, $V5jic1hsgori)
     {
-        $this->_pdf->registerText($font, $string);
+        $this->_pdf->registerText($V4ljftfdeqplont, $V5jic1hsgori);
     }
 
-    /**
-     * @param string $font
-     * @param float $size
-     * @return float|int
-     */
-    public function get_font_height($font, $size)
+    
+    public function get_font_height($V4ljftfdeqplont, $Vlak25col1u3)
     {
-        $this->_pdf->selectFont($font);
+        $this->_pdf->selectFont($V4ljftfdeqplont);
 
-        $ratio = $this->_dompdf->getOptions()->getFontHeightRatio();
-        return $this->_pdf->getFontHeight($size) * $ratio;
+        $V40vhmzfc0aj = $this->_dompdf->getOptions()->getFontHeightRatio();
+        return $this->_pdf->getFontHeight($Vlak25col1u3) * $V40vhmzfc0aj;
     }
 
-    /*function get_font_x_height($font, $size) {
-      $this->_pdf->selectFont($font);
-      $ratio = $this->_dompdf->getOptions()->getFontHeightRatio();
-      return $this->_pdf->getFontXHeight($size) * $ratio;
-    }*/
+    
 
-    /**
-     * @param string $font
-     * @param float $size
-     * @return float
-     */
-    public function get_font_baseline($font, $size)
+    
+    public function get_font_baseline($V4ljftfdeqplont, $Vlak25col1u3)
     {
-        $ratio = $this->_dompdf->getOptions()->getFontHeightRatio();
-        return $this->get_font_height($font, $size) / $ratio;
+        $V40vhmzfc0aj = $this->_dompdf->getOptions()->getFontHeightRatio();
+        return $this->get_font_height($V4ljftfdeqplont, $Vlak25col1u3) / $V40vhmzfc0aj;
     }
 
-    /**
-     * Writes text at the specified x and y coordinates on every page
-     *
-     * The strings '{PAGE_NUM}' and '{PAGE_COUNT}' are automatically replaced
-     * with their current values.
-     *
-     * See {@link Style::munge_color()} for the format of the colour array.
-     *
-     * @param float $x
-     * @param float $y
-     * @param string $text the text to write
-     * @param string $font the font file to use
-     * @param float $size the font size, in points
-     * @param array $color
-     * @param float $word_space word spacing adjustment
-     * @param float $char_space char spacing adjustment
-     * @param float $angle angle to write the text at, measured CW starting from the x-axis
-     */
-    public function page_text($x, $y, $text, $font, $size, $color = array(0, 0, 0), $word_space = 0.0, $char_space = 0.0, $angle = 0.0)
+    
+    public function page_text($Vs4gloy23a1d, $Vopgub02o3q2, $Vnlbbd31sxbf, $V4ljftfdeqplont, $Vlak25col1u3, $Vexxkxtdr01j = array(0, 0, 0), $Vhoifq2kocytord_space = 0.0, $Vv03lfntnmczhar_space = 0.0, $Vtmcaiuo2hqy = 0.0)
     {
-        $_t = "text";
+        $Vihwqxu0u5pt = "text";
         $this->_page_text[] = compact("_t", "x", "y", "text", "font", "size", "color", "word_space", "char_space", "angle");
     }
 
-    /**
-     * Processes a script on every page
-     *
-     * The variables $pdf, $PAGE_NUM, and $PAGE_COUNT are available.
-     *
-     * This function can be used to add page numbers to all pages
-     * after the first one, for example.
-     *
-     * @param string $code the script code
-     * @param string $type the language type for script
-     */
-    public function page_script($code, $type = "text/php")
+    
+    public function page_script($Vv03lfntnmczode, $Vxeifmjzikkj = "text/php")
     {
-        $_t = "script";
+        $Vihwqxu0u5pt = "script";
         $this->_page_text[] = compact("_t", "code", "type");
     }
 
-    /**
-     * @return int
-     */
+    
     public function new_page()
     {
         $this->_page_number++;
         $this->_page_count++;
 
-        $ret = $this->_pdf->newPage();
-        $this->_pages[] = $ret;
-        return $ret;
+        $Vc00k54nbbvf = $this->_pdf->newPage();
+        $this->_pages[] = $Vc00k54nbbvf;
+        return $Vc00k54nbbvf;
     }
 
-    /**
-     * Add text to each page after rendering is complete
-     */
+    
     protected function _add_page_text()
     {
         if (!count($this->_page_text)) {
             return;
         }
 
-        $page_number = 1;
-        $eval = null;
+        $Vmxezqy2cq23 = 1;
+        $V2bwrjburyufval = null;
 
-        foreach ($this->_pages as $pid) {
-            $this->reopen_object($pid);
+        foreach ($this->_pages as $Vxghhuek0lhz) {
+            $this->reopen_object($Vxghhuek0lhz);
 
-            foreach ($this->_page_text as $pt) {
-                extract($pt);
+            foreach ($this->_page_text as $Vxhmkf5fcjgo) {
+                extract($Vxhmkf5fcjgo);
 
-                switch ($_t) {
+                switch ($Vihwqxu0u5pt) {
                     case "text":
-                        $text = str_replace(array("{PAGE_NUM}", "{PAGE_COUNT}"),
-                            array($page_number, $this->_page_count), $text);
-                        $this->text($x, $y, $text, $font, $size, $color, $word_space, $char_space, $angle);
+                        $Vnlbbd31sxbf = str_replace(array("{PAGE_NUM}", "{PAGE_COUNT}"),
+                            array($Vmxezqy2cq23, $this->_page_count), $Vnlbbd31sxbf);
+                        $this->text($Vs4gloy23a1d, $Vopgub02o3q2, $Vnlbbd31sxbf, $V4ljftfdeqplont, $Vlak25col1u3, $Vexxkxtdr01j, $Vhoifq2kocytord_space, $Vv03lfntnmczhar_space, $Vtmcaiuo2hqy);
                         break;
 
                     case "script":
-                        if (!$eval) {
-                            $eval = new PhpEvaluator($this);
+                        if (!$V2bwrjburyufval) {
+                            $V2bwrjburyufval = new PhpEvaluator($this);
                         }
-                        $eval->evaluate($code, array('PAGE_NUM' => $page_number, 'PAGE_COUNT' => $this->_page_count));
+                        $V2bwrjburyufval->evaluate($Vv03lfntnmczode, array('PAGE_NUM' => $Vmxezqy2cq23, 'PAGE_COUNT' => $this->_page_count));
                         break;
                 }
             }
 
             $this->close_object();
-            $page_number++;
+            $Vmxezqy2cq23++;
         }
     }
 
-    /**
-     * Streams the PDF to the client.
-     *
-     * @param string $filename The filename to present to the client.
-     * @param array $options Associative array: 'compress' => 1 or 0 (default 1); 'Attachment' => 1 or 0 (default 1).
-     */
-    public function stream($filename = "document.pdf", $options = array())
+    
+    public function stream($Vaqmmjdxljsi = "document.pdf", $Vi43cktvy0zi = array())
     {
         if (headers_sent()) {
             die("Unable to stream pdf: headers already sent");
         }
 
-        if (!isset($options["compress"])) $options["compress"] = true;
-        if (!isset($options["Attachment"])) $options["Attachment"] = true;
+        if (!isset($Vi43cktvy0zi["compress"])) $Vi43cktvy0zi["compress"] = true;
+        if (!isset($Vi43cktvy0zi["Attachment"])) $Vi43cktvy0zi["Attachment"] = true;
 
         $this->_add_page_text();
 
-        $debug = !$options['compress'];
-        $tmp = ltrim($this->_pdf->output($debug));
+        $Vcyg5xmwfpxoebug = !$Vi43cktvy0zi['compress'];
+        $Vynpm04a4fx0 = ltrim($this->_pdf->output($Vcyg5xmwfpxoebug));
 
         header("Cache-Control: private");
         header("Content-Type: application/pdf");
-        header("Content-Length: " . mb_strlen($tmp, "8bit"));
+        header("Content-Length: " . mb_strlen($Vynpm04a4fx0, "8bit"));
 
-        $filename = str_replace(array("\n", "'"), "", basename($filename, ".pdf")) . ".pdf";
-        $attachment = $options["Attachment"] ? "attachment" : "inline";
-        header(Helpers::buildContentDispositionHeader($attachment, $filename));
+        $Vaqmmjdxljsi = str_replace(array("\n", "'"), "", basename($Vaqmmjdxljsi, ".pdf")) . ".pdf";
+        $Vrr3orqjztc2ttachment = $Vi43cktvy0zi["Attachment"] ? "attachment" : "inline";
+        header(Helpers::buildContentDispositionHeader($Vrr3orqjztc2ttachment, $Vaqmmjdxljsi));
 
-        echo $tmp;
+        echo $Vynpm04a4fx0;
         flush();
     }
 
-    /**
-     * Returns the PDF as a string.
-     *
-     * @param array $options Associative array: 'compress' => 1 or 0 (default 1).
-     * @return string
-     */
-    public function output($options = array())
+    
+    public function output($Vi43cktvy0zi = array())
     {
-        if (!isset($options["compress"])) $options["compress"] = true;
+        if (!isset($Vi43cktvy0zi["compress"])) $Vi43cktvy0zi["compress"] = true;
 
         $this->_add_page_text();
 
-        $debug = !$options['compress'];
+        $Vcyg5xmwfpxoebug = !$Vi43cktvy0zi['compress'];
 
-        return $this->_pdf->output($debug);
+        return $this->_pdf->output($Vcyg5xmwfpxoebug);
     }
 
-    /**
-     * Returns logging messages generated by the Cpdf class
-     *
-     * @return string
-     */
+    
     public function get_messages()
     {
         return $this->_pdf->messages;

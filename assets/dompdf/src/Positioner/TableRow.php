@@ -1,36 +1,25 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Dompdf\Positioner;
 
 use Dompdf\FrameDecorator\AbstractFrameDecorator;
 
-/**
- * Positions table rows
- *
- * @package dompdf
- */
+
 class TableRow extends AbstractPositioner
 {
 
-    /**
-     * @param AbstractFrameDecorator $frame
-     */
-    function position(AbstractFrameDecorator $frame)
+    
+    function position(AbstractFrameDecorator $Vnk2ly5jcvjf)
     {
-        $cb = $frame->get_containing_block();
-        $p = $frame->get_prev_sibling();
+        $Vavdpq045wub = $Vnk2ly5jcvjf->get_containing_block();
+        $Vksopkgqixky = $Vnk2ly5jcvjf->get_prev_sibling();
 
-        if ($p) {
-            $y = $p->get_position("y") + $p->get_margin_height();
+        if ($Vksopkgqixky) {
+            $Vopgub02o3q2 = $Vksopkgqixky->get_position("y") + $Vksopkgqixky->get_margin_height();
         } else {
-            $y = $cb["y"];
+            $Vopgub02o3q2 = $Vavdpq045wub["y"];
         }
-        $frame->set_position($cb["x"], $y);
+        $Vnk2ly5jcvjf->set_position($Vavdpq045wub["x"], $Vopgub02o3q2);
     }
 }

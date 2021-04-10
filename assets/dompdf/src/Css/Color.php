@@ -1,12 +1,6 @@
 <?php
 
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Dompdf\Css;
 
@@ -14,7 +8,7 @@ use Dompdf\Helpers;
 
 class Color
 {
-    static $cssColorNames = array(
+    static $Vj5piwhjxvw4 = array(
         "aliceblue" => "F0F8FF",
         "antiquewhite" => "FAEBD7",
         "aqua" => "00FFFF",
@@ -164,144 +158,137 @@ class Color
         "yellowgreen" => "9ACD32",
     );
 
-    /**
-     * @param $color
-     * @return array|mixed|null|string
-     */
-    static function parse($color)
+    
+    static function parse($Vexxkxtdr01j)
     {
-        if (is_array($color)) {
-            // Assume the array has the right format...
-            // FIXME: should/could verify this.
-            return $color;
+        if (is_array($Vexxkxtdr01j)) {
+            
+            
+            return $Vexxkxtdr01j;
         }
 
-        static $cache = array();
+        static $V1ph4ewhj5yc = array();
 
-        $color = strtolower($color);
+        $Vexxkxtdr01j = strtolower($Vexxkxtdr01j);
 
-        if (isset($cache[$color])) {
-            return $cache[$color];
+        if (isset($V1ph4ewhj5yc[$Vexxkxtdr01j])) {
+            return $V1ph4ewhj5yc[$Vexxkxtdr01j];
         }
 
-        if (in_array($color, array("transparent", "inherit"))) {
-            return $cache[$color] = $color;
+        if (in_array($Vexxkxtdr01j, array("transparent", "inherit"))) {
+            return $V1ph4ewhj5yc[$Vexxkxtdr01j] = $Vexxkxtdr01j;
         }
 
-        if (isset(self::$cssColorNames[$color])) {
-            return $cache[$color] = self::getArray(self::$cssColorNames[$color]);
+        if (isset(self::$Vj5piwhjxvw4[$Vexxkxtdr01j])) {
+            return $V1ph4ewhj5yc[$Vexxkxtdr01j] = self::getArray(self::$Vj5piwhjxvw4[$Vexxkxtdr01j]);
         }
 
-        $length = mb_strlen($color);
+        $Vjxpogd0afis = mb_strlen($Vexxkxtdr01j);
 
-        // #rgb format
-        if ($length == 4 && $color[0] === "#") {
-            return $cache[$color] = self::getArray($color[1] . $color[1] . $color[2] . $color[2] . $color[3] . $color[3]);
-        } // #rgba format
-        else if ($length == 5 && $color[0] === "#") {
-            $alpha = round(hexdec($color[4] . $color[4])/255, 2);
-            return $cache[$color] = self::getArray($color[1] . $color[1] . $color[2] . $color[2] . $color[3] . $color[3], $alpha);
-        } // #rrggbb format
-        else if ($length == 7 && $color[0] === "#") {
-            return $cache[$color] = self::getArray(mb_substr($color, 1, 6));
-        } // #rrggbbaa format
-        else if ($length == 9 && $color[0] === "#") {
-            $alpha = round(hexdec(mb_substr($color, 7, 2))/255, 2);
-            return $cache[$color] = self::getArray(mb_substr($color, 1, 8), $alpha);
-        } // rgb( r,g,b ) / rgba( r,g,b,α ) format
-        else if (mb_strpos($color, "rgb") !== false) {
-            $i = mb_strpos($color, "(");
-            $j = mb_strpos($color, ")");
+        
+        if ($Vjxpogd0afis == 4 && $Vexxkxtdr01j[0] === "#") {
+            return $V1ph4ewhj5yc[$Vexxkxtdr01j] = self::getArray($Vexxkxtdr01j[1] . $Vexxkxtdr01j[1] . $Vexxkxtdr01j[2] . $Vexxkxtdr01j[2] . $Vexxkxtdr01j[3] . $Vexxkxtdr01j[3]);
+        } 
+        else if ($Vjxpogd0afis == 5 && $Vexxkxtdr01j[0] === "#") {
+            $V5352axhr3wt = round(hexdec($Vexxkxtdr01j[4] . $Vexxkxtdr01j[4])/255, 2);
+            return $V1ph4ewhj5yc[$Vexxkxtdr01j] = self::getArray($Vexxkxtdr01j[1] . $Vexxkxtdr01j[1] . $Vexxkxtdr01j[2] . $Vexxkxtdr01j[2] . $Vexxkxtdr01j[3] . $Vexxkxtdr01j[3], $V5352axhr3wt);
+        } 
+        else if ($Vjxpogd0afis == 7 && $Vexxkxtdr01j[0] === "#") {
+            return $V1ph4ewhj5yc[$Vexxkxtdr01j] = self::getArray(mb_substr($Vexxkxtdr01j, 1, 6));
+        } 
+        else if ($Vjxpogd0afis == 9 && $Vexxkxtdr01j[0] === "#") {
+            $V5352axhr3wt = round(hexdec(mb_substr($Vexxkxtdr01j, 7, 2))/255, 2);
+            return $V1ph4ewhj5yc[$Vexxkxtdr01j] = self::getArray(mb_substr($Vexxkxtdr01j, 1, 8), $V5352axhr3wt);
+        } 
+        else if (mb_strpos($Vexxkxtdr01j, "rgb") !== false) {
+            $V3xsptcgzss2 = mb_strpos($Vexxkxtdr01j, "(");
+            $V0hg12l10vfx = mb_strpos($Vexxkxtdr01j, ")");
 
-            // Bad color value
-            if ($i === false || $j === false) {
+            
+            if ($V3xsptcgzss2 === false || $V0hg12l10vfx === false) {
                 return null;
             }
 
-            $triplet = explode(",", mb_substr($color, $i + 1, $j - $i - 1));
+            $Vsfgwuuky2eq = explode(",", mb_substr($Vexxkxtdr01j, $V3xsptcgzss2 + 1, $V0hg12l10vfx - $V3xsptcgzss2 - 1));
 
-            // alpha transparency
-            // FIXME: not currently using transparency
-            $alpha = 1.0;
-            if (count($triplet) == 4) {
-                $alpha = (float)(trim(array_pop($triplet)));
-                // bad value, set to fully opaque
-                if ($alpha > 1.0 || $alpha < 0.0) {
-                    $alpha = 1.0;
+            
+            
+            $V5352axhr3wt = 1.0;
+            if (count($Vsfgwuuky2eq) == 4) {
+                $V5352axhr3wt = (float)(trim(array_pop($Vsfgwuuky2eq)));
+                
+                if ($V5352axhr3wt > 1.0 || $V5352axhr3wt < 0.0) {
+                    $V5352axhr3wt = 1.0;
                 }
             }
 
-            if (count($triplet) != 3) {
+            if (count($Vsfgwuuky2eq) != 3) {
                 return null;
             }
 
-            foreach (array_keys($triplet) as $c) {
-                $triplet[$c] = trim($triplet[$c]);
+            foreach (array_keys($Vsfgwuuky2eq) as $Vv03lfntnmcz) {
+                $Vsfgwuuky2eq[$Vv03lfntnmcz] = trim($Vsfgwuuky2eq[$Vv03lfntnmcz]);
 
-                if (Helpers::is_percent($triplet[$c])) {
-                    $triplet[$c] = round((float)$triplet[$c] * 2.55);
+                if (Helpers::is_percent($Vsfgwuuky2eq[$Vv03lfntnmcz])) {
+                    $Vsfgwuuky2eq[$Vv03lfntnmcz] = round((float)$Vsfgwuuky2eq[$Vv03lfntnmcz] * 2.55);
                 }
             }
 
-            return $cache[$color] = self::getArray(vsprintf("%02X%02X%02X", $triplet), $alpha);
+            return $V1ph4ewhj5yc[$Vexxkxtdr01j] = self::getArray(vsprintf("%02X%02X%02X", $Vsfgwuuky2eq), $V5352axhr3wt);
 
         }
 
-        // cmyk( c,m,y,k ) format
-        // http://www.w3.org/TR/css3-gcpm/#cmyk-colors
-        else if (mb_strpos($color, "cmyk") !== false) {
-            $i = mb_strpos($color, "(");
-            $j = mb_strpos($color, ")");
+        
+        
+        else if (mb_strpos($Vexxkxtdr01j, "cmyk") !== false) {
+            $V3xsptcgzss2 = mb_strpos($Vexxkxtdr01j, "(");
+            $V0hg12l10vfx = mb_strpos($Vexxkxtdr01j, ")");
 
-            // Bad color value
-            if ($i === false || $j === false) {
+            
+            if ($V3xsptcgzss2 === false || $V0hg12l10vfx === false) {
                 return null;
             }
 
-            $values = explode(",", mb_substr($color, $i + 1, $j - $i - 1));
+            $V1vmg10tttdn = explode(",", mb_substr($Vexxkxtdr01j, $V3xsptcgzss2 + 1, $V0hg12l10vfx - $V3xsptcgzss2 - 1));
 
-            if (count($values) != 4) {
+            if (count($V1vmg10tttdn) != 4) {
                 return null;
             }
 
-            $values = array_map(function($c) {
-                return min(1.0, max(0.0, floatval(trim($c))));
-            }, $values);
+            $V1vmg10tttdn = array_map(function($Vv03lfntnmcz) {
+                return min(1.0, max(0.0, floatval(trim($Vv03lfntnmcz))));
+            }, $V1vmg10tttdn);
 
-            return $cache[$color] = self::getArray($values);
+            return $V1ph4ewhj5yc[$Vexxkxtdr01j] = self::getArray($V1vmg10tttdn);
         }
 
         return null;
     }
 
-    /**
-     * @param $color
-     * @param float $alpha
-     * @return array
-     */
-    static function getArray($color, $alpha = 1.0)
+    
+    static function getArray($Vexxkxtdr01j, $V5352axhr3wt = 1.0)
     {
-        $c = array(null, null, null, null, "alpha" => $alpha, "hex" => null);
+        $Vv03lfntnmcz = array(null, null, null, null, "alpha" => $V5352axhr3wt, "hex" => null);
 
-        if (is_array($color)) {
-            $c = $color;
-            $c["c"] = $c[0];
-            $c["m"] = $c[1];
-            $c["y"] = $c[2];
-            $c["k"] = $c[3];
-            $c["alpha"] = $alpha;
-            $c["hex"] = "cmyk($c[0],$c[1],$c[2],$c[3])";
+        if (is_array($Vexxkxtdr01j)) {
+            $Vv03lfntnmcz = $Vexxkxtdr01j;
+            $Vv03lfntnmcz["c"] = $Vv03lfntnmcz[0];
+            $Vv03lfntnmcz["m"] = $Vv03lfntnmcz[1];
+            $Vv03lfntnmcz["y"] = $Vv03lfntnmcz[2];
+            $Vv03lfntnmcz["k"] = $Vv03lfntnmcz[3];
+            $Vv03lfntnmcz["alpha"] = $V5352axhr3wt;
+            $Vv03lfntnmcz["hex"] = "cmyk($Vv03lfntnmcz[0],$Vv03lfntnmcz[1],$Vv03lfntnmcz[2],$Vv03lfntnmcz[3])";
         } else {
-            $c[0] = hexdec(mb_substr($color, 0, 2)) / 0xff;
-            $c[1] = hexdec(mb_substr($color, 2, 2)) / 0xff;
-            $c[2] = hexdec(mb_substr($color, 4, 2)) / 0xff;
-            $c["r"] = $c[0];
-            $c["g"] = $c[1];
-            $c["b"] = $c[2];
-            $c["alpha"] = $alpha;
-            $c["hex"] = sprintf("#%s%02X", mb_substr($color, 0, 6), round($alpha * 255));
+            $Vv03lfntnmcz[0] = hexdec(mb_substr($Vexxkxtdr01j, 0, 2)) / 0xff;
+            $Vv03lfntnmcz[1] = hexdec(mb_substr($Vexxkxtdr01j, 2, 2)) / 0xff;
+            $Vv03lfntnmcz[2] = hexdec(mb_substr($Vexxkxtdr01j, 4, 2)) / 0xff;
+            $Vv03lfntnmcz["r"] = $Vv03lfntnmcz[0];
+            $Vv03lfntnmcz["g"] = $Vv03lfntnmcz[1];
+            $Vv03lfntnmcz["b"] = $Vv03lfntnmcz[2];
+            $Vv03lfntnmcz["alpha"] = $V5352axhr3wt;
+            $Vv03lfntnmcz["hex"] = sprintf("#%s%02X", mb_substr($Vexxkxtdr01j, 0, 6), round($V5352axhr3wt * 255));
         }
 
-        return $c;
+        return $Vv03lfntnmcz;
     }
 }

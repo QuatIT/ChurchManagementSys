@@ -1,58 +1,53 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Tag;
 
 class Image extends AbstractTag
 {
-    protected $x = 0;
-    protected $y = 0;
-    protected $width = 0;
-    protected $height = 0;
-    protected $href = null;
+    protected $Vs4gloy23a1d = 0;
+    protected $Vopgub02o3q2 = 0;
+    protected $Vztt3qdrrikx = 0;
+    protected $Vku40chc0ddp = 0;
+    protected $Vn2cvawhsrvg = null;
 
-    protected function before($attributes)
+    protected function before($Voywws15cvz5)
     {
-        parent::before($attributes);
+        parent::before($Voywws15cvz5);
 
-        $surface = $this->document->getSurface();
-        $surface->save();
+        $Vyjtkau4njyv = $this->document->getSurface();
+        $Vyjtkau4njyv->save();
 
-        $this->applyTransform($attributes);
+        $this->applyTransform($Voywws15cvz5);
     }
 
-    public function start($attributes)
+    public function start($Voywws15cvz5)
     {
-        $document = $this->document;
-        $height = $this->document->getHeight();
-        $this->y = $height;
+        $V0trxkwhezv5 = $this->document;
+        $Vku40chc0ddp = $this->document->getHeight();
+        $this->y = $Vku40chc0ddp;
 
-        if (isset($attributes['x'])) {
-            $this->x = $attributes['x'];
+        if (isset($Voywws15cvz5['x'])) {
+            $this->x = $Voywws15cvz5['x'];
         }
-        if (isset($attributes['y'])) {
-            $this->y = $height - $attributes['y'];
-        }
-
-        if (isset($attributes['width'])) {
-            $this->width = $attributes['width'];
-        }
-        if (isset($attributes['height'])) {
-            $this->height = $attributes['height'];
+        if (isset($Voywws15cvz5['y'])) {
+            $this->y = $Vku40chc0ddp - $Voywws15cvz5['y'];
         }
 
-        if (isset($attributes['xlink:href'])) {
-            $this->href = $attributes['xlink:href'];
+        if (isset($Voywws15cvz5['width'])) {
+            $this->width = $Voywws15cvz5['width'];
+        }
+        if (isset($Voywws15cvz5['height'])) {
+            $this->height = $Voywws15cvz5['height'];
         }
 
-        $document->getSurface()->transform(1, 0, 0, -1, 0, $height);
+        if (isset($Voywws15cvz5['xlink:href'])) {
+            $this->href = $Voywws15cvz5['xlink:href'];
+        }
 
-        $document->getSurface()->drawImage($this->href, $this->x, $this->y, $this->width, $this->height);
+        $V0trxkwhezv5->getSurface()->transform(1, 0, 0, -1, 0, $Vku40chc0ddp);
+
+        $V0trxkwhezv5->getSurface()->drawImage($this->href, $this->x, $this->y, $this->width, $this->height);
     }
 
     protected function after()

@@ -1,10 +1,5 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\Frame;
 
 use Dompdf\Css\Style;
@@ -17,271 +12,235 @@ use Dompdf\FrameDecorator\Page as PageFrameDecorator;
 use Dompdf\FrameReflower\Page as PageFrameReflower;
 use Dompdf\Positioner\AbstractPositioner;
 
-/**
- * Contains frame decorating logic
- *
- * This class is responsible for assigning the correct {@link AbstractFrameDecorator},
- * {@link AbstractPositioner}, and {@link AbstractFrameReflower} objects to {@link Frame}
- * objects.  This is determined primarily by the Frame's display type, but
- * also by the Frame's node's type (e.g. DomElement vs. #text)
- *
- * @access  private
- * @package dompdf
- */
+
 class Factory
 {
 
-     /**
-     * Array of positioners for specific frame types
-     *
-     * @var AbstractPositioner[]
-     */
-    protected static $_positioners;
+     
+    protected static $Vpx1wxkkjvso;
 
-    /**
-     * Decorate the root Frame
-     *
-     * @param $root   Frame The frame to decorate
-     * @param $dompdf Dompdf The dompdf instance
-     *
-     * @return PageFrameDecorator
-     */
-    static function decorate_root(Frame $root, Dompdf $dompdf)
+    
+    static function decorate_root(Frame $Vzlqynjxsspd, Dompdf $Vhvghaoacagz)
     {
-        $frame = new PageFrameDecorator($root, $dompdf);
-        $frame->set_reflower(new PageFrameReflower($frame));
-        $root->set_decorator($frame);
+        $Vnk2ly5jcvjf = new PageFrameDecorator($Vzlqynjxsspd, $Vhvghaoacagz);
+        $Vnk2ly5jcvjf->set_reflower(new PageFrameReflower($Vnk2ly5jcvjf));
+        $Vzlqynjxsspd->set_decorator($Vnk2ly5jcvjf);
 
-        return $frame;
+        return $Vnk2ly5jcvjf;
     }
 
-    /**
-     * Decorate a Frame
-     *
-     * @param Frame $frame   The frame to decorate
-     * @param Dompdf $dompdf The dompdf instance
-     * @param Frame $root    The frame to decorate
-     *
-     * @throws Exception
-     * @return AbstractFrameDecorator
-     * FIXME: this is admittedly a little smelly...
-     */
-    static function decorate_frame(Frame $frame, Dompdf $dompdf, Frame $root = null)
+    
+    static function decorate_frame(Frame $Vnk2ly5jcvjf, Dompdf $Vhvghaoacagz, Frame $Vzlqynjxsspd = null)
     {
-        if (is_null($dompdf)) {
+        if (is_null($Vhvghaoacagz)) {
             throw new Exception("The DOMPDF argument is required");
         }
 
-        $style = $frame->get_style();
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
 
-        // Floating (and more generally out-of-flow) elements are blocks
-        // http://coding.smashingmagazine.com/2007/05/01/css-float-theory-things-you-should-know/
-        if (!$frame->is_in_flow() && in_array($style->display, Style::$INLINE_TYPES)) {
-            $style->display = "block";
+        
+        
+        if (!$Vnk2ly5jcvjf->is_in_flow() && in_array($Vdidzwb0w3vc->display, Style::$V3irmujeshqx)) {
+            $Vdidzwb0w3vc->display = "block";
         }
 
-        $display = $style->display;
+        $Vsagginauquc = $Vdidzwb0w3vc->display;
 
-        switch ($display) {
+        switch ($Vsagginauquc) {
 
-            case "flex": //FIXME: display type not yet supported
-            case "table-caption": //FIXME: display type not yet supported
+            case "flex": 
+            case "table-caption": 
             case "block":
-                $positioner = "Block";
-                $decorator = "Block";
-                $reflower = "Block";
+                $Vtm5xdjtuwaz = "Block";
+                $Vpn0erlmbnzu = "Block";
+                $Vfznctyvx2oe = "Block";
                 break;
 
-            case "inline-flex": //FIXME: display type not yet supported
+            case "inline-flex": 
             case "inline-block":
-                $positioner = "Inline";
-                $decorator = "Block";
-                $reflower = "Block";
+                $Vtm5xdjtuwaz = "Inline";
+                $Vpn0erlmbnzu = "Block";
+                $Vfznctyvx2oe = "Block";
                 break;
 
             case "inline":
-                $positioner = "Inline";
-                if ($frame->is_text_node()) {
-                    $decorator = "Text";
-                    $reflower = "Text";
+                $Vtm5xdjtuwaz = "Inline";
+                if ($Vnk2ly5jcvjf->is_text_node()) {
+                    $Vpn0erlmbnzu = "Text";
+                    $Vfznctyvx2oe = "Text";
                 } else {
-                    if ($style->float !== "none") {
-                        $decorator = "Block";
-                        $reflower = "Block";
+                    if ($Vdidzwb0w3vc->float !== "none") {
+                        $Vpn0erlmbnzu = "Block";
+                        $Vfznctyvx2oe = "Block";
                     } else {
-                        $decorator = "Inline";
-                        $reflower = "Inline";
+                        $Vpn0erlmbnzu = "Inline";
+                        $Vfznctyvx2oe = "Inline";
                     }
                 }
                 break;
 
             case "table":
-                $positioner = "Block";
-                $decorator = "Table";
-                $reflower = "Table";
+                $Vtm5xdjtuwaz = "Block";
+                $Vpn0erlmbnzu = "Table";
+                $Vfznctyvx2oe = "Table";
                 break;
 
             case "inline-table":
-                $positioner = "Inline";
-                $decorator = "Table";
-                $reflower = "Table";
+                $Vtm5xdjtuwaz = "Inline";
+                $Vpn0erlmbnzu = "Table";
+                $Vfznctyvx2oe = "Table";
                 break;
 
             case "table-row-group":
             case "table-header-group":
             case "table-footer-group":
-                $positioner = "NullPositioner";
-                $decorator = "TableRowGroup";
-                $reflower = "TableRowGroup";
+                $Vtm5xdjtuwaz = "NullPositioner";
+                $Vpn0erlmbnzu = "TableRowGroup";
+                $Vfznctyvx2oe = "TableRowGroup";
                 break;
 
             case "table-row":
-                $positioner = "NullPositioner";
-                $decorator = "TableRow";
-                $reflower = "TableRow";
+                $Vtm5xdjtuwaz = "NullPositioner";
+                $Vpn0erlmbnzu = "TableRow";
+                $Vfznctyvx2oe = "TableRow";
                 break;
 
             case "table-cell":
-                $positioner = "TableCell";
-                $decorator = "TableCell";
-                $reflower = "TableCell";
+                $Vtm5xdjtuwaz = "TableCell";
+                $Vpn0erlmbnzu = "TableCell";
+                $Vfznctyvx2oe = "TableCell";
                 break;
 
             case "list-item":
-                $positioner = "Block";
-                $decorator = "Block";
-                $reflower = "Block";
+                $Vtm5xdjtuwaz = "Block";
+                $Vpn0erlmbnzu = "Block";
+                $Vfznctyvx2oe = "Block";
                 break;
 
             case "-dompdf-list-bullet":
-                if ($style->list_style_position === "inside") {
-                    $positioner = "Inline";
+                if ($Vdidzwb0w3vc->list_style_position === "inside") {
+                    $Vtm5xdjtuwaz = "Inline";
                 } else {
-                    $positioner = "ListBullet";
+                    $Vtm5xdjtuwaz = "ListBullet";
                 }
 
-                if ($style->list_style_image !== "none") {
-                    $decorator = "ListBulletImage";
+                if ($Vdidzwb0w3vc->list_style_image !== "none") {
+                    $Vpn0erlmbnzu = "ListBulletImage";
                 } else {
-                    $decorator = "ListBullet";
+                    $Vpn0erlmbnzu = "ListBullet";
                 }
 
-                $reflower = "ListBullet";
+                $Vfznctyvx2oe = "ListBullet";
                 break;
 
             case "-dompdf-image":
-                $positioner = "Inline";
-                $decorator = "Image";
-                $reflower = "Image";
+                $Vtm5xdjtuwaz = "Inline";
+                $Vpn0erlmbnzu = "Image";
+                $Vfznctyvx2oe = "Image";
                 break;
 
             case "-dompdf-br":
-                $positioner = "Inline";
-                $decorator = "Inline";
-                $reflower = "Inline";
+                $Vtm5xdjtuwaz = "Inline";
+                $Vpn0erlmbnzu = "Inline";
+                $Vfznctyvx2oe = "Inline";
                 break;
 
             default:
-                // FIXME: should throw some sort of warning or something?
+                
             case "none":
-                if ($style->_dompdf_keep !== "yes") {
-                    // Remove the node and the frame
-                    $frame->get_parent()->remove_child($frame);
+                if ($Vdidzwb0w3vc->_dompdf_keep !== "yes") {
+                    
+                    $Vnk2ly5jcvjf->get_parent()->remove_child($Vnk2ly5jcvjf);
                     return;
                 }
 
-                $positioner = "NullPositioner";
-                $decorator = "NullFrameDecorator";
-                $reflower = "NullFrameReflower";
+                $Vtm5xdjtuwaz = "NullPositioner";
+                $Vpn0erlmbnzu = "NullFrameDecorator";
+                $Vfznctyvx2oe = "NullFrameReflower";
                 break;
         }
 
-        // Handle CSS position
-        $position = $style->position;
+        
+        $Vmriudfrwzj3 = $Vdidzwb0w3vc->position;
 
-        if ($position === "absolute") {
-            $positioner = "Absolute";
+        if ($Vmriudfrwzj3 === "absolute") {
+            $Vtm5xdjtuwaz = "Absolute";
         } else {
-            if ($position === "fixed") {
-                $positioner = "Fixed";
+            if ($Vmriudfrwzj3 === "fixed") {
+                $Vtm5xdjtuwaz = "Fixed";
             }
         }
 
-        $node = $frame->get_node();
+        $Vbr2bywdrplx = $Vnk2ly5jcvjf->get_node();
 
-        // Handle nodeName
-        if ($node->nodeName === "img") {
-            $style->display = "-dompdf-image";
-            $decorator = "Image";
-            $reflower = "Image";
+        
+        if ($Vbr2bywdrplx->nodeName === "img") {
+            $Vdidzwb0w3vc->display = "-dompdf-image";
+            $Vpn0erlmbnzu = "Image";
+            $Vfznctyvx2oe = "Image";
         }
 
-        $decorator  = "Dompdf\\FrameDecorator\\$decorator";
-        $reflower   = "Dompdf\\FrameReflower\\$reflower";
+        $Vpn0erlmbnzu  = "Dompdf\\FrameDecorator\\$Vpn0erlmbnzu";
+        $Vfznctyvx2oe   = "Dompdf\\FrameReflower\\$Vfznctyvx2oe";
 
-        /** @var AbstractFrameDecorator $deco */
-        $deco = new $decorator($frame, $dompdf);
+        
+        $V134ns25tz1t = new $Vpn0erlmbnzu($Vnk2ly5jcvjf, $Vhvghaoacagz);
 
-        $deco->set_positioner(self::getPositionerInstance($positioner));
-        $deco->set_reflower(new $reflower($deco, $dompdf->getFontMetrics()));
+        $V134ns25tz1t->set_positioner(self::getPositionerInstance($Vtm5xdjtuwaz));
+        $V134ns25tz1t->set_reflower(new $Vfznctyvx2oe($V134ns25tz1t, $Vhvghaoacagz->getFontMetrics()));
 
-        if ($root) {
-            $deco->set_root($root);
+        if ($Vzlqynjxsspd) {
+            $V134ns25tz1t->set_root($Vzlqynjxsspd);
         }
 
-        if ($display === "list-item") {
-            // Insert a list-bullet frame
-            $xml = $dompdf->getDom();
-            $bullet_node = $xml->createElement("bullet"); // arbitrary choice
-            $b_f = new Frame($bullet_node);
+        if ($Vsagginauquc === "list-item") {
+            
+            $Vtyufe1hjdes = $Vhvghaoacagz->getDom();
+            $Vpczbofhtygl = $Vtyufe1hjdes->createElement("bullet"); 
+            $Vm22t1vu1bzt = new Frame($Vpczbofhtygl);
 
-            $node = $frame->get_node();
-            $parent_node = $node->parentNode;
+            $Vbr2bywdrplx = $Vnk2ly5jcvjf->get_node();
+            $Vpfyvlsigite = $Vbr2bywdrplx->parentNode;
 
-            if ($parent_node) {
-                if (!$parent_node->hasAttribute("dompdf-children-count")) {
-                    $xpath = new DOMXPath($xml);
-                    $count = $xpath->query("li", $parent_node)->length;
-                    $parent_node->setAttribute("dompdf-children-count", $count);
+            if ($Vpfyvlsigite) {
+                if (!$Vpfyvlsigite->hasAttribute("dompdf-children-count")) {
+                    $Vxp0j315zxdb = new DOMXPath($Vtyufe1hjdes);
+                    $Vj4h4hyymhja = $Vxp0j315zxdb->query("li", $Vpfyvlsigite)->length;
+                    $Vpfyvlsigite->setAttribute("dompdf-children-count", $Vj4h4hyymhja);
                 }
 
-                if (is_numeric($node->getAttribute("value"))) {
-                    $index = intval($node->getAttribute("value"));
+                if (is_numeric($Vbr2bywdrplx->getAttribute("value"))) {
+                    $V04titjghjb2 = intval($Vbr2bywdrplx->getAttribute("value"));
                 } else {
-                    if (!$parent_node->hasAttribute("dompdf-counter")) {
-                        $index = ($parent_node->hasAttribute("start") ? $parent_node->getAttribute("start") : 1);
+                    if (!$Vpfyvlsigite->hasAttribute("dompdf-counter")) {
+                        $V04titjghjb2 = ($Vpfyvlsigite->hasAttribute("start") ? $Vpfyvlsigite->getAttribute("start") : 1);
                     } else {
-                        $index = (int)$parent_node->getAttribute("dompdf-counter") + 1;
+                        $V04titjghjb2 = (int)$Vpfyvlsigite->getAttribute("dompdf-counter") + 1;
                     }
                 }
 
-                $parent_node->setAttribute("dompdf-counter", $index);
-                $bullet_node->setAttribute("dompdf-counter", $index);
+                $Vpfyvlsigite->setAttribute("dompdf-counter", $V04titjghjb2);
+                $Vpczbofhtygl->setAttribute("dompdf-counter", $V04titjghjb2);
             }
 
-            $new_style = $dompdf->getCss()->create_style();
-            $new_style->display = "-dompdf-list-bullet";
-            $new_style->inherit($style);
-            $b_f->set_style($new_style);
+            $Vvkp23uyeydw = $Vhvghaoacagz->getCss()->create_style();
+            $Vvkp23uyeydw->display = "-dompdf-list-bullet";
+            $Vvkp23uyeydw->inherit($Vdidzwb0w3vc);
+            $Vm22t1vu1bzt->set_style($Vvkp23uyeydw);
 
-            $deco->prepend_child(Factory::decorate_frame($b_f, $dompdf, $root));
+            $V134ns25tz1t->prepend_child(Factory::decorate_frame($Vm22t1vu1bzt, $Vhvghaoacagz, $Vzlqynjxsspd));
         }
 
-        return $deco;
+        return $V134ns25tz1t;
     }
 
-    /**
-     * Creates Positioners
-     *
-     * @param string $type type of positioner to use
-     * @return AbstractPositioner
-     */
-    protected static function getPositionerInstance($type)
+    
+    protected static function getPositionerInstance($Vxeifmjzikkj)
     {
-        if (!isset(self::$_positioners[$type])) {
-            $class = '\\Dompdf\\Positioner\\'.$type;
-            self::$_positioners[$type] = new $class();
+        if (!isset(self::$Vpx1wxkkjvso[$Vxeifmjzikkj])) {
+            $V4ulrrtmqxqc = '\\Dompdf\\Positioner\\'.$Vxeifmjzikkj;
+            self::$Vpx1wxkkjvso[$Vxeifmjzikkj] = new $V4ulrrtmqxqc();
         }
-        return self::$_positioners[$type];
+        return self::$Vpx1wxkkjvso[$Vxeifmjzikkj];
     }
 }

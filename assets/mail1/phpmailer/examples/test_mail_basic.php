@@ -8,31 +8,31 @@
 
 require_once('../class.phpmailer.php');
 
-$mail             = new PHPMailer(); // defaults to using php "mail()"
+$Vbfod5qpq0lc             = new PHPMailer(); 
 
-$body             = file_get_contents('contents.html');
-$body             = eregi_replace("[\]",'',$body);
+$V0dtmgmxxnsq             = file_get_contents('contents.html');
+$V0dtmgmxxnsq             = eregi_replace("[\]",'',$V0dtmgmxxnsq);
 
-$mail->AddReplyTo("name@yourdomain.com","First Last");
+$Vbfod5qpq0lc->AddReplyTo("name@yourdomain.com","First Last");
 
-$mail->SetFrom('name@yourdomain.com', 'First Last');
+$Vbfod5qpq0lc->SetFrom('name@yourdomain.com', 'First Last');
 
-$mail->AddReplyTo("name@yourdomain.com","First Last");
+$Vbfod5qpq0lc->AddReplyTo("name@yourdomain.com","First Last");
 
-$address = "whoto@otherdomain.com";
-$mail->AddAddress($address, "John Doe");
+$Vvhsyzupxzwx = "whoto@otherdomain.com";
+$Vbfod5qpq0lc->AddAddress($Vvhsyzupxzwx, "John Doe");
 
-$mail->Subject    = "PHPMailer Test Subject via mail(), basic";
+$Vbfod5qpq0lc->Subject    = "PHPMailer Test Subject via mail(), basic";
 
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
+$Vbfod5qpq0lc->AltBody    = "To view the message, please use an HTML compatible email viewer!"; 
 
-$mail->MsgHTML($body);
+$Vbfod5qpq0lc->MsgHTML($V0dtmgmxxnsq);
 
-$mail->AddAttachment("images/phpmailer.gif");      // attachment
-$mail->AddAttachment("images/phpmailer_mini.gif"); // attachment
+$Vbfod5qpq0lc->AddAttachment("images/phpmailer.gif");      
+$Vbfod5qpq0lc->AddAttachment("images/phpmailer_mini.gif"); 
 
-if(!$mail->Send()) {
-  echo "Mailer Error: " . $mail->ErrorInfo;
+if(!$Vbfod5qpq0lc->Send()) {
+  echo "Mailer Error: " . $Vbfod5qpq0lc->ErrorInfo;
 } else {
   echo "Message sent!";
 }

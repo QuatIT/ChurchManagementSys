@@ -1,10 +1,5 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien M�nager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Surface;
 
@@ -14,26 +9,26 @@ class SurfaceGmagick implements SurfaceInterface
 {
     const DEBUG = false;
 
-    /** @var \GmagickDraw */
-    private $canvas;
+    
+    private $Vvzurwoc24em;
 
-    private $width;
-    private $height;
+    private $Vztt3qdrrikx;
+    private $Vku40chc0ddp;
 
-    /** @var Style */
-    private $style;
+    
+    private $Vdidzwb0w3vc;
 
-    public function __construct($w, $h)
+    public function __construct($Vhoifq2kocyt, $Vjlmjalejjxa)
     {
         if (self::DEBUG) {
             echo __FUNCTION__ . "\n";
         }
-        $this->width = $w;
-        $this->height = $h;
+        $this->width = $Vhoifq2kocyt;
+        $this->height = $Vjlmjalejjxa;
 
-        $canvas = new \GmagickDraw();
+        $Vvzurwoc24em = new \GmagickDraw();
 
-        $this->canvas = $canvas;
+        $this->canvas = $Vvzurwoc24em;
     }
 
     function out()
@@ -42,15 +37,15 @@ class SurfaceGmagick implements SurfaceInterface
             echo __FUNCTION__ . "\n";
         }
 
-        $image = new \Gmagick();
-        $image->newimage($this->width, $this->height);
-        $image->drawimage($this->canvas);
+        $Vnxkvrc5q2ng = new \Gmagick();
+        $Vnxkvrc5q2ng->newimage($this->width, $this->height);
+        $Vnxkvrc5q2ng->drawimage($this->canvas);
 
-        $tmp = tempnam("", "gm");
+        $Vynpm04a4fx0 = tempnam("", "gm");
 
-        $image->write($tmp);
+        $Vnxkvrc5q2ng->write($Vynpm04a4fx0);
 
-        return file_get_contents($tmp);
+        return file_get_contents($Vynpm04a4fx0);
     }
 
     public function save()
@@ -67,34 +62,34 @@ class SurfaceGmagick implements SurfaceInterface
         $this->canvas->restore();
     }
 
-    public function scale($x, $y)
+    public function scale($Vs4gloy23a1d, $Vopgub02o3q2)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->scale($x, $y);
+        $this->canvas->scale($Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    public function rotate($angle)
+    public function rotate($Vtmcaiuo2hqy)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->rotate($angle);
+        $this->canvas->rotate($Vtmcaiuo2hqy);
     }
 
-    public function translate($x, $y)
+    public function translate($Vs4gloy23a1d, $Vopgub02o3q2)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->translate($x, $y);
+        $this->canvas->translate($Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    public function transform($a, $b, $c, $d, $e, $f)
+    public function transform($Vrr3orqjztc2, $Vbz3vmbr1h2v, $Vv03lfntnmcz, $Vcyg5xmwfpxo, $V2bwrjburyuf, $V4ljftfdeqpl)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->concat($a, $b, $c, $d, $e, $f);
+        $this->canvas->concat($Vrr3orqjztc2, $Vbz3vmbr1h2v, $Vv03lfntnmcz, $Vcyg5xmwfpxo, $V2bwrjburyuf, $V4ljftfdeqpl);
     }
 
     public function beginPath()
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        // TODO: Implement beginPath() method.
+        
     }
 
     public function closePath()
@@ -115,97 +110,97 @@ class SurfaceGmagick implements SurfaceInterface
         $this->canvas->clip();
     }
 
-    public function fillText($text, $x, $y, $maxWidth = null)
+    public function fillText($Vnlbbd31sxbf, $Vs4gloy23a1d, $Vopgub02o3q2, $Vv44wp1i5zfs = null)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->set_text_pos($x, $y);
-        $this->canvas->show($text);
+        $this->canvas->set_text_pos($Vs4gloy23a1d, $Vopgub02o3q2);
+        $this->canvas->show($Vnlbbd31sxbf);
     }
 
-    public function strokeText($text, $x, $y, $maxWidth = null)
+    public function strokeText($Vnlbbd31sxbf, $Vs4gloy23a1d, $Vopgub02o3q2, $Vv44wp1i5zfs = null)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        // TODO: Implement drawImage() method.
+        
     }
 
-    public function drawImage($image, $sx, $sy, $sw = null, $sh = null, $dx = null, $dy = null, $dw = null, $dh = null)
+    public function drawImage($Vnxkvrc5q2ng, $Vjz2piyfb2ut, $Vskekw1ijrky, $Vwuismxitwwp = null, $Vdsvjjxxrru4 = null, $Vcyg5xmwfpxox = null, $Vcyg5xmwfpxoy = null, $Vcyg5xmwfpxow = null, $Vcyg5xmwfpxoh = null)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
 
-        if (strpos($image, "data:") === 0) {
-            $data = substr($image, strpos($image, ";") + 1);
-            if (strpos($data, "base64") === 0) {
-                $data = base64_decode(substr($data, 7));
+        if (strpos($Vnxkvrc5q2ng, "data:") === 0) {
+            $Vcyg5xmwfpxoata = substr($Vnxkvrc5q2ng, strpos($Vnxkvrc5q2ng, ";") + 1);
+            if (strpos($Vcyg5xmwfpxoata, "base64") === 0) {
+                $Vcyg5xmwfpxoata = base64_decode(substr($Vcyg5xmwfpxoata, 7));
             }
 
-            $image = tempnam("", "svg");
-            file_put_contents($image, $data);
+            $Vnxkvrc5q2ng = tempnam("", "svg");
+            file_put_contents($Vnxkvrc5q2ng, $Vcyg5xmwfpxoata);
         }
 
-        $img = $this->canvas->load_image("auto", $image, "");
+        $V1bb0p4see5o = $this->canvas->load_image("auto", $Vnxkvrc5q2ng, "");
 
-        $sy = $sy - $sh;
-        $this->canvas->fit_image($img, $sx, $sy, 'boxsize={' . "$sw $sh" . '} fitmethod=entire');
+        $Vskekw1ijrky = $Vskekw1ijrky - $Vdsvjjxxrru4;
+        $this->canvas->fit_image($V1bb0p4see5o, $Vjz2piyfb2ut, $Vskekw1ijrky, 'boxsize={' . "$Vwuismxitwwp $Vdsvjjxxrru4" . '} fitmethod=entire');
     }
 
-    public function lineTo($x, $y)
+    public function lineTo($Vs4gloy23a1d, $Vopgub02o3q2)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->lineto($x, $y);
+        $this->canvas->lineto($Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    public function moveTo($x, $y)
+    public function moveTo($Vs4gloy23a1d, $Vopgub02o3q2)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->moveto($x, $y);
+        $this->canvas->moveto($Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    public function quadraticCurveTo($cpx, $cpy, $x, $y)
+    public function quadraticCurveTo($Vv03lfntnmczpx, $Vv03lfntnmczpy, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        // TODO: Implement quadraticCurveTo() method.
+        
     }
 
-    public function bezierCurveTo($cp1x, $cp1y, $cp2x, $cp2y, $x, $y)
+    public function bezierCurveTo($Vv03lfntnmczp1x, $Vv03lfntnmczp1y, $Vv03lfntnmczp2x, $Vv03lfntnmczp2y, $Vs4gloy23a1d, $Vopgub02o3q2)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->curveto($cp1x, $cp1y, $cp2x, $cp2y, $x, $y);
+        $this->canvas->curveto($Vv03lfntnmczp1x, $Vv03lfntnmczp1y, $Vv03lfntnmczp2x, $Vv03lfntnmczp2y, $Vs4gloy23a1d, $Vopgub02o3q2);
     }
 
-    public function arcTo($x1, $y1, $x2, $y2, $radius)
+    public function arcTo($Vs4gloy23a1d1, $Vopgub02o3q21, $Vs4gloy23a1d2, $Vopgub02o3q22, $V4tsg1pc0dnr)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
     }
 
-    public function arc($x, $y, $radius, $startAngle, $endAngle, $anticlockwise = false)
+    public function arc($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnr, $Vk21laijil03, $V2bwrjburyufndAngle, $Vrr3orqjztc2nticlockwise = false)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->arc($x, $y, $radius, $startAngle, $endAngle);
+        $this->canvas->arc($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnr, $Vk21laijil03, $V2bwrjburyufndAngle);
     }
 
-    public function circle($x, $y, $radius)
+    public function circle($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnr)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->circle($x, $y, $radius);
+        $this->canvas->circle($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnr);
     }
 
-    public function ellipse($x, $y, $radiusX, $radiusY, $rotation, $startAngle, $endAngle, $anticlockwise)
+    public function ellipse($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnrX, $V4tsg1pc0dnrY, $Vodyfhojz44d, $Vk21laijil03, $V2bwrjburyufndAngle, $Vrr3orqjztc2nticlockwise)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->ellipse($x, $y, $radiusX, $radiusY);
+        $this->canvas->ellipse($Vs4gloy23a1d, $Vopgub02o3q2, $V4tsg1pc0dnrX, $V4tsg1pc0dnrY);
     }
 
-    public function fillRect($x, $y, $w, $h)
+    public function fillRect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->rect($x, $y, $w, $h);
+        $this->rect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa);
         $this->fill();
     }
 
-    public function rect($x, $y, $w, $h)
+    public function rect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->canvas->rect($x, $y, $w, $h);
+        $this->canvas->rect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa);
     }
 
     public function fill()
@@ -214,10 +209,10 @@ class SurfaceGmagick implements SurfaceInterface
         $this->canvas->fill();
     }
 
-    public function strokeRect($x, $y, $w, $h)
+    public function strokeRect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $this->rect($x, $y, $w, $h);
+        $this->rect($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa);
         $this->stroke();
     }
 
@@ -230,16 +225,16 @@ class SurfaceGmagick implements SurfaceInterface
     public function endPath()
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        //$this->canvas->endPath();
+        
     }
 
-    public function measureText($text)
+    public function measureText($Vnlbbd31sxbf)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
-        $style = $this->getStyle();
-        $font = $this->getFont($style->fontFamily, $style->fontStyle);
+        $Vdidzwb0w3vc = $this->getStyle();
+        $V4ljftfdeqplont = $this->getFont($Vdidzwb0w3vc->fontFamily, $Vdidzwb0w3vc->fontStyle);
 
-        return $this->canvas->stringwidth($text, $font, $this->getStyle()->fontSize);
+        return $this->canvas->stringwidth($Vnlbbd31sxbf, $V4ljftfdeqplont, $this->getStyle()->fontSize);
     }
 
     public function getStyle()
@@ -249,43 +244,43 @@ class SurfaceGmagick implements SurfaceInterface
         return $this->style;
     }
 
-    public function setStyle(Style $style)
+    public function setStyle(Style $Vdidzwb0w3vc)
     {
         if (self::DEBUG) echo __FUNCTION__ . "\n";
 
-        $this->style = $style;
-        $canvas = $this->canvas;
+        $this->style = $Vdidzwb0w3vc;
+        $Vvzurwoc24em = $this->canvas;
 
-        if (is_array($style->stroke) && $stroke = $style->stroke) {
-            $canvas->setcolor("stroke", "rgb", $stroke[0] / 255, $stroke[1] / 255, $stroke[2] / 255, null);
+        if (is_array($Vdidzwb0w3vc->stroke) && $Vihuafvzvxcv = $Vdidzwb0w3vc->stroke) {
+            $Vvzurwoc24em->setcolor("stroke", "rgb", $Vihuafvzvxcv[0] / 255, $Vihuafvzvxcv[1] / 255, $Vihuafvzvxcv[2] / 255, null);
         }
 
-        if (is_array($style->fill) && $fill = $style->fill) {
-           // $canvas->setcolor("fill", "rgb", $fill[0] / 255, $fill[1] / 255, $fill[2] / 255, null);
+        if (is_array($Vdidzwb0w3vc->fill) && $V4ljftfdeqplill = $Vdidzwb0w3vc->fill) {
+           
         }
 
-        $opts = array();
-        if ($style->strokeWidth > 0.000001) {
-            $opts[] = "linewidth=$style->strokeWidth";
+        $Vkt1wc3b1trn = array();
+        if ($Vdidzwb0w3vc->strokeWidth > 0.000001) {
+            $Vkt1wc3b1trn[] = "linewidth=$Vdidzwb0w3vc->strokeWidth";
         }
 
-        if (in_array($style->strokeLinecap, array("butt", "round", "projecting"))) {
-            $opts[] = "linecap=$style->strokeLinecap";
+        if (in_array($Vdidzwb0w3vc->strokeLinecap, array("butt", "round", "projecting"))) {
+            $Vkt1wc3b1trn[] = "linecap=$Vdidzwb0w3vc->strokeLinecap";
         }
 
-        if (in_array($style->strokeLinejoin, array("miter", "round", "bevel"))) {
-            $opts[] = "linejoin=$style->strokeLinejoin";
+        if (in_array($Vdidzwb0w3vc->strokeLinejoin, array("miter", "round", "bevel"))) {
+            $Vkt1wc3b1trn[] = "linejoin=$Vdidzwb0w3vc->strokeLinejoin";
         }
 
-        $canvas->set_graphics_option(implode(" ", $opts));
+        $Vvzurwoc24em->set_graphics_option(implode(" ", $Vkt1wc3b1trn));
 
-        $font = $this->getFont($style->fontFamily, $style->fontStyle);
-        $canvas->setfont($font, $style->fontSize);
+        $V4ljftfdeqplont = $this->getFont($Vdidzwb0w3vc->fontFamily, $Vdidzwb0w3vc->fontStyle);
+        $Vvzurwoc24em->setfont($V4ljftfdeqplont, $Vdidzwb0w3vc->fontSize);
     }
 
-    private function getFont($family, $style)
+    private function getFont($V4ljftfdeqplamily, $Vdidzwb0w3vc)
     {
-        $map = array(
+        $V02cy3ehfkm0 = array(
             "serif"      => "Times",
             "sans-serif" => "Helvetica",
             "fantasy"    => "Symbol",
@@ -293,16 +288,16 @@ class SurfaceGmagick implements SurfaceInterface
             "monospance" => "Courier",
         );
 
-        $family = strtolower($family);
-        if (isset($map[$family])) {
-            $family = $map[$family];
+        $V4ljftfdeqplamily = strtolower($V4ljftfdeqplamily);
+        if (isset($V02cy3ehfkm0[$V4ljftfdeqplamily])) {
+            $V4ljftfdeqplamily = $V02cy3ehfkm0[$V4ljftfdeqplamily];
         }
 
-        return $this->canvas->load_font($family, "unicode", "fontstyle=$style");
+        return $this->canvas->load_font($V4ljftfdeqplamily, "unicode", "fontstyle=$Vdidzwb0w3vc");
     }
 
-    public function setFont($family, $style, $weight)
+    public function setFont($V4ljftfdeqplamily, $Vdidzwb0w3vc, $Vhoifq2kocyteight)
     {
-        // TODO: Implement setFont() method.
+        
     }
 }

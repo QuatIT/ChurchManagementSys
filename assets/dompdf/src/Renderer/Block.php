@@ -1,262 +1,243 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\Renderer;
 
 use Dompdf\Frame;
 use Dompdf\FrameDecorator\AbstractFrameDecorator;
 use Dompdf\Helpers;
 
-/**
- * Renders block frames
- *
- * @package dompdf
- */
+
 class Block extends AbstractRenderer
 {
 
-    /**
-     * @param Frame $frame
-     */
-    function render(Frame $frame)
+    
+    function render(Frame $Vnk2ly5jcvjf)
     {
-        $style = $frame->get_style();
-        $node = $frame->get_node();
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
+        $Vbr2bywdrplx = $Vnk2ly5jcvjf->get_node();
 
-        list($x, $y, $w, $h) = $frame->get_border_box();
+        list($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa) = $Vnk2ly5jcvjf->get_border_box();
 
-        $this->_set_opacity($frame->get_opacity($style->opacity));
+        $this->_set_opacity($Vnk2ly5jcvjf->get_opacity($Vdidzwb0w3vc->opacity));
 
-        if ($node->nodeName === "body") {
-            $h = $frame->get_containing_block("h") - (float)$style->length_in_pt(array(
-                        $style->margin_top,
-                        $style->border_top_width,
-                        $style->border_bottom_width,
-                        $style->margin_bottom),
-                    (float)$style->length_in_pt($style->width));
+        if ($Vbr2bywdrplx->nodeName === "body") {
+            $Vjlmjalejjxa = $Vnk2ly5jcvjf->get_containing_block("h") - (float)$Vdidzwb0w3vc->length_in_pt(array(
+                        $Vdidzwb0w3vc->margin_top,
+                        $Vdidzwb0w3vc->border_top_width,
+                        $Vdidzwb0w3vc->border_bottom_width,
+                        $Vdidzwb0w3vc->margin_bottom),
+                    (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->width));
         }
 
-        // Handle anchors & links
-        if ($node->nodeName === "a" && $href = $node->getAttribute("href")) {
-            $href = Helpers::build_url($this->_dompdf->getProtocol(), $this->_dompdf->getBaseHost(), $this->_dompdf->getBasePath(), $href);
-            $this->_canvas->add_link($href, $x, $y, (float)$w, (float)$h);
+        
+        if ($Vbr2bywdrplx->nodeName === "a" && $Vjlmjalejjxaref = $Vbr2bywdrplx->getAttribute("href")) {
+            $Vjlmjalejjxaref = Helpers::build_url($this->_dompdf->getProtocol(), $this->_dompdf->getBaseHost(), $this->_dompdf->getBasePath(), $Vjlmjalejjxaref);
+            $this->_canvas->add_link($Vjlmjalejjxaref, $Vs4gloy23a1d, $Vopgub02o3q2, (float)$Vhoifq2kocyt, (float)$Vjlmjalejjxa);
         }
 
-        // Draw our background, border and content
-        list($tl, $tr, $br, $bl) = $style->get_computed_border_radius($w, $h);
+        
+        list($Vz2hkt0r22ia, $Vzmfvefqwysh, $Vxo14t4heoku, $V5e5dzlyursk) = $Vdidzwb0w3vc->get_computed_border_radius($Vhoifq2kocyt, $Vjlmjalejjxa);
 
-        if ($tl + $tr + $br + $bl > 0) {
-            $this->_canvas->clipping_roundrectangle($x, $y, (float)$w, (float)$h, $tl, $tr, $br, $bl);
+        if ($Vz2hkt0r22ia + $Vzmfvefqwysh + $Vxo14t4heoku + $V5e5dzlyursk > 0) {
+            $this->_canvas->clipping_roundrectangle($Vs4gloy23a1d, $Vopgub02o3q2, (float)$Vhoifq2kocyt, (float)$Vjlmjalejjxa, $Vz2hkt0r22ia, $Vzmfvefqwysh, $Vxo14t4heoku, $V5e5dzlyursk);
         }
 
-        if (($bg = $style->background_color) !== "transparent") {
-            $this->_canvas->filled_rectangle($x, $y, (float)$w, (float)$h, $bg);
+        if (($Vbk1alfdu2xe = $Vdidzwb0w3vc->background_color) !== "transparent") {
+            $this->_canvas->filled_rectangle($Vs4gloy23a1d, $Vopgub02o3q2, (float)$Vhoifq2kocyt, (float)$Vjlmjalejjxa, $Vbk1alfdu2xe);
         }
 
-        if (($url = $style->background_image) && $url !== "none") {
-            $this->_background_image($url, $x, $y, $w, $h, $style);
+        if (($Vsp0omgzz2yw = $Vdidzwb0w3vc->background_image) && $Vsp0omgzz2yw !== "none") {
+            $this->_background_image($Vsp0omgzz2yw, $Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa, $Vdidzwb0w3vc);
         }
 
-        if ($tl + $tr + $br + $bl > 0) {
+        if ($Vz2hkt0r22ia + $Vzmfvefqwysh + $Vxo14t4heoku + $V5e5dzlyursk > 0) {
             $this->_canvas->clipping_end();
         }
 
-        $border_box = array($x, $y, $w, $h);
-        $this->_render_border($frame, $border_box);
-        $this->_render_outline($frame, $border_box);
+        $V3hrei4dpdod = array($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa);
+        $this->_render_border($Vnk2ly5jcvjf, $V3hrei4dpdod);
+        $this->_render_outline($Vnk2ly5jcvjf, $V3hrei4dpdod);
 
         if ($this->_dompdf->getOptions()->getDebugLayout() && $this->_dompdf->getOptions()->getDebugLayoutBlocks()) {
-            $this->_debug_layout($frame->get_border_box(), "red");
+            $this->_debug_layout($Vnk2ly5jcvjf->get_border_box(), "red");
             if ($this->_dompdf->getOptions()->getDebugLayoutPaddingBox()) {
-                $this->_debug_layout($frame->get_padding_box(), "red", array(0.5, 0.5));
+                $this->_debug_layout($Vnk2ly5jcvjf->get_padding_box(), "red", array(0.5, 0.5));
             }
         }
 
-        if ($this->_dompdf->getOptions()->getDebugLayout() && $this->_dompdf->getOptions()->getDebugLayoutLines() && $frame->get_decorator()) {
-            foreach ($frame->get_decorator()->get_line_boxes() as $line) {
-                $frame->_debug_layout(array($line->x, $line->y, $line->w, $line->h), "orange");
+        if ($this->_dompdf->getOptions()->getDebugLayout() && $this->_dompdf->getOptions()->getDebugLayoutLines() && $Vnk2ly5jcvjf->get_decorator()) {
+            foreach ($Vnk2ly5jcvjf->get_decorator()->get_line_boxes() as $V4m4rbmlpgn2) {
+                $Vnk2ly5jcvjf->_debug_layout(array($V4m4rbmlpgn2->x, $V4m4rbmlpgn2->y, $V4m4rbmlpgn2->w, $V4m4rbmlpgn2->h), "orange");
             }
         }
 
-        $id = $frame->get_node()->getAttribute("id");
-        if (strlen($id) > 0)  {
-            $this->_canvas->add_named_dest($id);
+        $Vkriocz2qep2 = $Vnk2ly5jcvjf->get_node()->getAttribute("id");
+        if (strlen($Vkriocz2qep2) > 0)  {
+            $this->_canvas->add_named_dest($Vkriocz2qep2);
         }
     }
 
-    /**
-     * @param AbstractFrameDecorator $frame
-     * @param null $border_box
-     * @param string $corner_style
-     */
-    protected function _render_border(AbstractFrameDecorator $frame, $border_box = null, $corner_style = "bevel")
+    
+    protected function _render_border(AbstractFrameDecorator $Vnk2ly5jcvjf, $V3hrei4dpdod = null, $Vck4jlniu1ko = "bevel")
     {
-        $style = $frame->get_style();
-        $bp = $style->get_border_properties();
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
+        $Vhkhr2kulnam = $Vdidzwb0w3vc->get_border_properties();
 
-        if (empty($border_box)) {
-            $border_box = $frame->get_border_box();
+        if (empty($V3hrei4dpdod)) {
+            $V3hrei4dpdod = $Vnk2ly5jcvjf->get_border_box();
         }
 
-        // find the radius
-        $radius = $style->get_computed_border_radius($border_box[2], $border_box[3]); // w, h
+        
+        $V4tsg1pc0dnr = $Vdidzwb0w3vc->get_computed_border_radius($V3hrei4dpdod[2], $V3hrei4dpdod[3]); 
 
-        // Short-cut: If all the borders are "solid" with the same color and style, and no radius, we'd better draw a rectangle
+        
         if (
-            in_array($bp["top"]["style"], array("solid", "dashed", "dotted")) &&
-            $bp["top"] == $bp["right"] &&
-            $bp["right"] == $bp["bottom"] &&
-            $bp["bottom"] == $bp["left"] &&
-            array_sum($radius) == 0
+            in_array($Vhkhr2kulnam["top"]["style"], array("solid", "dashed", "dotted")) &&
+            $Vhkhr2kulnam["top"] == $Vhkhr2kulnam["right"] &&
+            $Vhkhr2kulnam["right"] == $Vhkhr2kulnam["bottom"] &&
+            $Vhkhr2kulnam["bottom"] == $Vhkhr2kulnam["left"] &&
+            array_sum($V4tsg1pc0dnr) == 0
         ) {
-            $props = $bp["top"];
-            if ($props["color"] === "transparent" || $props["width"] <= 0) {
+            $Vwscsokrbo32 = $Vhkhr2kulnam["top"];
+            if ($Vwscsokrbo32["color"] === "transparent" || $Vwscsokrbo32["width"] <= 0) {
                 return;
             }
 
-            list($x, $y, $w, $h) = $border_box;
-            $width = (float)$style->length_in_pt($props["width"]);
-            $pattern = $this->_get_dash_pattern($props["style"], $width);
-            $this->_canvas->rectangle($x + $width / 2, $y + $width / 2, (float)$w - $width, (float)$h - $width, $props["color"], $width, $pattern);
+            list($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa) = $V3hrei4dpdod;
+            $Vhoifq2kocytidth = (float)$Vdidzwb0w3vc->length_in_pt($Vwscsokrbo32["width"]);
+            $Vsxwpun1fvg4 = $this->_get_dash_pattern($Vwscsokrbo32["style"], $Vhoifq2kocytidth);
+            $this->_canvas->rectangle($Vs4gloy23a1d + $Vhoifq2kocytidth / 2, $Vopgub02o3q2 + $Vhoifq2kocytidth / 2, (float)$Vhoifq2kocyt - $Vhoifq2kocytidth, (float)$Vjlmjalejjxa - $Vhoifq2kocytidth, $Vwscsokrbo32["color"], $Vhoifq2kocytidth, $Vsxwpun1fvg4);
             return;
         }
 
-        // Do it the long way
-        $widths = array(
-            (float)$style->length_in_pt($bp["top"]["width"]),
-            (float)$style->length_in_pt($bp["right"]["width"]),
-            (float)$style->length_in_pt($bp["bottom"]["width"]),
-            (float)$style->length_in_pt($bp["left"]["width"])
+        
+        $Vhoifq2kocytidths = array(
+            (float)$Vdidzwb0w3vc->length_in_pt($Vhkhr2kulnam["top"]["width"]),
+            (float)$Vdidzwb0w3vc->length_in_pt($Vhkhr2kulnam["right"]["width"]),
+            (float)$Vdidzwb0w3vc->length_in_pt($Vhkhr2kulnam["bottom"]["width"]),
+            (float)$Vdidzwb0w3vc->length_in_pt($Vhkhr2kulnam["left"]["width"])
         );
 
-        foreach ($bp as $side => $props) {
-            list($x, $y, $w, $h) = $border_box;
-            $length = 0;
-            $r1 = 0;
-            $r2 = 0;
+        foreach ($Vhkhr2kulnam as $Voj5js1i2adw => $Vwscsokrbo32) {
+            list($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa) = $V3hrei4dpdod;
+            $Vjxpogd0afis = 0;
+            $Vflxal01hfm5 = 0;
+            $Vmsjiwqai3ku = 0;
 
-            if (!$props["style"] ||
-                $props["style"] === "none" ||
-                $props["width"] <= 0 ||
-                $props["color"] == "transparent"
+            if (!$Vwscsokrbo32["style"] ||
+                $Vwscsokrbo32["style"] === "none" ||
+                $Vwscsokrbo32["width"] <= 0 ||
+                $Vwscsokrbo32["color"] == "transparent"
             ) {
                 continue;
             }
 
-            switch ($side) {
+            switch ($Voj5js1i2adw) {
                 case "top":
-                    $length = (float)$w;
-                    $r1 = $radius["top-left"];
-                    $r2 = $radius["top-right"];
+                    $Vjxpogd0afis = (float)$Vhoifq2kocyt;
+                    $Vflxal01hfm5 = $V4tsg1pc0dnr["top-left"];
+                    $Vmsjiwqai3ku = $V4tsg1pc0dnr["top-right"];
                     break;
 
                 case "bottom":
-                    $length = (float)$w;
-                    $y += (float)$h;
-                    $r1 = $radius["bottom-left"];
-                    $r2 = $radius["bottom-right"];
+                    $Vjxpogd0afis = (float)$Vhoifq2kocyt;
+                    $Vopgub02o3q2 += (float)$Vjlmjalejjxa;
+                    $Vflxal01hfm5 = $V4tsg1pc0dnr["bottom-left"];
+                    $Vmsjiwqai3ku = $V4tsg1pc0dnr["bottom-right"];
                     break;
 
                 case "left":
-                    $length = (float)$h;
-                    $r1 = $radius["top-left"];
-                    $r2 = $radius["bottom-left"];
+                    $Vjxpogd0afis = (float)$Vjlmjalejjxa;
+                    $Vflxal01hfm5 = $V4tsg1pc0dnr["top-left"];
+                    $Vmsjiwqai3ku = $V4tsg1pc0dnr["bottom-left"];
                     break;
 
                 case "right":
-                    $length = (float)$h;
-                    $x += (float)$w;
-                    $r1 = $radius["top-right"];
-                    $r2 = $radius["bottom-right"];
+                    $Vjxpogd0afis = (float)$Vjlmjalejjxa;
+                    $Vs4gloy23a1d += (float)$Vhoifq2kocyt;
+                    $Vflxal01hfm5 = $V4tsg1pc0dnr["top-right"];
+                    $Vmsjiwqai3ku = $V4tsg1pc0dnr["bottom-right"];
                     break;
                 default:
                     break;
             }
-            $method = "_border_" . $props["style"];
+            $V1svcpcbr4nm = "_border_" . $Vwscsokrbo32["style"];
 
-            // draw rounded corners
-            $this->$method($x, $y, $length, $props["color"], $widths, $side, $corner_style, $r1, $r2);
+            
+            $this->$V1svcpcbr4nm($Vs4gloy23a1d, $Vopgub02o3q2, $Vjxpogd0afis, $Vwscsokrbo32["color"], $Vhoifq2kocytidths, $Voj5js1i2adw, $Vck4jlniu1ko, $Vflxal01hfm5, $Vmsjiwqai3ku);
         }
     }
 
-    /**
-     * @param AbstractFrameDecorator $frame
-     * @param null $border_box
-     * @param string $corner_style
-     */
-    protected function _render_outline(AbstractFrameDecorator $frame, $border_box = null, $corner_style = "bevel")
+    
+    protected function _render_outline(AbstractFrameDecorator $Vnk2ly5jcvjf, $V3hrei4dpdod = null, $Vck4jlniu1ko = "bevel")
     {
-        $style = $frame->get_style();
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
 
-        $props = array(
-            "width" => $style->outline_width,
-            "style" => $style->outline_style,
-            "color" => $style->outline_color,
+        $Vwscsokrbo32 = array(
+            "width" => $Vdidzwb0w3vc->outline_width,
+            "style" => $Vdidzwb0w3vc->outline_style,
+            "color" => $Vdidzwb0w3vc->outline_color,
         );
 
-        if (!$props["style"] || $props["style"] === "none" || $props["width"] <= 0) {
+        if (!$Vwscsokrbo32["style"] || $Vwscsokrbo32["style"] === "none" || $Vwscsokrbo32["width"] <= 0) {
             return;
         }
 
-        if (empty($border_box)) {
-            $border_box = $frame->get_border_box();
+        if (empty($V3hrei4dpdod)) {
+            $V3hrei4dpdod = $Vnk2ly5jcvjf->get_border_box();
         }
 
-        $offset = (float)$style->length_in_pt($props["width"]);
-        $pattern = $this->_get_dash_pattern($props["style"], $offset);
+        $Vq154qppcleo = (float)$Vdidzwb0w3vc->length_in_pt($Vwscsokrbo32["width"]);
+        $Vsxwpun1fvg4 = $this->_get_dash_pattern($Vwscsokrbo32["style"], $Vq154qppcleo);
 
-        // If the outline style is "solid" we'd better draw a rectangle
-        if (in_array($props["style"], array("solid", "dashed", "dotted"))) {
-            $border_box[0] -= $offset / 2;
-            $border_box[1] -= $offset / 2;
-            $border_box[2] += $offset;
-            $border_box[3] += $offset;
+        
+        if (in_array($Vwscsokrbo32["style"], array("solid", "dashed", "dotted"))) {
+            $V3hrei4dpdod[0] -= $Vq154qppcleo / 2;
+            $V3hrei4dpdod[1] -= $Vq154qppcleo / 2;
+            $V3hrei4dpdod[2] += $Vq154qppcleo;
+            $V3hrei4dpdod[3] += $Vq154qppcleo;
 
-            list($x, $y, $w, $h) = $border_box;
-            $this->_canvas->rectangle($x, $y, (float)$w, (float)$h, $props["color"], $offset, $pattern);
+            list($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa) = $V3hrei4dpdod;
+            $this->_canvas->rectangle($Vs4gloy23a1d, $Vopgub02o3q2, (float)$Vhoifq2kocyt, (float)$Vjlmjalejjxa, $Vwscsokrbo32["color"], $Vq154qppcleo, $Vsxwpun1fvg4);
             return;
         }
 
-        $border_box[0] -= $offset;
-        $border_box[1] -= $offset;
-        $border_box[2] += $offset * 2;
-        $border_box[3] += $offset * 2;
+        $V3hrei4dpdod[0] -= $Vq154qppcleo;
+        $V3hrei4dpdod[1] -= $Vq154qppcleo;
+        $V3hrei4dpdod[2] += $Vq154qppcleo * 2;
+        $V3hrei4dpdod[3] += $Vq154qppcleo * 2;
 
-        $method = "_border_" . $props["style"];
-        $widths = array_fill(0, 4, (float)$style->length_in_pt($props["width"]));
-        $sides = array("top", "right", "left", "bottom");
-        $length = 0;
+        $V1svcpcbr4nm = "_border_" . $Vwscsokrbo32["style"];
+        $Vhoifq2kocytidths = array_fill(0, 4, (float)$Vdidzwb0w3vc->length_in_pt($Vwscsokrbo32["width"]));
+        $Voj5js1i2adws = array("top", "right", "left", "bottom");
+        $Vjxpogd0afis = 0;
 
-        foreach ($sides as $side) {
-            list($x, $y, $w, $h) = $border_box;
+        foreach ($Voj5js1i2adws as $Voj5js1i2adw) {
+            list($Vs4gloy23a1d, $Vopgub02o3q2, $Vhoifq2kocyt, $Vjlmjalejjxa) = $V3hrei4dpdod;
 
-            switch ($side) {
+            switch ($Voj5js1i2adw) {
                 case "top":
-                    $length = (float)$w;
+                    $Vjxpogd0afis = (float)$Vhoifq2kocyt;
                     break;
 
                 case "bottom":
-                    $length = (float)$w;
-                    $y += (float)$h;
+                    $Vjxpogd0afis = (float)$Vhoifq2kocyt;
+                    $Vopgub02o3q2 += (float)$Vjlmjalejjxa;
                     break;
 
                 case "left":
-                    $length = (float)$h;
+                    $Vjxpogd0afis = (float)$Vjlmjalejjxa;
                     break;
 
                 case "right":
-                    $length = (float)$h;
-                    $x += (float)$w;
+                    $Vjxpogd0afis = (float)$Vjlmjalejjxa;
+                    $Vs4gloy23a1d += (float)$Vhoifq2kocyt;
                     break;
                 default:
                     break;
             }
 
-            $this->$method($x, $y, $length, $props["color"], $widths, $side, $corner_style);
+            $this->$V1svcpcbr4nm($Vs4gloy23a1d, $Vopgub02o3q2, $Vjxpogd0afis, $Vwscsokrbo32["color"], $Vhoifq2kocytidths, $Voj5js1i2adw, $Vck4jlniu1ko);
         }
     }
 }

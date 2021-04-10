@@ -1,10 +1,5 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Tag;
 
@@ -12,52 +7,52 @@ use Svg\Style;
 
 class Shape extends AbstractTag
 {
-    protected function before($attributes)
+    protected function before($Voywws15cvz5)
     {
-        $surface = $this->document->getSurface();
+        $Vyjtkau4njyv = $this->document->getSurface();
 
-        $surface->save();
+        $Vyjtkau4njyv->save();
 
-        $style = $this->makeStyle($attributes);
+        $Vdidzwb0w3vc = $this->makeStyle($Voywws15cvz5);
 
-        $this->setStyle($style);
-        $surface->setStyle($style);
+        $this->setStyle($Vdidzwb0w3vc);
+        $Vyjtkau4njyv->setStyle($Vdidzwb0w3vc);
 
-        $this->applyTransform($attributes);
+        $this->applyTransform($Voywws15cvz5);
     }
 
     protected function after()
     {
-        $surface = $this->document->getSurface();
+        $Vyjtkau4njyv = $this->document->getSurface();
 
         if ($this->hasShape) {
-            $style = $surface->getStyle();
+            $Vdidzwb0w3vc = $Vyjtkau4njyv->getStyle();
 
-            $fill   = $style->fill   && is_array($style->fill);
-            $stroke = $style->stroke && is_array($style->stroke);
+            $Vm4rhtdms15t   = $Vdidzwb0w3vc->fill   && is_array($Vdidzwb0w3vc->fill);
+            $Vihuafvzvxcv = $Vdidzwb0w3vc->stroke && is_array($Vdidzwb0w3vc->stroke);
 
-            if ($fill) {
-                if ($stroke) {
-                    $surface->fillStroke();
+            if ($Vm4rhtdms15t) {
+                if ($Vihuafvzvxcv) {
+                    $Vyjtkau4njyv->fillStroke();
                 } else {
-//                    if (is_string($style->fill)) {
-//                        /** @var LinearGradient|RadialGradient $gradient */
-//                        $gradient = $this->getDocument()->getDef($style->fill);
-//
-//                        var_dump($gradient->getStops());
-//                    }
 
-                    $surface->fill();
+
+
+
+
+
+
+                    $Vyjtkau4njyv->fill();
                 }
             }
-            elseif ($stroke) {
-                $surface->stroke();
+            elseif ($Vihuafvzvxcv) {
+                $Vyjtkau4njyv->stroke();
             }
             else {
-                $surface->endPath();
+                $Vyjtkau4njyv->endPath();
             }
         }
 
-        $surface->restore();
+        $Vyjtkau4njyv->restore();
     }
 }

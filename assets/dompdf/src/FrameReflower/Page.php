@@ -1,202 +1,167 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\FrameReflower;
 
 use Dompdf\Frame;
 use Dompdf\FrameDecorator\Block as BlockFrameDecorator;
 use Dompdf\FrameDecorator\Page as PageFrameDecorator;
 
-/**
- * Reflows pages
- *
- * @package dompdf
- */
+
 class Page extends AbstractFrameReflower
 {
 
-    /**
-     * Cache of the callbacks array
-     *
-     * @var array
-     */
-    private $_callbacks;
+    
+    private $Vtjsmsxds4fi;
 
-    /**
-     * Cache of the canvas
-     *
-     * @var \Dompdf\Canvas
-     */
-    private $_canvas;
+    
+    private $Vuxbwvazzzwh;
 
-    /**
-     * Page constructor.
-     * @param PageFrameDecorator $frame
-     */
-    function __construct(PageFrameDecorator $frame)
+    
+    function __construct(PageFrameDecorator $Vnk2ly5jcvjf)
     {
-        parent::__construct($frame);
+        parent::__construct($Vnk2ly5jcvjf);
     }
 
-    /**
-     * @param Frame $frame
-     * @param $page_number
-     */
-    function apply_page_style(Frame $frame, $page_number)
+    
+    function apply_page_style(Frame $Vnk2ly5jcvjf, $Vmxezqy2cq23)
     {
-        $style = $frame->get_style();
-        $page_styles = $style->get_stylesheet()->get_page_styles();
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
+        $Ve42hbklokcw = $Vdidzwb0w3vc->get_stylesheet()->get_page_styles();
 
-        // http://www.w3.org/TR/CSS21/page.html#page-selectors
-        if (count($page_styles) > 1) {
-            $odd = $page_number % 2 == 1;
-            $first = $page_number == 1;
+        
+        if (count($Ve42hbklokcw) > 1) {
+            $Vcifdx35cf5o = $Vmxezqy2cq23 % 2 == 1;
+            $Vwgat4jvv533 = $Vmxezqy2cq23 == 1;
 
-            $style = clone $page_styles["base"];
+            $Vdidzwb0w3vc = clone $Ve42hbklokcw["base"];
 
-            // FIXME RTL
-            if ($odd && isset($page_styles[":right"])) {
-                $style->merge($page_styles[":right"]);
+            
+            if ($Vcifdx35cf5o && isset($Ve42hbklokcw[":right"])) {
+                $Vdidzwb0w3vc->merge($Ve42hbklokcw[":right"]);
             }
 
-            if ($odd && isset($page_styles[":odd"])) {
-                $style->merge($page_styles[":odd"]);
+            if ($Vcifdx35cf5o && isset($Ve42hbklokcw[":odd"])) {
+                $Vdidzwb0w3vc->merge($Ve42hbklokcw[":odd"]);
             }
 
-            // FIXME RTL
-            if (!$odd && isset($page_styles[":left"])) {
-                $style->merge($page_styles[":left"]);
+            
+            if (!$Vcifdx35cf5o && isset($Ve42hbklokcw[":left"])) {
+                $Vdidzwb0w3vc->merge($Ve42hbklokcw[":left"]);
             }
 
-            if (!$odd && isset($page_styles[":even"])) {
-                $style->merge($page_styles[":even"]);
+            if (!$Vcifdx35cf5o && isset($Ve42hbklokcw[":even"])) {
+                $Vdidzwb0w3vc->merge($Ve42hbklokcw[":even"]);
             }
 
-            if ($first && isset($page_styles[":first"])) {
-                $style->merge($page_styles[":first"]);
+            if ($Vwgat4jvv533 && isset($Ve42hbklokcw[":first"])) {
+                $Vdidzwb0w3vc->merge($Ve42hbklokcw[":first"]);
             }
 
-            $frame->set_style($style);
+            $Vnk2ly5jcvjf->set_style($Vdidzwb0w3vc);
         }
     }
 
-    /**
-     * Paged layout:
-     * http://www.w3.org/TR/CSS21/page.html
-     *
-     * @param BlockFrameDecorator|null $block
-     */
-    function reflow(BlockFrameDecorator $block = null)
+    
+    function reflow(BlockFrameDecorator $Vwoflziz3q5d = null)
     {
-        $fixed_children = array();
-        $prev_child = null;
-        $child = $this->_frame->get_first_child();
-        $current_page = 0;
+        $Vps0dgljwy1s = array();
+        $Vfie5hp0fkw2 = null;
+        $Vtcc233inn5m = $this->_frame->get_first_child();
+        $Vsfkwy254xv2 = 0;
 
-        while ($child) {
-            $this->apply_page_style($this->_frame, $current_page + 1);
+        while ($Vtcc233inn5m) {
+            $this->apply_page_style($this->_frame, $Vsfkwy254xv2 + 1);
 
-            $style = $this->_frame->get_style();
+            $Vdidzwb0w3vc = $this->_frame->get_style();
 
-            // Pages are only concerned with margins
-            $cb = $this->_frame->get_containing_block();
-            $left = (float)$style->length_in_pt($style->margin_left, $cb["w"]);
-            $right = (float)$style->length_in_pt($style->margin_right, $cb["w"]);
-            $top = (float)$style->length_in_pt($style->margin_top, $cb["h"]);
-            $bottom = (float)$style->length_in_pt($style->margin_bottom, $cb["h"]);
+            
+            $Vavdpq045wub = $this->_frame->get_containing_block();
+            $V0opnfka0og1 = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_left, $Vavdpq045wub["w"]);
+            $Vqemi0kebtld = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_right, $Vavdpq045wub["w"]);
+            $Vnre3z2vvgov = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_top, $Vavdpq045wub["h"]);
+            $Vs4qcjm3btdq = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_bottom, $Vavdpq045wub["h"]);
 
-            $content_x = $cb["x"] + $left;
-            $content_y = $cb["y"] + $top;
-            $content_width = $cb["w"] - $left - $right;
-            $content_height = $cb["h"] - $top - $bottom;
+            $Vzkuudgqzult = $Vavdpq045wub["x"] + $V0opnfka0og1;
+            $Vle51ktvnbt4 = $Vavdpq045wub["y"] + $Vnre3z2vvgov;
+            $Vipne4nlxpst = $Vavdpq045wub["w"] - $V0opnfka0og1 - $Vqemi0kebtld;
+            $Vr4rva54sovd = $Vavdpq045wub["h"] - $Vnre3z2vvgov - $Vs4qcjm3btdq;
 
-            // Only if it's the first page, we save the nodes with a fixed position
-            if ($current_page == 0) {
-                $children = $child->get_children();
-                foreach ($children as $onechild) {
-                    if ($onechild->get_style()->position === "fixed") {
-                        $fixed_children[] = $onechild->deep_copy();
+            
+            if ($Vsfkwy254xv2 == 0) {
+                $Vtcc233inn5mren = $Vtcc233inn5m->get_children();
+                foreach ($Vtcc233inn5mren as $Vvutd1idcn0y) {
+                    if ($Vvutd1idcn0y->get_style()->position === "fixed") {
+                        $Vps0dgljwy1s[] = $Vvutd1idcn0y->deep_copy();
                     }
                 }
-                $fixed_children = array_reverse($fixed_children);
+                $Vps0dgljwy1s = array_reverse($Vps0dgljwy1s);
             }
 
-            $child->set_containing_block($content_x, $content_y, $content_width, $content_height);
+            $Vtcc233inn5m->set_containing_block($Vzkuudgqzult, $Vle51ktvnbt4, $Vipne4nlxpst, $Vr4rva54sovd);
 
-            // Check for begin reflow callback
-            $this->_check_callbacks("begin_page_reflow", $child);
+            
+            $this->_check_callbacks("begin_page_reflow", $Vtcc233inn5m);
 
-            //Insert a copy of each node which have a fixed position
-            if ($current_page >= 1) {
-                foreach ($fixed_children as $fixed_child) {
-                    $child->insert_child_before($fixed_child->deep_copy(), $child->get_first_child());
+            
+            if ($Vsfkwy254xv2 >= 1) {
+                foreach ($Vps0dgljwy1s as $Vbfwcqmrrglf) {
+                    $Vtcc233inn5m->insert_child_before($Vbfwcqmrrglf->deep_copy(), $Vtcc233inn5m->get_first_child());
                 }
             }
 
-            $child->reflow();
-            $next_child = $child->get_next_sibling();
+            $Vtcc233inn5m->reflow();
+            $Vkwwqzuhgyrn = $Vtcc233inn5m->get_next_sibling();
 
-            // Check for begin render callback
-            $this->_check_callbacks("begin_page_render", $child);
+            
+            $this->_check_callbacks("begin_page_render", $Vtcc233inn5m);
 
-            // Render the page
-            $this->_frame->get_renderer()->render($child);
+            
+            $this->_frame->get_renderer()->render($Vtcc233inn5m);
 
-            // Check for end render callback
-            $this->_check_callbacks("end_page_render", $child);
+            
+            $this->_check_callbacks("end_page_render", $Vtcc233inn5m);
 
-            if ($next_child) {
+            if ($Vkwwqzuhgyrn) {
                 $this->_frame->next_page();
             }
 
-            // Wait to dispose of all frames on the previous page
-            // so callback will have access to them
-            if ($prev_child) {
-                $prev_child->dispose(true);
+            
+            
+            if ($Vfie5hp0fkw2) {
+                $Vfie5hp0fkw2->dispose(true);
             }
-            $prev_child = $child;
-            $child = $next_child;
-            $current_page++;
+            $Vfie5hp0fkw2 = $Vtcc233inn5m;
+            $Vtcc233inn5m = $Vkwwqzuhgyrn;
+            $Vsfkwy254xv2++;
         }
 
-        // Dispose of previous page if it still exists
-        if ($prev_child) {
-            $prev_child->dispose(true);
+        
+        if ($Vfie5hp0fkw2) {
+            $Vfie5hp0fkw2->dispose(true);
         }
     }
 
-    /**
-     * Check for callbacks that need to be performed when a given event
-     * gets triggered on a page
-     *
-     * @param string $event the type of event
-     * @param Frame $frame  the frame that event is triggered on
-     */
-    protected function _check_callbacks($event, $frame)
+    
+    protected function _check_callbacks($Vflqyoc1obms, $Vnk2ly5jcvjf)
     {
         if (!isset($this->_callbacks)) {
-            $dompdf = $this->_frame->get_dompdf();
-            $this->_callbacks = $dompdf->get_callbacks();
-            $this->_canvas = $dompdf->get_canvas();
+            $Vhvghaoacagz = $this->_frame->get_dompdf();
+            $this->_callbacks = $Vhvghaoacagz->get_callbacks();
+            $this->_canvas = $Vhvghaoacagz->get_canvas();
         }
 
-        if (is_array($this->_callbacks) && isset($this->_callbacks[$event])) {
-            $info = array(
+        if (is_array($this->_callbacks) && isset($this->_callbacks[$Vflqyoc1obms])) {
+            $Vp03vxkbvgmn = array(
                 0 => $this->_canvas, "canvas" => $this->_canvas,
-                1 => $frame,         "frame"  => $frame,
+                1 => $Vnk2ly5jcvjf,         "frame"  => $Vnk2ly5jcvjf,
             );
-            $fs = $this->_callbacks[$event];
-            foreach ($fs as $f) {
-                if (is_callable($f)) {
-                    if (is_array($f)) {
-                        $f[0]->{$f[1]}($info);
+            $Vj2dp31yq2k0 = $this->_callbacks[$Vflqyoc1obms];
+            foreach ($Vj2dp31yq2k0 as $V4ljftfdeqpl) {
+                if (is_callable($V4ljftfdeqpl)) {
+                    if (is_array($V4ljftfdeqpl)) {
+                        $V4ljftfdeqpl[0]->{$V4ljftfdeqpl[1]}($Vp03vxkbvgmn);
                     } else {
-                        $f($info);
+                        $V4ljftfdeqpl($Vp03vxkbvgmn);
                     }
                 }
             }

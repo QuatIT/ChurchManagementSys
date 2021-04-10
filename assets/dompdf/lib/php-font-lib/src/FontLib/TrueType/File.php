@@ -1,10 +1,5 @@
 <?php
-/**
- * @package php-font-lib
- * @link    https://github.com/PhenX/php-font-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace FontLib\TrueType;
 
@@ -17,29 +12,23 @@ use FontLib\Table\Type\glyf;
 use FontLib\Table\Type\name;
 use FontLib\Table\Type\nameRecord;
 
-/**
- * TrueType font file.
- *
- * @package php-font-lib
- */
+
 class File extends BinaryStream {
-  /**
-   * @var Header
-   */
-  public $header = array();
+  
+  public $Vbcafeycvjtp = array();
 
-  private $tableOffset = 0; // Used for TTC
+  private $V0i4v30hinuk = 0; 
 
-  private static $raw = false;
+  private static $Vogke1dtifpg = false;
 
-  protected $directory = array();
-  protected $data = array();
+  protected $Vbyfroljvzlq = array();
+  protected $Vb3z3shnu1vn = array();
 
-  protected $glyph_subset = array();
+  protected $Vtum53y0clq2 = array();
 
-  public $glyph_all = array();
+  public $Vscdcke3r22s = array();
 
-  static $macCharNames = array(
+  static $Vr5spanzdhzp = array(
     ".notdef", ".null", "CR",
     "space", "exclam", "quotedbl", "numbersign",
     "dollar", "percent", "ampersand", "quotesingle",
@@ -107,8 +96,8 @@ class File extends BinaryStream {
     return $this->directory;
   }
 
-  function setTableOffset($offset) {
-    $this->tableOffset = $offset;
+  function setTableOffset($Vq154qppcleo) {
+    $this->tableOffset = $Vq154qppcleo;
   }
 
   function parse() {
@@ -116,95 +105,95 @@ class File extends BinaryStream {
 
     $this->data = array();
 
-    foreach ($this->directory as $tag => $table) {
-      if (empty($this->data[$tag])) {
-        $this->readTable($tag);
+    foreach ($this->directory as $Vudn5fb5ck4i => $Vahqmfi4rdgw) {
+      if (empty($this->data[$Vudn5fb5ck4i])) {
+        $this->readTable($Vudn5fb5ck4i);
       }
     }
   }
 
-  function utf8toUnicode($str) {
-    $len = strlen($str);
-    $out = array();
+  function utf8toUnicode($Vadkcwffkfxw) {
+    $V1st2w4mm2ug = strlen($Vadkcwffkfxw);
+    $Vpu0eaxrabtr = array();
 
-    for ($i = 0; $i < $len; $i++) {
-      $uni = -1;
-      $h   = ord($str[$i]);
+    for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $V1st2w4mm2ug; $V3xsptcgzss2++) {
+      $Vzmpyxz554ug = -1;
+      $Vjlmjalejjxa   = ord($Vadkcwffkfxw[$V3xsptcgzss2]);
 
-      if ($h <= 0x7F) {
-        $uni = $h;
+      if ($Vjlmjalejjxa <= 0x7F) {
+        $Vzmpyxz554ug = $Vjlmjalejjxa;
       }
-      elseif ($h >= 0xC2) {
-        if (($h <= 0xDF) && ($i < $len - 1)) {
-          $uni = ($h & 0x1F) << 6 | (ord($str[++$i]) & 0x3F);
+      elseif ($Vjlmjalejjxa >= 0xC2) {
+        if (($Vjlmjalejjxa <= 0xDF) && ($V3xsptcgzss2 < $V1st2w4mm2ug - 1)) {
+          $Vzmpyxz554ug = ($Vjlmjalejjxa & 0x1F) << 6 | (ord($Vadkcwffkfxw[++$V3xsptcgzss2]) & 0x3F);
         }
-        elseif (($h <= 0xEF) && ($i < $len - 2)) {
-          $uni = ($h & 0x0F) << 12 | (ord($str[++$i]) & 0x3F) << 6 | (ord($str[++$i]) & 0x3F);
+        elseif (($Vjlmjalejjxa <= 0xEF) && ($V3xsptcgzss2 < $V1st2w4mm2ug - 2)) {
+          $Vzmpyxz554ug = ($Vjlmjalejjxa & 0x0F) << 12 | (ord($Vadkcwffkfxw[++$V3xsptcgzss2]) & 0x3F) << 6 | (ord($Vadkcwffkfxw[++$V3xsptcgzss2]) & 0x3F);
         }
-        elseif (($h <= 0xF4) && ($i < $len - 3)) {
-          $uni = ($h & 0x0F) << 18 | (ord($str[++$i]) & 0x3F) << 12 | (ord($str[++$i]) & 0x3F) << 6 | (ord($str[++$i]) & 0x3F);
+        elseif (($Vjlmjalejjxa <= 0xF4) && ($V3xsptcgzss2 < $V1st2w4mm2ug - 3)) {
+          $Vzmpyxz554ug = ($Vjlmjalejjxa & 0x0F) << 18 | (ord($Vadkcwffkfxw[++$V3xsptcgzss2]) & 0x3F) << 12 | (ord($Vadkcwffkfxw[++$V3xsptcgzss2]) & 0x3F) << 6 | (ord($Vadkcwffkfxw[++$V3xsptcgzss2]) & 0x3F);
         }
       }
 
-      if ($uni >= 0) {
-        $out[] = $uni;
+      if ($Vzmpyxz554ug >= 0) {
+        $Vpu0eaxrabtr[] = $Vzmpyxz554ug;
       }
     }
 
-    return $out;
+    return $Vpu0eaxrabtr;
   }
 
   function getUnicodeCharMap() {
-    $subtable = null;
-    foreach ($this->getData("cmap", "subtables") as $_subtable) {
-      if ($_subtable["platformID"] == 0 || $_subtable["platformID"] == 3 && $_subtable["platformSpecificID"] == 1) {
-        $subtable = $_subtable;
+    $Veqbujijlzvr = null;
+    foreach ($this->getData("cmap", "subtables") as $V5wth3hje3v5) {
+      if ($V5wth3hje3v5["platformID"] == 0 || $V5wth3hje3v5["platformID"] == 3 && $V5wth3hje3v5["platformSpecificID"] == 1) {
+        $Veqbujijlzvr = $V5wth3hje3v5;
         break;
       }
     }
 
-    if ($subtable) {
-      return $subtable["glyphIndexArray"];
+    if ($Veqbujijlzvr) {
+      return $Veqbujijlzvr["glyphIndexArray"];
     }
 
     return null;
   }
 
-  function setSubset($subset) {
-    if (!is_array($subset)) {
-      $subset = $this->utf8toUnicode($subset);
+  function setSubset($V2nxahdpg1do) {
+    if (!is_array($V2nxahdpg1do)) {
+      $V2nxahdpg1do = $this->utf8toUnicode($V2nxahdpg1do);
     }
 
-    $subset = array_unique($subset);
+    $V2nxahdpg1do = array_unique($V2nxahdpg1do);
 
-    $glyphIndexArray = $this->getUnicodeCharMap();
+    $V3u3z4peocbp = $this->getUnicodeCharMap();
 
-    if (!$glyphIndexArray) {
+    if (!$V3u3z4peocbp) {
       return;
     }
 
-    $gids = array(
-      0, // .notdef
-      1, // .null
+    $V4q2sucnmzwp = array(
+      0, 
+      1, 
     );
 
-    foreach ($subset as $code) {
-      if (!isset($glyphIndexArray[$code])) {
+    foreach ($V2nxahdpg1do as $Vl0bhwxpf0qo) {
+      if (!isset($V3u3z4peocbp[$Vl0bhwxpf0qo])) {
         continue;
       }
 
-      $gid        = $glyphIndexArray[$code];
-      $gids[$gid] = $gid;
+      $Vmfzzxc0mebw        = $V3u3z4peocbp[$Vl0bhwxpf0qo];
+      $V4q2sucnmzwp[$Vmfzzxc0mebw] = $Vmfzzxc0mebw;
     }
 
-    /** @var glyf $glyf */
-    $glyf = $this->getTableObject("glyf");
-    $gids = $glyf->getGlyphIDs($gids);
+    
+    $Vsx5n5wlhs3g = $this->getTableObject("glyf");
+    $V4q2sucnmzwp = $Vsx5n5wlhs3g->getGlyphIDs($V4q2sucnmzwp);
 
-    sort($gids);
+    sort($V4q2sucnmzwp);
 
-    $this->glyph_subset = $gids;
-    $this->glyph_all    = array_values($glyphIndexArray); // FIXME
+    $this->glyph_subset = $V4q2sucnmzwp;
+    $this->glyph_all    = array_values($V3u3z4peocbp); 
   }
 
   function getSubset() {
@@ -215,41 +204,41 @@ class File extends BinaryStream {
     return $this->glyph_subset;
   }
 
-  function encode($tags = array()) {
-    if (!self::$raw) {
-      $tags = array_merge(array("head", "hhea", "cmap", "hmtx", "maxp", "glyf", "loca", "name", "post"), $tags);
+  function encode($Vudn5fb5ck4is = array()) {
+    if (!self::$Vogke1dtifpg) {
+      $Vudn5fb5ck4is = array_merge(array("head", "hhea", "cmap", "hmtx", "maxp", "glyf", "loca", "name", "post"), $Vudn5fb5ck4is);
     }
     else {
-      $tags = array_keys($this->directory);
+      $Vudn5fb5ck4is = array_keys($this->directory);
     }
 
-    $num_tables = count($tags);
-    $n          = 16; // @todo
+    $V3fwpvclcxbz = count($Vudn5fb5ck4is);
+    $V1qcutcuyu3m          = 16; 
 
-    Font::d("Tables : " . implode(", ", $tags));
+    Font::d("Tables : " . implode(", ", $Vudn5fb5ck4is));
 
-    /** @var DirectoryEntry[] $entries */
-    $entries = array();
-    foreach ($tags as $tag) {
-      if (!isset($this->directory[$tag])) {
-        Font::d("  >> '$tag' table doesn't exist");
+    
+    $Vf3rr0rozzw0 = array();
+    foreach ($Vudn5fb5ck4is as $Vudn5fb5ck4i) {
+      if (!isset($this->directory[$Vudn5fb5ck4i])) {
+        Font::d("  >> '$Vudn5fb5ck4i' table doesn't exist");
         continue;
       }
 
-      $entries[$tag] = $this->directory[$tag];
+      $Vf3rr0rozzw0[$Vudn5fb5ck4i] = $this->directory[$Vudn5fb5ck4i];
     }
 
-    $this->header->data["numTables"] = $num_tables;
+    $this->header->data["numTables"] = $V3fwpvclcxbz;
     $this->header->encode();
 
-    $directory_offset = $this->pos();
-    $offset           = $directory_offset + $num_tables * $n;
-    $this->seek($offset);
+    $Vbyfroljvzlq_offset = $this->pos();
+    $Vq154qppcleo           = $Vbyfroljvzlq_offset + $V3fwpvclcxbz * $V1qcutcuyu3m;
+    $this->seek($Vq154qppcleo);
 
-    $i = 0;
-    foreach ($entries as $entry) {
-      $entry->encode($directory_offset + $i * $n);
-      $i++;
+    $V3xsptcgzss2 = 0;
+    foreach ($Vf3rr0rozzw0 as $Voeexclyb0j3) {
+      $Voeexclyb0j3->encode($Vbyfroljvzlq_offset + $V3xsptcgzss2 * $V1qcutcuyu3m);
+      $V3xsptcgzss2++;
     }
   }
 
@@ -265,8 +254,8 @@ class File extends BinaryStream {
   }
 
   function getFontType(){
-    $class_parts = explode("\\", get_class($this));
-    return $class_parts[1];
+    $Vuokd0bpgo0x = explode("\\", get_class($this));
+    return $Vuokd0bpgo0x[1];
   }
 
   function parseTableEntries() {
@@ -281,178 +270,136 @@ class File extends BinaryStream {
     }
 
 
-    $type = $this->getFontType();
-    $class = "FontLib\\$type\\TableDirectoryEntry";
+    $Vxeifmjzikkj = $this->getFontType();
+    $V4ulrrtmqxqc = "FontLib\\$Vxeifmjzikkj\\TableDirectoryEntry";
 
-    for ($i = 0; $i < $this->header->data["numTables"]; $i++) {
-      /** @var TableDirectoryEntry $entry */
-      $entry = new $class($this);
-      $entry->parse();
+    for ($V3xsptcgzss2 = 0; $V3xsptcgzss2 < $this->header->data["numTables"]; $V3xsptcgzss2++) {
+      
+      $Voeexclyb0j3 = new $V4ulrrtmqxqc($this);
+      $Voeexclyb0j3->parse();
 
-      $this->directory[$entry->tag] = $entry;
+      $this->directory[$Voeexclyb0j3->tag] = $Voeexclyb0j3;
     }
   }
 
-  function normalizeFUnit($value, $base = 1000) {
-    return round($value * ($base / $this->getData("head", "unitsPerEm")));
+  function normalizeFUnit($Vqfra35f14fv, $Vofecoce1dwt = 1000) {
+    return round($Vqfra35f14fv * ($Vofecoce1dwt / $this->getData("head", "unitsPerEm")));
   }
 
-  protected function readTable($tag) {
+  protected function readTable($Vudn5fb5ck4i) {
     $this->parseTableEntries();
 
-    if (!self::$raw) {
-      $name_canon = preg_replace("/[^a-z0-9]/", "", strtolower($tag));
+    if (!self::$Vogke1dtifpg) {
+      $V1qcutcuyu3mame_canon = preg_replace("/[^a-z0-9]/", "", strtolower($Vudn5fb5ck4i));
 
-      $class = "FontLib\\Table\\Type\\$name_canon";
+      $V4ulrrtmqxqc = "FontLib\\Table\\Type\\$V1qcutcuyu3mame_canon";
 
-      if (!isset($this->directory[$tag]) || !@class_exists($class)) {
+      if (!isset($this->directory[$Vudn5fb5ck4i]) || !@class_exists($V4ulrrtmqxqc)) {
         return;
       }
     }
     else {
-      $class = "FontLib\\Table\\Table";
+      $V4ulrrtmqxqc = "FontLib\\Table\\Table";
     }
 
-    /** @var Table $table */
-    $table = new $class($this->directory[$tag]);
-    $table->parse();
+    
+    $Vahqmfi4rdgw = new $V4ulrrtmqxqc($this->directory[$Vudn5fb5ck4i]);
+    $Vahqmfi4rdgw->parse();
 
-    $this->data[$tag] = $table;
+    $this->data[$Vudn5fb5ck4i] = $Vahqmfi4rdgw;
   }
 
-  /**
-   * @param $name
-   *
-   * @return Table
-   */
-  public function getTableObject($name) {
-    return $this->data[$name];
+  
+  public function getTableObject($V1qcutcuyu3mame) {
+    return $this->data[$V1qcutcuyu3mame];
   }
 
-  public function setTableObject($name, Table $data) {
-    $this->data[$name] = $data;
+  public function setTableObject($V1qcutcuyu3mame, Table $Vb3z3shnu1vn) {
+    $this->data[$V1qcutcuyu3mame] = $Vb3z3shnu1vn;
   }
 
-  public function getData($name, $key = null) {
+  public function getData($V1qcutcuyu3mame, $Vqwhzgethmgj = null) {
     $this->parseTableEntries();
 
-    if (empty($this->data[$name])) {
-      $this->readTable($name);
+    if (empty($this->data[$V1qcutcuyu3mame])) {
+      $this->readTable($V1qcutcuyu3mame);
     }
 
-    if (!isset($this->data[$name])) {
+    if (!isset($this->data[$V1qcutcuyu3mame])) {
       return null;
     }
 
-    if (!$key) {
-      return $this->data[$name]->data;
+    if (!$Vqwhzgethmgj) {
+      return $this->data[$V1qcutcuyu3mame]->data;
     }
     else {
-      return $this->data[$name]->data[$key];
+      return $this->data[$V1qcutcuyu3mame]->data[$Vqwhzgethmgj];
     }
   }
 
-  function addDirectoryEntry(DirectoryEntry $entry) {
-    $this->directory[$entry->tag] = $entry;
+  function addDirectoryEntry(DirectoryEntry $Voeexclyb0j3) {
+    $this->directory[$Voeexclyb0j3->tag] = $Voeexclyb0j3;
   }
 
-  function saveAdobeFontMetrics($file, $encoding = null) {
-    $afm = new AdobeFontMetrics($this);
-    $afm->write($file, $encoding);
+  function saveAdobeFontMetrics($Vtkhurg4sowd, $Vgpqcvfkvgzo = null) {
+    $V1xwbch0npf2 = new AdobeFontMetrics($this);
+    $V1xwbch0npf2->write($Vtkhurg4sowd, $Vgpqcvfkvgzo);
   }
 
-  /**
-   * Get a specific name table string value from its ID
-   *
-   * @param int $nameID The name ID
-   *
-   * @return string|null
-   */
-  function getNameTableString($nameID) {
-    /** @var nameRecord[] $records */
-    $records = $this->getData("name", "records");
+  
+  function getNameTableString($V1qcutcuyu3mameID) {
+    
+    $Vmmlhdr3tkee = $this->getData("name", "records");
 
-    if (!isset($records[$nameID])) {
+    if (!isset($Vmmlhdr3tkee[$V1qcutcuyu3mameID])) {
       return null;
     }
 
-    return $records[$nameID]->string;
+    return $Vmmlhdr3tkee[$V1qcutcuyu3mameID]->string;
   }
 
-  /**
-   * Get font copyright
-   *
-   * @return string|null
-   */
+  
   function getFontCopyright() {
     return $this->getNameTableString(name::NAME_COPYRIGHT);
   }
 
-  /**
-   * Get font name
-   *
-   * @return string|null
-   */
+  
   function getFontName() {
     return $this->getNameTableString(name::NAME_NAME);
   }
 
-  /**
-   * Get font subfamily
-   *
-   * @return string|null
-   */
+  
   function getFontSubfamily() {
     return $this->getNameTableString(name::NAME_SUBFAMILY);
   }
 
-  /**
-   * Get font subfamily ID
-   *
-   * @return string|null
-   */
+  
   function getFontSubfamilyID() {
     return $this->getNameTableString(name::NAME_SUBFAMILY_ID);
   }
 
-  /**
-   * Get font full name
-   *
-   * @return string|null
-   */
+  
   function getFontFullName() {
     return $this->getNameTableString(name::NAME_FULL_NAME);
   }
 
-  /**
-   * Get font version
-   *
-   * @return string|null
-   */
+  
   function getFontVersion() {
     return $this->getNameTableString(name::NAME_VERSION);
   }
 
-  /**
-   * Get font weight
-   *
-   * @return string|null
-   */
+  
   function getFontWeight() {
     return $this->getTableObject("OS/2")->data["usWeightClass"];
   }
 
-  /**
-   * Get font Postscript name
-   *
-   * @return string|null
-   */
+  
   function getFontPostscriptName() {
     return $this->getNameTableString(name::NAME_POSTSCRIPT_NAME);
   }
 
   function reduce() {
-    $names_to_keep = array(
+    $V1qcutcuyu3mames_to_keep = array(
       name::NAME_COPYRIGHT,
       name::NAME_NAME,
       name::NAME_SUBFAMILY,
@@ -462,9 +409,9 @@ class File extends BinaryStream {
       name::NAME_POSTSCRIPT_NAME,
     );
 
-    foreach ($this->data["name"]->data["records"] as $id => $rec) {
-      if (!in_array($id, $names_to_keep)) {
-        unset($this->data["name"]->data["records"][$id]);
+    foreach ($this->data["name"]->data["records"] as $V3xsptcgzss2d => $Vh0zzcsd3eeo) {
+      if (!in_array($V3xsptcgzss2d, $V1qcutcuyu3mames_to_keep)) {
+        unset($this->data["name"]->data["records"][$V3xsptcgzss2d]);
       }
     }
   }

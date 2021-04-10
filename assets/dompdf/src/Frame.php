@@ -5,180 +5,81 @@ namespace Dompdf;
 use Dompdf\Css\Style;
 use Dompdf\Frame\FrameList;
 
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
 
-/**
- * The main Frame class
- *
- * This class represents a single HTML element.  This class stores
- * positioning information as well as containing block location and
- * dimensions. Style information for the element is stored in a {@link
- * Style} object. Tree structure is maintained via the parent & children
- * links.
- *
- * @package dompdf
- */
+
+
 class Frame
 {
     const WS_TEXT = 1;
     const WS_SPACE = 2;
 
-    /**
-     * The DOMElement or DOMText object this frame represents
-     *
-     * @var \DOMElement|\DOMText
-     */
-    protected $_node;
+    
+    protected $V1tzl0e3uan0;
 
-    /**
-     * Unique identifier for this frame.  Used to reference this frame
-     * via the node.
-     *
-     * @var string
-     */
-    protected $_id;
+    
+    protected $Vxtrkxegt1di;
 
-    /**
-     * Unique id counter
-     */
-    public static $ID_COUNTER = 0; /*protected*/
+    
+    public static $Vftvicyb3d1y = 0; 
 
-    /**
-     * This frame's calculated style
-     *
-     * @var Style
-     */
-    protected $_style;
+    
+    protected $Vkdb2efne1fd;
 
-    /**
-     * This frame's original style.  Needed for cases where frames are
-     * split across pages.
-     *
-     * @var Style
-     */
-    protected $_original_style;
+    
+    protected $Vwu5hfmeg34k;
 
-    /**
-     * This frame's parent in the document tree.
-     *
-     * @var Frame
-     */
-    protected $_parent;
+    
+    protected $Veb0klnlntfo;
 
-    /**
-     * This frame's children
-     *
-     * @var Frame[]
-     */
-    protected $_frame_list;
+    
+    protected $Vtcosdkaxdaj;
 
-    /**
-     * This frame's first child.  All children are handled as a
-     * doubly-linked list.
-     *
-     * @var Frame
-     */
-    protected $_first_child;
+    
+    protected $Ve52n0jmfn0m;
 
-    /**
-     * This frame's last child.
-     *
-     * @var Frame
-     */
-    protected $_last_child;
+    
+    protected $Viotffxaombf;
 
-    /**
-     * This frame's previous sibling in the document tree.
-     *
-     * @var Frame
-     */
-    protected $_prev_sibling;
+    
+    protected $Vro2x0cvav5c;
 
-    /**
-     * This frame's next sibling in the document tree.
-     *
-     * @var Frame
-     */
-    protected $_next_sibling;
+    
+    protected $Vgswn21ka4nz;
 
-    /**
-     * This frame's containing block (used in layout): array(x, y, w, h)
-     *
-     * @var float[]
-     */
-    protected $_containing_block;
+    
+    protected $Vw1w3ginp2m5;
 
-    /**
-     * Position on the page of the top-left corner of the margin box of
-     * this frame: array(x,y)
-     *
-     * @var float[]
-     */
-    protected $_position;
+    
+    protected $Vmu12pic5gh2;
 
-    /**
-     * Absolute opacity of this frame
-     *
-     * @var float
-     */
-    protected $_opacity;
+    
+    protected $V4umdqhtwaco;
 
-    /**
-     * This frame's decorator
-     *
-     * @var \Dompdf\FrameDecorator\AbstractFrameDecorator
-     */
-    protected $_decorator;
+    
+    protected $Vwmqi1wwrxs0;
 
-    /**
-     * This frame's containing line box
-     *
-     * @var LineBox
-     */
-    protected $_containing_line;
+    
+    protected $Vv1jaamii3vr;
 
-    /**
-     * @var array
-     */
-    protected $_is_cache = array();
+    
+    protected $Vajt5lxlq5b3 = array();
 
-    /**
-     * Tells wether the frame was already pushed to the next page
-     *
-     * @var bool
-     */
-    public $_already_pushed = false;
+    
+    public $Vfvicuyo4gmq = false;
 
-    /**
-     * @var bool
-     */
-    public $_float_next_line = false;
+    
+    public $Vvrg5tvfuyvv = false;
 
-    /**
-     * Tells wether the frame was split
-     *
-     * @var bool
-     */
-    public $_splitted;
+    
+    public $Vftibstg2e3q;
 
-    /**
-     * @var int
-     */
-    public static $_ws_state = self::WS_SPACE;
+    
+    public static $Vqjaka5s2vxc = self::WS_SPACE;
 
-    /**
-     * Class constructor
-     *
-     * @param \DOMNode $node the DOMNode this frame represents
-     */
-    public function __construct(\DOMNode $node)
+    
+    public function __construct(\DOMNode $Vbr2bywdrplx)
     {
-        $this->_node = $node;
+        $this->_node = $Vbr2bywdrplx;
 
         $this->_parent = null;
         $this->_first_child = null;
@@ -211,46 +112,40 @@ class Frame
         $this->_opacity = 1.0;
         $this->_decorator = null;
 
-        $this->set_id(self::$ID_COUNTER++);
+        $this->set_id(self::$Vftvicyb3d1y++);
     }
 
-    /**
-     * WIP : preprocessing to remove all the unused whitespace
-     */
+    
     protected function ws_trim()
     {
         if ($this->ws_keep()) {
             return;
         }
 
-        if (self::$_ws_state === self::WS_SPACE) {
-            $node = $this->_node;
+        if (self::$Vqjaka5s2vxc === self::WS_SPACE) {
+            $Vbr2bywdrplx = $this->_node;
 
-            if ($node->nodeName === "#text" && !empty($node->nodeValue)) {
-                $node->nodeValue = preg_replace("/[ \t\r\n\f]+/u", " ", trim($node->nodeValue));
-                self::$_ws_state = self::WS_TEXT;
+            if ($Vbr2bywdrplx->nodeName === "#text" && !empty($Vbr2bywdrplx->nodeValue)) {
+                $Vbr2bywdrplx->nodeValue = preg_replace("/[ \t\r\n\f]+/u", " ", trim($Vbr2bywdrplx->nodeValue));
+                self::$Vqjaka5s2vxc = self::WS_TEXT;
             }
         }
     }
 
-    /**
-     * @return bool
-     */
+    
     protected function ws_keep()
     {
-        $whitespace = $this->get_style()->white_space;
+        $Vbppsapzrzgh = $this->get_style()->white_space;
 
-        return in_array($whitespace, array("pre", "pre-wrap", "pre-line"));
+        return in_array($Vbppsapzrzgh, array("pre", "pre-wrap", "pre-line"));
     }
 
-    /**
-     * @return bool
-     */
+    
     protected function ws_is_text()
     {
-        $node = $this->get_node();
+        $Vbr2bywdrplx = $this->get_node();
 
-        if ($node->nodeName === "img") {
+        if ($Vbr2bywdrplx->nodeName === "img") {
             return true;
         }
 
@@ -259,26 +154,22 @@ class Frame
         }
 
         if ($this->is_text_node()) {
-            return trim($node->nodeValue) !== "";
+            return trim($Vbr2bywdrplx->nodeValue) !== "";
         }
 
         return true;
     }
 
-    /**
-     * "Destructor": forcibly free all references held by this frame
-     *
-     * @param bool $recursive if true, call dispose on all children
-     */
-    public function dispose($recursive = false)
+    
+    public function dispose($V2snefhk4mtq = false)
     {
-        if ($recursive) {
-            while ($child = $this->_first_child) {
-                $child->dispose(true);
+        if ($V2snefhk4mtq) {
+            while ($Vtcc233inn5m = $this->_first_child) {
+                $Vtcc233inn5m->dispose(true);
             }
         }
 
-        // Remove this frame from the tree
+        
         if ($this->_prev_sibling) {
             $this->_prev_sibling->_next_sibling = $this->_next_sibling;
         }
@@ -309,9 +200,7 @@ class Frame
 
     }
 
-    /**
-     * Re-initialize the frame
-     */
+    
     public function reset()
     {
         $this->_position["x"] = null;
@@ -326,98 +215,76 @@ class Frame
         unset($this->_style);
         $this->_style = clone $this->_original_style;
 
-        // If this represents a generated node then child nodes represent generated content.
-        // Remove the children since the content will be generated next time this frame is reflowed.
+        
+        
         if ($this->_node->nodeName === "dompdf_generated" && $this->_style->content != "normal") {
-            foreach ($this->get_children() as $child) {
-                $this->remove_child($child);
+            foreach ($this->get_children() as $Vtcc233inn5m) {
+                $this->remove_child($Vtcc233inn5m);
             }
         }
     }
 
-    /**
-     * @return \DOMElement|\DOMText
-     */
+    
     public function get_node()
     {
         return $this->_node;
     }
 
-    /**
-     * @return string
-     */
+    
     public function get_id()
     {
         return $this->_id;
     }
 
-    /**
-     * @return Style
-     */
+    
     public function get_style()
     {
         return $this->_style;
     }
 
-    /**
-     * @return Style
-     */
+    
     public function get_original_style()
     {
         return $this->_original_style;
     }
 
-    /**
-     * @return Frame
-     */
+    
     public function get_parent()
     {
         return $this->_parent;
     }
 
-    /**
-     * @return \Dompdf\FrameDecorator\AbstractFrameDecorator
-     */
+    
     public function get_decorator()
     {
         return $this->_decorator;
     }
 
-    /**
-     * @return Frame
-     */
+    
     public function get_first_child()
     {
         return $this->_first_child;
     }
 
-    /**
-     * @return Frame
-     */
+    
     public function get_last_child()
     {
         return $this->_last_child;
     }
 
-    /**
-     * @return Frame
-     */
+    
     public function get_prev_sibling()
     {
         return $this->_prev_sibling;
     }
 
-    /**
-     * @return Frame
-     */
+    
     public function get_next_sibling()
     {
         return $this->_next_sibling;
     }
 
-    /**
-     * @return FrameList|Frame[]
-     */
+    
     public function get_children()
     {
         if (isset($this->_frame_list)) {
@@ -429,388 +296,316 @@ class Frame
         return $this->_frame_list;
     }
 
-    // Layout property accessors
+    
 
-    /**
-     * Containing block dimensions
-     *
-     * @param $i string The key of the wanted containing block's dimension (x, y, w, h)
-     *
-     * @return float[]|float
-     */
-    public function get_containing_block($i = null)
+    
+    public function get_containing_block($V3xsptcgzss2 = null)
     {
-        if (isset($i)) {
-            return $this->_containing_block[$i];
+        if (isset($V3xsptcgzss2)) {
+            return $this->_containing_block[$V3xsptcgzss2];
         }
 
         return $this->_containing_block;
     }
 
-    /**
-     * Block position
-     *
-     * @param $i string The key of the wanted position value (x, y)
-     *
-     * @return array|float
-     */
-    public function get_position($i = null)
+    
+    public function get_position($V3xsptcgzss2 = null)
     {
-        if (isset($i)) {
-            return $this->_position[$i];
+        if (isset($V3xsptcgzss2)) {
+            return $this->_position[$V3xsptcgzss2];
         }
 
         return $this->_position;
     }
 
-    //........................................................................
+    
 
-    /**
-     * Return the height of the margin box of the frame, in pt.  Meaningless
-     * unless the height has been calculated properly.
-     *
-     * @return float
-     */
+    
     public function get_margin_height()
     {
-        $style = $this->_style;
+        $Vdidzwb0w3vc = $this->_style;
 
-        return (float)$style->length_in_pt(array(
-            $style->height,
-            $style->margin_top,
-            $style->margin_bottom,
-            $style->border_top_width,
-            $style->border_bottom_width,
-            $style->padding_top,
-            $style->padding_bottom
+        return (float)$Vdidzwb0w3vc->length_in_pt(array(
+            $Vdidzwb0w3vc->height,
+            $Vdidzwb0w3vc->margin_top,
+            $Vdidzwb0w3vc->margin_bottom,
+            $Vdidzwb0w3vc->border_top_width,
+            $Vdidzwb0w3vc->border_bottom_width,
+            $Vdidzwb0w3vc->padding_top,
+            $Vdidzwb0w3vc->padding_bottom
         ), $this->_containing_block["h"]);
     }
 
-    /**
-     * Return the width of the margin box of the frame, in pt.  Meaningless
-     * unless the width has been calculated properly.
-     *
-     * @return float
-     */
+    
     public function get_margin_width()
     {
-        $style = $this->_style;
+        $Vdidzwb0w3vc = $this->_style;
 
-        return (float)$style->length_in_pt(array(
-            $style->width,
-            $style->margin_left,
-            $style->margin_right,
-            $style->border_left_width,
-            $style->border_right_width,
-            $style->padding_left,
-            $style->padding_right
+        return (float)$Vdidzwb0w3vc->length_in_pt(array(
+            $Vdidzwb0w3vc->width,
+            $Vdidzwb0w3vc->margin_left,
+            $Vdidzwb0w3vc->margin_right,
+            $Vdidzwb0w3vc->border_left_width,
+            $Vdidzwb0w3vc->border_right_width,
+            $Vdidzwb0w3vc->padding_left,
+            $Vdidzwb0w3vc->padding_right
         ), $this->_containing_block["w"]);
     }
 
-    /**
-     * @return float
-     */
+    
     public function get_break_margins()
     {
-        $style = $this->_style;
+        $Vdidzwb0w3vc = $this->_style;
 
-        return (float)$style->length_in_pt(array(
-            //$style->height,
-            $style->margin_top,
-            $style->margin_bottom,
-            $style->border_top_width,
-            $style->border_bottom_width,
-            $style->padding_top,
-            $style->padding_bottom
+        return (float)$Vdidzwb0w3vc->length_in_pt(array(
+            
+            $Vdidzwb0w3vc->margin_top,
+            $Vdidzwb0w3vc->margin_bottom,
+            $Vdidzwb0w3vc->border_top_width,
+            $Vdidzwb0w3vc->border_bottom_width,
+            $Vdidzwb0w3vc->padding_top,
+            $Vdidzwb0w3vc->padding_bottom
         ), $this->_containing_block["h"]);
     }
 
-    /**
-     * Return the content box (x,y,w,h) of the frame
-     *
-     * @return array
-     */
+    
     public function get_content_box()
     {
-        $style = $this->_style;
-        $cb = $this->_containing_block;
+        $Vdidzwb0w3vc = $this->_style;
+        $Vavdpq045wub = $this->_containing_block;
 
-        $x = $this->_position["x"] +
-            (float)$style->length_in_pt(array($style->margin_left,
-                    $style->border_left_width,
-                    $style->padding_left),
-                $cb["w"]);
+        $Vs4gloy23a1d = $this->_position["x"] +
+            (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->margin_left,
+                    $Vdidzwb0w3vc->border_left_width,
+                    $Vdidzwb0w3vc->padding_left),
+                $Vavdpq045wub["w"]);
 
-        $y = $this->_position["y"] +
-            (float)$style->length_in_pt(array($style->margin_top,
-                    $style->border_top_width,
-                    $style->padding_top),
-                $cb["h"]);
+        $Vopgub02o3q2 = $this->_position["y"] +
+            (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->margin_top,
+                    $Vdidzwb0w3vc->border_top_width,
+                    $Vdidzwb0w3vc->padding_top),
+                $Vavdpq045wub["h"]);
 
-        $w = $style->length_in_pt($style->width, $cb["w"]);
+        $Vhoifq2kocyt = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->width, $Vavdpq045wub["w"]);
 
-        $h = $style->length_in_pt($style->height, $cb["h"]);
+        $Vjlmjalejjxa = $Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->height, $Vavdpq045wub["h"]);
 
-        return array(0 => $x, "x" => $x,
-            1 => $y, "y" => $y,
-            2 => $w, "w" => $w,
-            3 => $h, "h" => $h);
+        return array(0 => $Vs4gloy23a1d, "x" => $Vs4gloy23a1d,
+            1 => $Vopgub02o3q2, "y" => $Vopgub02o3q2,
+            2 => $Vhoifq2kocyt, "w" => $Vhoifq2kocyt,
+            3 => $Vjlmjalejjxa, "h" => $Vjlmjalejjxa);
     }
 
-    /**
-     * Return the padding box (x,y,w,h) of the frame
-     *
-     * @return array
-     */
+    
     public function get_padding_box()
     {
-        $style = $this->_style;
-        $cb = $this->_containing_block;
+        $Vdidzwb0w3vc = $this->_style;
+        $Vavdpq045wub = $this->_containing_block;
 
-        $x = $this->_position["x"] +
-            (float)$style->length_in_pt(array($style->margin_left,
-                    $style->border_left_width),
-                $cb["w"]);
+        $Vs4gloy23a1d = $this->_position["x"] +
+            (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->margin_left,
+                    $Vdidzwb0w3vc->border_left_width),
+                $Vavdpq045wub["w"]);
 
-        $y = $this->_position["y"] +
-            (float)$style->length_in_pt(array($style->margin_top,
-                    $style->border_top_width),
-                $cb["h"]);
+        $Vopgub02o3q2 = $this->_position["y"] +
+            (float)$Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->margin_top,
+                    $Vdidzwb0w3vc->border_top_width),
+                $Vavdpq045wub["h"]);
 
-        $w = $style->length_in_pt(array($style->padding_left,
-                $style->width,
-                $style->padding_right),
-            $cb["w"]);
+        $Vhoifq2kocyt = $Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->padding_left,
+                $Vdidzwb0w3vc->width,
+                $Vdidzwb0w3vc->padding_right),
+            $Vavdpq045wub["w"]);
 
-        $h = $style->length_in_pt(array($style->padding_top,
-                $style->height,
-                $style->padding_bottom),
-            $cb["h"]);
+        $Vjlmjalejjxa = $Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->padding_top,
+                $Vdidzwb0w3vc->height,
+                $Vdidzwb0w3vc->padding_bottom),
+            $Vavdpq045wub["h"]);
 
-        return array(0 => $x, "x" => $x,
-            1 => $y, "y" => $y,
-            2 => $w, "w" => $w,
-            3 => $h, "h" => $h);
+        return array(0 => $Vs4gloy23a1d, "x" => $Vs4gloy23a1d,
+            1 => $Vopgub02o3q2, "y" => $Vopgub02o3q2,
+            2 => $Vhoifq2kocyt, "w" => $Vhoifq2kocyt,
+            3 => $Vjlmjalejjxa, "h" => $Vjlmjalejjxa);
     }
 
-    /**
-     * Return the border box of the frame
-     *
-     * @return array
-     */
+    
     public function get_border_box()
     {
-        $style = $this->_style;
-        $cb = $this->_containing_block;
+        $Vdidzwb0w3vc = $this->_style;
+        $Vavdpq045wub = $this->_containing_block;
 
-        $x = $this->_position["x"] + (float)$style->length_in_pt($style->margin_left, $cb["w"]);
+        $Vs4gloy23a1d = $this->_position["x"] + (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_left, $Vavdpq045wub["w"]);
 
-        $y = $this->_position["y"] + (float)$style->length_in_pt($style->margin_top, $cb["h"]);
+        $Vopgub02o3q2 = $this->_position["y"] + (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->margin_top, $Vavdpq045wub["h"]);
 
-        $w = $style->length_in_pt(array($style->border_left_width,
-                $style->padding_left,
-                $style->width,
-                $style->padding_right,
-                $style->border_right_width),
-            $cb["w"]);
+        $Vhoifq2kocyt = $Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->border_left_width,
+                $Vdidzwb0w3vc->padding_left,
+                $Vdidzwb0w3vc->width,
+                $Vdidzwb0w3vc->padding_right,
+                $Vdidzwb0w3vc->border_right_width),
+            $Vavdpq045wub["w"]);
 
-        $h = $style->length_in_pt(array($style->border_top_width,
-                $style->padding_top,
-                $style->height,
-                $style->padding_bottom,
-                $style->border_bottom_width),
-            $cb["h"]);
+        $Vjlmjalejjxa = $Vdidzwb0w3vc->length_in_pt(array($Vdidzwb0w3vc->border_top_width,
+                $Vdidzwb0w3vc->padding_top,
+                $Vdidzwb0w3vc->height,
+                $Vdidzwb0w3vc->padding_bottom,
+                $Vdidzwb0w3vc->border_bottom_width),
+            $Vavdpq045wub["h"]);
 
-        return array(0 => $x, "x" => $x,
-            1 => $y, "y" => $y,
-            2 => $w, "w" => $w,
-            3 => $h, "h" => $h);
+        return array(0 => $Vs4gloy23a1d, "x" => $Vs4gloy23a1d,
+            1 => $Vopgub02o3q2, "y" => $Vopgub02o3q2,
+            2 => $Vhoifq2kocyt, "w" => $Vhoifq2kocyt,
+            3 => $Vjlmjalejjxa, "h" => $Vjlmjalejjxa);
     }
 
-    /**
-     * @param null $opacity
-     *
-     * @return float
-     */
-    public function get_opacity($opacity = null)
+    
+    public function get_opacity($Vdrvff4n2sqc = null)
     {
-        if ($opacity !== null) {
-            $this->set_opacity($opacity);
+        if ($Vdrvff4n2sqc !== null) {
+            $this->set_opacity($Vdrvff4n2sqc);
         }
 
         return $this->_opacity;
     }
 
-    /**
-     * @return LineBox
-     */
+    
     public function &get_containing_line()
     {
         return $this->_containing_line;
     }
 
-    //........................................................................
+    
 
-    // Set methods
-    /**
-     * @param $id
-     */
-    public function set_id($id)
+    
+    
+    public function set_id($V3xsptcgzss2d)
     {
-        $this->_id = $id;
+        $this->_id = $V3xsptcgzss2d;
 
-        // We can only set attributes of DOMElement objects (nodeType == 1).
-        // Since these are the only objects that we can assign CSS rules to,
-        // this shortcoming is okay.
+        
+        
+        
         if ($this->_node->nodeType == XML_ELEMENT_NODE) {
-            $this->_node->setAttribute("frame_id", $id);
+            $this->_node->setAttribute("frame_id", $V3xsptcgzss2d);
         }
     }
 
-    /**
-     * @param Style $style
-     */
-    public function set_style(Style $style)
+    
+    public function set_style(Style $Vdidzwb0w3vc)
     {
         if (is_null($this->_style)) {
-            $this->_original_style = clone $style;
+            $this->_original_style = clone $Vdidzwb0w3vc;
         }
 
-        //$style->set_frame($this);
-        $this->_style = $style;
+        
+        $this->_style = $Vdidzwb0w3vc;
     }
 
-    /**
-     * @param \Dompdf\FrameDecorator\AbstractFrameDecorator $decorator
-     */
-    public function set_decorator(FrameDecorator\AbstractFrameDecorator $decorator)
+    
+    public function set_decorator(FrameDecorator\AbstractFrameDecorator $Vpn0erlmbnzu)
     {
-        $this->_decorator = $decorator;
+        $this->_decorator = $Vpn0erlmbnzu;
     }
 
-    /**
-     * @param null $x
-     * @param null $y
-     * @param null $w
-     * @param null $h
-     */
-    public function set_containing_block($x = null, $y = null, $w = null, $h = null)
+    
+    public function set_containing_block($Vs4gloy23a1d = null, $Vopgub02o3q2 = null, $Vhoifq2kocyt = null, $Vjlmjalejjxa = null)
     {
-        if (is_array($x)) {
-            foreach ($x as $key => $val) {
-                $$key = $val;
+        if (is_array($Vs4gloy23a1d)) {
+            foreach ($Vs4gloy23a1d as $Vqwhzgethmgj => $Vzyqcsfbm3q4) {
+                $$Vqwhzgethmgj = $Vzyqcsfbm3q4;
             }
         }
 
-        if (is_numeric($x)) {
-            $this->_containing_block["x"] = $x;
+        if (is_numeric($Vs4gloy23a1d)) {
+            $this->_containing_block["x"] = $Vs4gloy23a1d;
         }
 
-        if (is_numeric($y)) {
-            $this->_containing_block["y"] = $y;
+        if (is_numeric($Vopgub02o3q2)) {
+            $this->_containing_block["y"] = $Vopgub02o3q2;
         }
 
-        if (is_numeric($w)) {
-            $this->_containing_block["w"] = $w;
+        if (is_numeric($Vhoifq2kocyt)) {
+            $this->_containing_block["w"] = $Vhoifq2kocyt;
         }
 
-        if (is_numeric($h)) {
-            $this->_containing_block["h"] = $h;
+        if (is_numeric($Vjlmjalejjxa)) {
+            $this->_containing_block["h"] = $Vjlmjalejjxa;
         }
     }
 
-    /**
-     * @param null $x
-     * @param null $y
-     */
-    public function set_position($x = null, $y = null)
+    
+    public function set_position($Vs4gloy23a1d = null, $Vopgub02o3q2 = null)
     {
-        if (is_array($x)) {
-            list($x, $y) = array($x["x"], $x["y"]);
+        if (is_array($Vs4gloy23a1d)) {
+            list($Vs4gloy23a1d, $Vopgub02o3q2) = array($Vs4gloy23a1d["x"], $Vs4gloy23a1d["y"]);
         }
 
-        if (is_numeric($x)) {
-            $this->_position["x"] = $x;
+        if (is_numeric($Vs4gloy23a1d)) {
+            $this->_position["x"] = $Vs4gloy23a1d;
         }
 
-        if (is_numeric($y)) {
-            $this->_position["y"] = $y;
+        if (is_numeric($Vopgub02o3q2)) {
+            $this->_position["y"] = $Vopgub02o3q2;
         }
     }
 
-    /**
-     * @param $opacity
-     */
-    public function set_opacity($opacity)
+    
+    public function set_opacity($Vdrvff4n2sqc)
     {
-        $parent = $this->get_parent();
-        $base_opacity = (($parent && $parent->_opacity !== null) ? $parent->_opacity : 1.0);
-        $this->_opacity = $base_opacity * $opacity;
+        $Vycghhqowrim = $this->get_parent();
+        $Vjc53lvz3cqu = (($Vycghhqowrim && $Vycghhqowrim->_opacity !== null) ? $Vycghhqowrim->_opacity : 1.0);
+        $this->_opacity = $Vjc53lvz3cqu * $Vdrvff4n2sqc;
     }
 
-    /**
-     * @param LineBox $line
-     */
-    public function set_containing_line(LineBox $line)
+    
+    public function set_containing_line(LineBox $V4m4rbmlpgn2)
     {
-        $this->_containing_line = $line;
+        $this->_containing_line = $V4m4rbmlpgn2;
     }
 
-    /**
-     * Indicates if the margin height is auto sized
-     *
-     * @return bool
-     */
+    
     public function is_auto_height()
     {
-        $style = $this->_style;
+        $Vdidzwb0w3vc = $this->_style;
 
         return in_array(
             "auto",
             array(
-                $style->height,
-                $style->margin_top,
-                $style->margin_bottom,
-                $style->border_top_width,
-                $style->border_bottom_width,
-                $style->padding_top,
-                $style->padding_bottom,
+                $Vdidzwb0w3vc->height,
+                $Vdidzwb0w3vc->margin_top,
+                $Vdidzwb0w3vc->margin_bottom,
+                $Vdidzwb0w3vc->border_top_width,
+                $Vdidzwb0w3vc->border_bottom_width,
+                $Vdidzwb0w3vc->padding_top,
+                $Vdidzwb0w3vc->padding_bottom,
                 $this->_containing_block["h"]
             ),
             true
         );
     }
 
-    /**
-     * Indicates if the margin width is auto sized
-     *
-     * @return bool
-     */
+    
     public function is_auto_width()
     {
-        $style = $this->_style;
+        $Vdidzwb0w3vc = $this->_style;
 
         return in_array(
             "auto",
             array(
-                $style->width,
-                $style->margin_left,
-                $style->margin_right,
-                $style->border_left_width,
-                $style->border_right_width,
-                $style->padding_left,
-                $style->padding_right,
+                $Vdidzwb0w3vc->width,
+                $Vdidzwb0w3vc->margin_left,
+                $Vdidzwb0w3vc->margin_right,
+                $Vdidzwb0w3vc->border_left_width,
+                $Vdidzwb0w3vc->border_right_width,
+                $Vdidzwb0w3vc->padding_left,
+                $Vdidzwb0w3vc->padding_right,
                 $this->_containing_block["w"]
             ),
             true
         );
     }
 
-    /**
-     * Tells if the frame is a text node
-     *
-     * @return bool
-     */
+    
     public function is_text_node()
     {
         if (isset($this->_is_cache["text_node"])) {
@@ -820,49 +615,41 @@ class Frame
         return $this->_is_cache["text_node"] = ($this->get_node()->nodeName === "#text");
     }
 
-    /**
-     * @return bool
-     */
+    
     public function is_positionned()
     {
         if (isset($this->_is_cache["positionned"])) {
             return $this->_is_cache["positionned"];
         }
 
-        $position = $this->get_style()->position;
+        $Vmriudfrwzj3 = $this->get_style()->position;
 
-        return $this->_is_cache["positionned"] = in_array($position, Style::$POSITIONNED_TYPES);
+        return $this->_is_cache["positionned"] = in_array($Vmriudfrwzj3, Style::$Vad23z5m2olf);
     }
 
-    /**
-     * @return bool
-     */
+    
     public function is_absolute()
     {
         if (isset($this->_is_cache["absolute"])) {
             return $this->_is_cache["absolute"];
         }
 
-        $position = $this->get_style()->position;
+        $Vmriudfrwzj3 = $this->get_style()->position;
 
-        return $this->_is_cache["absolute"] = ($position === "absolute" || $position === "fixed");
+        return $this->_is_cache["absolute"] = ($Vmriudfrwzj3 === "absolute" || $Vmriudfrwzj3 === "fixed");
     }
 
-    /**
-     * @return bool
-     */
+    
     public function is_block()
     {
         if (isset($this->_is_cache["block"])) {
             return $this->_is_cache["block"];
         }
 
-        return $this->_is_cache["block"] = in_array($this->get_style()->display, Style::$BLOCK_TYPES);
+        return $this->_is_cache["block"] = in_array($this->get_style()->display, Style::$Vb34q1c1cezy);
     }
 
-    /**
-     * @return bool
-     */
+    
     public function is_inline_block()
     {
         if (isset($this->_is_cache["inline_block"])) {
@@ -872,9 +659,7 @@ class Frame
         return $this->_is_cache["inline_block"] = ($this->get_style()->display === 'inline-block');
     }
 
-    /**
-     * @return bool
-     */
+    
     public function is_in_flow()
     {
         if (isset($this->_is_cache["in_flow"])) {
@@ -883,334 +668,294 @@ class Frame
         return $this->_is_cache["in_flow"] = !($this->get_style()->float !== "none" || $this->is_absolute());
     }
 
-    /**
-     * @return bool
-     */
+    
     public function is_pre()
     {
         if (isset($this->_is_cache["pre"])) {
             return $this->_is_cache["pre"];
         }
 
-        $white_space = $this->get_style()->white_space;
+        $Vhoifq2kocythite_space = $this->get_style()->white_space;
 
-        return $this->_is_cache["pre"] = in_array($white_space, array("pre", "pre-wrap"));
+        return $this->_is_cache["pre"] = in_array($Vhoifq2kocythite_space, array("pre", "pre-wrap"));
     }
 
-    /**
-     * @return bool
-     */
+    
     public function is_table()
     {
         if (isset($this->_is_cache["table"])) {
             return $this->_is_cache["table"];
         }
 
-        $display = $this->get_style()->display;
+        $Vsagginauquc = $this->get_style()->display;
 
-        return $this->_is_cache["table"] = in_array($display, Style::$TABLE_TYPES);
+        return $this->_is_cache["table"] = in_array($Vsagginauquc, Style::$Vwc5svvuqws2);
     }
 
 
-    /**
-     * Inserts a new child at the beginning of the Frame
-     *
-     * @param $child       Frame The new Frame to insert
-     * @param $update_node boolean Whether or not to update the DOM
-     */
-    public function prepend_child(Frame $child, $update_node = true)
+    
+    public function prepend_child(Frame $Vtcc233inn5m, $Vs0pda3r3hsl = true)
     {
-        if ($update_node) {
-            $this->_node->insertBefore($child->_node, $this->_first_child ? $this->_first_child->_node : null);
+        if ($Vs0pda3r3hsl) {
+            $this->_node->insertBefore($Vtcc233inn5m->_node, $this->_first_child ? $this->_first_child->_node : null);
         }
 
-        // Remove the child from its parent
-        if ($child->_parent) {
-            $child->_parent->remove_child($child, false);
+        
+        if ($Vtcc233inn5m->_parent) {
+            $Vtcc233inn5m->_parent->remove_child($Vtcc233inn5m, false);
         }
 
-        $child->_parent = $this;
-        $child->_prev_sibling = null;
+        $Vtcc233inn5m->_parent = $this;
+        $Vtcc233inn5m->_prev_sibling = null;
 
-        // Handle the first child
+        
         if (!$this->_first_child) {
-            $this->_first_child = $child;
-            $this->_last_child = $child;
-            $child->_next_sibling = null;
+            $this->_first_child = $Vtcc233inn5m;
+            $this->_last_child = $Vtcc233inn5m;
+            $Vtcc233inn5m->_next_sibling = null;
         } else {
-            $this->_first_child->_prev_sibling = $child;
-            $child->_next_sibling = $this->_first_child;
-            $this->_first_child = $child;
+            $this->_first_child->_prev_sibling = $Vtcc233inn5m;
+            $Vtcc233inn5m->_next_sibling = $this->_first_child;
+            $this->_first_child = $Vtcc233inn5m;
         }
     }
 
-    /**
-     * Inserts a new child at the end of the Frame
-     *
-     * @param $child       Frame The new Frame to insert
-     * @param $update_node boolean Whether or not to update the DOM
-     */
-    public function append_child(Frame $child, $update_node = true)
+    
+    public function append_child(Frame $Vtcc233inn5m, $Vs0pda3r3hsl = true)
     {
-        if ($update_node) {
-            $this->_node->appendChild($child->_node);
+        if ($Vs0pda3r3hsl) {
+            $this->_node->appendChild($Vtcc233inn5m->_node);
         }
 
-        // Remove the child from its parent
-        if ($child->_parent) {
-            $child->_parent->remove_child($child, false);
+        
+        if ($Vtcc233inn5m->_parent) {
+            $Vtcc233inn5m->_parent->remove_child($Vtcc233inn5m, false);
         }
 
-        $child->_parent = $this;
-        $decorator = $child->get_decorator();
-        // force an update to the cached parent
-        if ($decorator !== null) {
-            $decorator->get_parent(false);
+        $Vtcc233inn5m->_parent = $this;
+        $Vpn0erlmbnzu = $Vtcc233inn5m->get_decorator();
+        
+        if ($Vpn0erlmbnzu !== null) {
+            $Vpn0erlmbnzu->get_parent(false);
         }
-        $child->_next_sibling = null;
+        $Vtcc233inn5m->_next_sibling = null;
 
-        // Handle the first child
+        
         if (!$this->_last_child) {
-            $this->_first_child = $child;
-            $this->_last_child = $child;
-            $child->_prev_sibling = null;
+            $this->_first_child = $Vtcc233inn5m;
+            $this->_last_child = $Vtcc233inn5m;
+            $Vtcc233inn5m->_prev_sibling = null;
         } else {
-            $this->_last_child->_next_sibling = $child;
-            $child->_prev_sibling = $this->_last_child;
-            $this->_last_child = $child;
+            $this->_last_child->_next_sibling = $Vtcc233inn5m;
+            $Vtcc233inn5m->_prev_sibling = $this->_last_child;
+            $this->_last_child = $Vtcc233inn5m;
         }
     }
 
-    /**
-     * Inserts a new child immediately before the specified frame
-     *
-     * @param $new_child   Frame The new Frame to insert
-     * @param $ref         Frame The Frame after the new Frame
-     * @param $update_node boolean Whether or not to update the DOM
-     *
-     * @throws Exception
-     */
-    public function insert_child_before(Frame $new_child, Frame $ref, $update_node = true)
+    
+    public function insert_child_before(Frame $Vtoj55lv2rsr, Frame $Vvaic4pvtywk, $Vs0pda3r3hsl = true)
     {
-        if ($ref === $this->_first_child) {
-            $this->prepend_child($new_child, $update_node);
+        if ($Vvaic4pvtywk === $this->_first_child) {
+            $this->prepend_child($Vtoj55lv2rsr, $Vs0pda3r3hsl);
 
             return;
         }
 
-        if (is_null($ref)) {
-            $this->append_child($new_child, $update_node);
+        if (is_null($Vvaic4pvtywk)) {
+            $this->append_child($Vtoj55lv2rsr, $Vs0pda3r3hsl);
 
             return;
         }
 
-        if ($ref->_parent !== $this) {
+        if ($Vvaic4pvtywk->_parent !== $this) {
             throw new Exception("Reference child is not a child of this node.");
         }
 
-        // Update the node
-        if ($update_node) {
-            $this->_node->insertBefore($new_child->_node, $ref->_node);
+        
+        if ($Vs0pda3r3hsl) {
+            $this->_node->insertBefore($Vtoj55lv2rsr->_node, $Vvaic4pvtywk->_node);
         }
 
-        // Remove the child from its parent
-        if ($new_child->_parent) {
-            $new_child->_parent->remove_child($new_child, false);
+        
+        if ($Vtoj55lv2rsr->_parent) {
+            $Vtoj55lv2rsr->_parent->remove_child($Vtoj55lv2rsr, false);
         }
 
-        $new_child->_parent = $this;
-        $new_child->_next_sibling = $ref;
-        $new_child->_prev_sibling = $ref->_prev_sibling;
+        $Vtoj55lv2rsr->_parent = $this;
+        $Vtoj55lv2rsr->_next_sibling = $Vvaic4pvtywk;
+        $Vtoj55lv2rsr->_prev_sibling = $Vvaic4pvtywk->_prev_sibling;
 
-        if ($ref->_prev_sibling) {
-            $ref->_prev_sibling->_next_sibling = $new_child;
+        if ($Vvaic4pvtywk->_prev_sibling) {
+            $Vvaic4pvtywk->_prev_sibling->_next_sibling = $Vtoj55lv2rsr;
         }
 
-        $ref->_prev_sibling = $new_child;
+        $Vvaic4pvtywk->_prev_sibling = $Vtoj55lv2rsr;
     }
 
-    /**
-     * Inserts a new child immediately after the specified frame
-     *
-     * @param $new_child   Frame The new Frame to insert
-     * @param $ref         Frame The Frame before the new Frame
-     * @param $update_node boolean Whether or not to update the DOM
-     *
-     * @throws Exception
-     */
-    public function insert_child_after(Frame $new_child, Frame $ref, $update_node = true)
+    
+    public function insert_child_after(Frame $Vtoj55lv2rsr, Frame $Vvaic4pvtywk, $Vs0pda3r3hsl = true)
     {
-        if ($ref === $this->_last_child) {
-            $this->append_child($new_child, $update_node);
+        if ($Vvaic4pvtywk === $this->_last_child) {
+            $this->append_child($Vtoj55lv2rsr, $Vs0pda3r3hsl);
 
             return;
         }
 
-        if (is_null($ref)) {
-            $this->prepend_child($new_child, $update_node);
+        if (is_null($Vvaic4pvtywk)) {
+            $this->prepend_child($Vtoj55lv2rsr, $Vs0pda3r3hsl);
 
             return;
         }
 
-        if ($ref->_parent !== $this) {
+        if ($Vvaic4pvtywk->_parent !== $this) {
             throw new Exception("Reference child is not a child of this node.");
         }
 
-        // Update the node
-        if ($update_node) {
-            if ($ref->_next_sibling) {
-                $next_node = $ref->_next_sibling->_node;
-                $this->_node->insertBefore($new_child->_node, $next_node);
+        
+        if ($Vs0pda3r3hsl) {
+            if ($Vvaic4pvtywk->_next_sibling) {
+                $Vi53w2gfdruu = $Vvaic4pvtywk->_next_sibling->_node;
+                $this->_node->insertBefore($Vtoj55lv2rsr->_node, $Vi53w2gfdruu);
             } else {
-                $new_child->_node = $this->_node->appendChild($new_child->_node);
+                $Vtoj55lv2rsr->_node = $this->_node->appendChild($Vtoj55lv2rsr->_node);
             }
         }
 
-        // Remove the child from its parent
-        if ($new_child->_parent) {
-            $new_child->_parent->remove_child($new_child, false);
+        
+        if ($Vtoj55lv2rsr->_parent) {
+            $Vtoj55lv2rsr->_parent->remove_child($Vtoj55lv2rsr, false);
         }
 
-        $new_child->_parent = $this;
-        $new_child->_prev_sibling = $ref;
-        $new_child->_next_sibling = $ref->_next_sibling;
+        $Vtoj55lv2rsr->_parent = $this;
+        $Vtoj55lv2rsr->_prev_sibling = $Vvaic4pvtywk;
+        $Vtoj55lv2rsr->_next_sibling = $Vvaic4pvtywk->_next_sibling;
 
-        if ($ref->_next_sibling) {
-            $ref->_next_sibling->_prev_sibling = $new_child;
+        if ($Vvaic4pvtywk->_next_sibling) {
+            $Vvaic4pvtywk->_next_sibling->_prev_sibling = $Vtoj55lv2rsr;
         }
 
-        $ref->_next_sibling = $new_child;
+        $Vvaic4pvtywk->_next_sibling = $Vtoj55lv2rsr;
     }
 
-    /**
-     * Remove a child frame
-     *
-     * @param Frame $child
-     * @param boolean $update_node Whether or not to remove the DOM node
-     *
-     * @throws Exception
-     * @return Frame The removed child frame
-     */
-    public function remove_child(Frame $child, $update_node = true)
+    
+    public function remove_child(Frame $Vtcc233inn5m, $Vs0pda3r3hsl = true)
     {
-        if ($child->_parent !== $this) {
+        if ($Vtcc233inn5m->_parent !== $this) {
             throw new Exception("Child not found in this frame");
         }
 
-        if ($update_node) {
-            $this->_node->removeChild($child->_node);
+        if ($Vs0pda3r3hsl) {
+            $this->_node->removeChild($Vtcc233inn5m->_node);
         }
 
-        if ($child === $this->_first_child) {
-            $this->_first_child = $child->_next_sibling;
+        if ($Vtcc233inn5m === $this->_first_child) {
+            $this->_first_child = $Vtcc233inn5m->_next_sibling;
         }
 
-        if ($child === $this->_last_child) {
-            $this->_last_child = $child->_prev_sibling;
+        if ($Vtcc233inn5m === $this->_last_child) {
+            $this->_last_child = $Vtcc233inn5m->_prev_sibling;
         }
 
-        if ($child->_prev_sibling) {
-            $child->_prev_sibling->_next_sibling = $child->_next_sibling;
+        if ($Vtcc233inn5m->_prev_sibling) {
+            $Vtcc233inn5m->_prev_sibling->_next_sibling = $Vtcc233inn5m->_next_sibling;
         }
 
-        if ($child->_next_sibling) {
-            $child->_next_sibling->_prev_sibling = $child->_prev_sibling;
+        if ($Vtcc233inn5m->_next_sibling) {
+            $Vtcc233inn5m->_next_sibling->_prev_sibling = $Vtcc233inn5m->_prev_sibling;
         }
 
-        $child->_next_sibling = null;
-        $child->_prev_sibling = null;
-        $child->_parent = null;
+        $Vtcc233inn5m->_next_sibling = null;
+        $Vtcc233inn5m->_prev_sibling = null;
+        $Vtcc233inn5m->_parent = null;
 
-        return $child;
+        return $Vtcc233inn5m;
     }
 
-    //........................................................................
+    
 
-    // Debugging function:
-    /**
-     * @return string
-     */
+    
+    
     public function __toString()
     {
-        // Skip empty text frames
-//     if ( $this->is_text_node() &&
-//          preg_replace("/\s/", "", $this->_node->data) === "" )
-//       return "";
+        
 
 
-        $str = "<b>" . $this->_node->nodeName . ":</b><br/>";
-        //$str .= spl_object_hash($this->_node) . "<br/>";
-        $str .= "Id: " . $this->get_id() . "<br/>";
-        $str .= "Class: " . get_class($this) . "<br/>";
+
+
+
+        $Vadkcwffkfxw = "<b>" . $this->_node->nodeName . ":</b><br/>";
+        
+        $Vadkcwffkfxw .= "Id: " . $this->get_id() . "<br/>";
+        $Vadkcwffkfxw .= "Class: " . get_class($this) . "<br/>";
 
         if ($this->is_text_node()) {
-            $tmp = htmlspecialchars($this->_node->nodeValue);
-            $str .= "<pre>'" . mb_substr($tmp, 0, 70) .
-                (mb_strlen($tmp) > 70 ? "..." : "") . "'</pre>";
-        } elseif ($css_class = $this->_node->getAttribute("class")) {
-            $str .= "CSS class: '$css_class'<br/>";
+            $Vynpm04a4fx0 = htmlspecialchars($this->_node->nodeValue);
+            $Vadkcwffkfxw .= "<pre>'" . mb_substr($Vynpm04a4fx0, 0, 70) .
+                (mb_strlen($Vynpm04a4fx0) > 70 ? "..." : "") . "'</pre>";
+        } elseif ($Vkz554bi5s3v = $this->_node->getAttribute("class")) {
+            $Vadkcwffkfxw .= "CSS class: '$Vkz554bi5s3v'<br/>";
         }
 
         if ($this->_parent) {
-            $str .= "\nParent:" . $this->_parent->_node->nodeName .
+            $Vadkcwffkfxw .= "\nParent:" . $this->_parent->_node->nodeName .
                 " (" . spl_object_hash($this->_parent->_node) . ") " .
                 "<br/>";
         }
 
         if ($this->_prev_sibling) {
-            $str .= "Prev: " . $this->_prev_sibling->_node->nodeName .
+            $Vadkcwffkfxw .= "Prev: " . $this->_prev_sibling->_node->nodeName .
                 " (" . spl_object_hash($this->_prev_sibling->_node) . ") " .
                 "<br/>";
         }
 
         if ($this->_next_sibling) {
-            $str .= "Next: " . $this->_next_sibling->_node->nodeName .
+            $Vadkcwffkfxw .= "Next: " . $this->_next_sibling->_node->nodeName .
                 " (" . spl_object_hash($this->_next_sibling->_node) . ") " .
                 "<br/>";
         }
 
-        $d = $this->get_decorator();
-        while ($d && $d != $d->get_decorator()) {
-            $str .= "Decorator: " . get_class($d) . "<br/>";
-            $d = $d->get_decorator();
+        $Vcyg5xmwfpxo = $this->get_decorator();
+        while ($Vcyg5xmwfpxo && $Vcyg5xmwfpxo != $Vcyg5xmwfpxo->get_decorator()) {
+            $Vadkcwffkfxw .= "Decorator: " . get_class($Vcyg5xmwfpxo) . "<br/>";
+            $Vcyg5xmwfpxo = $Vcyg5xmwfpxo->get_decorator();
         }
 
-        $str .= "Position: " . Helpers::pre_r($this->_position, true);
-        $str .= "\nContaining block: " . Helpers::pre_r($this->_containing_block, true);
-        $str .= "\nMargin width: " . Helpers::pre_r($this->get_margin_width(), true);
-        $str .= "\nMargin height: " . Helpers::pre_r($this->get_margin_height(), true);
+        $Vadkcwffkfxw .= "Position: " . Helpers::pre_r($this->_position, true);
+        $Vadkcwffkfxw .= "\nContaining block: " . Helpers::pre_r($this->_containing_block, true);
+        $Vadkcwffkfxw .= "\nMargin width: " . Helpers::pre_r($this->get_margin_width(), true);
+        $Vadkcwffkfxw .= "\nMargin height: " . Helpers::pre_r($this->get_margin_height(), true);
 
-        $str .= "\nStyle: <pre>" . $this->_style->__toString() . "</pre>";
+        $Vadkcwffkfxw .= "\nStyle: <pre>" . $this->_style->__toString() . "</pre>";
 
         if ($this->_decorator instanceof FrameDecorator\Block) {
-            $str .= "Lines:<pre>";
-            foreach ($this->_decorator->get_line_boxes() as $line) {
-                foreach ($line->get_frames() as $frame) {
-                    if ($frame instanceof FrameDecorator\Text) {
-                        $str .= "\ntext: ";
-                        $str .= "'" . htmlspecialchars($frame->get_text()) . "'";
+            $Vadkcwffkfxw .= "Lines:<pre>";
+            foreach ($this->_decorator->get_line_boxes() as $V4m4rbmlpgn2) {
+                foreach ($V4m4rbmlpgn2->get_frames() as $Vnk2ly5jcvjf) {
+                    if ($Vnk2ly5jcvjf instanceof FrameDecorator\Text) {
+                        $Vadkcwffkfxw .= "\ntext: ";
+                        $Vadkcwffkfxw .= "'" . htmlspecialchars($Vnk2ly5jcvjf->get_text()) . "'";
                     } else {
-                        $str .= "\nBlock: " . $frame->get_node()->nodeName . " (" . spl_object_hash($frame->get_node()) . ")";
+                        $Vadkcwffkfxw .= "\nBlock: " . $Vnk2ly5jcvjf->get_node()->nodeName . " (" . spl_object_hash($Vnk2ly5jcvjf->get_node()) . ")";
                     }
                 }
 
-                $str .=
-                    "\ny => " . $line->y . "\n" .
-                    "w => " . $line->w . "\n" .
-                    "h => " . $line->h . "\n" .
-                    "left => " . $line->left . "\n" .
-                    "right => " . $line->right . "\n";
+                $Vadkcwffkfxw .=
+                    "\ny => " . $V4m4rbmlpgn2->y . "\n" .
+                    "w => " . $V4m4rbmlpgn2->w . "\n" .
+                    "h => " . $V4m4rbmlpgn2->h . "\n" .
+                    "left => " . $V4m4rbmlpgn2->left . "\n" .
+                    "right => " . $V4m4rbmlpgn2->right . "\n";
             }
-            $str .= "</pre>";
+            $Vadkcwffkfxw .= "</pre>";
         }
 
-        $str .= "\n";
+        $Vadkcwffkfxw .= "\n";
         if (php_sapi_name() === "cli") {
-            $str = strip_tags(str_replace(array("<br/>", "<b>", "</b>"),
+            $Vadkcwffkfxw = strip_tags(str_replace(array("<br/>", "<b>", "</b>"),
                 array("\n", "", ""),
-                $str));
+                $Vadkcwffkfxw));
         }
 
-        return $str;
+        return $Vadkcwffkfxw;
     }
 }

@@ -1,166 +1,149 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Helmut Tischer <htischer@weihenstephan.org>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf\Renderer;
 
 use Dompdf\Adapter\CPDF;
 use Dompdf\Frame;
 
-/**
- * Renders text frames
- *
- * @package dompdf
- */
+
 class Text extends AbstractRenderer
 {
-    /** Thickness of underline. Screen: 0.08, print: better less, e.g. 0.04 */
+    
     const DECO_THICKNESS = 0.02;
 
-    //Tweaking if $base and $descent are not accurate.
-    //Check method_exists( $this->_canvas, "get_cpdf" )
-    //- For cpdf these can and must stay 0, because font metrics are used directly.
-    //- For other renderers, if different values are wanted, separate the parameter sets.
-    //  But $size and $size-$height seem to be accurate enough
+    
+    
+    
+    
+    
 
-    /** Relative to bottom of text, as fraction of height */
+    
     const UNDERLINE_OFFSET = 0.0;
 
-    /** Relative to top of text */
+    
     const OVERLINE_OFFSET = 0.0;
 
-    /** Relative to centre of text. */
+    
     const LINETHROUGH_OFFSET = 0.0;
 
-    /** How far to extend lines past either end, in pt */
+    
     const DECO_EXTENSION = 0.0;
 
-    /**
-     * @param \Dompdf\FrameDecorator\Text $frame
-     */
-    function render(Frame $frame)
+    
+    function render(Frame $Vnk2ly5jcvjf)
     {
-        $text = $frame->get_text();
-        if (trim($text) === "") {
+        $Vnlbbd31sxbf = $Vnk2ly5jcvjf->get_text();
+        if (trim($Vnlbbd31sxbf) === "") {
             return;
         }
 
-        $style = $frame->get_style();
-        list($x, $y) = $frame->get_position();
-        $cb = $frame->get_containing_block();
+        $Vdidzwb0w3vc = $Vnk2ly5jcvjf->get_style();
+        list($Vs4gloy23a1d, $Vopgub02o3q2) = $Vnk2ly5jcvjf->get_position();
+        $Vavdpq045wub = $Vnk2ly5jcvjf->get_containing_block();
 
-        if (($ml = $style->margin_left) === "auto" || $ml === "none") {
-            $ml = 0;
+        if (($Vey2vt0sj2eh = $Vdidzwb0w3vc->margin_left) === "auto" || $Vey2vt0sj2eh === "none") {
+            $Vey2vt0sj2eh = 0;
         }
 
-        if (($pl = $style->padding_left) === "auto" || $pl === "none") {
-            $pl = 0;
+        if (($Vpzsrb4px1fx = $Vdidzwb0w3vc->padding_left) === "auto" || $Vpzsrb4px1fx === "none") {
+            $Vpzsrb4px1fx = 0;
         }
 
-        if (($bl = $style->border_left_width) === "auto" || $bl === "none") {
-            $bl = 0;
+        if (($V5e5dzlyursk = $Vdidzwb0w3vc->border_left_width) === "auto" || $V5e5dzlyursk === "none") {
+            $V5e5dzlyursk = 0;
         }
 
-        $x += (float)$style->length_in_pt(array($ml, $pl, $bl), $cb["w"]);
+        $Vs4gloy23a1d += (float)$Vdidzwb0w3vc->length_in_pt(array($Vey2vt0sj2eh, $Vpzsrb4px1fx, $V5e5dzlyursk), $Vavdpq045wub["w"]);
 
-        $font = $style->font_family;
-        $size = $frame_font_size = $style->font_size;
-        $word_spacing = $frame->get_text_spacing() + (float)$style->length_in_pt($style->word_spacing);
-        $char_spacing = (float)$style->length_in_pt($style->letter_spacing);
-        $width = $style->width;
+        $V3h4z3hxorxj = $Vdidzwb0w3vc->font_family;
+        $Vlak25col1u3 = $Vnk2ly5jcvjf_font_size = $Vdidzwb0w3vc->font_size;
+        $Vay4fk3jgmc4 = $Vnk2ly5jcvjf->get_text_spacing() + (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->word_spacing);
+        $Vaohjovek4hi = (float)$Vdidzwb0w3vc->length_in_pt($Vdidzwb0w3vc->letter_spacing);
+        $Vztt3qdrrikx = $Vdidzwb0w3vc->width;
 
-        /*$text = str_replace(
-          array("{PAGE_NUM}"),
-          array($this->_canvas->get_page_number()),
-          $text
-        );*/
+        
 
-        $this->_canvas->text($x, $y, $text,
-            $font, $size,
-            $style->color, $word_spacing, $char_spacing);
+        $this->_canvas->text($Vs4gloy23a1d, $Vopgub02o3q2, $Vnlbbd31sxbf,
+            $V3h4z3hxorxj, $Vlak25col1u3,
+            $Vdidzwb0w3vc->color, $Vay4fk3jgmc4, $Vaohjovek4hi);
 
-        $line = $frame->get_containing_line();
+        $V4m4rbmlpgn2 = $Vnk2ly5jcvjf->get_containing_line();
 
-        // FIXME Instead of using the tallest frame to position,
-        // the decoration, the text should be well placed
-        if (false && $line->tallest_frame) {
-            $base_frame = $line->tallest_frame;
-            $style = $base_frame->get_style();
-            $size = $style->font_size;
+        
+        
+        if (false && $V4m4rbmlpgn2->tallest_frame) {
+            $Vvdrbuipav2e = $V4m4rbmlpgn2->tallest_frame;
+            $Vdidzwb0w3vc = $Vvdrbuipav2e->get_style();
+            $Vlak25col1u3 = $Vdidzwb0w3vc->font_size;
         }
 
-        $line_thickness = $size * self::DECO_THICKNESS;
-        $underline_offset = $size * self::UNDERLINE_OFFSET;
-        $overline_offset = $size * self::OVERLINE_OFFSET;
-        $linethrough_offset = $size * self::LINETHROUGH_OFFSET;
-        $underline_position = -0.08;
+        $V4m4rbmlpgn2_thickness = $Vlak25col1u3 * self::DECO_THICKNESS;
+        $V3pow2a01vhd = $Vlak25col1u3 * self::UNDERLINE_OFFSET;
+        $Veweqzkszlp4 = $Vlak25col1u3 * self::OVERLINE_OFFSET;
+        $V4m4rbmlpgn2through_offset = $Vlak25col1u3 * self::LINETHROUGH_OFFSET;
+        $Vcpvigukdeom = -0.08;
 
         if ($this->_canvas instanceof CPDF) {
-            $cpdf_font = $this->_canvas->get_cpdf()->fonts[$style->font_family];
+            $Vjpiusobc32q = $this->_canvas->get_cpdf()->fonts[$Vdidzwb0w3vc->font_family];
 
-            if (isset($cpdf_font["UnderlinePosition"])) {
-                $underline_position = $cpdf_font["UnderlinePosition"] / 1000;
+            if (isset($Vjpiusobc32q["UnderlinePosition"])) {
+                $Vcpvigukdeom = $Vjpiusobc32q["UnderlinePosition"] / 1000;
             }
 
-            if (isset($cpdf_font["UnderlineThickness"])) {
-                $line_thickness = $size * ($cpdf_font["UnderlineThickness"] / 1000);
+            if (isset($Vjpiusobc32q["UnderlineThickness"])) {
+                $V4m4rbmlpgn2_thickness = $Vlak25col1u3 * ($Vjpiusobc32q["UnderlineThickness"] / 1000);
             }
         }
 
-        $descent = $size * $underline_position;
-        $base = $size;
+        $Volczvueemox = $Vlak25col1u3 * $Vcpvigukdeom;
+        $Vofecoce1dwt = $Vlak25col1u3;
 
-        // Handle text decoration:
-        // http://www.w3.org/TR/CSS21/text.html#propdef-text-decoration
+        
+        
 
-        // Draw all applicable text-decorations.  Start with the root and work our way down.
-        $p = $frame;
-        $stack = array();
-        while ($p = $p->get_parent()) {
-            $stack[] = $p;
+        
+        $Vksopkgqixky = $Vnk2ly5jcvjf;
+        $Vwvjp3dx4uxt = array();
+        while ($Vksopkgqixky = $Vksopkgqixky->get_parent()) {
+            $Vwvjp3dx4uxt[] = $Vksopkgqixky;
         }
 
-        while (isset($stack[0])) {
-            $f = array_pop($stack);
+        while (isset($Vwvjp3dx4uxt[0])) {
+            $V4ljftfdeqpl = array_pop($Vwvjp3dx4uxt);
 
-            if (($text_deco = $f->get_style()->text_decoration) === "none") {
+            if (($Vnlbbd31sxbf_deco = $V4ljftfdeqpl->get_style()->text_decoration) === "none") {
                 continue;
             }
 
-            $deco_y = $y; //$line->y;
-            $color = $f->get_style()->color;
+            $Vekicc3zwkvj = $Vopgub02o3q2; 
+            $Vexxkxtdr01j = $V4ljftfdeqpl->get_style()->color;
 
-            switch ($text_deco) {
+            switch ($Vnlbbd31sxbf_deco) {
                 default:
                     continue;
 
                 case "underline":
-                    $deco_y += $base - $descent + $underline_offset + $line_thickness / 2;
+                    $Vekicc3zwkvj += $Vofecoce1dwt - $Volczvueemox + $V3pow2a01vhd + $V4m4rbmlpgn2_thickness / 2;
                     break;
 
                 case "overline":
-                    $deco_y += $overline_offset + $line_thickness / 2;
+                    $Vekicc3zwkvj += $Veweqzkszlp4 + $V4m4rbmlpgn2_thickness / 2;
                     break;
 
                 case "line-through":
-                    $deco_y += $base * 0.7 + $linethrough_offset;
+                    $Vekicc3zwkvj += $Vofecoce1dwt * 0.7 + $V4m4rbmlpgn2through_offset;
                     break;
             }
 
-            $dx = 0;
-            $x1 = $x - self::DECO_EXTENSION;
-            $x2 = $x + $width + $dx + self::DECO_EXTENSION;
-            $this->_canvas->line($x1, $deco_y, $x2, $deco_y, $color, $line_thickness);
+            $Vcprkgnutplg = 0;
+            $Vs4gloy23a1d1 = $Vs4gloy23a1d - self::DECO_EXTENSION;
+            $Vs4gloy23a1d2 = $Vs4gloy23a1d + $Vztt3qdrrikx + $Vcprkgnutplg + self::DECO_EXTENSION;
+            $this->_canvas->line($Vs4gloy23a1d1, $Vekicc3zwkvj, $Vs4gloy23a1d2, $Vekicc3zwkvj, $Vexxkxtdr01j, $V4m4rbmlpgn2_thickness);
         }
 
         if ($this->_dompdf->getOptions()->getDebugLayout() && $this->_dompdf->getOptions()->getDebugLayoutLines()) {
-            $text_width = $this->_dompdf->getFontMetrics()->getTextWidth($text, $font, $frame_font_size);
-            $this->_debug_layout(array($x, $y, $text_width + ($line->wc - 1) * $word_spacing, $frame_font_size), "orange", array(0.5, 0.5));
+            $Vnlbbd31sxbf_width = $this->_dompdf->getFontMetrics()->getTextWidth($Vnlbbd31sxbf, $V3h4z3hxorxj, $Vnk2ly5jcvjf_font_size);
+            $this->_debug_layout(array($Vs4gloy23a1d, $Vopgub02o3q2, $Vnlbbd31sxbf_width + ($V4m4rbmlpgn2->wc - 1) * $Vay4fk3jgmc4, $Vnk2ly5jcvjf_font_size), "orange", array(0.5, 0.5));
         }
     }
 }

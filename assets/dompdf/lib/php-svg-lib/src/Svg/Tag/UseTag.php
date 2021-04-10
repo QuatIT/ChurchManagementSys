@@ -1,54 +1,49 @@
 <?php
-/**
- * @package php-svg-lib
- * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien M�nager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 
 namespace Svg\Tag;
 
 class UseTag extends AbstractTag
 {
-    protected $x = 0;
-    protected $y = 0;
-    protected $width;
-    protected $height;
+    protected $Vs4gloy23a1d = 0;
+    protected $Vopgub02o3q2 = 0;
+    protected $Vztt3qdrrikx;
+    protected $Vku40chc0ddp;
 
-    /** @var AbstractTag */
-    protected $reference;
+    
+    protected $Vgtcxmos3psx;
 
-    protected function before($attributes)
+    protected function before($Voywws15cvz5)
     {
-        if (isset($attributes['x'])) {
-            $this->x = $attributes['x'];
+        if (isset($Voywws15cvz5['x'])) {
+            $this->x = $Voywws15cvz5['x'];
         }
-        if (isset($attributes['y'])) {
-            $this->y = $attributes['y'];
-        }
-
-        if (isset($attributes['width'])) {
-            $this->width = $attributes['width'];
-        }
-        if (isset($attributes['height'])) {
-            $this->height = $attributes['height'];
+        if (isset($Voywws15cvz5['y'])) {
+            $this->y = $Voywws15cvz5['y'];
         }
 
-        parent::before($attributes);
+        if (isset($Voywws15cvz5['width'])) {
+            $this->width = $Voywws15cvz5['width'];
+        }
+        if (isset($Voywws15cvz5['height'])) {
+            $this->height = $Voywws15cvz5['height'];
+        }
 
-        $document = $this->getDocument();
+        parent::before($Voywws15cvz5);
 
-        $link = $attributes["xlink:href"];
-        $this->reference = $document->getDef($link);
+        $V0trxkwhezv5 = $this->getDocument();
+
+        $V5tusozbzalh = $Voywws15cvz5["xlink:href"];
+        $this->reference = $V0trxkwhezv5->getDef($V5tusozbzalh);
 
         if ($this->reference) {
-            $this->reference->before($attributes);
+            $this->reference->before($Voywws15cvz5);
         }
 
-        $surface = $document->getSurface();
-        $surface->save();
+        $Vyjtkau4njyv = $V0trxkwhezv5->getSurface();
+        $Vyjtkau4njyv->save();
 
-        $surface->translate($this->x, $this->y);
+        $Vyjtkau4njyv->translate($this->x, $this->y);
     }
 
     protected function after() {
@@ -61,21 +56,21 @@ class UseTag extends AbstractTag
         $this->getDocument()->getSurface()->restore();
     }
 
-    public function handle($attributes)
+    public function handle($Voywws15cvz5)
     {
-        parent::handle($attributes);
+        parent::handle($Voywws15cvz5);
 
         if (!$this->reference) {
             return;
         }
 
-        $attributes = array_merge($this->reference->attributes, $attributes);
+        $Voywws15cvz5 = array_merge($this->reference->attributes, $Voywws15cvz5);
 
-        $this->reference->handle($attributes);
+        $this->reference->handle($Voywws15cvz5);
 
-        foreach ($this->reference->children as $_child) {
-            $_attributes = array_merge($_child->attributes, $attributes);
-            $_child->handle($_attributes);
+        foreach ($this->reference->children as $Vpx3pxfpo5bc) {
+            $Vgthdxncmzni = array_merge($Vpx3pxfpo5bc->attributes, $Voywws15cvz5);
+            $Vpx3pxfpo5bc->handle($Vgthdxncmzni);
         }
     }
 
@@ -89,8 +84,8 @@ class UseTag extends AbstractTag
 
         $this->reference->handleEnd();
 
-        foreach ($this->reference->children as $_child) {
-            $_child->handleEnd();
+        foreach ($this->reference->children as $Vpx3pxfpo5bc) {
+            $Vpx3pxfpo5bc->handleEnd();
         }
     }
 }

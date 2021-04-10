@@ -1,59 +1,38 @@
 <?php
-/**
- * @package dompdf
- * @link    http://dompdf.github.com/
- * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- */
+
 namespace Dompdf;
 
-/**
- * Create canvas instances
- *
- * The canvas factory creates canvas instances based on the
- * availability of rendering backends and config options.
- *
- * @package dompdf
- */
+
 class CanvasFactory
 {
-    /**
-     * Constructor is private: this is a static class
-     */
+    
     private function __construct()
     {
     }
 
-    /**
-     * @param Dompdf $dompdf
-     * @param string|array $paper
-     * @param string $orientation
-     * @param string $class
-     *
-     * @return Canvas
-     */
-    static function get_instance(Dompdf $dompdf, $paper = null, $orientation = null, $class = null)
+    
+    static function get_instance(Dompdf $Vhvghaoacagz, $Vgyavbwa2gyd = null, $Vurj2rpl3rvw = null, $V4ulrrtmqxqc = null)
     {
-        $backend = strtolower($dompdf->getOptions()->getPdfBackend());
+        $Vkcjiwxivuno = strtolower($Vhvghaoacagz->getOptions()->getPdfBackend());
 
-        if (isset($class) && class_exists($class, false)) {
-            $class .= "_Adapter";
+        if (isset($V4ulrrtmqxqc) && class_exists($V4ulrrtmqxqc, false)) {
+            $V4ulrrtmqxqc .= "_Adapter";
         } else {
-            if (($backend === "auto" || $backend === "pdflib") &&
+            if (($Vkcjiwxivuno === "auto" || $Vkcjiwxivuno === "pdflib") &&
                 class_exists("PDFLib", false)
             ) {
-                $class = "Dompdf\\Adapter\\PDFLib";
+                $V4ulrrtmqxqc = "Dompdf\\Adapter\\PDFLib";
             }
 
             else {
-                if ($backend === "gd") {
-                    $class = "Dompdf\\Adapter\\GD";
+                if ($Vkcjiwxivuno === "gd") {
+                    $V4ulrrtmqxqc = "Dompdf\\Adapter\\GD";
                 } else {
-                    $class = "Dompdf\\Adapter\\CPDF";
+                    $V4ulrrtmqxqc = "Dompdf\\Adapter\\CPDF";
                 }
             }
         }
 
-        return new $class($paper, $orientation, $dompdf);
+        return new $V4ulrrtmqxqc($Vgyavbwa2gyd, $Vurj2rpl3rvw, $Vhvghaoacagz);
     }
 }
