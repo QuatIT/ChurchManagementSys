@@ -1,5 +1,0 @@
-Admin 1
-Clerk 2
-Ministry/Group leaders 3
-Accountant 4
-Counsellor 5
