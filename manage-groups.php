@@ -3,7 +3,7 @@ $dropactive = "ministry";
 $active = "gministry";
 include 'layout/headside.php';
 
-$gid = $_GET['gid'];
+@$gid = $_GET['gid'];
 
 if(!empty($gid)){
   $getGroup = select("SELECT g_id, g_name FROM g_ministry_tb WHERE id='$gid' && isActive = 1 ");
@@ -121,6 +121,7 @@ if(@$_GET['ta'] == 'trasherror'){
                     <td> <?php echo $mingotten['g_id'];?> </td>
                     <td> <?php echo $mingotten['g_name'];?> </td>
                     <td> 
+                          <a href="add-group-members?gid=<?php echo $mingotten['g_id'];?>" class="btn btn-secondary btn-xs" ><i class="fa fa-plus"></i> Add Member</a>
                           <a href="view-ministry-members?gid=<?php echo $mingotten['g_id'];?>" class="btn btn-primary btn-xs" ><i class="fa fa-eye"></i> View Members</a>
                           <a href="manage-groups?gid=<?php echo $mingotten['id'];?>" class="btn btn-warning btn-xs" onclick="return confirm('EDIT RECORD');" ><i class="fa fa-pen"></i> Edit Ministry</a>
                           <a href="trash-group?mid=<?php echo $mingotten['id'];?>" class="btn btn-danger btn-xs" onclick="return confirm('TRASH RECORD');"><i class="fa fa-trash"></i> Trash</a>

@@ -56,32 +56,11 @@ if(@$_GET['m'] == 'success'){
                 <span class="info-box-number"><?php echo count(select("SELECT * FROM ministry_tb WHERE branch_id='$churchID'"));?></span>
               </div>
             </div>
-<!--              </a>-->
           </div>
         
-        
-<!--
           <div class="col-12 col-sm-6 col-md-3">
-            <a href="manage-visitor" style="color:black;">
-            <div class="info-box">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">VISITORS</span>
-                <span class="info-box-number">
-                  3
-                </span>
-              </div>
-            </div>
-              </a>
-          </div>
--->
-        
-          <div class="col-12 col-sm-6 col-md-3">
-<!--            <a href="manage-pledges" style="color:black;">-->
             <div class="info-box">
               <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-money-check"></i></span>
-
               <div class="info-box-content">
                 <span class="info-box-text">PLEDGE</span>
                 <span class="info-box-number">
@@ -89,13 +68,8 @@ if(@$_GET['m'] == 'success'){
                 </span>
               </div>
             </div>
-<!--              </a>-->
           </div>
-        
-          <!-- /.col -->
-        
-        
-          <!-- /.col -->
+
 
           <!-- fix for small devices only -->
           <div class="clearfix hidden-md-up"></div>
@@ -164,14 +138,14 @@ if(@$_GET['m'] == 'success'){
 
         <!-- Main row -->
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-8">
               
             <!-- Bar chart -->
             <div class="card card-warning card-outline">
               <div class="card-header">
                 <h3 class="card-title text-bold">
                   <i class="far fa-chart-bar"></i>
-                  Cumulated Monthly Attendance Chart
+                  Monthly Attendance Chart
                 </h3>
 
                 <div class="card-tools">
@@ -183,17 +157,17 @@ if(@$_GET['m'] == 'success'){
               <div class="card-body">
                 <div id="bar-chart" style="height: 300px;"></div>
               </div>
-              <!-- /.card-body-->
             </div>
-
-            <!-- /.card -->
+			  
+			</div>
+          <div class="col-md-4">
               
-            <!-- Current Attendance Bar chart -->
+            <!-- Bar chart -->
             <div class="card card-warning card-outline">
               <div class="card-header">
                 <h3 class="card-title text-bold">
                   <i class="far fa-chart-bar"></i>
-                  Current Attendance Chart
+                  Weekly Attendance Chart
                 </h3>
 
                 <div class="card-tools">
@@ -205,13 +179,14 @@ if(@$_GET['m'] == 'success'){
               <div class="card-body">
                 <div id="current-attendance-bar-chart" style="height: 300px;"></div>
               </div>
-              <!-- /.card-body-->
             </div>
-
+			  
+			</div>
+ 			<div class="col-md-5" style="display:none;">
             <!-- /.card -->
 
             <!-- Area chart -->
-            <div class="card card-warning card-outline collapse">
+            <div class="card card-warning card-outline">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="far fa-chart-bar"></i>
@@ -226,13 +201,10 @@ if(@$_GET['m'] == 'success'){
               <div class="card-body">
                 <div id="area-chart" style="height: 338px;" class="full-width-chart"></div>
               </div>
-<!--               /.card-body-->
             </div>
             <!-- /.card -->
 
           </div>
-          <!-- /.col -->
-
             
           <div class="col-md-6">
 
@@ -254,7 +226,6 @@ if(@$_GET['m'] == 'success'){
               <div class="card-body">
                 <div id="donut-chart" style="height: 300px;"></div>
               </div>
-              <!-- /.card-body-->
             </div>
             <!-- /.card -->
               
@@ -280,14 +251,13 @@ if(@$_GET['m'] == 'success'){
               <!-- /.card-body-->
             </div>
           </div>
-          <!-- /.col -->
         </div>
         <!-- /.row -->
           
         <!-- /.row -->
         <div class="row" style="display:none;">
           <div class="col-12">
-            <!-- interactive chart -->
+             interactive chart 
             <div class="card card-warning card-outline collapse">
               <div class="card-header">
                 <h3 class="card-title">
@@ -306,36 +276,32 @@ if(@$_GET['m'] == 'success'){
               <div class="card-body">
                 <div id="interactive" style="height: 300px;"></div>
               </div>
-              <!-- /.card-body-->
             </div>
-            <!-- /.card -->
-
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
-      </div><!--/. container-fluid -->
+		  
+		  
+      </div>
     </section>
     <!-- /.content -->
   </div>
 
 <?php 
 //get attendance for january
-$jan =  select("SELECT SUM(population) as population FROM attendance_tb WHERE month(attend_date)='01' AND branch_id='$churchID'");
+$jan =  select("SELECT * FROM attendance_tb WHERE month(attend_date)='01' AND branch_id='$churchID'");
 foreach($jan as $jandet){
-    @$jantotal = $jandet['population'];  
+    @$jantotal += $jandet['population'];  
 } 
-echo "<script>console.log('{$churchID}')</script>";
 
 //get attendance for february
-$feb =  select("SELECT SUM(population) as population FROM attendance_tb WHERE month(attend_date)='02' AND branch_id='$churchID'");
+$feb =  select("SELECT * FROM attendance_tb WHERE month(attend_date)='02' AND branch_id='$churchID'");
 foreach($feb as $febdet){
-    @$febtotal = $febdet['population'];  
+    @$febtotal += $febdet['population'];  
 } 
 //get attendance for march
-$jan3 =  select("SELECT SUM(population) as population FROM attendance_tb WHERE month(attend_date)='03' AND branch_id='$churchID'");
+$jan3 =  select("SELECT * FROM attendance_tb WHERE month(attend_date)='03' AND branch_id='$churchID'");
 foreach($jan3 as $jan3det){
-    @$jantotal3 = $jan3det['population'];  
+    @$jantotal3 += $jan3det['population'];  
 } 
 //get attendance for april
 $jan4 =  select("SELECT * FROM attendance_tb WHERE month(attend_date)='04' AND branch_id='$churchID'");
@@ -392,6 +358,7 @@ foreach($getCurrentAttendance as $currentAttendance){
   $youth = $currentAttendance['youth'];
   $nolimit = $currentAttendance['nolimit'];
 }
+
 
 include 'layout/footer.php'; 
 

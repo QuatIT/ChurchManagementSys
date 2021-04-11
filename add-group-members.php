@@ -11,15 +11,34 @@ if(!empty($gid)){
   $getMinistryName = select("CALL stproc_Ministry_Group_Select('$gid',1) ");
   foreach($getMinistryName as $ministryName){}
   #echo "<script>console.log('{$ministryName['group_name']}')</script>";
+  //$saveLabel = "UPDATE";
 }
 
+
 if(isset($_POST['submit'])){
-    $ministryID = htmlspecialchars(trim($_POST['ministryID']));
-    $ministryName = htmlspecialchars(trim($_POST['ministryName']));
-//    $branch = ChurchID;
-    $saveMinistry = insert("INSERT INTO ministry_tb(branch_id,group_id,group_name) VALUES('$churchID','$ministryID','$ministryName')");
+    $ministryID = trim($gid);
+    // $assign = htmlspecialchars(trim($_POST['assign']));
+    $assign = $_POST['assign'];
+    $saveStatus = "false";
+    // $chk="";  
+    foreach($assign as $memberId)  
+       {  
+        //   $chk.= $chk1.","; 
+        $chkExist = select("SELECT branch_id,member_id,group_id FROM g_assign_member WHERE branch_id='$churchID' && member_id='$memberId' && group_id = '$ministryID' ");
+        if(count($chkExist) >= 1){
+            echo "<script type='text/javascript'>toastr.error('DUPLICATE DATA FOR {$ministryID} AND {$ministryID}','FAILED',{timeOut: 7000})</script>";
+        }else{
+            $saveMinistry = insert("INSERT INTO g_assign_member(branch_id,member_id,group_id) VALUES('$churchID','$memberId','$ministryID')");
+            $saveStatus = "true";
+        }
+        
+       } 
+
     
-    if($saveMinistry){
+//    $branch = ChurchID;
+    
+    
+    if($saveStatus == "true"){
         $s = "success";
         echo "<script>window.location.href='manage-ministry?m=$s</script>";
     }else{
@@ -108,7 +127,7 @@ if(@$_GET['ta'] == 'trasherror'){
                         <div class="col-md-12">
                             <div class="form-group">
                               <label>MIN ID <i class="text-danger">*</i></label>
-                                <input type="text" class="form-control" name="ministryID" value="<?php echo "MINS-".rand(10,50).rand(100,999);?>" placeholder="Ministry ID" required readonly />
+                                <input type="text" class="form-control" name="ministryID" value="<?php #echo "MINS-".rand(10,50).rand(100,999);?>" placeholder="Ministry ID" required readonly />
                             </div>
                             <div class="form-group">
                               <label>MINISTRY NAME <i class="text-danger">*</i></label>
@@ -128,21 +147,25 @@ if(@$_GET['ta'] == 'trasherror'){
             
             <div class="col-md-6">
                 <div class="card">
-                <div class="card-header"><span class="pull-left">List of Members</span> <span class="pull-right" style="margin-left:70%;"><a href="add-group-members?gid=<?php echo $gid;?>" class="btn btn-primary btn-xs pull-right" ><i class="fa fa-plus"></i> Add Member</a></span></div>
+                <div class="card-header">List of Members </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+
+              <form action="" method="POST" enctype="multipart/form-data">
+              <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>MEM ID</th>
+                    <th>MEMBER ID</th>
                     <th>MEMBER NAME</th>
                     <th>ACTION</th>
                   </tr>
                   </thead>
                   <tbody>
                 <?php
-                 $getministry = select("SELECT g.id,m.full_name,m.member_id FROM membership_tb m
-                 JOIN g_assign_member g ON g.member_id = m.member_id WHERE g.branch_id='$churchID' && g.group_id = '$gid' && g.isActive = 1 ");
+                //  $getministry = select("SELECT g.member_id,m.full_name,g.branch_id FROM g_assign_member g JOIN membership_tb m on m.member_id = g.member_id WHERE group_id <> '$gid' && g.branch_id = '$churchID' && g.isActive = 1 GROUP BY g.member_id, m.full_name;");
+                //  $getministry = select("SELECT g.member_id,m.full_name,g.group_id,g.branch_id FROM g_assign_member g JOIN membership_tb m ON m.member_id = g.member_id WHERE group_id <> '$gid'  && g.branch_id = '$churchID' && g.isActive = 1 && LEFT(group_id,3) LIKE CONCAT('%',LEFT('$gid',3)) GROUP BY g.member_id, m.full_name");
+                //  $getministry = select("CALL stproc_Ministry_Group_Members_Select('$churchID','$gid')");
+                 $getministry = select("SELECT g.member_id as member_id,m.full_name as full_name,g.group_id as group_id,g.branch_id as branch_id FROM g_assign_member g JOIN membership_tb m ON m.member_id = g.member_id WHERE NOT EXISTS( SELECT g.member_id FROM g_assign_member g WHERE g.group_id = '$gid' AND g.member_id = m.member_id) && group_id <> '$gid'  && g.branch_id = '$churchID' && g.isActive = 1 && LEFT(group_id,3) LIKE CONCAT('%',LEFT('$gid',3)) GROUP BY g.member_id, m.full_name;");
                       if($getministry){
                     foreach($getministry as $mingotten){
                     
@@ -150,82 +173,25 @@ if(@$_GET['ta'] == 'trasherror'){
                   <tr>
                     <td> <?php echo $mingotten['member_id'];?> </td>
                     <td> <?php echo $mingotten['full_name'];?> </td>
-                    <td class="text-center">
-                        <!-- <a href="view-ministry-members?gid=<?php #echo $mingotten['id'];?>" class="btn btn-primary btn-xs" ><i class="fa fa-eye"></i> View Members</a> -->
-                        <a href="trash-member-group?mid=<?php echo $mingotten['id'];?>&gid=<?php echo $gid;?>" class="btn btn-danger btn-xs" onclick="return confirm('TRASH RECORD');"><i class="fa fa-trash"></i> Trash</a>
-
+                    <td> 
+                          <input type="checkbox" name="assign[]" value="<?php echo $mingotten['member_id'];?>" class="form-control">
                     </td>
                   </tr>
                       <?php }}?>
                   </tbody>
+                  <tfoot>
+                        <tr>
+                            <td colspan="3"><input type="submit" name="submit" onclick="return confirm('ASSIGN MEMBER(S) ?');" value="ASSIGN MEMBER(S)" class="btn btn-primary btn-block btn-sm" />  
+                        </tr>
+                  </tfoot>
                 </table>
+                </form>
               </div>
               <!-- /.card-body -->
             </div>
             </div>  
             
-            
-            <div class="col-md-6">
-                <div class="card">
-              <!-- /.card-header -->
-              <div class="card-header">Attendance</div>
-              <div class="card-body">
-                <table id="example11" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>MEM ID</th>
-                    <th>MEMBER NAME</th>
-                    <th>ACTION</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                <?php
-                 $getministry = select("SELECT m.full_name,m.member_id FROM membership_tb m JOIN g_assign_member g ON g.member_id = m.member_id WHERE g.branch_id='$churchID' && g.group_id = '$gid' && isActive = 1 ");
-                      if($getministry){
-                    foreach($getministry as $mingotten){
-                    
-                ?>
-                  <tr>
-                    <td> <?php echo $mingotten['member_id'];?> </td>
-                    <td> <?php echo $mingotten['full_name'];?> </td>
-                    <td class="text-center">
-                        <!-- <a href="view-ministry-members?gid=<?php #echo $mingotten['id'];?>" class="btn btn-primary btn-xs" ><i class="fa fa-eye"></i> View Members</a> -->
-                        <!-- <a href="trash-ministry?mid=<?php #echo $mingotten['id'];?>" class="btn btn-danger btn-xs" onclick="return confirm('TRASH RECORD');"><i class="fa fa-trash"></i> Trash</a> -->
-
-
-                        <?php
-                        $Today = date("l");
-                            #if($Today == "Sunday"){
-                        $dateToday = date("Y-m-d");
-                        $getattendance = select("SELECT * FROM mem_attendance WHERE member_id='".$mingotten['member_id']."' AND date_reg='$dateToday'");
-                        if(!$getattendance){
-                        ?>
-                        
-                <a href="markabsent?mid=<?php echo $mingotten['member_id'];?>&gid=<?php echo $gid;?>&page=<?php echo $page; ?>" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Absent</a>
-                        
-                <a href="markpresent?mid=<?php echo $mingotten['member_id'];?>&gid=<?php echo $gid;?>&page=<?php echo $page; ?>" class="btn btn-success btn-xs"><i class="fa fa-check"></i> Present</a>
-                        <?php }else{
-                        foreach($getattendance as $attgotten){
-                            
-                            if($attgotten['status']=='absent'){
-                        ?>
-                        
-                        <span class="btn btn-danger btn-xs"><?php echo strtoupper($attgotten['status']);?></span>
-                        <?php }
-                        
-                        if($attgotten['status']=='present'){?>
-                        <span class="btn btn-success btn-xs"><?php echo strtoupper($attgotten['status']);?></span>
-                        <?php } }}#}else{ echo " Marking Disabled Until Sunday"; }?>
-
-                    </td>
-                  </tr>
-                      <?php }}?>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            </div>  
+             
         </div>
       </div>
     </section>

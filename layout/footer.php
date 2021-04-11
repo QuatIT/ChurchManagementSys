@@ -449,7 +449,7 @@
     $("#example1").DataTable({
       "dom": "Bfrtip",
       "buttons": [
-        "excel","pdf","print"
+        "excel","pdf","copy","print"
       ], 
       "responsive": true,
       "autoWidth": true,
@@ -466,7 +466,7 @@
     $("#example11").DataTable({
       "dom": "Bfrtip",
       "buttons": [
-        "excel","pdf","print"
+        "excel","pdf","copy","print"
       ], 
       "responsive": true,
       "autoWidth": true,
@@ -483,7 +483,7 @@
     $("#example3").DataTable({
       "dom": "Bfrtip",
       "buttons": [
-        "excel","pdf","print"
+        "excel","pdf","copy","print"
       ], 
       "responsive": true,
       "autoWidth": true,
@@ -500,7 +500,7 @@
     $("#transrep").DataTable({
       "dom": "Bfrtip",
       "buttons": [
-        "excel","pdf","print"
+        "excel","pdf","copy","print"
       ], 
       "responsive": true,
       "autoWidth": true,
@@ -517,7 +517,7 @@
     $("#attrep").DataTable({
       "dom": "Bfrtip",
       "buttons": [
-        "excel","pdf","print"
+        "excel","pdf","copy","print"
       ], 
       "responsive": true,
       "autoWidth": true,
@@ -534,7 +534,7 @@
     $('#example2').DataTable({
       "dom": "Bfrtip",
       "buttons": [
-        "excel","pdf","print"
+        "excel","pdf","copy","print"
       ], 
       "paging": true,
       "lengthChange": false,
